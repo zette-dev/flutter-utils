@@ -1,0 +1,125 @@
+import '../dropsource_utils.dart';
+import 'networking.dart' show NetworkConnectionError;
+
+abstract class ListNetworkingModel<T extends Identifiable>
+    extends NetworkingModel {
+  ListNetworkingModel({
+    bool isConnectedToNetwork,
+    bool isInProgress,
+    bool isLoadingMore,
+    bool canLoadMore,
+    List<T> listData,
+    dynamic error,
+  })  : _isLoadingMore = isLoadingMore ?? false,
+        _canLoadMore = canLoadMore ?? true,
+        _listData = listData,
+        super(
+          isInProgress: isInProgress,
+          isConnectedToNetwork: isConnectedToNetwork,
+          error: error,
+        );
+
+  List<T> _listData;
+  List<T> get listData => _listData ?? [];
+
+  // LOADING MORE
+  bool _isLoadingMore;
+  bool get isLoadingMore => _isLoadingMore;
+
+  bool _canLoadMore;
+  bool get canLoadMore => _canLoadMore ?? true;
+
+  ListNetworkingModel startLoadingMore() {
+    _isLoadingMore = true;
+    return this;
+  }
+
+  ListNetworkingModel stopLoadingMore() {
+    _isLoadingMore = false;
+    return this;
+  }
+
+  ListNetworkingModel canLoadMoreData(bool canLoadMore) {
+    _canLoadMore = canLoadMore;
+    return this;
+  }
+
+  bool get shouldLoadMore => canLoadMore && !isLoadingMore;
+
+  int get itemCount => listData?.length ?? 0;
+  bool get hasData => itemCount > 0;
+
+  ListNetworkingModel setData(
+    List<T> newData, {
+    MergeDirection mergeDirection = MergeDirection.replace,
+  }) {
+    _listData = listData.merge(
+      direction: mergeDirection,
+      newList: newData,
+    );
+
+    return this;
+  }
+}
+
+abstract class NetworkingModel {
+  NetworkingModel({
+    bool isConnectedToNetwork,
+    bool isInProgress,
+    dynamic error,
+  })  : _isConnectedToNetwork = isConnectedToNetwork ?? true,
+        _isInProgress = isInProgress,
+        _error = error;
+
+  // PROGRESS
+  bool _isInProgress;
+  bool get isInProgress => _isInProgress;
+
+  NetworkingModel startLoading() {
+    _isInProgress = true;
+    return this;
+  }
+
+  NetworkingModel stopLoading() {
+    _isInProgress = false;
+    return this;
+  }
+
+  // ERROR HANDLING
+  dynamic _error;
+  dynamic get error => _error;
+  bool get hasError => _error != null;
+  String get errorMessage;
+
+  NetworkingModel toError(dynamic err) {
+    _error = err;
+    return this;
+  }
+
+  NetworkingModel failedLoading(dynamic error) {
+    final _isNetworkError = error is NetworkConnectionError;
+    stopLoading();
+    _error = _isNetworkError ? null : error;
+    _isConnectedToNetwork = !_isNetworkError;
+    return this;
+  }
+
+  NetworkingModel resetError() {
+    _error = null;
+    return this;
+  }
+
+  // NETWORK CONNECTIVTY
+  bool _isConnectedToNetwork = true;
+  bool get isConnectedToNetwork => _isConnectedToNetwork;
+
+  NetworkingModel connectionResumed() {
+    _isConnectedToNetwork = true;
+    return this;
+  }
+
+  NetworkingModel connectionLost() {
+    _isConnectedToNetwork = false;
+    return this;
+  }
+}
