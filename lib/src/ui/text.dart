@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import '../../dropsource_utils.dart';
 
 class TextHeadline1 extends TextWidget {
+  
   TextHeadline1(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -15,9 +17,11 @@ class TextHeadline1 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -27,6 +31,7 @@ class TextHeadline1 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -38,6 +43,7 @@ class TextHeadline1 extends TextWidget {
 class TextHeadline2 extends TextWidget {
   TextHeadline2(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -47,9 +53,11 @@ class TextHeadline2 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -59,6 +67,7 @@ class TextHeadline2 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -70,6 +79,7 @@ class TextHeadline2 extends TextWidget {
 class TextHeadline3 extends TextWidget {
   TextHeadline3(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -79,9 +89,11 @@ class TextHeadline3 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -91,6 +103,7 @@ class TextHeadline3 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -102,6 +115,7 @@ class TextHeadline3 extends TextWidget {
 class TextHeadline4 extends TextWidget {
   TextHeadline4(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -111,9 +125,11 @@ class TextHeadline4 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -123,6 +139,7 @@ class TextHeadline4 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -134,6 +151,7 @@ class TextHeadline4 extends TextWidget {
 class TextHeadline5 extends TextWidget {
   TextHeadline5(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -143,9 +161,11 @@ class TextHeadline5 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -155,6 +175,7 @@ class TextHeadline5 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -166,6 +187,7 @@ class TextHeadline5 extends TextWidget {
 class TextHeadline6 extends TextWidget {
   TextHeadline6(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -175,9 +197,11 @@ class TextHeadline6 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -187,6 +211,7 @@ class TextHeadline6 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -198,6 +223,7 @@ class TextHeadline6 extends TextWidget {
 class TextSubtitle1 extends TextWidget {
   TextSubtitle1(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -207,9 +233,11 @@ class TextSubtitle1 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -219,6 +247,7 @@ class TextSubtitle1 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -230,6 +259,7 @@ class TextSubtitle1 extends TextWidget {
 class TextSubtitle2 extends TextWidget {
   TextSubtitle2(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -239,9 +269,11 @@ class TextSubtitle2 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -251,6 +283,7 @@ class TextSubtitle2 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -262,6 +295,7 @@ class TextSubtitle2 extends TextWidget {
 class TextBody1 extends TextWidget {
   TextBody1(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -271,9 +305,11 @@ class TextBody1 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -283,6 +319,7 @@ class TextBody1 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -294,6 +331,7 @@ class TextBody1 extends TextWidget {
 class TextBody2 extends TextWidget {
   TextBody2(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -303,9 +341,11 @@ class TextBody2 extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -315,6 +355,7 @@ class TextBody2 extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -326,6 +367,7 @@ class TextBody2 extends TextWidget {
 class TextCaption extends TextWidget {
   TextCaption(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -334,9 +376,11 @@ class TextCaption extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -345,6 +389,7 @@ class TextCaption extends TextWidget {
           maxLines: maxLines,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -355,6 +400,7 @@ class TextCaption extends TextWidget {
 class TextOverline extends TextWidget {
   TextOverline(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -363,9 +409,11 @@ class TextOverline extends TextWidget {
     double minFontSize,
     bool shouldAutoResize,
     bool shouldUpperCase,
+    double fontSizeMultiplier,
     TextStyle styles,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -374,6 +422,7 @@ class TextOverline extends TextWidget {
           maxLines: maxLines,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -384,6 +433,7 @@ class TextOverline extends TextWidget {
 class TextButton extends TextWidget {
   TextButton(
     String text, {
+    Key key,
     List<String> args,
     bool shouldTranslate,
     TextAlign textAlign,
@@ -394,8 +444,10 @@ class TextButton extends TextWidget {
     bool shouldAutoResize,
     bool shouldUpperCase,
     TextStyle styles,
+    double fontSizeMultiplier,
   }) : super(
           text,
+          key: key,
           shouldTranslate: shouldTranslate,
           styles: styles,
           args: args,
@@ -405,6 +457,7 @@ class TextButton extends TextWidget {
           maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
         );
 
@@ -422,12 +475,14 @@ abstract class TextWidget extends StatelessWidget {
   final double maxFontSize, minFontSize;
   final bool shouldUpperCase, shouldAutoResize;
   final TextStyle styles;
+  final double fontSizeMultiplier;
   TextStyle style(BuildContext context);
 
   TextWidget(
     this.text, {
     this.shouldTranslate,
     this.shouldAutoResize,
+    this.fontSizeMultiplier,
     this.minFontSize,
     this.maxFontSize,
     this.styles,
@@ -439,16 +494,15 @@ abstract class TextWidget extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  // bool get _shouldTranslate => shouldTranslate ?? false;
+  bool get _shouldTranslate => shouldTranslate ?? false;
   bool get _shouldUpperCase => shouldUpperCase ?? false;
   bool get _shouldAutoResize => shouldAutoResize ?? false;
 
   @override
   Widget build(BuildContext context) {
-    // var translatedText = _shouldTranslate
-    //     ? Translations.of(context).textWithArgs(text, args ?? [])
-    //     : text;
-    var translatedText = text;
+    var translatedText = _shouldTranslate
+        ? Translations.of(context).textWithArgs(text, args ?? [])
+        : text;
     var formattedText =
         _shouldUpperCase ? translatedText.toUpperCase() : translatedText;
     // var _overflow =
@@ -465,7 +519,7 @@ abstract class TextWidget extends StatelessWidget {
         textAlign: textAlign,
         maxLines: maxLines,
         maxFontSize: (isTablet(context) ?? false)
-            ? _styles.fontSize + 2
+            ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
             : _styles.fontSize,
       );
     }

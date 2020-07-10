@@ -20,7 +20,7 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
     this.overlays,
     this.padding,
     this.extraItemCount,
-  }) : key = PageStorageKey(listKey);
+  }) : key = listKey != null ? PageStorageKey(listKey) : null;
   final ScrollController scrollController;
   final ListNetworkingModel<T> model;
   final Color refreshColor, refreshBackgroundColor;
@@ -148,7 +148,7 @@ class _InfinteScrollListState extends State<InfiniteScrollList> {
   @override
   Widget build(BuildContext context) {
     return LoadingWrapper(
-      loading: widget.model.isInProgress,
+      loading: widget.model?.isInProgress,
       loaderBrightness: widget.brightness,
       children: <Widget>[
         if (widget.onRefresh != null)

@@ -5,18 +5,19 @@ author: Nathan Frechette<nate@dropsource.com>
 homepage: https://dropsource.com
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   dio: ^3.0.9
   firebase_core: ^0.4.5
-  firebase_analytics: ^5.0.14
+  firebase_analytics: ^5.0.16
   firebase_crashlytics: ^0.1.3+3
+  # firebase_crashlytics:
+  # path: /Users/Shared/Developer/git/flutterfire/packages/firebase_crashlytics
   rxdart: ^0.24.1
-  provider: ^4.1.2
-  connectivity: ^0.4.8+6
+  provider: ^4.2.0
   auto_size_text: ^2.1.0
 
 dev_dependencies:

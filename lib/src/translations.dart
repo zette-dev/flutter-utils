@@ -1,17 +1,35 @@
-import 'dart:convert' show json;
-
+import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
-class Translations {
-  Translations(this.locale);
+class TranslationsConfig {
+  static final TranslationsConfig _instance = TranslationsConfig._();
 
-  final Locale locale;
+  factory TranslationsConfig() => _instance;
+
+  Locale defaultLocale;
+  List<Locale> supportedLocales;
+  List<String> supportedLanguages;
+
+  Function onLocaleChange;
+
+  TranslationsConfig._() {
+    defaultLocale = Locale('en', 'US');
+    supportedLocales = [defaultLocale];
+    supportedLanguages = ['en'];
+  }
+}
+
+class Translations {
+  Locale locale;
+
+  static Map<String, dynamic> _localizedValues = <String, dynamic>{};
 
   static Translations of(BuildContext context) {
     return Localizations.of<Translations>(context, Translations);
   }
 
-  static Map<String, dynamic> _localizedValues = <String, dynamic>{};
+  Translations(this.locale);
 
   /// Used to translate a [key] in the current dictionary.
   String text(String key) {
@@ -79,8 +97,8 @@ class FileTranslationsBundleLoader extends TranslationsBundleLoader {
   @override
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
     var bundle = DefaultAssetBundle.of(context);
-    String jsonContent = await bundle.loadString(
-        '$path/i18n_${locale.languageCode}_${locale.countryCode}.json');
+    String jsonContent =
+        await bundle.loadString('$path/i18n_${locale.languageCode}.json');
     return json.decode(jsonContent);
   }
 }
@@ -88,13 +106,11 @@ class FileTranslationsBundleLoader extends TranslationsBundleLoader {
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {
   final BuildContext context;
   final TranslationsBundleLoader bundleLoader;
-  final List<Locale> supportedLanguages;
-  const TranslationsDelegate(this.context, this.bundleLoader,
-      {this.supportedLanguages});
+  const TranslationsDelegate(this.context, this.bundleLoader);
 
   @override
   bool isSupported(Locale locale) =>
-      supportedLanguages?.contains(locale) ?? false;
+      TranslationsConfig().supportedLanguages.contains(locale.languageCode);
 
   @override
   Future<Translations> load(Locale locale) =>

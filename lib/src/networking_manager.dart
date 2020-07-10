@@ -29,6 +29,24 @@ abstract class ListNetworkingModel<T extends Identifiable>
   bool _canLoadMore;
   bool get canLoadMore => _canLoadMore ?? true;
 
+  bool get shouldLoadMore =>
+      canLoadMore && !isLoadingMore && itemCount >= collectionSize;
+  int get collectionSize;
+  int get itemCount => listData?.length ?? 0;
+  bool get hasData => itemCount > 0;
+
+  ListNetworkingModel setData(
+    List<T> newData, {
+    MergeDirection mergeDirection = MergeDirection.replace,
+  }) {
+    _listData =
+        listData.merge(direction: mergeDirection, newList: newData).toList();
+
+    return this;
+  }
+}
+
+extension ListNetworkingMutators on ListNetworkingModel {
   ListNetworkingModel startLoadingMore() {
     _isLoadingMore = true;
     return this;
@@ -41,23 +59,6 @@ abstract class ListNetworkingModel<T extends Identifiable>
 
   ListNetworkingModel canLoadMoreData(bool canLoadMore) {
     _canLoadMore = canLoadMore;
-    return this;
-  }
-
-  bool get shouldLoadMore => canLoadMore && !isLoadingMore;
-
-  int get itemCount => listData?.length ?? 0;
-  bool get hasData => itemCount > 0;
-
-  ListNetworkingModel setData(
-    List<T> newData, {
-    MergeDirection mergeDirection = MergeDirection.replace,
-  }) {
-    _listData = listData.merge(
-      direction: mergeDirection,
-      newList: newData,
-    );
-
     return this;
   }
 }
@@ -75,6 +76,18 @@ abstract class NetworkingModel {
   bool _isInProgress;
   bool get isInProgress => _isInProgress;
 
+  bool _isConnectedToNetwork = true;
+  bool get isConnectedToNetwork => _isConnectedToNetwork;
+  
+  // ERROR HANDLING
+  dynamic _error;
+  dynamic get error => _error;
+  bool get hasError => _error != null;
+  String get errorMessage;
+}
+
+extension NetworkingMutators on NetworkingModel {
+  // PROGRESS
   NetworkingModel startLoading() {
     _isInProgress = true;
     return this;
@@ -86,11 +99,6 @@ abstract class NetworkingModel {
   }
 
   // ERROR HANDLING
-  dynamic _error;
-  dynamic get error => _error;
-  bool get hasError => _error != null;
-  String get errorMessage;
-
   NetworkingModel toError(dynamic err) {
     _error = err;
     return this;
@@ -110,8 +118,6 @@ abstract class NetworkingModel {
   }
 
   // NETWORK CONNECTIVTY
-  bool _isConnectedToNetwork = true;
-  bool get isConnectedToNetwork => _isConnectedToNetwork;
 
   NetworkingModel connectionResumed() {
     _isConnectedToNetwork = true;

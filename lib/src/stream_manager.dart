@@ -3,43 +3,50 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 abstract class DataStreamManager<D, M> extends StreamManager<M> {
-  DataStreamManager(D api, M model, {List<Stream> streams})
+  DataStreamManager(D Function() api, M model, {List<Stream> dependencies})
       : _api = api,
-        super(model, streams: streams);
-  final D _api;
-  D get api => _api;
+        super(model, dependencies: dependencies);
+  final D Function() _api;
+  D get api => _api();
 }
 
 abstract class StreamManager<M> {
-  StreamManager(M model, {List<Stream> streams}) {
+  StreamManager(M model, {List<Stream> dependencies}) {
     update(model);
-    if (streams != null && streams.isNotEmpty)
-      _streamSubscription =
-          Rx.merge(streams.where((s) => s != null)).listen(streamsUpdated);
+    if (dependencies != null && dependencies.isNotEmpty) {
+      final _dependencyStreams = dependencies.where((s) => s != null);
+      if (_dependencyStreams.isNotEmpty) {
+        _streamSubscription =
+            Rx.merge(_dependencyStreams).listen(dependenciesUpdated);
+      }
+    }
   }
 
-  final StreamController<M> _streamController = StreamController<M>.broadcast();
+  final BehaviorSubject<M> _streamController = BehaviorSubject<M>();
+
+  // final StreamController<M> _streamController = StreamController<M>.broadcast();
   Stream<M> get stream => _streamController.stream;
   StreamSubscription _streamSubscription;
-  M _model;
+  M _latestModel, _lastUpdatedModel;
 
-  bool _isDirty;
-  bool get isDirty => _isDirty;
+  // bool get isDirty => _dirtyModel != null;
 
   // override if you want to intercept any updates to streams
   // the manager is listening to
-  void streamsUpdated(dynamic data) {}
+  void dependenciesUpdated(dynamic data) {}
 
-  M get model => _model;
+  M get model => _latestModel ?? _lastUpdatedModel;
+
+  // Dirty model is the most updated model that has not been streamed
+  M get lastUpdatedModel => _lastUpdatedModel;
   set model(M newModel) {
-    _model = newModel;
-    _isDirty = true;
+    _latestModel = newModel;
   }
 
   void update(M model) {
-    _model = model;
-    _isDirty = false;
-    _streamController.sink.add(_model);
+    _latestModel = null;
+    _lastUpdatedModel = model;
+    _streamController.sink.add(model);
   }
 
   void dispose() {

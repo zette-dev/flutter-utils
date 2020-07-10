@@ -38,16 +38,23 @@ extension MapMethods<K, T> on Map {
   }
 }
 
-extension ListOfListMethods<T> on List<List<T>> {
-  List<T> flatten() => reduce((l1, l2) {
-        for (var item in l2) {
-          if (!l1.contains(item)) {
-            l1.add(item);
-          }
-        }
+extension ListMethods<T> on List<T> {
+  List<T> filterOutNulls() =>
+      isNotEmpty ? where((item) => item != null).toList() : <T>[];
+}
 
-        return l1;
-      });
+extension ListOfListMethods<T> on List<List<T>> {
+  List<T> flatten() => isNotEmpty
+      ? reduce((l1, l2) {
+          for (var item in l2) {
+            if (!l1.contains(item)) {
+              l1.add(item);
+            }
+          }
+
+          return l1;
+        })
+      : <T>[];
 }
 
 extension IdentifiableListMethods<T extends Identifiable> on List<T> {
@@ -102,3 +109,12 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
 //       if (sorter != null) _combined.sort(sorter);
 //       return _combined.toList();
 //     });
+
+extension FutureListExtension<T> on List<Future<List<T>>> {
+  Future<List<T>> mergeFuturesList({int Function(T, T) sorter}) =>
+      Future.wait(this).then((list) {
+        final _combined = list.flatten().toList();
+        if (sorter != null) _combined.sort(sorter);
+        return _combined.toList();
+      });
+}

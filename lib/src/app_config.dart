@@ -7,7 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 enum AppEnvironment {
   staging,
   production,
-  testing,
+  automation,
 }
 
 abstract class EnvConfig<S> {

@@ -177,8 +177,8 @@ _parseJson(String text) {
 
 abstract class ServiceInterface {}
 
-abstract class WebService extends ServiceInterface {
-  WebService(this._client) {
+abstract class WebServiceInterface extends ServiceInterface {
+  WebServiceInterface(this._client) {
     _client.transformer = FlutterJsonTransformer();
     _client.interceptors.add(InterceptorsWrapper(
       onRequest: (options) async {
@@ -198,6 +198,6 @@ abstract class WebService extends ServiceInterface {
   dynamic onRequestInterceptor(RequestOptions options) => options;
 }
 
-abstract class Identifiable {
-  String get id;
+abstract class Identifiable<T> {
+  T get id;
 }
