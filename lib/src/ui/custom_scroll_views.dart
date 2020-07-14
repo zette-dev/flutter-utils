@@ -1,3 +1,4 @@
+import 'package:build_context/build_context.dart';
 import 'package:flutter/cupertino.dart'
     show
         CupertinoSliverRefreshControl,
@@ -5,8 +6,8 @@ import 'package:flutter/cupertino.dart'
         buildSimpleRefreshIndicator;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../../dropsource_utils.dart';
-import '../widget_extensions.dart';
 
 final ScrollPhysics alwaysBouncingScrollPhysics =
     BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
@@ -141,7 +142,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
 
   void _listenToScrollChange() {
     // TODO: need a better way of doing this so I don't have to lookup context over scroll
-    final offset = context.topPadding;
+    final offset = context.mediaQueryPadding.top;
     if (_controller.offset >= widget.appBarExpandedHeight - offset && mounted) {
       setState(() {
         _isScrolled = true;

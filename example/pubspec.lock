@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  build_context:
+    dependency: transitive
+    description:
+      name: build_context
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   charcode:
     dependency: transitive
     description:
@@ -389,7 +396,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.3.1"
   pub_semver:
     dependency: transitive
     description:
