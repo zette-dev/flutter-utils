@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
 // class TranslationsConfig {
 //   static final TranslationsConfig _instance = TranslationsConfig._();
@@ -108,13 +108,14 @@ abstract class TranslationsBundleLoader {
 
 class FileTranslationsBundleLoader extends TranslationsBundleLoader {
   final String path;
-  FileTranslationsBundleLoader(this.path) : super();
+  final AssetBundle bundle; // Defaults to rootBundle if none provided
+  FileTranslationsBundleLoader(this.path, {this.bundle}) : super();
 
   @override
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
     // var bundle = DefaultAssetBundle.of(context);
     String jsonContent =
-        await rootBundle.loadString('$path/i18n_${locale.languageCode}.json');
+        await (bundle ?? rootBundle).loadString('$path/i18n_${locale.languageCode}.json');
     return json.decode(jsonContent);
   }
 }
