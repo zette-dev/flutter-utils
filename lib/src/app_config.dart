@@ -16,7 +16,7 @@ abstract class EnvConfig<S> {
     @required this.environment,
     this.initializeCrashlytics = true,
     this.enableCrashlyiticsInDevMode = true,
-    this.supportedLanguages = const [
+    this.supportedLocales = const [
       Locale('en', 'US'),
     ],
   });
@@ -24,14 +24,12 @@ abstract class EnvConfig<S> {
   final String appName;
   final AppEnvironment environment;
   final bool initializeCrashlytics, enableCrashlyiticsInDevMode;
-  final List<Locale> supportedLanguages;
+  final List<Locale> supportedLocales;
 
   Future startCrashlytics() async {
-    if (this.initializeCrashlytics) {
+    if (initializeCrashlytics) {
       Crashlytics.instance.enableInDevMode = enableCrashlyiticsInDevMode;
-      FlutterError.onError = (FlutterErrorDetails details) {
-        Crashlytics.instance.recordFlutterError(details);
-      };
+      FlutterError.onError = Crashlytics.instance.recordFlutterError;
     }
   }
 

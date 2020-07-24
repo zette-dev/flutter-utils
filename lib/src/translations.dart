@@ -1,24 +1,26 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-class TranslationsConfig {
-  static final TranslationsConfig _instance = TranslationsConfig._();
+// class TranslationsConfig {
+//   static final TranslationsConfig _instance = TranslationsConfig._();
 
-  factory TranslationsConfig() => _instance;
+//   factory TranslationsConfig() => _instance;
 
-  Locale defaultLocale;
-  List<Locale> supportedLocales;
-  List<String> supportedLanguages;
+//   Locale defaultLocale;
+//   List<Locale> supportedLocales;
+//   List<String> supportedLanguages;
 
-  Function onLocaleChange;
+//   Function onLocaleChange;
 
-  TranslationsConfig._() {
-    defaultLocale = Locale('en', 'US');
-    supportedLocales = [defaultLocale];
-    supportedLanguages = ['en'];
-  }
-}
+//   TranslationsConfig._() {
+//     defaultLocale = Locale('en', 'US');
+//     supportedLocales = [defaultLocale];
+//     supportedLanguages = ['en'];
+//   }
+// }
 
 class Translations {
   Locale locale;
@@ -89,27 +91,50 @@ abstract class TranslationsBundleLoader {
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale);
 }
 
+// class MockFileTranslationsBundleLoader extends TranslationsBundleLoader {
+//   final String path;
+//   MockFileTranslationsBundleLoader(this.path) : super();
+
+//   @override
+//   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
+//     final _path =
+//         Directory.current.path + '$path/i18n_${locale.languageCode}.json';
+//     final file = File(_path);
+//     print(file.path);
+//     String jsonContent = await file.readAsString();
+//     return json.decode(jsonContent);
+//   }
+// }
+
 class FileTranslationsBundleLoader extends TranslationsBundleLoader {
-  final BuildContext context;
   final String path;
-  FileTranslationsBundleLoader(this.context, this.path) : super();
+  FileTranslationsBundleLoader(this.path) : super();
 
   @override
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
-    var bundle = DefaultAssetBundle.of(context);
+    // var bundle = DefaultAssetBundle.of(context);
     String jsonContent =
-        await bundle.loadString('$path/i18n_${locale.languageCode}.json');
+        await rootBundle.loadString('$path/i18n_${locale.languageCode}.json');
     return json.decode(jsonContent);
   }
 }
 
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {
   final TranslationsBundleLoader bundleLoader;
-  const TranslationsDelegate(this.bundleLoader);
+  final Locale defaultLocale;
+  final List<Locale> supportedLocales;
+  const TranslationsDelegate(
+    this.bundleLoader, {
+    this.supportedLocales = const [Locale('en', 'US')],
+    this.defaultLocale,
+  });
+
+  List<String> get supportedLanguages =>
+      supportedLocales.map((l) => l.languageCode).toList();
 
   @override
   bool isSupported(Locale locale) =>
-      TranslationsConfig().supportedLanguages.contains(locale.languageCode);
+      supportedLanguages.contains(locale.languageCode);
 
   @override
   Future<Translations> load(Locale locale) =>
