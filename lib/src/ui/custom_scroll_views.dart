@@ -45,6 +45,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     @required this.model,
     this.appBarExpandedHeight = 0,
     this.appBarColor,
+    this.appBarHiddenUntilScroll = true,
     this.scrollingAppBarTitle,
     this.backButton,
     this.scrollingHeader,
@@ -93,6 +94,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final EdgeInsetsGeometry bodyPadding;
   final bool pinned, stretch, snap, floating;
   final bool shrinkWrap;
+  final bool appBarHiddenUntilScroll;
   final double appBarElevation;
   final List<Widget> appBarActions;
   final ScrollController scrollController;

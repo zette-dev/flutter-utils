@@ -42,7 +42,7 @@ packages:
       name: build_context
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.4"
   charcode:
     dependency: transitive
     description:

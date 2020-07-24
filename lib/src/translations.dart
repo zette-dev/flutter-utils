@@ -104,9 +104,8 @@ class FileTranslationsBundleLoader extends TranslationsBundleLoader {
 }
 
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {
-  final BuildContext context;
   final TranslationsBundleLoader bundleLoader;
-  const TranslationsDelegate(this.context, this.bundleLoader);
+  const TranslationsDelegate(this.bundleLoader);
 
   @override
   bool isSupported(Locale locale) =>
