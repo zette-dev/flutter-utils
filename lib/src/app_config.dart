@@ -16,15 +16,11 @@ abstract class EnvConfig<S> {
     @required this.environment,
     this.initializeCrashlytics = true,
     this.enableCrashlyiticsInDevMode = true,
-    this.supportedLocales = const [
-      Locale('en', 'US'),
-    ],
   });
 
   final String appName;
   final AppEnvironment environment;
   final bool initializeCrashlytics, enableCrashlyiticsInDevMode;
-  final List<Locale> supportedLocales;
 
   Future startCrashlytics() async {
     if (initializeCrashlytics) {
