@@ -19,6 +19,7 @@ class TextHeadline1 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -33,6 +34,7 @@ class TextHeadline1 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -55,6 +57,7 @@ class TextHeadline2 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -69,6 +72,7 @@ class TextHeadline2 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -91,6 +95,7 @@ class TextHeadline3 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -105,6 +110,7 @@ class TextHeadline3 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -127,6 +133,7 @@ class TextHeadline4 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -141,6 +148,7 @@ class TextHeadline4 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -163,6 +171,7 @@ class TextHeadline5 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -177,6 +186,7 @@ class TextHeadline5 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -199,6 +209,7 @@ class TextHeadline6 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -213,6 +224,7 @@ class TextHeadline6 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -235,6 +247,7 @@ class TextSubtitle1 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -249,6 +262,7 @@ class TextSubtitle1 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -271,6 +285,7 @@ class TextSubtitle2 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -285,6 +300,7 @@ class TextSubtitle2 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -307,6 +323,7 @@ class TextBody1 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -321,6 +338,7 @@ class TextBody1 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -343,6 +361,7 @@ class TextBody2 extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -357,6 +376,7 @@ class TextBody2 extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -378,6 +398,7 @@ class TextCaption extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -391,6 +412,7 @@ class TextCaption extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -411,6 +433,7 @@ class TextOverline extends TextWidget {
     bool shouldUpperCase,
     double fontSizeMultiplier,
     TextStyle styles,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -424,6 +447,7 @@ class TextOverline extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -445,6 +469,7 @@ class TextButton extends TextWidget {
     bool shouldUpperCase,
     TextStyle styles,
     double fontSizeMultiplier,
+    AutoSizeGroup resizeGroup,
   }) : super(
           text,
           key: key,
@@ -459,6 +484,7 @@ class TextButton extends TextWidget {
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
           shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
         );
 
   @override
@@ -474,6 +500,7 @@ abstract class TextWidget extends StatelessWidget {
   final int maxLines;
   final double maxFontSize, minFontSize;
   final bool shouldUpperCase, shouldAutoResize;
+  final AutoSizeGroup resizeGroup;
   final TextStyle styles;
   final double fontSizeMultiplier;
   TextStyle style(BuildContext context);
@@ -482,6 +509,7 @@ abstract class TextWidget extends StatelessWidget {
     this.text, {
     this.shouldTranslate,
     this.shouldAutoResize,
+    this.resizeGroup,
     this.fontSizeMultiplier,
     this.minFontSize,
     this.maxFontSize,
@@ -518,6 +546,7 @@ abstract class TextWidget extends StatelessWidget {
         style: _styles,
         textAlign: textAlign,
         maxLines: maxLines,
+        group: resizeGroup,
         maxFontSize: (isTablet(context) ?? false)
             ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
             : _styles.fontSize,

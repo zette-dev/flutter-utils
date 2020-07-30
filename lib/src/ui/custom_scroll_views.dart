@@ -118,7 +118,10 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
   bool _isScrolled = false;
 
   bool get _requiresScrollListener =>
-      widget.appBarExpandedHeight != null && widget.scrollingHeader != null;
+      _hasFlexibleSpace && widget.appBarHiddenUntilScroll;
+
+  bool get _hasFlexibleSpace =>
+      widget.scrollingHeader != null && widget.appBarExpandedHeight != null;
 
   @override
   void initState() {
@@ -184,9 +187,8 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
               floating: widget.floating ?? false,
               elevation: widget.appBarElevation,
               snap: widget.snap ?? false,
-              expandedHeight:
-                  _requiresScrollListener ? widget.appBarExpandedHeight : null,
-              flexibleSpace: _requiresScrollListener
+              expandedHeight: widget.appBarExpandedHeight,
+              flexibleSpace: _hasFlexibleSpace
                   ? FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
                       background: widget.scrollingHeader,
