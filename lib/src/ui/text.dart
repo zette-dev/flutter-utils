@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../dropsource_utils.dart';
 
 class TextHeadline1 extends TextWidget {
-  
   TextHeadline1(
     String text, {
     Key key,
@@ -547,9 +546,10 @@ abstract class TextWidget extends StatelessWidget {
         textAlign: textAlign,
         maxLines: maxLines,
         group: resizeGroup,
-        maxFontSize: (isTablet(context) ?? false)
-            ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
-            : _styles.fontSize,
+        maxFontSize: maxFontSize ?? _styles.fontSize,
+        // (isTablet(context) ?? false)
+        // ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
+        // : _styles.fontSize,
       );
     }
     return Text(

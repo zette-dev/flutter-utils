@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 extension StringFormatting on String {
   String capitalize() {
     if (this == null) {
@@ -52,5 +55,52 @@ String formatPhoneNumber(String phoneNumber) {
     return '$leadingOne$areaCode $prefix-$suffix';
   } else {
     return null;
+  }
+}
+
+final RegExp _emailRegex = RegExp(
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+String emailValidator(String emailInput,
+    {bool isRequired = false, String errorMessage = 'Invalid Email Address'}) {
+  if (!isRequired && (emailInput == null || emailInput.isEmpty)) {
+    return null;
+  }
+
+  return !_emailRegex.hasMatch(emailInput) ? errorMessage : null;
+}
+
+
+class MaskedTextInputFormatter extends TextInputFormatter {
+  final String mask;
+  final String separator;
+
+  MaskedTextInputFormatter({
+    @required this.mask,
+    @required this.separator,
+  })  : assert(mask != null),
+        assert(separator != null);
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isNotEmpty) {
+      if (newValue.text.length > oldValue.text.length) {
+        if (newValue.text.length > mask.length) {
+          return oldValue;
+        }
+        if (newValue.text.length < mask.length &&
+            mask[newValue.text.length - 1] == separator) {
+          return TextEditingValue(
+            text:
+                '${oldValue.text}$separator${newValue.text.substring(newValue.text.length - 1)}',
+            selection: TextSelection.collapsed(
+              offset: newValue.selection.end + 1,
+            ),
+          );
+        }
+      }
+    }
+    return newValue;
   }
 }

@@ -1,9 +1,6 @@
 import 'package:build_context/build_context.dart';
 import 'package:flutter/cupertino.dart'
-    show
-        CupertinoSliverRefreshControl,
-        RefreshControlIndicatorBuilder,
-        buildSimpleRefreshIndicator;
+    show CupertinoSliverRefreshControl, RefreshControlIndicatorBuilder;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -53,18 +50,19 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.onLoadMore,
     this.itemBuilder,
     WidgetBuilder loadMoreBuilder,
-    RefreshControlIndicatorBuilder refreshControlBuilder,
+    // this.refreshControlBuilder,
     this.separatorBuilder,
     this.errorBuilder,
     this.emptyBuilder,
     this.beforeSlivers,
-    this.listDelegate,
+    this.sliver,
     this.afterSlivers,
     this.appBarActions,
     this.bodyPadding,
     this.pinned,
     this.stretch,
     this.snap,
+    this.automaticallyImplyLeading,
     this.floating,
     this.appBarElevation,
     this.scrollController,
@@ -73,16 +71,17 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
         loadMoreBuilder = loadMoreBuilder ??
-            ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true))),
-        refreshControlBuilder = refreshControlBuilder ??
-            CupertinoSliverRefreshControl.buildSimpleRefreshIndicator;
+            ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true)));
+  // refreshControlBuilder = refreshControlBuilder;
+  // CupertinoSliverRefreshControl.buildRefreshIndicator(context, refreshState, pulledExtent, refreshTriggerPullDistance, refreshIndicatorExtent);
 
+  @override
   final PageStorageKey key;
   final ListNetworkingModel<T> model;
   final RefreshCallback onRefresh, onLoadMore;
   final IndexedWidgetBuilder itemBuilder, separatorBuilder;
   final WidgetBuilder errorBuilder, emptyBuilder, loadMoreBuilder;
-  final RefreshControlIndicatorBuilder refreshControlBuilder;
+  // final RefreshControlIndicatorBuilder refreshControlBuilder;
 
   final Color appBarColor;
   final Widget scrollingAppBarTitle;
@@ -90,11 +89,11 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Widget scrollingHeader;
   final double appBarExpandedHeight;
   final List<Widget> beforeSlivers, afterSlivers;
-  final SliverChildDelegate listDelegate;
+  final Widget sliver;
   final EdgeInsetsGeometry bodyPadding;
   final bool pinned, stretch, snap, floating;
   final bool shrinkWrap;
-  final bool appBarHiddenUntilScroll;
+  final bool appBarHiddenUntilScroll, automaticallyImplyLeading;
   final double appBarElevation;
   final List<Widget> appBarActions;
   final ScrollController scrollController;
@@ -172,6 +171,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           slivers: [
             SliverAppBar(
               backgroundColor: widget.appBarColor,
+              automaticallyImplyLeading: widget.automaticallyImplyLeading,
               title: _requiresScrollListener
                   ? AnimatedOpacity(
                       duration: Duration(milliseconds: 300),
@@ -212,14 +212,14 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
         if (widget.onRefresh != null)
           CupertinoSliverRefreshControl(
             onRefresh: widget.onRefresh,
-            builder: widget.refreshControlBuilder,
+            // builder: widget.refreshControlBuilder,
           ),
       ];
 
   List<Widget> get hasDataOrLoadingBuilder => [
-        if (widget.hasDataOrIsLoading && widget.listDelegate != null)
+        if (widget.hasDataOrIsLoading && widget.sliver != null)
           SliverPadding(
-            sliver: SliverList(delegate: widget.listDelegate),
+            sliver: widget.sliver,
             padding: widget.bodyPadding ?? EdgeInsets.all(0),
           ),
       ];
@@ -265,7 +265,8 @@ class ScrollableHeaderFixedChildrenLayout extends ScrollableLayout {
           scrollingAppBarTitle: scrollingAppBarTitle,
           backButton: backButton,
           scrollingHeader: scrollingHeader,
-          listDelegate: SliverChildListDelegate.fixed(bodyChildren),
+          sliver:
+              SliverList(delegate: SliverChildListDelegate.fixed(bodyChildren)),
           appBarActions: appBarActions,
           bodyPadding: bodyPadding,
           appBarElevation: appBarElevation,
@@ -293,8 +294,9 @@ class ScrollableHeaderBuilderLayout extends ScrollableLayout {
           scrollingAppBarTitle: scrollingAppBarTitle,
           backButton: backButton,
           scrollingHeader: scrollingHeader,
-          listDelegate:
-              SliverChildBuilderDelegate(builder, childCount: itemCount),
+          sliver: SliverList(
+              delegate:
+                  SliverChildBuilderDelegate(builder, childCount: itemCount)),
           appBarActions: appBarActions,
           bodyPadding: bodyPadding,
           appBarElevation: appBarElevation,
@@ -323,7 +325,8 @@ class DSScrollToHideAppBarLayout extends ScrollableLayout {
           scrollingAppBarTitle: scrollingAppBarTitle,
           backButton: backButton,
           scrollingHeader: null,
-          listDelegate: SliverChildListDelegate.fixed(bodyChildren),
+          sliver:
+              SliverList(delegate: SliverChildListDelegate.fixed(bodyChildren)),
           appBarActions: appBarActions,
           appBarElevation: appBarElevation,
           bodyPadding: bodyPadding,
