@@ -62,7 +62,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.pinned,
     this.stretch,
     this.snap,
-    this.automaticallyImplyLeading,
+    this.automaticallyImplyLeading = true,
     this.floating,
     this.appBarElevation,
     this.scrollController,
@@ -171,7 +171,8 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           slivers: [
             SliverAppBar(
               backgroundColor: widget.appBarColor,
-              automaticallyImplyLeading: widget.automaticallyImplyLeading,
+              automaticallyImplyLeading:
+                  widget.automaticallyImplyLeading ?? true,
               title: _requiresScrollListener
                   ? AnimatedOpacity(
                       duration: Duration(milliseconds: 300),
@@ -233,15 +234,15 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       ];
 
   List<Widget> get emptyBuilder => [
-        if (!widget.model.hasError &&
+        if (widget.emptyBuilder != null &&
+            !widget.model.hasError &&
             !widget.model.hasData &&
-            widget.emptyBuilder != null &&
             !widget.isLoading)
           widget.emptyBuilder(context),
       ];
 
   List<Widget> get errorBuilder => [
-        if (widget.model.hasError && widget.errorBuilder != null)
+        if (widget.errorBuilder != null && widget.model.hasError)
           widget.errorBuilder(context),
       ];
 }

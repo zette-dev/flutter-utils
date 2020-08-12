@@ -1,5 +1,6 @@
 name: dropsource_utils
-description: A set of useful functions and libraries used in almost all Dropsource flutter apps.
+description: A set of useful functions and libraries used in almost all
+  Dropsource flutter apps.
 version: 0.0.3+4
 author: Nathan Frechette<nate@dropsource.com>
 homepage: https://dropsource.com
@@ -10,14 +11,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^3.0.9
+  dio: ^3.0.10
   firebase_core: ^0.4.5
   firebase_analytics: ^5.0.16
   firebase_crashlytics: ^0.1.4+1
   # firebase_crashlytics:
   # path: /Users/Shared/Developer/git/flutterfire/packages/firebase_crashlytics
   rxdart: ^0.24.1
-  provider: ^4.3.1
+  provider: ^4.3.2
   auto_size_text: ^2.1.0
   build_context: ^2.0.4
 
