@@ -198,6 +198,6 @@ abstract class WebServiceInterface extends ServiceInterface {
   dynamic onRequestInterceptor(RequestOptions options) => options;
 }
 
-abstract class Identifiable<T> {
+mixin Identifiable<T> {
   T get id;
 }
