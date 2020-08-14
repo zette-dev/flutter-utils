@@ -70,7 +70,6 @@ String emailValidator(String emailInput,
   return !_emailRegex.hasMatch(emailInput) ? errorMessage : null;
 }
 
-
 class MaskedTextInputFormatter extends TextInputFormatter {
   final String mask;
   final String separator;
