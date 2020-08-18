@@ -12,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^3.0.10
-  firebase_core: ^0.4.5
-  firebase_analytics: ^5.0.16
+  firebase_core: ^0.5.0
+  firebase_analytics: ^6.0.0
   firebase_crashlytics: ^0.1.4+1
   # firebase_crashlytics:
   # path: /Users/Shared/Developer/git/flutterfire/packages/firebase_crashlytics

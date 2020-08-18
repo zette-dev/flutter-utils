@@ -19,6 +19,7 @@ class ScrollableAppBar extends SliverAppBar {
     Color backgroundColor,
     AsyncCallback onStretchTrigger,
     double expandedHeight,
+    double collapsedHeight,
   }) : super(
           automaticallyImplyLeading: false,
           floating: floating,
@@ -33,6 +34,7 @@ class ScrollableAppBar extends SliverAppBar {
           elevation: appBarElevation,
           onStretchTrigger: onStretchTrigger,
           expandedHeight: expandedHeight,
+          collapsedHeight: collapsedHeight,
         );
 }
 
@@ -41,8 +43,10 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     String scrollKey,
     @required this.model,
     this.appBarExpandedHeight = 0,
+    this.appBarCollapsedHeight,
     this.appBarColor,
     this.appBarHiddenUntilScroll = true,
+    this.appBarBottom,
     this.scrollingAppBarTitle,
     this.backButton,
     this.scrollingHeader,
@@ -87,7 +91,8 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Widget scrollingAppBarTitle;
   final Widget backButton;
   final Widget scrollingHeader;
-  final double appBarExpandedHeight;
+  final double appBarExpandedHeight, appBarCollapsedHeight;
+  final PreferredSizeWidget appBarBottom;
   final List<Widget> beforeSlivers, afterSlivers;
   final Widget sliver;
   final EdgeInsetsGeometry bodyPadding;
@@ -162,6 +167,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
   Widget build(BuildContext context) {
     return LoadingWrapper(
       loading: widget.isLoading,
+      ignorePointerWhenLoading: false,
       children: [
         CustomScrollView(
           key: widget.key,
@@ -173,6 +179,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
               backgroundColor: widget.appBarColor,
               automaticallyImplyLeading:
                   widget.automaticallyImplyLeading ?? true,
+              titleSpacing: 0,
               title: _requiresScrollListener
                   ? AnimatedOpacity(
                       duration: Duration(milliseconds: 300),
@@ -189,6 +196,9 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
               elevation: widget.appBarElevation,
               snap: widget.snap ?? false,
               expandedHeight: widget.appBarExpandedHeight,
+              collapsedHeight: widget.appBarCollapsedHeight,
+              primary: true,
+              bottom: widget.appBarBottom,
               flexibleSpace: _hasFlexibleSpace
                   ? FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
