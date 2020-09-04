@@ -10,7 +10,13 @@ class NetworkConnectionError implements Exception {}
 
 class UnauthorizedRequestError implements Exception {}
 
-enum HTTPRequestMethod { GET, POST, PUT, DELETE }
+class ApiResponseError implements Exception {
+  ApiResponseError(this.message, {this.code});
+  final String message;
+  final int code;
+}
+
+enum HTTPRequestMethod { GET, POST, PUT, DELETE, PATCH }
 
 @immutable
 class HTTPRequest {
@@ -21,6 +27,7 @@ class HTTPRequest {
     this.headers,
     this.query,
     this.body,
+    this.contentType,
     this.authenticated = false,
     this.autoRefreshToken = false,
   });
@@ -30,6 +37,7 @@ class HTTPRequest {
   final dynamic body;
   final HTTPRequestMethod method;
   final bool authenticated, autoRefreshToken;
+  final String contentType;
 
   String get methodString {
     switch (method) {
@@ -42,6 +50,9 @@ class HTTPRequest {
       case HTTPRequestMethod.PUT:
         return 'PUT';
         break;
+      case HTTPRequestMethod.PATCH:
+        return 'PATCH';
+        break;
       case HTTPRequestMethod.GET:
       default:
         return 'GET';
@@ -51,11 +62,12 @@ class HTTPRequest {
 
   HTTPRequest copyWith({
     String path,
-    baseUrl,
+    String baseUrl,
     Map<String, String> headers,
     query,
     dynamic body,
     HTTPRequestMethod method,
+    String contentType,
     bool authenticated,
   }) {
     return HTTPRequest(
@@ -64,6 +76,7 @@ class HTTPRequest {
       query: query ?? this.query,
       body: body ?? this.body,
       method: method ?? this.method,
+      contentType: contentType ?? this.contentType,
       authenticated: authenticated ?? this.authenticated,
       baseUrl: baseUrl ?? this.baseUrl,
     );
@@ -86,6 +99,7 @@ class HTTPRequest {
         headers: headers,
         method: methodString,
         extra: _extras,
+        contentType: contentType,
       ),
     );
   }
@@ -105,6 +119,7 @@ class HTTPRequest {
       method: methodString,
       extra: _extras,
       responseType: ResponseType.json,
+      contentType: contentType?.toString(),
       baseUrl: baseUrl ?? client.options?.baseUrl,
     );
 

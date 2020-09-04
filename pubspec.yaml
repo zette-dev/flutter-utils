@@ -18,7 +18,7 @@ dependencies:
   # firebase_crashlytics:
   # path: /Users/Shared/Developer/git/flutterfire/packages/firebase_crashlytics
   rxdart: ^0.24.1
-  provider: ^4.3.2
+  provider: ^4.3.2+1
   auto_size_text: ^2.1.0
   build_context: ^2.0.4
 

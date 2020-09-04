@@ -8,7 +8,7 @@ typedef InitialDataCreator<M, T> = T Function(M manager);
 typedef StreamCreator<M, T> = Stream<T> Function(M manager);
 typedef IgnoreChangeTest<T> = bool Function(T model);
 
-typedef Builder<M, T> = Widget Function(
+typedef _Builder<M, T> = Widget Function(
   BuildContext,
   M manager,
   T model,
@@ -20,7 +20,7 @@ typedef OnWillChangeCallback<M> = void Function(M manager);
 typedef OnInitialBuildCallback<M> = void Function(M manager);
 
 class StatefulStreamBuilder<M, T> extends StatelessWidget {
-  final Builder<M, T> builder;
+  final _Builder<M, T> builder;
   final InitialDataCreator<M, T> initialData;
   final StreamCreator<M, T> stream;
   final IgnoreChangeTest<T> ignoreChange;
@@ -59,7 +59,7 @@ class StatefulStreamBuilder<M, T> extends StatelessWidget {
 
 class _StatefulLifecycleManager<M, T> extends StatefulWidget {
   final M manager;
-  final Builder<M, T> builder;
+  final _Builder<M, T> builder;
   final InitialDataCreator<M, T> initialData;
   final StreamCreator<M, T> stream;
   final IgnoreChangeTest<T> ignoreChange;
@@ -132,17 +132,16 @@ class _StatefulLifecycleManagerState<M, T>
     return true;
   }
 
-  Stream<T> _createStream() => widget
-      .stream(widget.manager)
-      .where(_ignoreChange);
-      // .map(_mapConverter)
-      // Don't use `Stream.distinct` because it cannot capture the initial
-      // ViewModel produced by the `converter`.
-      // .where(_whereDistinct)
-      // After each ViewModel is emitted from the Stream, we update the
-      // latestValue. Important: This must be done after all other optional
-      // transformations, such as ignoreChange.
-      // .transform(StreamTransformer.fromHandlers(handleData: _handleChange));
+  Stream<T> _createStream() =>
+      widget.stream(widget.manager).where(_ignoreChange);
+  // .map(_mapConverter)
+  // Don't use `Stream.distinct` because it cannot capture the initial
+  // ViewModel produced by the `converter`.
+  // .where(_whereDistinct)
+  // After each ViewModel is emitted from the Stream, we update the
+  // latestValue. Important: This must be done after all other optional
+  // transformations, such as ignoreChange.
+  // .transform(StreamTransformer.fromHandlers(handleData: _handleChange));
 
   void _handleChange(T model, EventSink<T> sink) {
     // latestValue = vm;

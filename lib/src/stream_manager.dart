@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dropsource_utils/src/networking_manager.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class DataStreamManager<D, M> extends StreamManager<M> {
@@ -52,5 +53,23 @@ abstract class StreamManager<M> {
   void dispose() {
     _streamController?.close();
     _streamSubscription?.cancel();
+  }
+}
+
+extension StreamManagerExtensions<T extends NetworkingModel>
+    on StreamManager<T> {
+  Future executeWithLoading<V>(
+    Future<V> future, {
+    bool startLoading = true,
+    Function(V) then,
+  }) {
+    if (startLoading) {
+      update(model.startLoading());
+    }
+
+    return future
+        .then(then ?? (_) => null)
+        .catchError((err) => model = model.toError(err))
+        .whenComplete(() => update(model.stopLoading()));
   }
 }

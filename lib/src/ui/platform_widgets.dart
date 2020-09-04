@@ -62,11 +62,16 @@ class PlatformTabBar extends StatelessWidget {
 }
 
 class PlatformSwitch extends StatelessWidget {
-  PlatformSwitch(
-      {@required this.value, @required this.onChanged, this.activeColor});
+  PlatformSwitch({
+    @required this.value,
+    @required this.onChanged,
+    this.activeColor,
+    this.materialTapTargetSize,
+  });
   final bool value;
   final Function(bool) onChanged;
   final Color activeColor;
+  final MaterialTapTargetSize materialTapTargetSize;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -79,6 +84,7 @@ class PlatformSwitch extends StatelessWidget {
         value: value,
         onChanged: onChanged,
         activeColor: activeColor,
+        materialTapTargetSize: materialTapTargetSize,
       ),
     );
   }

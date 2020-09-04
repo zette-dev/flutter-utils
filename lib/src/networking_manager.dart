@@ -1,6 +1,31 @@
 import '../dropsource_utils.dart';
 import 'networking.dart' show NetworkConnectionError;
 
+class _GenericListNetorkingModel<T extends Identifiable>
+    extends ListNetworkingModel<T> {
+  _GenericListNetorkingModel({
+    bool isConnectedToNetwork,
+    bool isInProgress,
+    bool isLoadingMore,
+    bool canLoadMore,
+    List<T> listData,
+    dynamic error,
+  }) : super(
+          isConnectedToNetwork: isConnectedToNetwork,
+          isInProgress: isInProgress,
+          isLoadingMore: isLoadingMore,
+          canLoadMore: canLoadMore,
+          listData: listData,
+          error: error,
+        );
+
+  @override
+  int get collectionSize => 25;
+
+  @override
+  String get errorMessage => '';
+}
+
 abstract class ListNetworkingModel<T extends Identifiable>
     extends NetworkingModel {
   ListNetworkingModel({
@@ -18,6 +43,23 @@ abstract class ListNetworkingModel<T extends Identifiable>
           isConnectedToNetwork: isConnectedToNetwork,
           error: error,
         );
+
+  static ListNetworkingModel<T> generic<T extends Identifiable>({
+    bool isConnectedToNetwork,
+    bool isInProgress,
+    bool isLoadingMore,
+    bool canLoadMore,
+    List<T> listData,
+    dynamic error,
+  }) =>
+      _GenericListNetorkingModel<T>(
+        isConnectedToNetwork: isConnectedToNetwork,
+        isInProgress: isInProgress,
+        isLoadingMore: isLoadingMore,
+        canLoadMore: canLoadMore,
+        listData: listData,
+        error: error,
+      );
 
   List<T> _listData;
   List<T> get listData => _listData ?? [];
@@ -78,7 +120,7 @@ abstract class NetworkingModel {
 
   bool _isConnectedToNetwork = true;
   bool get isConnectedToNetwork => _isConnectedToNetwork;
-  
+
   // ERROR HANDLING
   dynamic _error;
   dynamic get error => _error;

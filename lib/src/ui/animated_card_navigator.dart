@@ -5,18 +5,19 @@ class AnimatedTap extends StatefulWidget {
   AnimatedTap({
     Key key,
     @required this.child,
-    this.onReleased,
-    this.onPressed,
+    @required this.onPressed,
     this.start = 0.0,
-    this.end = 0.05,
-    this.duration = const Duration(milliseconds: 90),
+    this.end = 0.04,
+    this.duration = const Duration(milliseconds: 70),
     this.giveHapticFeedback = true,
+    this.behavior = HitTestBehavior.opaque,
   }) : super(key: key);
   final Widget child;
-  final Function(BuildContext) onReleased, onPressed;
+  final Function(BuildContext) onPressed;
   final double start, end;
   final Duration duration;
   final bool giveHapticFeedback;
+  final HitTestBehavior behavior;
   @override
   _AnimatedTapState createState() => _AnimatedTapState();
 }
@@ -26,14 +27,16 @@ class _AnimatedTapState extends State<AnimatedTap> {
   bool _cancelled = false;
   bool _released = false;
 
+  bool get hasHandler => widget.onPressed != null;
+
   void _onTapDown(TapDownDetails details) {
     setState(() {
       _released = false;
       _cancelled = false;
       _end = widget.end;
     });
-    if (widget.onPressed != null) {
-      widget.onPressed(context);
+    if (widget.giveHapticFeedback) {
+      HapticFeedback.lightImpact();
     }
   }
 
@@ -46,17 +49,21 @@ class _AnimatedTapState extends State<AnimatedTap> {
         double _transformScale = 1 - size;
 
         return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTapDown: _onTapDown,
-          onTapCancel: () => setState(() {
-            _cancelled = true;
-            _released = true;
-            _end = 0;
-          }),
-          onTapUp: (_) => setState(() {
-            _released = true;
-            _end = size == widget.end ? 0 : _end;
-          }),
+          behavior: widget.behavior,
+          onTapDown: hasHandler ? _onTapDown : null,
+          onTapCancel: hasHandler
+              ? () => setState(() {
+                    _cancelled = true;
+                    _released = true;
+                    _end = 0;
+                  })
+              : null,
+          onTapUp: hasHandler
+              ? (_) => setState(() {
+                    _released = true;
+                    _end = size == widget.end ? 0 : _end;
+                  })
+              : null,
           child: Transform.scale(
             scale: _transformScale,
             child: widget.child,
@@ -67,11 +74,8 @@ class _AnimatedTapState extends State<AnimatedTap> {
       onEnd: () {
         // Animation is done and was not cancelled
         if (_end == 0 && !_cancelled) {
-          if (widget.giveHapticFeedback) {
-            HapticFeedback.lightImpact();
-          }
-          if (widget.onReleased != null) {
-            widget.onReleased(context);
+          if (widget.onPressed != null) {
+            widget.onPressed(context);
           }
         } else if (_end == widget.end && _released) {
           setState(() => _end = 0);

@@ -20,8 +20,9 @@ class ScrollableAppBar extends SliverAppBar {
     AsyncCallback onStretchTrigger,
     double expandedHeight,
     double collapsedHeight,
+    bool automaticallyImplyLeading = false,
   }) : super(
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: automaticallyImplyLeading,
           floating: floating,
           snap: snap,
           stretch: stretch,

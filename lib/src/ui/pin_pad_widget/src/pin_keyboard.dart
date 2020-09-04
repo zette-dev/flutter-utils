@@ -47,70 +47,75 @@ class PinKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _padding = EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0);
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: _padding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _iconButton('1', pinKeys['1']),
-              _iconButton('2', pinKeys['2']),
-              _iconButton('3', pinKeys['3']),
-            ],
+
+    /// Use mediaquery textScaleFactor to ensure the pin key text does not grow
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: _padding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _iconButton('1', pinKeys['1']),
+                _iconButton('2', pinKeys['2']),
+                _iconButton('3', pinKeys['3']),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: _padding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _iconButton('4', pinKeys['4']),
-              _iconButton('5', pinKeys['5']),
-              _iconButton('6', pinKeys['6']),
-            ],
+          Padding(
+            padding: _padding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _iconButton('4', pinKeys['4']),
+                _iconButton('5', pinKeys['5']),
+                _iconButton('6', pinKeys['6']),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: _padding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _iconButton('7', pinKeys['7']),
-              _iconButton('8', pinKeys['8']),
-              _iconButton('9', pinKeys['9']),
-            ],
+          Padding(
+            padding: _padding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                _iconButton('7', pinKeys['7']),
+                _iconButton('8', pinKeys['8']),
+                _iconButton('9', pinKeys['9']),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: _padding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              IconButton(
-                onPressed: null,
-                splashColor: Colors.transparent,
-                icon: SizedBox(),
-              ),
-              _iconButton('0', pinKeys['0']),
-              IconButton(
-                splashColor: Colors.transparent,
-                onPressed: (backIcon != null && onBackPressed != null)
-                    ? onBackPressed
-                    : null,
-                icon: backIcon == null
-                    ? SizedBox()
-                    : Icon(
-                        backIcon,
-                        color: textStyle?.color,
-                      ),
-              ),
-            ],
+          Padding(
+            padding: _padding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(
+                  onPressed: null,
+                  splashColor: Colors.transparent,
+                  icon: SizedBox(),
+                ),
+                _iconButton('0', pinKeys['0']),
+                IconButton(
+                  splashColor: Colors.transparent,
+                  onPressed: (backIcon != null && onBackPressed != null)
+                      ? onBackPressed
+                      : null,
+                  icon: backIcon == null
+                      ? SizedBox()
+                      : Icon(
+                          backIcon,
+                          color: textStyle?.color,
+                        ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
