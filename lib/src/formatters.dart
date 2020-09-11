@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 extension StringFormatting on String {
   String capitalize() {
@@ -101,5 +102,73 @@ class MaskedTextInputFormatter extends TextInputFormatter {
       }
     }
     return newValue;
+  }
+}
+
+String numberValueAsString(String text, {int precision = 0}) {
+  List<String> parts = _getOnlyNumbers(text).split('').toList(growable: true);
+
+  if (precision > 0) {
+    if (parts.length > precision) {
+      parts.insert(parts.length - precision, '.');
+    } else if (parts.length < precision) {
+      final diff = precision - parts.length;
+      List.generate(diff, (index) => index).forEach(
+        (element) => parts.insert(0, element.toString()),
+      );
+      parts.insert(0, '.');
+    } else if (parts.length == precision) {
+      parts.insert(0, '0.');
+    }
+  }
+
+  return parts.join();
+}
+
+double numberValue(String text, {int precision = 2}) {
+  return double.parse(numberValueAsString(text, precision: precision));
+}
+
+String _getOnlyNumbers(String text) {
+  String cleanedText = text;
+
+  var onlyNumbersRegex = RegExp(r'[^\d]');
+
+  return cleanedText.replaceAll(onlyNumbersRegex, '');
+}
+
+double parseDouble(dynamic value) {
+  if (value is int) {
+    return value.toDouble();
+  } else if (value is double) {
+    return value;
+  } else {
+    return value;
+  }
+}
+
+final NumberFormat percentageFormatter = NumberFormat.percentPattern();
+
+class PercentageTextInputFormatter extends TextInputFormatter {
+  String _stripStartingZero(String str) =>
+      str.startsWith('0') ? str.substring(1, str.length) : str;
+
+  String _sanitize(String str) => List<String Function(String)>.from(
+          [numberValueAsString, _stripStartingZero])
+      .fold<String>(str, (previousValue, func) => func(previousValue));
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final _new = _sanitize(newValue.text);
+    String returnValue = _new.isEmpty ? '0' : _new;
+    double _intValue = int.parse(returnValue) / 100;
+    final result = percentageFormatter.format(_intValue);
+    return TextEditingValue(
+      text: result,
+      selection: TextSelection.collapsed(
+        offset: result.length - 1,
+      ),
+    );
   }
 }

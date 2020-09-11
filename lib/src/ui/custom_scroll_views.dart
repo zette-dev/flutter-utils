@@ -48,6 +48,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.appBarColor,
     this.appBarHiddenUntilScroll = true,
     this.appBarBottom,
+    this.appBarTitleSpacing,
     this.scrollingAppBarTitle,
     this.backButton,
     this.scrollingHeader,
@@ -92,7 +93,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Widget scrollingAppBarTitle;
   final Widget backButton;
   final Widget scrollingHeader;
-  final double appBarExpandedHeight, appBarCollapsedHeight;
+  final double appBarExpandedHeight, appBarCollapsedHeight, appBarTitleSpacing;
   final PreferredSizeWidget appBarBottom;
   final List<Widget> beforeSlivers, afterSlivers;
   final Widget sliver;
@@ -180,7 +181,8 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
               backgroundColor: widget.appBarColor,
               automaticallyImplyLeading:
                   widget.automaticallyImplyLeading ?? true,
-              titleSpacing: 0,
+              titleSpacing:
+                  widget.appBarTitleSpacing ?? NavigationToolbar.kMiddleSpacing,
               title: _requiresScrollListener
                   ? AnimatedOpacity(
                       duration: Duration(milliseconds: 300),

@@ -7,6 +7,7 @@ export 'src/date_time_extensions.dart';
 export 'src/formatters.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
+export 'src/launchers.dart';
 export 'src/networking.dart';
 export 'src/networking_manager.dart';
 export 'src/stateful_stream_builder.dart';

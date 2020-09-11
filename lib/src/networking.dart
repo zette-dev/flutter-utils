@@ -11,9 +11,16 @@ class NetworkConnectionError implements Exception {}
 class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
-  ApiResponseError(this.message, {this.code});
+  ApiResponseError(this.message, {this.code, this.request});
+  final HTTPRequest request;
   final String message;
   final int code;
+
+  String toJson() => json.encode({
+        'request': request?.path,
+        'message': message,
+        'code': code,
+      });
 }
 
 enum HTTPRequestMethod { GET, POST, PUT, DELETE, PATCH }
