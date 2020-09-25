@@ -164,26 +164,33 @@ class PlatformButton extends StatelessWidget {
   }
 }
 
-Route<T> platformRoute<T>(BuildContext context,
-    {WidgetBuilder builder, RouteSettings settings}) {
+Route<T> platformRoute<T>(
+  BuildContext context, {
+  WidgetBuilder builder,
+  RouteSettings settings,
+  bool fullscreenDialog = false,
+}) {
   if (Theme.of(context).platform == TargetPlatform.iOS) {
     return CupertinoPageRoute(
       builder: builder,
       settings: settings,
+      fullscreenDialog: fullscreenDialog,
     );
   } else {
     return MaterialPageRoute(
       builder: builder,
       settings: settings,
+      fullscreenDialog: fullscreenDialog,
     );
   }
 }
 
-void showPlatformDialog(BuildContext context,
+Future<T> showPlatformDialog<T>(BuildContext context,
     {String title, String content, List<Widget> actions}) {
   final _title = title != null ? Text(title) : null;
   final _content = content != null ? Text(content) : null;
-  showDialog(
+
+  return showDialog<T>(
       context: context,
       builder: (_) {
         if (Theme.of(context).platform == TargetPlatform.iOS) {

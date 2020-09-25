@@ -63,6 +63,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.beforeSlivers,
     this.sliver,
     this.afterSlivers,
+    this.overlays,
     this.appBarActions,
     this.bodyPadding,
     this.pinned,
@@ -95,7 +96,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Widget scrollingHeader;
   final double appBarExpandedHeight, appBarCollapsedHeight, appBarTitleSpacing;
   final PreferredSizeWidget appBarBottom;
-  final List<Widget> beforeSlivers, afterSlivers;
+  final List<Widget> beforeSlivers, afterSlivers, overlays;
   final Widget sliver;
   final EdgeInsetsGeometry bodyPadding;
   final bool pinned, stretch, snap, floating;
@@ -214,10 +215,11 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
             ...errorBuilder,
             ...emptyBuilder,
             ...hasDataOrLoadingBuilder,
-            ...loadMoreBuilder
-            // ...(widget.afterSlivers ?? []),
+            ...loadMoreBuilder,
+            ...(widget.afterSlivers ?? []),
           ],
         ),
+        ...(widget.overlays ?? [])
       ],
     );
   }

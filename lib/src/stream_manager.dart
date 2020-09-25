@@ -72,4 +72,19 @@ extension StreamManagerExtensions<T extends NetworkingModel>
         .catchError((err) => model = model.toError(err))
         .whenComplete(() => update(model.stopLoading()));
   }
+
+  Future<V> executeWithLoadingReturn<V>(
+    Future<V> future, {
+    bool startLoading = true,
+    Future<V> Function(V) then,
+  }) {
+    if (startLoading) {
+      update(model.startLoading());
+    }
+
+    return future
+        .then(then ?? (_) => null)
+        .catchError((err) => model = model.toError(err))
+        .whenComplete(() => update(model.stopLoading()));
+  }
 }

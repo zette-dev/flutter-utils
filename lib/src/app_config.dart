@@ -24,8 +24,9 @@ abstract class EnvConfig<S> {
 
   Future startCrashlytics() async {
     if (initializeCrashlytics) {
-      Crashlytics.instance.enableInDevMode = enableCrashlyiticsInDevMode;
-      FlutterError.onError = Crashlytics.instance.recordFlutterError;
+      await FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(enableCrashlyiticsInDevMode);
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     }
   }
 
