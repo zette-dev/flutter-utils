@@ -28,13 +28,16 @@ extension DateTimeExtensions on DateTime {
       _description = formatter.format(this);
     } else if (_difference > Duration(days: 1) &&
         _difference < Duration(days: 30)) {
-      _description = '${_difference.inDays} days ago';
+      _description =
+          '${_difference.inDays} ${Intl.plural(_difference.inDays, one: 'day', other: 'days')} ago';
     } else if (_difference < Duration(hours: 24) &&
         _difference > Duration(hours: 1)) {
-      _description = '${_difference.inHours} hours ago';
+      _description =
+          '${_difference.inHours} ${Intl.plural(_difference.inHours, one: 'hour', other: 'hours')} ago';
     } else if (_difference < Duration(minutes: 60) &&
         _difference > Duration(minutes: 1)) {
-      _description = '${_difference.inMinutes} min ago';
+      _description =
+          '${_difference.inMinutes} ${Intl.plural(_difference.inMinutes, one: 'min', other: 'mins')} ago';
     } else {
       _description = '< 1 min ago';
     }

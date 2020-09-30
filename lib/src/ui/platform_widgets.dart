@@ -171,13 +171,13 @@ Route<T> platformRoute<T>(
   bool fullscreenDialog = false,
 }) {
   if (Theme.of(context).platform == TargetPlatform.iOS) {
-    return CupertinoPageRoute(
+    return CupertinoPageRoute<T>(
       builder: builder,
       settings: settings,
       fullscreenDialog: fullscreenDialog,
     );
   } else {
-    return MaterialPageRoute(
+    return MaterialPageRoute<T>(
       builder: builder,
       settings: settings,
       fullscreenDialog: fullscreenDialog,

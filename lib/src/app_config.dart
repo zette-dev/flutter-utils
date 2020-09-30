@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -23,10 +24,19 @@ abstract class EnvConfig<S> {
   final bool initializeCrashlytics, enableCrashlyiticsInDevMode;
 
   Future startCrashlytics() async {
+    // Wait for Firebase to initialize
+    await Firebase.initializeApp();
+
     if (initializeCrashlytics) {
       await FirebaseCrashlytics.instance
           .setCrashlyticsCollectionEnabled(enableCrashlyiticsInDevMode);
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+      // Pass all uncaught errors to Crashlytics.
+      Function originalOnError = FlutterError.onError;
+      FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+        await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+        // Forward to original handler.
+        originalOnError(errorDetails);
+      };
     }
   }
 
@@ -34,8 +44,10 @@ abstract class EnvConfig<S> {
 
   Widget createApp();
 
-  Future run() async {
-    await startCrashlytics();
-    runApp(createApp());
-  }
+  Future run() => runZonedGuarded(() async {
+        runApp(createApp());
+      }, (error, stackTrace) {
+        print('runZonedGuarded: Caught error in my root zone.');
+        FirebaseCrashlytics.instance.recordError(error, stackTrace);
+      });
 }
