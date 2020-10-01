@@ -69,6 +69,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.pinned,
     this.stretch,
     this.snap,
+    this.centerAppBarTitle = true,
     this.automaticallyImplyLeading = true,
     this.floating,
     this.appBarElevation,
@@ -100,7 +101,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Widget sliver;
   final EdgeInsetsGeometry bodyPadding;
   final bool pinned, stretch, snap, floating;
-  final bool shrinkWrap;
+  final bool shrinkWrap, centerAppBarTitle;
   final bool appBarHiddenUntilScroll, automaticallyImplyLeading;
   final double appBarElevation;
   final List<Widget> appBarActions;
@@ -194,6 +195,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
                   : widget.scrollingAppBarTitle,
               leading: widget.backButton,
               actions: widget.appBarActions,
+              centerTitle: widget.centerAppBarTitle ?? true,
               pinned: widget.pinned ?? false,
               stretch: widget.stretch ?? false,
               floating: widget.floating ?? false,
