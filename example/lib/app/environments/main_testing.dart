@@ -4,7 +4,7 @@ import '../app_env.dart';
 
 void main() async {
   await FlutterAppEnv(
-    environment: AppEnvironment.testing,
+    environment: AppEnvironment.automation,
     apiBaseUrl: 'https://my-api.com',
     appName: 'Flutter-App-Testing',
     initializeCrashlytics: false,
