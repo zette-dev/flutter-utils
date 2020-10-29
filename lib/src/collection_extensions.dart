@@ -5,7 +5,10 @@ extension MapListMethods<K, T> on Map<K, List<T>> {
   Map<K, List<T>> filter(
     bool Function(T) filterList,
   ) {
-    final List<K> _keys = keys.toList()..sort();
+    final List<K> _keys = keys?.toList() ?? [];
+    if (_keys.isNotEmpty) {
+      _keys.sort();
+    }
     var map = <K, List<T>>{};
     for (var key in _keys) {
       final _list = this[key].where(filterList).toList();
@@ -29,7 +32,10 @@ extension MapMethods<K, T> on Map {
   }
 
   Map<K, T> sortKeys() {
-    final _keys = keys.toList()..sort();
+    final _keys = keys.toList() ?? [];
+    if (_keys.isNotEmpty) {
+      _keys.sort();
+    }
     var map = <K, T>{};
     for (var k in _keys) {
       map.putIfAbsent(k, () => this[k]);
@@ -118,8 +124,10 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
 extension FutureListExtension<T> on List<Future<List<T>>> {
   Future<List<T>> mergeFuturesList({int Function(T, T) sorter}) =>
       Future.wait(this).then((list) {
-        final _combined = list.flatten().toList();
-        if (sorter != null) _combined.sort(sorter);
+        final _combined = list?.flatten()?.toList() ?? [];
+        if (sorter != null && _combined.isNotEmpty) {
+          _combined.sort(sorter);
+        }
         return _combined.toList();
       });
 }

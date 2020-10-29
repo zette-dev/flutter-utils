@@ -21,6 +21,7 @@ extension DateTimeExtensions on DateTime {
       ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 
   String timeAgo(DateTime other, {DateFormat formatter}) {
+    assert(other != null);
     formatter ??= DateFormat('M/dd/yyyy');
     final _difference = other.difference(this);
     String _description;

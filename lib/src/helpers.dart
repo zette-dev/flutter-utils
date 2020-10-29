@@ -1,19 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' as flutter show compute;
+import 'package:flutter/foundation.dart' as flutter show compute, kDebugMode;
 import 'package:flutter/foundation.dart' show ComputeCallback;
 import 'package:flutter/widgets.dart';
-
-bool isInDebugMode() {
-  bool inDebugMode = false;
-  assert(inDebugMode = true);
-  return inDebugMode;
-}
 
 // WORKAROUND FOR NOW - isolates don't work with flutter driver
 // https://github.com/flutter/flutter/issues/24703
 Future<R> compute<Q, R>(ComputeCallback<Q, R> callback, Q message) async {
-  if (isInDebugMode()) {
+  if (flutter.kDebugMode) {
     return callback(message);
   }
 

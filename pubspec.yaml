@@ -11,17 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^3.0.10
-  firebase_core: ^0.5.0
-  firebase_analytics: ^6.0.1
-  firebase_crashlytics: ^0.2.1
-  rxdart: ^0.24.1
-  provider: ^4.3.2+2
   auto_size_text: ^2.1.0
   build_context: ^2.0.4
-  intl: ^0.16.1
-  url_launcher: ^5.7.2
+  dio: ^3.0.10
+  firebase_analytics: ^6.1.0
+  firebase_core: ^0.5.1
+  firebase_crashlytics: ^0.2.2
   flutter_email_sender: ^3.0.1
+  intl: ^0.16.1
+  provider: ^4.3.2+2
+  rxdart: ^0.24.1
+  url_launcher: ^5.7.8
 
 dev_dependencies:
   flutter_test:

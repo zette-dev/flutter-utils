@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:dropsource_utils/src/helpers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
@@ -29,7 +31,7 @@ abstract class EnvConfig<S> {
 
     if (initializeCrashlytics) {
       await FirebaseCrashlytics.instance
-          .setCrashlyticsCollectionEnabled(enableCrashlyiticsInDevMode);
+          .setCrashlyticsCollectionEnabled(kReleaseMode);
       // Pass all uncaught errors to Crashlytics.
       Function originalOnError = FlutterError.onError;
       FlutterError.onError = (FlutterErrorDetails errorDetails) async {

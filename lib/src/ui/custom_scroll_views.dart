@@ -155,7 +155,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
 
   void _listenToScrollChange() {
     // TODO: need a better way of doing this so I don't have to lookup context over scroll
-    final offset = context.mediaQueryPadding.top;
+    final offset = MediaQuery.of(context, nullOk: true)?.padding?.top ?? 0;
     if (_controller.offset >= widget.appBarExpandedHeight - offset && mounted) {
       setState(() {
         _isScrolled = true;

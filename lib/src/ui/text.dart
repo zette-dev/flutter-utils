@@ -453,8 +453,8 @@ class TextOverline extends TextWidget {
   TextStyle style(BuildContext context) => Theme.of(context).textTheme.overline;
 }
 
-class TextButton extends TextWidget {
-  TextButton(
+class ButtonText extends TextWidget {
+  ButtonText(
     String text, {
     Key key,
     List<String> args,
