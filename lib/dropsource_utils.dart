@@ -4,6 +4,7 @@ export 'src/app_config.dart';
 export 'src/collection_extensions.dart';
 export 'src/common_enums.dart';
 export 'src/date_time_extensions.dart';
+export 'src/file_extensions.dart';
 export 'src/formatters.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
