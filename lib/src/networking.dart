@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'helpers.dart' show compute;
+import 'package:equatable/equatable.dart';
 
 class NetworkConnectionError implements Exception {}
 

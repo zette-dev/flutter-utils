@@ -105,6 +105,11 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
   }
 }
 
+extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
+  Map<String, T> index() => Map<String, T>.fromIterable(this,
+      key: (item) => item.id, value: (item) => item);
+}
+
 // Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
 //         {int Function(T, T) sorter}) =>
 //     Rx.combineLatest<List<T>, List<T>>(streams, (list) {
