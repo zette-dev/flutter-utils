@@ -54,6 +54,10 @@ extension ListMethods<T> on List<T> {
           map..putIfAbsent(keyFunction(element), () => <T>[]).add(element));
 }
 
+extension IterableMethods<T> on Iterable<T> {
+  T get tryFirst => isNotEmpty ? first : null;
+}
+
 extension ListOfListMethods<T> on List<List<T>> {
   List<T> flatten() => isNotEmpty
       ? reduce((l1, l2) {
