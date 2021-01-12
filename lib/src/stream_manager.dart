@@ -61,11 +61,17 @@ extension StreamManagerExtensions<T extends NetworkingModel>
   Future executeWithLoading<V>(
     Future<V> future, {
     bool startLoading = true,
+    bool resetErrors = true,
     Function(V) then,
   }) {
-    if (startLoading) {
-      update(model.startLoading());
+    if (resetErrors) {
+      model = model.resetError();
     }
+    if (startLoading) {
+      model = model.startLoading();
+    }
+
+    update(model);
 
     return future
         .then(then ?? (_) => null)
