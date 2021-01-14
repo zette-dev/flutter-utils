@@ -15,9 +15,9 @@ dependencies:
   build_context: ^2.0.4
   dio: ^3.0.10
   equatable: ^1.2.5
-  firebase_analytics: ^6.3.0
-  firebase_core: ^0.5.3
-  firebase_crashlytics: ^0.2.4
+  firebase_analytics: ^7.0.1
+  firebase_core: ^0.7.0
+  firebase_crashlytics: ^0.4.0
   flutter_email_sender: ^4.0.0
   intl: ^0.16.1
   logging: ^0.11.4

@@ -136,7 +136,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
     super.initState();
     _controller = widget.scrollController ?? ScrollController();
     if (_requiresScrollListener) {
-      _controller.addListener(_listenToScrollChange);
+      _controller.addListener(_listenToScrollChange(context));
     }
 
     if (widget.loadMoreEnabled) {
@@ -153,19 +153,23 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
     }
   }
 
-  void _listenToScrollChange() {
-    // TODO: need a better way of doing this so I don't have to lookup context over scroll
-    final offset = MediaQuery.of(context, nullOk: true)?.padding?.top ?? 0;
-    if (_controller.offset >= widget.appBarExpandedHeight - offset && mounted) {
-      setState(() {
-        _isScrolled = true;
-      });
-    } else if (_isScrolled && mounted) {
-      setState(() {
-        _isScrolled = false;
-      });
-    }
-  }
+  VoidCallback _listenToScrollChange(BuildContext context) => () {
+        // TODO: need a better way of doing this so I don't have to lookup context over scroll
+        if (context != null) {
+          final offset =
+              MediaQuery.of(context, nullOk: true)?.padding?.top ?? 0;
+          if (_controller.offset >= widget.appBarExpandedHeight - offset &&
+              mounted) {
+            setState(() {
+              _isScrolled = true;
+            });
+          } else if (_isScrolled && mounted) {
+            setState(() {
+              _isScrolled = false;
+            });
+          }
+        }
+      };
 
   @override
   Widget build(BuildContext context) {
