@@ -80,11 +80,7 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
     if (direction == null || direction == MergeDirection.replace) {
       return newList;
     } else {
-      Map<String, T> _indexedNew = Map.fromEntries(
-        newList.map(
-          (item) => MapEntry(item.id, item),
-        ),
-      );
+      Map<String, T> _indexedNew = newList.index();
 
       // Replace any existing items in the initialList
       List<T> _updatedList = map((e) {
@@ -110,8 +106,13 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
 }
 
 extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
-  Map<String, T> index() => Map<String, T>.fromIterable(this,
-      key: (item) => item.id, value: (item) => item);
+  Map<String, T> index({List<T> merge}) {
+    return Map<String, T>.fromIterable(
+      [...this, ...(merge ?? [])],
+      key: (item) => item.id,
+      value: (item) => item,
+    );
+  }
 }
 
 // Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
