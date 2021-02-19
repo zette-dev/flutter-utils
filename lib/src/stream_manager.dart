@@ -94,9 +94,9 @@ extension StreamManagerExtensions<T extends NetworkingModel>
 
     update(model);
 
-    return future
-        .then(then ?? (_) => null)
-        .catchError((err) => model = model.toError(err))
-        .whenComplete(() => update(model.stopLoading()));
+    return future.then(then ?? (_) => null).catchError((err) {
+      model = model.toError(err);
+      return null;
+    }).whenComplete(() => update(model.stopLoading()));
   }
 }
