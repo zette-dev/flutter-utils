@@ -4,7 +4,7 @@ import 'package:dropsource_utils/src/networking_manager.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class DataStreamManager<D, M> extends StreamManager<M> {
-  DataStreamManager(D Function() api, M model, {List<Stream> dependencies})
+  DataStreamManager(D Function() api, M model, {List<Stream>? dependencies})
       : _api = api,
         super(model, dependencies: dependencies);
   final D Function() _api;
@@ -12,7 +12,8 @@ abstract class DataStreamManager<D, M> extends StreamManager<M> {
 }
 
 abstract class StreamManager<M> {
-  StreamManager(M model, {List<Stream> dependencies}) {
+  StreamManager(M model, {List<Stream>? dependencies})
+      : _lastUpdatedModel = model {
     update(model);
     if (dependencies != null && dependencies.isNotEmpty) {
       final _dependencyStreams = dependencies.where((s) => s != null);
@@ -27,8 +28,9 @@ abstract class StreamManager<M> {
 
   // final StreamController<M> _streamController = StreamController<M>.broadcast();
   Stream<M> get stream => _streamController.stream;
-  StreamSubscription _streamSubscription;
-  M _latestModel, _lastUpdatedModel;
+  StreamSubscription? _streamSubscription;
+  M? _latestModel;
+  M _lastUpdatedModel;
 
   // bool get isDirty => _dirtyModel != null;
 
@@ -51,7 +53,7 @@ abstract class StreamManager<M> {
   }
 
   void dispose() {
-    _streamController?.close();
+    _streamController.close();
     _streamSubscription?.cancel();
   }
 }
@@ -62,41 +64,41 @@ extension StreamManagerExtensions<T extends NetworkingModel>
     Future<V> future, {
     bool startLoading = true,
     bool resetErrors = true,
-    Function(V) then,
+    Function(V)? then,
   }) {
     if (resetErrors) {
-      model = model.resetError();
+      model = model.resetError() as T;
     }
     if (startLoading) {
-      model = model.startLoading();
+      model = model.startLoading() as T;
     }
 
     update(model);
 
     return future
         .then(then ?? (_) => null)
-        .catchError((err) => model = model.toError(err))
-        .whenComplete(() => update(model.stopLoading()));
+        .catchError((err) => model = model.toError(err) as T)
+        .whenComplete(() => update(model.stopLoading() as T));
   }
 
-  Future<V> executeWithLoadingReturn<V>(
+  Future<V?> executeWithLoadingReturn<V>(
     Future<V> future, {
     bool startLoading = true,
     bool resetErrors = true,
-    Future<V> Function(V) then,
+    Future<V?> Function(V)? then,
   }) {
     if (resetErrors) {
-      model = model.resetError();
+      model = model.resetError() as T;
     }
     if (startLoading) {
-      model = model.startLoading();
+      model = model.startLoading() as T;
     }
 
     update(model);
 
-    return future.then(then ?? (_) => null).catchError((err) {
-      model = model.toError(err);
+    return future.then(then ?? (_) async => null).catchError((err) {
+      model = model.toError(err) as T;
       return null;
-    }).whenComplete(() => update(model.stopLoading()));
+    }).whenComplete(() => update(model.stopLoading() as T));
   }
 }

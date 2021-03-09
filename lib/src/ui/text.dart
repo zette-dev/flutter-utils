@@ -6,19 +6,19 @@ import '../../dropsource_utils.dart';
 class TextHeadline1 extends TextWidget {
   TextHeadline1(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -37,26 +37,26 @@ class TextHeadline1 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline1;
 }
 
 class TextHeadline2 extends TextWidget {
   TextHeadline2(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -75,26 +75,26 @@ class TextHeadline2 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline2;
 }
 
 class TextHeadline3 extends TextWidget {
   TextHeadline3(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -113,26 +113,26 @@ class TextHeadline3 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline3;
 }
 
 class TextHeadline4 extends TextWidget {
   TextHeadline4(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -151,26 +151,26 @@ class TextHeadline4 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline4;
 }
 
 class TextHeadline5 extends TextWidget {
   TextHeadline5(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -189,26 +189,26 @@ class TextHeadline5 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline5;
 }
 
 class TextHeadline6 extends TextWidget {
   TextHeadline6(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -227,26 +227,26 @@ class TextHeadline6 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.headline6;
 }
 
 class TextSubtitle1 extends TextWidget {
   TextSubtitle1(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -265,26 +265,26 @@ class TextSubtitle1 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.subtitle1;
 }
 
 class TextSubtitle2 extends TextWidget {
   TextSubtitle2(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -303,26 +303,26 @@ class TextSubtitle2 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.subtitle2;
 }
 
 class TextBody1 extends TextWidget {
   TextBody1(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -341,26 +341,26 @@ class TextBody1 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.bodyText1;
 }
 
 class TextBody2 extends TextWidget {
   TextBody2(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -379,25 +379,26 @@ class TextBody2 extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) =>
+  TextStyle? style(BuildContext context) =>
       Theme.of(context).textTheme.bodyText2;
 }
 
 class TextCaption extends TextWidget {
   TextCaption(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -415,24 +416,25 @@ class TextCaption extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) => Theme.of(context).textTheme.caption;
+  TextStyle? style(BuildContext context) => Theme.of(context).textTheme.caption;
 }
 
 class TextOverline extends TextWidget {
   TextOverline(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    double fontSizeMultiplier,
-    TextStyle styles,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -450,25 +452,26 @@ class TextOverline extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) => Theme.of(context).textTheme.overline;
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.overline;
 }
 
 class ButtonText extends TextWidget {
   ButtonText(
     String text, {
-    Key key,
-    List<String> args,
-    bool shouldTranslate,
-    TextAlign textAlign,
-    TextOverflow overflow,
-    int maxLines,
-    double maxFontSize,
-    double minFontSize,
-    bool shouldAutoResize,
-    bool shouldUpperCase,
-    TextStyle styles,
-    double fontSizeMultiplier,
-    AutoSizeGroup resizeGroup,
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
   }) : super(
           text,
           key: key,
@@ -487,22 +490,22 @@ class ButtonText extends TextWidget {
         );
 
   @override
-  TextStyle style(BuildContext context) => Theme.of(context).textTheme.button;
+  TextStyle? style(BuildContext context) => Theme.of(context).textTheme.button;
 }
 
 abstract class TextWidget extends StatelessWidget {
   final String text;
-  final List<String> args;
-  final bool shouldTranslate;
-  final TextAlign textAlign;
-  final TextOverflow overflow;
-  final int maxLines;
-  final double maxFontSize, minFontSize;
-  final bool shouldUpperCase, shouldAutoResize;
-  final AutoSizeGroup resizeGroup;
-  final TextStyle styles;
-  final double fontSizeMultiplier;
-  TextStyle style(BuildContext context);
+  final List<String>? args;
+  final bool? shouldTranslate;
+  final TextAlign? textAlign;
+  final TextOverflow? overflow;
+  final int? maxLines;
+  final double? maxFontSize, minFontSize;
+  final bool? shouldUpperCase, shouldAutoResize;
+  final AutoSizeGroup? resizeGroup;
+  final TextStyle? styles;
+  final double? fontSizeMultiplier;
+  TextStyle? style(BuildContext context);
 
   TextWidget(
     this.text, {
@@ -518,7 +521,7 @@ abstract class TextWidget extends StatelessWidget {
     this.args,
     this.textAlign = TextAlign.start,
     this.shouldUpperCase,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   bool get _shouldTranslate => shouldTranslate ?? false;
@@ -527,8 +530,9 @@ abstract class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var translatedText = _shouldTranslate
-        ? Translations.of(context).textWithArgs(text, args ?? [])
+    final _translations = Translations.of(context);
+    var translatedText = _shouldTranslate && _translations != null
+        ? _translations.textWithArgs(text, args ?? [])
         : text;
     var formattedText =
         _shouldUpperCase ? translatedText.toUpperCase() : translatedText;
@@ -538,7 +542,7 @@ abstract class TextWidget extends StatelessWidget {
         styles == null ? style(context) : style(context)?.merge(styles);
 
     // This will auto
-    if (_shouldAutoResize ?? false) {
+    if (_shouldAutoResize) {
       return AutoSizeText(
         formattedText,
         overflow: overflow,
@@ -546,7 +550,7 @@ abstract class TextWidget extends StatelessWidget {
         textAlign: textAlign,
         maxLines: maxLines,
         group: resizeGroup,
-        maxFontSize: maxFontSize ?? _styles.fontSize,
+        maxFontSize: maxFontSize ?? _styles!.fontSize!,
         // (isTablet(context) ?? false)
         // ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
         // : _styles.fontSize,

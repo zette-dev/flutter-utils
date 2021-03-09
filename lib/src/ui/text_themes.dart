@@ -5,7 +5,7 @@
 //   final bool centered;
 //   final TextAlign alignment;
 
-//   const TitleText({Key key, @required this.text, this.centered, this.alignment})
+//   const TitleText({Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -22,7 +22,7 @@
 // class ButtonText extends StatelessWidget {
 //   final String text;
 
-//   const ButtonText({Key key, @required this.text}) : super(key: key);
+//   const ButtonText({Key key, required this.text}) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@
 //   final TextAlign alignment;
 
 //   const CaptionText(
-//       {Key key, @required this.text, this.centered, this.alignment})
+//       {Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -58,7 +58,7 @@
 //   final bool centered;
 //   final TextAlign alignment;
 
-//   const Body1Text({Key key, @required this.text, this.centered, this.alignment})
+//   const Body1Text({Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -77,7 +77,7 @@
 //   final bool centered;
 //   final TextAlign alignment;
 
-//   const Body2Text({Key key, @required this.text, this.centered, this.alignment})
+//   const Body2Text({Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -97,7 +97,7 @@
 //   final TextAlign alignment;
 
 //   const OverlineText(
-//       {Key key, @required this.text, this.centered, this.alignment})
+//       {Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -117,7 +117,7 @@
 //   final TextAlign alignment;
 
 //   const HeadlineText(
-//       {Key key, @required this.text, this.centered, this.alignment})
+//       {Key key, required this.text, this.centered, this.alignment})
 //       : super(key: key);
 
 //   @override
@@ -139,7 +139,7 @@
 
 //   _Text({
 //     Key key,
-//     @required this.text,
+//     required this.text,
 //     this.centered = false,
 //     this.style,
 //     this.alignment = TextAlign.start,

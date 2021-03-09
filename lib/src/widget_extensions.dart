@@ -7,7 +7,7 @@ extension WidgetExtensions on Widget {
   Widget paddedSides(double padding) =>
       Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
 
-  Widget slivered({EdgeInsets padding}) {
+  Widget slivered({EdgeInsets? padding}) {
     Widget _sliver = SliverToBoxAdapter(child: this);
     if (padding != null) {
       return SliverPadding(padding: padding, sliver: _sliver);

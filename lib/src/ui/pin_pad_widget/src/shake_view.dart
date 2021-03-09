@@ -9,8 +9,8 @@ class ShakeView extends StatelessWidget {
   final Animation _anim;
 
   ShakeView(
-      {@required this.child,
-      @required this.controller,
+      {required this.child,
+      required this.controller,
       double begin = 50,
       double end = 150})
       : _anim = Tween<double>(begin: begin, end: end).animate(controller);
@@ -35,7 +35,7 @@ class ShakeView extends StatelessWidget {
 
 class ShakeController extends AnimationController {
   ShakeController({
-    @required TickerProvider vsync,
+    required TickerProvider vsync,
     Duration duration = const Duration(milliseconds: 10000),
   }) : super(vsync: vsync, duration: duration);
 

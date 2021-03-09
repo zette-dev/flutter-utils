@@ -1,5 +1,12 @@
 import 'dart:io';
 
 extension FileExtensions on File {
-  String get fileExtension => path?.split('.')?.last?.toLowerCase();
+  String? get fileExtension {
+    List<String> _path = path.split('.');
+    if (_path.isNotEmpty) {
+      return _path.last.toLowerCase();
+    }
+
+    return null;
+  }
 }

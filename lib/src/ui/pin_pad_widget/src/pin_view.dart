@@ -3,10 +3,16 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 
 class PinView extends StatelessWidget {
-  PinView({this.code, this.length = 6, this.outlineColor, this.pinFillColor});
+  PinView({
+    required this.code,
+    required this.outlineColor,
+    this.pinFillColor,
+    this.length = 6,
+  });
   final String code;
   final int length;
-  final Color outlineColor, pinFillColor;
+  final Color outlineColor;
+  final Color? pinFillColor;
 
   Widget _buildItem(bool isEmpty) {
     return Container(

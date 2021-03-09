@@ -14,7 +14,7 @@ extension StringFormatting on String {
   }
 }
 
-String formatPhoneNumber(String phoneNumber) {
+String? formatPhoneNumber(String? phoneNumber) {
   if (phoneNumber == null) {
     return '';
   }
@@ -62,13 +62,13 @@ String formatPhoneNumber(String phoneNumber) {
 final RegExp _emailRegex = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
-String emailValidator(String emailInput,
+String? emailValidator(String? emailInput,
     {bool isRequired = false, String errorMessage = 'Invalid Email Address'}) {
   if (!isRequired && (emailInput == null || emailInput.isEmpty)) {
     return null;
   }
 
-  return !_emailRegex.hasMatch(emailInput) ? errorMessage : null;
+  return !_emailRegex.hasMatch(emailInput!) ? errorMessage : null;
 }
 
 class MaskedTextInputFormatter extends TextInputFormatter {
@@ -76,9 +76,9 @@ class MaskedTextInputFormatter extends TextInputFormatter {
   final String separator;
 
   MaskedTextInputFormatter({
-    @required this.mask,
-    @required this.separator,
-  })  : assert(mask != null),
+    required this.mask,
+    required this.separator,
+  })   : assert(mask != null),
         assert(separator != null);
 
   @override

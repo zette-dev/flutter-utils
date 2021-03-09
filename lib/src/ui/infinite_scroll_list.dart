@@ -6,8 +6,8 @@ import 'grouped_list_view.dart';
 class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
   InfiniteScrollList({
     this.listKey,
-    this.model,
-    this.itemBuilder,
+    required this.model,
+    required this.itemBuilder,
     this.separatorBuilder,
     this.errorBuilder,
     this.emptyBuilder,
@@ -16,24 +16,25 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
     this.scrollController,
     this.refreshColor,
     this.refreshBackgroundColor,
-    this.brightness,
+    this.brightness = Brightness.light,
     this.overlays,
     this.padding,
     this.extraItemCount,
   }) : key = listKey != null ? PageStorageKey(listKey) : null;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final ListNetworkingModel<T> model;
-  final Color refreshColor, refreshBackgroundColor;
-  final String listKey;
-  final RefreshCallback onRefresh, onLoadMore;
-  final IndexedWidgetBuilder itemBuilder, separatorBuilder;
-  final WidgetBuilder errorBuilder, emptyBuilder;
+  final Color? refreshColor, refreshBackgroundColor;
+  final String? listKey;
+  final RefreshCallback? onRefresh, onLoadMore;
+  final IndexedWidgetBuilder itemBuilder;
+  final IndexedWidgetBuilder? separatorBuilder;
+  final WidgetBuilder? errorBuilder, emptyBuilder;
   final Brightness brightness;
-  final List<Widget> overlays;
-  final EdgeInsetsGeometry padding;
-  final int extraItemCount;
+  final List<Widget>? overlays;
+  final EdgeInsetsGeometry? padding;
+  final int? extraItemCount;
 
-  final PageStorageKey key;
+  final PageStorageKey? key;
 
   int get extraItemsNeeded {
     int _count = extraItemCount ?? 0;
@@ -54,18 +55,18 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
 
   int get calculatedItemCount => model.itemCount + extraItemsNeeded;
 
-  bool get hasDataOrIsLoading => model.hasData || (model.isInProgress ?? false);
+  bool get hasDataOrIsLoading => model.hasData || (model.isInProgress);
 
   RefreshIndicator refreshableList() => RefreshIndicator(
         backgroundColor: refreshBackgroundColor,
         color: refreshColor,
-        onRefresh: onRefresh,
+        onRefresh: onRefresh!,
         child: listView(scrollController),
       );
 
   ScrollPhysics get scrollPhysics => const AlwaysScrollableScrollPhysics();
 
-  Widget listView(ScrollController controller) {
+  Widget listView(ScrollController? controller) {
     if (separatorBuilder == null) {
       return ListView.builder(
         key: key,
@@ -83,7 +84,7 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
         physics: scrollPhysics,
         itemCount: calculatedItemCount,
         padding: padding,
-        separatorBuilder: separatorBuilder,
+        separatorBuilder: separatorBuilder ?? (_, __) => SizedBox(),
         itemBuilder:
             hasDataOrIsLoading ? hasDataOrLoadingBuilder : emptyOrErrorBuilder,
       );
@@ -114,10 +115,12 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
   Widget emptyOrErrorBuilder(BuildContext context, int position) {
     if (position == calculatedItemCount - 1) {
       // Scroll more loader
-      if (model.hasError) {
-        return errorBuilder(context);
+      if (model.hasError && errorBuilder != null) {
+        return errorBuilder!(context);
+      } else if (!model.hasData && emptyBuilder != null) {
+        return emptyBuilder!(context);
       } else {
-        return emptyBuilder(context);
+        return SizedBox();
       }
     } else {
       return itemBuilder(context, position);
@@ -133,22 +136,25 @@ class _InfinteScrollListState extends State<InfiniteScrollList> {
   void initState() {
     super.initState();
     if (widget.scrollController != null && widget.loadMoreEnabled)
-      widget.scrollController.addListener(_scrollListener);
+      widget.scrollController!.addListener(_scrollListener);
   }
 
   void _scrollListener() {
-    if (widget.scrollController.position.pixels ==
-            widget.scrollController.position.maxScrollExtent &&
+    if (widget.scrollController == null || widget.onLoadMore == null) {
+      return;
+    }
+    if (widget.scrollController!.position.pixels ==
+            widget.scrollController!.position.maxScrollExtent &&
         widget.model.shouldLoadMore) {
       print('LOAD MORE');
-      widget.onLoadMore();
+      widget.onLoadMore!();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return LoadingWrapper(
-      loading: widget.model?.isInProgress,
+      loading: widget.model.isInProgress,
       loaderBrightness: widget.brightness,
       children: <Widget>[
         if (widget.onRefresh != null)
@@ -164,25 +170,25 @@ class _InfinteScrollListState extends State<InfiniteScrollList> {
 class GroupedInfiniteScrollList<T extends Identifiable, E>
     extends InfiniteScrollList<T> {
   GroupedInfiniteScrollList({
-    this.groupBy,
-    this.groupSeparatorBuilder,
+    required this.groupBy,
+    required this.groupSeparatorBuilder,
+    required ListNetworkingModel<T> model,
+    required IndexedWidgetBuilder itemBuilder,
     this.useStickHeader = false,
-    ScrollController scrollController,
-    ListNetworkingModel<T> model,
-    Color refreshColor,
-    Color refreshBackgroundColor,
-    String listKey,
-    RefreshCallback onRefresh,
-    RefreshCallback onLoadMore,
-    IndexedWidgetBuilder itemBuilder,
-    IndexedWidgetBuilder separatorBuilder,
-    WidgetBuilder errorBuilder,
-    WidgetBuilder emptyBuilder,
-    Brightness brightness,
-    List<Widget> overlays,
-    EdgeInsetsGeometry padding,
-    int extraItemCount,
-    this.order,
+    ScrollController? scrollController,
+    Color? refreshColor,
+    Color? refreshBackgroundColor,
+    String? listKey,
+    RefreshCallback? onRefresh,
+    RefreshCallback? onLoadMore,
+    IndexedWidgetBuilder? separatorBuilder,
+    WidgetBuilder? errorBuilder,
+    WidgetBuilder? emptyBuilder,
+    Brightness brightness = Brightness.light,
+    List<Widget>? overlays,
+    EdgeInsetsGeometry? padding,
+    int? extraItemCount,
+    this.order = GroupedListOrder.ASC,
   }) : super(
           scrollController: scrollController,
           model: model,
@@ -206,7 +212,7 @@ class GroupedInfiniteScrollList<T extends Identifiable, E>
   final bool useStickHeader;
   final GroupedListOrder order;
   @override
-  Widget listView(ScrollController controller) {
+  Widget listView(ScrollController? controller) {
     return GroupedListView<T, E>(
       key: super.key,
       elements: model.listData,

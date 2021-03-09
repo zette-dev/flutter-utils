@@ -5,7 +5,8 @@ import 'package:flutter/widgets.dart';
 class GroupedListView<T, E> extends StatefulWidget {
   final E Function(T element) groupBy;
   final Widget Function(BuildContext context, E value) groupSeparatorBuilder;
-  final Widget Function(BuildContext context, T element, int index) itemBuilder,
+  final Widget Function(BuildContext context, T element, int index) itemBuilder;
+  final Widget Function(BuildContext context, T element, int index)?
       indexedItemBuilder;
   final GroupedListOrder order;
   final bool sort;
@@ -13,25 +14,25 @@ class GroupedListView<T, E> extends StatefulWidget {
   final Widget separator;
   final List<T> elements;
   final bool floatingHeader;
-  
+
   @override
-  final Key key;
-  final ScrollController controller;
-  final Axis scrollDirection;
-  final bool primary;
-  final ScrollPhysics physics;
-  final bool shrinkWrap;
-  final EdgeInsetsGeometry padding;
+  final Key? key;
+  final ScrollController? controller;
+  final Axis? scrollDirection;
+  final bool? primary;
+  final ScrollPhysics? physics;
+  final bool? shrinkWrap;
+  final EdgeInsetsGeometry? padding;
   final bool addAutomaticKeepAlives;
   final bool addRepaintBoundaries;
   final bool addSemanticIndexes;
-  final double cacheExtent;
+  final double? cacheExtent;
 
   GroupedListView({
-    @required this.elements,
-    @required this.groupBy,
-    @required this.groupSeparatorBuilder,
-    this.itemBuilder,
+    required this.elements,
+    required this.groupBy,
+    required this.groupSeparatorBuilder,
+    required this.itemBuilder,
     this.indexedItemBuilder,
     this.order = GroupedListOrder.ASC,
     this.sort = true,
@@ -56,19 +57,17 @@ class GroupedListView<T, E> extends StatefulWidget {
 }
 
 class _GroupedListViewState<T, E> extends State<GroupedListView<T, E>> {
-  ScrollController _controller;
-  Map<String, GlobalKey> _keys = LinkedHashMap<String, GlobalKey>();
-  GlobalKey _groupHeaderKey;
+  ScrollController? _controller;
+  final Map<String, GlobalKey> _keys = LinkedHashMap<String, GlobalKey>();
+  GlobalKey? _groupHeaderKey;
   List<T> _sortedElements = [];
   final GlobalKey _key = GlobalKey();
   int _topElementIndex = 0;
 
   @override
   void dispose() {
-    _controller.removeListener(_scrollListener);
-    if (widget.controller == null) {
-      _controller.dispose();
-    }
+    _controller?.removeListener(_scrollListener);
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -81,11 +80,11 @@ class _GroupedListViewState<T, E> extends State<GroupedListView<T, E>> {
       children: <Widget>[
         ListView.builder(
           key: widget.key,
-          scrollDirection: widget.scrollDirection,
+          scrollDirection: widget.scrollDirection ?? Axis.vertical,
           controller: _getController(),
           primary: widget.primary,
           physics: widget.physics,
-          shrinkWrap: widget.shrinkWrap,
+          shrinkWrap: widget.shrinkWrap ?? false,
           padding: widget.padding,
           itemCount: _sortedElements.length * 2,
           addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
@@ -125,30 +124,33 @@ class _GroupedListViewState<T, E> extends State<GroupedListView<T, E>> {
         child: widget.indexedItemBuilder == null
             ? widget.itemBuilder(
                 context, _sortedElements[actualIndex], actualIndex)
-            : widget.indexedItemBuilder(
+            : widget.indexedItemBuilder!(
                 context, _sortedElements[actualIndex], actualIndex));
   }
 
   ScrollController _getController() {
-    _controller =
-        widget.controller == null ? ScrollController() : widget.controller;
+    _controller ??= widget.controller ?? ScrollController();
     if (widget.useStickyGroupSeparators) {
-      _controller.addListener(_scrollListener);
+      _controller?.addListener(_scrollListener);
     }
-    return _controller;
+    return _controller!;
   }
 
   void _scrollListener() {
-    RenderBox listBox = _key.currentContext.findRenderObject();
-    double listPos = listBox.localToGlobal(Offset.zero).dy;
-    RenderBox headerBox = _groupHeaderKey.currentContext.findRenderObject();
-    double headerHeight = headerBox.size.height;
+    RenderBox? listBox = _key.currentContext?.findRenderObject() as RenderBox?;
+    double? listPos = listBox?.localToGlobal(Offset.zero).dy;
+    RenderBox? headerBox =
+        _groupHeaderKey?.currentContext?.findRenderObject() as RenderBox?;
+    double? headerHeight = headerBox?.size.height;
     double max = double.negativeInfinity;
     String topItemKey = '0';
     for (var entry in _keys.entries) {
       var key = entry.value;
-      if (_isListItemRendered(key)) {
-        RenderBox itemBox = key.currentContext.findRenderObject();
+      RenderBox? itemBox = key.currentContext?.findRenderObject() as RenderBox?;
+      if (_isListItemRendered(key) &&
+          itemBox != null &&
+          listPos != null &&
+          headerHeight != null) {
         double y =
             itemBox.localToGlobal(Offset(0, -listPos - 2 * headerHeight)).dy;
         if (y <= 0 && y > max) {
@@ -201,7 +203,7 @@ class _GroupedListViewState<T, E> extends State<GroupedListView<T, E>> {
 
   bool _isListItemRendered(GlobalKey<State<StatefulWidget>> key) {
     return key.currentContext != null &&
-        key.currentContext.findRenderObject() != null;
+        key.currentContext?.findRenderObject() != null;
   }
 }
 

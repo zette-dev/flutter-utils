@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PlatformWidget extends StatelessWidget {
-  PlatformWidget({this.ios, this.android});
+  PlatformWidget({required this.ios, required this.android});
   final Widget Function(BuildContext) ios;
   final Widget Function(BuildContext) android;
   @override
@@ -15,19 +15,19 @@ class PlatformWidget extends StatelessWidget {
 
 class PlatformTabBar extends StatelessWidget {
   PlatformTabBar({
-    this.items,
+    required this.items,
     this.activeColor,
-    this.inactiveColor,
+    required this.inactiveColor,
     this.backgroundColor,
-    this.currentIndex,
+    required this.currentIndex,
     this.onTap,
   });
   final List<BottomNavigationBarItem> items;
-  final Color activeColor;
+  final Color? activeColor;
   final Color inactiveColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final int currentIndex;
-  final Function(int) onTap;
+  final Function(int)? onTap;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -63,15 +63,15 @@ class PlatformTabBar extends StatelessWidget {
 
 class PlatformSwitch extends StatelessWidget {
   PlatformSwitch({
-    @required this.value,
-    @required this.onChanged,
+    required this.value,
+    required this.onChanged,
     this.activeColor,
     this.materialTapTargetSize,
   });
   final bool value;
   final Function(bool) onChanged;
-  final Color activeColor;
-  final MaterialTapTargetSize materialTapTargetSize;
+  final Color? activeColor;
+  final MaterialTapTargetSize? materialTapTargetSize;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -91,15 +91,15 @@ class PlatformSwitch extends StatelessWidget {
 }
 
 class PlatformLoader extends StatelessWidget {
-  const PlatformLoader(
-      {Key key,
-      this.centered,
-      this.color,
-      this.brightness = Brightness.light,
-      this.size = 15.0})
-      : super(key: key);
-  final bool centered;
-  final Color color;
+  const PlatformLoader({
+    Key? key,
+    this.color,
+    this.centered,
+    this.brightness = Brightness.light,
+    this.size = 15.0,
+  }) : super(key: key);
+  final bool? centered;
+  final Color? color;
   final Brightness brightness;
   final double size;
 
@@ -114,7 +114,8 @@ class PlatformLoader extends StatelessWidget {
         data: CupertinoTheme.of(context).copyWith(brightness: brightness),
       ),
       android: (context) => CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(color)),
+          valueColor:
+              color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
     );
 
     if (centered ?? false) {
@@ -127,9 +128,9 @@ class PlatformLoader extends StatelessWidget {
 
 class PlatformButton extends StatelessWidget {
   PlatformButton({
-    Key key,
-    @required this.child,
-    @required this.onPressed,
+    Key? key,
+    required this.child,
+    required this.onPressed,
     this.color,
     this.disabledColor,
     this.padding,
@@ -137,9 +138,10 @@ class PlatformButton extends StatelessWidget {
   }) : super(key: key);
   final Widget child;
   final void Function() onPressed;
-  final Color color, disabledColor;
-  final EdgeInsetsGeometry padding;
-  final BorderRadius borderRadius;
+  final Color? color;
+  final Color? disabledColor;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadius? borderRadius;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -166,8 +168,8 @@ class PlatformButton extends StatelessWidget {
 
 Route<T> platformRoute<T>(
   BuildContext context, {
-  WidgetBuilder builder,
-  RouteSettings settings,
+  required WidgetBuilder builder,
+  RouteSettings? settings,
   bool fullscreenDialog = false,
 }) {
   if (Theme.of(context).platform == TargetPlatform.iOS) {
@@ -185,8 +187,8 @@ Route<T> platformRoute<T>(
   }
 }
 
-Future<T> showPlatformDialog<T>(BuildContext context,
-    {String title, String content, List<Widget> actions}) {
+Future<T?> showPlatformDialog<T>(BuildContext context,
+    {String? title, String? content, List<Widget>? actions}) {
   final _title = title != null ? Text(title) : null;
   final _content = content != null ? Text(content) : null;
 
@@ -210,7 +212,7 @@ Future<T> showPlatformDialog<T>(BuildContext context,
 }
 
 void showPlatformBottomSheet(BuildContext context,
-    {List<Widget> actions, TextStyle style}) {
+    {List<Widget>? actions, TextStyle? style}) {
   if (Theme.of(context).platform == TargetPlatform.iOS) {
     showCupertinoModalPopup(
         context: context,
@@ -227,7 +229,7 @@ void showPlatformBottomSheet(BuildContext context,
       context: context,
       builder: (ctx) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: actions,
+        children: actions ?? [],
       ),
     );
   }

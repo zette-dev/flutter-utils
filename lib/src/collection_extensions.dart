@@ -5,13 +5,13 @@ extension MapListMethods<K, T> on Map<K, List<T>> {
   Map<K, List<T>> filter(
     bool Function(T) filterList,
   ) {
-    final List<K> _keys = keys?.toList() ?? [];
+    final List<K> _keys = keys.toList();
     if (_keys.isNotEmpty) {
       _keys.sort();
     }
     var map = <K, List<T>>{};
     for (var key in _keys) {
-      final _list = this[key].where(filterList).toList();
+      final _list = this[key]?.where(filterList).toList() ?? [];
       if (_list.isNotEmpty) {
         map.putIfAbsent(key, () => _list);
       }
@@ -55,7 +55,7 @@ extension ListMethods<T> on List<T> {
 }
 
 extension IterableMethods<T> on Iterable<T> {
-  T get tryFirst => isNotEmpty ? first : null;
+  T? get tryFirst => isNotEmpty ? first : null;
 }
 
 extension ListOfListMethods<T> on List<List<T>> {
@@ -74,8 +74,8 @@ extension ListOfListMethods<T> on List<List<T>> {
 
 extension IdentifiableListMethods<T extends Identifiable> on List<T> {
   List<T> merge({
-    MergeDirection direction,
-    List<T> newList,
+    MergeDirection? direction,
+    required List<T> newList,
   }) {
     if (direction == null || direction == MergeDirection.replace) {
       return newList;
@@ -84,7 +84,7 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
 
       // Replace any existing items in the initialList
       List<T> _updatedList = map((e) {
-        T _obj = _indexedNew[e.id];
+        T? _obj = _indexedNew[e.id];
         if (_obj == null) {
           return e;
         } else {
@@ -106,7 +106,7 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
 }
 
 extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
-  Map<String, T> index({List<T> merge}) {
+  Map<String, T> index({List<T>? merge}) {
     return Map<String, T>.fromIterable(
       [...this, ...(merge ?? [])],
       key: (item) => item.id,
@@ -132,9 +132,9 @@ extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
 //     });
 
 extension FutureListExtension<T> on List<Future<List<T>>> {
-  Future<List<T>> mergeFuturesList({int Function(T, T) sorter}) =>
+  Future<List<T>> mergeFuturesList({int Function(T, T)? sorter}) =>
       Future.wait(this).then((list) {
-        final _combined = list?.flatten()?.toList() ?? [];
+        final _combined = list.flatten().toList();
         if (sorter != null && _combined.isNotEmpty) {
           _combined.sort(sorter);
         }

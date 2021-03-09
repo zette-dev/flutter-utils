@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 
 class PinKeyboard extends StatelessWidget {
   final Function(String) onPressedKey;
-  final VoidCallback onBackPressed;
+  final VoidCallback? onBackPressed;
   final TextStyle textStyle;
-  final Decoration keyDecoration;
-  final String code;
-  final Map<String, Key> pinKeys;
-  final EdgeInsets keyPadding;
-  final IconData backIcon;
+  final Decoration? keyDecoration;
+  final String? code;
+  final Map<String, Key>? pinKeys;
+  final EdgeInsets? keyPadding;
+  final IconData? backIcon;
   final Duration tapDuration;
   PinKeyboard({
     this.code,
-    this.onPressedKey,
+    required this.onPressedKey,
     this.onBackPressed,
-    this.textStyle,
+    required this.textStyle,
     this.pinKeys,
     this.keyDecoration,
     this.keyPadding,
     this.backIcon,
-    this.tapDuration = const Duration(milliseconds: 90),
+    this.tapDuration = const Duration(milliseconds: 70),
   });
 
-  Widget _iconButton(String title, Key key) => AnimatedTap(
+  Widget _iconButton(String title, Key? key) => AnimatedTap(
         key: key,
         duration: tapDuration,
         child: Container(
@@ -35,8 +35,8 @@ class PinKeyboard extends StatelessWidget {
                 style: textStyle,
               ),
             ),
-            height: textStyle.fontSize + 2,
-            width: textStyle.fontSize + 2,
+            height: textStyle.fontSize! + 2,
+            width: textStyle.fontSize! + 2,
           ),
           padding: keyPadding,
           decoration: keyDecoration,
@@ -60,9 +60,9 @@ class PinKeyboard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _iconButton('1', pinKeys['1']),
-                _iconButton('2', pinKeys['2']),
-                _iconButton('3', pinKeys['3']),
+                _iconButton('1', pinKeys?['1']),
+                _iconButton('2', pinKeys?['2']),
+                _iconButton('3', pinKeys?['3']),
               ],
             ),
           ),
@@ -71,9 +71,9 @@ class PinKeyboard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _iconButton('4', pinKeys['4']),
-                _iconButton('5', pinKeys['5']),
-                _iconButton('6', pinKeys['6']),
+                _iconButton('4', pinKeys?['4']),
+                _iconButton('5', pinKeys?['5']),
+                _iconButton('6', pinKeys?['6']),
               ],
             ),
           ),
@@ -82,9 +82,9 @@ class PinKeyboard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _iconButton('7', pinKeys['7']),
-                _iconButton('8', pinKeys['8']),
-                _iconButton('9', pinKeys['9']),
+                _iconButton('7', pinKeys?['7']),
+                _iconButton('8', pinKeys?['8']),
+                _iconButton('9', pinKeys?['9']),
               ],
             ),
           ),
@@ -98,7 +98,7 @@ class PinKeyboard extends StatelessWidget {
                   splashColor: Colors.transparent,
                   icon: SizedBox(),
                 ),
-                _iconButton('0', pinKeys['0']),
+                _iconButton('0', pinKeys?['0']),
                 IconButton(
                   splashColor: Colors.transparent,
                   onPressed: (backIcon != null && onBackPressed != null)
@@ -108,7 +108,7 @@ class PinKeyboard extends StatelessWidget {
                       ? SizedBox()
                       : Icon(
                           backIcon,
-                          color: textStyle?.color,
+                          color: textStyle.color,
                         ),
                 ),
               ],

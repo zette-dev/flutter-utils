@@ -1,15 +1,15 @@
 mixin SearchObject {
-  bool isSearchMatch(List<String> searchIndex) => true;
+  bool isSearchMatch(List<String>? searchIndex) => true;
 }
 
 mixin SearchModel {
-  String get searchTerm;
-  bool get hasSearch => searchTerm != null && searchTerm.isNotEmpty;
-  List<String> get searchIndex =>
-      searchTerm?.split(' ')?.map((e) => e.toLowerCase())?.toList();
+  String? get searchTerm;
+  bool get hasSearch => searchTerm?.isNotEmpty ?? false;
+  List<String>? get searchIndex =>
+      searchTerm?.split(' ').map((e) => e.toLowerCase()).toList();
 
   List<T> searchResults<T extends SearchObject>(List<T> initialData,
-      {bool Function(T) filter}) {
+      {bool Function(T)? filter}) {
     final _index = searchIndex;
     List<T> _r = initialData ?? [];
     if (filter != null) {

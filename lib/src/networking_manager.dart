@@ -4,12 +4,12 @@ import 'networking.dart' show NetworkConnectionError;
 class _GenericListNetorkingModel<T extends Identifiable>
     extends ListNetworkingModel<T> {
   _GenericListNetorkingModel({
-    bool isConnectedToNetwork,
-    bool isInProgress,
-    bool isLoadingMore,
-    bool canLoadMore,
-    List<T> listData,
-    dynamic error,
+    bool? isConnectedToNetwork,
+    bool? isInProgress,
+    bool? isLoadingMore,
+    bool? canLoadMore,
+    List<T>? listData,
+    dynamic? error,
   }) : super(
           isConnectedToNetwork: isConnectedToNetwork,
           isInProgress: isInProgress,
@@ -29,15 +29,15 @@ class _GenericListNetorkingModel<T extends Identifiable>
 abstract class ListNetworkingModel<T extends Identifiable>
     extends NetworkingModel {
   ListNetworkingModel({
-    bool isConnectedToNetwork,
-    bool isInProgress,
-    bool isLoadingMore,
-    bool canLoadMore,
-    List<T> listData,
-    dynamic error,
+    bool? isConnectedToNetwork,
+    bool? isInProgress,
+    bool? isLoadingMore,
+    bool? canLoadMore,
+    List<T>? listData,
+    dynamic? error,
   })  : _isLoadingMore = isLoadingMore ?? false,
         _canLoadMore = canLoadMore ?? true,
-        _listData = listData,
+        _listData = listData ?? [],
         super(
           isInProgress: isInProgress,
           isConnectedToNetwork: isConnectedToNetwork,
@@ -45,12 +45,12 @@ abstract class ListNetworkingModel<T extends Identifiable>
         );
 
   static ListNetworkingModel<T> generic<T extends Identifiable>({
-    bool isConnectedToNetwork,
-    bool isInProgress,
-    bool isLoadingMore,
-    bool canLoadMore,
-    List<T> listData,
-    dynamic error,
+    bool? isConnectedToNetwork,
+    bool? isInProgress,
+    bool? isLoadingMore,
+    bool? canLoadMore,
+    List<T>? listData,
+    dynamic? error,
   }) =>
       _GenericListNetorkingModel<T>(
         isConnectedToNetwork: isConnectedToNetwork,
@@ -62,14 +62,14 @@ abstract class ListNetworkingModel<T extends Identifiable>
       );
 
   List<T> _listData;
-  List<T> get listData => _listData ?? [];
+  List<T> get listData => _listData;
 
   // LOADING MORE
   bool _isLoadingMore;
   bool get isLoadingMore => _isLoadingMore;
 
   bool _canLoadMore;
-  bool get canLoadMore => _canLoadMore ?? true;
+  bool get canLoadMore => _canLoadMore;
 
   bool get shouldLoadMore =>
       canLoadMore && !isLoadingMore && itemCount >= collectionSize;
@@ -107,11 +107,11 @@ extension ListNetworkingMutators on ListNetworkingModel {
 
 abstract class NetworkingModel {
   NetworkingModel({
-    bool isConnectedToNetwork,
-    bool isInProgress,
-    dynamic error,
+    bool? isConnectedToNetwork,
+    bool? isInProgress,
+    dynamic? error,
   })  : _isConnectedToNetwork = isConnectedToNetwork ?? true,
-        _isInProgress = isInProgress,
+        _isInProgress = isInProgress ?? false,
         _error = error;
 
   // PROGRESS

@@ -20,8 +20,7 @@ extension DateTimeExtensions on DateTime {
   static bool isLeapYear(int year) =>
       ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 
-  String timeAgo(DateTime other, {DateFormat formatter}) {
-    assert(other != null);
+  String timeAgo(DateTime other, {DateFormat? formatter}) {
     formatter ??= DateFormat('M/dd/yyyy');
     final _difference = other.difference(this);
     String _description;

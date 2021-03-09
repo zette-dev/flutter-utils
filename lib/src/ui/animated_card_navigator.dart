@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 
 class AnimatedTap extends StatefulWidget {
   AnimatedTap({
-    Key key,
-    @required this.child,
-    @required this.onPressed,
+    Key? key,
+    required this.child,
+    required this.onPressed,
     this.start = 0.0,
     this.end = 0.04,
     this.duration = const Duration(milliseconds: 70),
@@ -45,7 +45,7 @@ class _AnimatedTapState extends State<AnimatedTap> {
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: widget.start, end: _end),
       duration: widget.duration,
-      builder: (BuildContext context, double size, Widget child) {
+      builder: (BuildContext context, double size, Widget? child) {
         double _transformScale = 1 - size;
 
         return GestureDetector(

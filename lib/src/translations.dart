@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
@@ -27,7 +27,7 @@ class Translations {
 
   static Map<String, dynamic> _localizedValues = <String, dynamic>{};
 
-  static Translations of(BuildContext context) {
+  static Translations? of(BuildContext context) {
     return Localizations.of<Translations>(context, Translations);
   }
 
@@ -108,7 +108,7 @@ abstract class TranslationsBundleLoader {
 
 class FileTranslationsBundleLoader extends TranslationsBundleLoader {
   final String path;
-  final AssetBundle bundle; // Defaults to rootBundle if none provided
+  final AssetBundle? bundle; // Defaults to rootBundle if none provided
   FileTranslationsBundleLoader(this.path, {this.bundle}) : super();
 
   @override
@@ -122,7 +122,7 @@ class FileTranslationsBundleLoader extends TranslationsBundleLoader {
 
 class TranslationsDelegate extends LocalizationsDelegate<Translations> {
   final TranslationsBundleLoader bundleLoader;
-  final Locale defaultLocale;
+  final Locale? defaultLocale;
   final List<Locale> supportedLocales;
   const TranslationsDelegate(
     this.bundleLoader, {

@@ -4,23 +4,25 @@ import 'platform_widgets.dart';
 
 class LoadingWrapper extends StatelessWidget {
   LoadingWrapper({
-    Key loaderKey,
-    this.children,
+    Key? loaderKey,
+    required this.children,
     this.loading,
     this.ignorePointerWhenLoading = true,
     this.loaderBrightness,
   }) : _loaderKey = loaderKey;
   final List<Widget> children;
-  final bool loading, ignorePointerWhenLoading;
-  final Key _loaderKey;
-  final Brightness loaderBrightness;
+  final bool? loading, ignorePointerWhenLoading;
+  final Key? _loaderKey;
+  final Brightness? loaderBrightness;
   @override
   Widget build(BuildContext context) {
     var _children = children ?? [];
     var _loading = loading ?? false;
     if (_loading)
       _children.add(PlatformLoader(
-          key: _loaderKey, centered: true, brightness: loaderBrightness));
+          key: _loaderKey,
+          centered: true,
+          brightness: loaderBrightness ?? Brightness.light));
     final _stack = Stack(
       alignment: AlignmentDirectional.center,
       children: _children,

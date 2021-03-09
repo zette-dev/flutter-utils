@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+
 import 'helpers.dart' show compute;
-import 'package:equatable/equatable.dart';
 
 class NetworkConnectionError implements Exception {}
 
@@ -13,9 +13,9 @@ class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
   ApiResponseError(this.message, {this.code, this.request});
-  final HTTPRequest request;
+  final HTTPRequest? request;
   final String message;
-  final int code;
+  final int? code;
 
   String toJson() => json.encode({
         'request': request?.path,
@@ -29,8 +29,8 @@ enum HTTPRequestMethod { GET, POST, PUT, DELETE, PATCH }
 @immutable
 class HTTPRequest {
   HTTPRequest({
-    @required this.method,
-    @required this.path,
+    required this.method,
+    required this.path,
     this.baseUrl,
     this.headers,
     this.query,
@@ -40,43 +40,39 @@ class HTTPRequest {
     this.autoRefreshToken = false,
   });
 
-  final String path, baseUrl;
-  final Map<String, String> headers, query;
+  final String path;
+  final String? baseUrl;
+  final Map<String, String>? headers, query;
   final dynamic body;
   final HTTPRequestMethod method;
   final bool authenticated, autoRefreshToken;
-  final String contentType;
+  final String? contentType;
 
   String get methodString {
     switch (method) {
       case HTTPRequestMethod.DELETE:
         return 'DELETE';
-        break;
       case HTTPRequestMethod.POST:
         return 'POST';
-        break;
       case HTTPRequestMethod.PUT:
         return 'PUT';
-        break;
       case HTTPRequestMethod.PATCH:
         return 'PATCH';
-        break;
       case HTTPRequestMethod.GET:
       default:
         return 'GET';
-        break;
     }
   }
 
   HTTPRequest copyWith({
-    String path,
-    String baseUrl,
-    Map<String, String> headers,
-    query,
-    dynamic body,
-    HTTPRequestMethod method,
-    String contentType,
-    bool authenticated,
+    String? path,
+    String? baseUrl,
+    Map<String, String>? headers,
+    Map<String, String>? query,
+    dynamic? body,
+    HTTPRequestMethod? method,
+    String? contentType,
+    bool? authenticated,
   }) {
     return HTTPRequest(
       path: path ?? this.path,
@@ -115,20 +111,19 @@ class HTTPRequest {
   Future<Response> execute(
     Dio client, {
     int refreshStatusCode = 401,
-    Future Function() refreshAuth,
+    Future Function()? refreshAuth,
   }) async {
     Map<String, dynamic> _extras = {'authenticated': false};
     if (authenticated) {
       _extras['authenticated'] = true;
     }
 
-    var options = RequestOptions(
+    var options = Options(
       headers: headers,
       method: methodString,
       extra: _extras,
       responseType: ResponseType.json,
       contentType: contentType?.toString(),
-      baseUrl: baseUrl ?? client.options?.baseUrl,
     );
 
     Future<Response> response = client.request(
@@ -140,9 +135,9 @@ class HTTPRequest {
 
     Future<Response> _handleFailedResponse(dynamic error) async {
       // auto refresh auth if enabled
-      return await refreshAuth().then((res) async {
+      return await (refreshAuth!().then((res) async {
         return await execute(client);
-      });
+      }));
     }
 
     void _handleUnauthenticatedResponse(dynamic error) {
@@ -155,21 +150,21 @@ class HTTPRequest {
     }
 
     bool _isResponseError(dynamic e) {
-      return e is DioError && e.type == DioErrorType.RESPONSE;
+      return e is DioError && e.type == DioErrorType.response;
     }
 
     bool _isRefreshableResponeError(dynamic e) {
       return e is DioError &&
           _isResponseError(e) &&
-          this.autoRefreshToken &&
-          e.response.statusCode == refreshStatusCode &&
+          autoRefreshToken &&
+          e.response?.statusCode == refreshStatusCode &&
           refreshAuth != null;
     }
 
     bool _isNonRefreshableResponeError(dynamic e) {
       return e is DioError &&
           _isResponseError(e) &&
-          e.response.statusCode == refreshStatusCode;
+          e.response?.statusCode == refreshStatusCode;
     }
 
     return await response
@@ -180,7 +175,7 @@ class HTTPRequest {
         .catchError(_handleNetworkIssues,
             test: (e) =>
                 e is DioError &&
-                e.type == DioErrorType.DEFAULT &&
+                e.type == DioErrorType.other &&
                 e.message.toLowerCase().contains('failed host lookup'));
   }
 }

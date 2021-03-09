@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:dropsource_utils/dropsource_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../dropsource_utils.dart';
 
 Future makeCall(String phoneNumber) async {
   // Strips out extensions
@@ -57,8 +58,8 @@ class DirectionsLauncher {
       canLaunch(wazeUrl).then((value) => _canOpenWazeMaps = value);
     }
   }
-  final String address;
-  final double lat, lng;
+  final String? address;
+  final double? lat, lng;
   bool get hasCoordinates => lat != null && lng != null;
 
   String get appleMapsUrl => 'https://maps.apple.com/?q=$lat,$lng';

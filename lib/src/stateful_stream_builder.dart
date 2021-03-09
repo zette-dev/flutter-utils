@@ -20,26 +20,25 @@ typedef OnWillChangeCallback<M> = void Function(M manager);
 typedef OnInitialBuildCallback<M> = void Function(M manager);
 
 class StatefulStreamBuilder<M, T> extends StatelessWidget {
-  final _Builder<M, T> builder;
-  final InitialDataCreator<M, T> initialData;
+  final _Builder<M, T?> builder;
+  final InitialDataCreator<M, T>? initialData;
   final StreamCreator<M, T> stream;
-  final IgnoreChangeTest<T> ignoreChange;
-  final OnInitCallback<M> onInit;
-  final OnDisposeCallback<M> onDispose;
-  final OnWillChangeCallback<M> onWillChange;
-  final OnInitialBuildCallback<M> onInitialBuild;
+  final IgnoreChangeTest<T>? ignoreChange;
+  final OnInitCallback<M>? onInit;
+  final OnDisposeCallback<M>? onDispose;
+  final OnWillChangeCallback<M>? onWillChange;
+  final OnInitialBuildCallback<M>? onInitialBuild;
   StatefulStreamBuilder({
-    Key key,
-    @required this.builder,
-    @required this.stream,
+    Key? key,
+    required this.builder,
+    required this.stream,
     this.ignoreChange,
     this.initialData,
     this.onInit,
     this.onDispose,
     this.onWillChange,
     this.onInitialBuild,
-  })  : assert(builder != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +58,20 @@ class StatefulStreamBuilder<M, T> extends StatelessWidget {
 
 class _StatefulLifecycleManager<M, T> extends StatefulWidget {
   final M manager;
-  final _Builder<M, T> builder;
-  final InitialDataCreator<M, T> initialData;
+  final _Builder<M, T?> builder;
+  final InitialDataCreator<M, T>? initialData;
   final StreamCreator<M, T> stream;
-  final IgnoreChangeTest<T> ignoreChange;
-  final OnInitCallback<M> onInit;
-  final OnDisposeCallback<M> onDispose;
-  final OnWillChangeCallback<M> onWillChange;
-  final OnInitialBuildCallback<M> onInitialBuild;
+  final IgnoreChangeTest<T>? ignoreChange;
+  final OnInitCallback<M>? onInit;
+  final OnDisposeCallback<M>? onDispose;
+  final OnWillChangeCallback<M>? onWillChange;
+  final OnInitialBuildCallback<M>? onInitialBuild;
 
   _StatefulLifecycleManager({
-    Key key,
-    @required this.builder,
-    @required this.stream,
-    @required this.manager,
+    Key? key,
+    required this.builder,
+    required this.stream,
+    required this.manager,
     this.initialData,
     this.onInit,
     this.onDispose,
@@ -93,13 +92,13 @@ class _StatefulLifecycleManagerState<M, T>
   void initState() {
     super.initState();
     if (widget.onInitialBuild != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.onInitialBuild(widget.manager);
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        widget.onInitialBuild!(widget.manager);
       });
     }
 
     if (widget.onInit != null) {
-      widget.onInit(widget.manager);
+      widget.onInit!(widget.manager);
     }
   }
 
@@ -108,7 +107,7 @@ class _StatefulLifecycleManagerState<M, T>
     super.dispose();
 
     if (widget.onDispose != null) {
-      widget.onDispose(widget.manager);
+      widget.onDispose!(widget.manager);
     }
   }
 
@@ -116,7 +115,7 @@ class _StatefulLifecycleManagerState<M, T>
   Widget build(BuildContext context) {
     return StreamBuilder<T>(
       initialData: widget.initialData != null
-          ? widget.initialData(widget.manager)
+          ? widget.initialData!(widget.manager)
           : null,
       stream: _createStream(),
       builder: (ctx, snapshot) =>
@@ -126,7 +125,7 @@ class _StatefulLifecycleManagerState<M, T>
 
   bool _ignoreChange(T model) {
     if (widget.ignoreChange != null) {
-      return !widget.ignoreChange(model);
+      return !widget.ignoreChange!(model);
     }
 
     return true;
@@ -147,7 +146,7 @@ class _StatefulLifecycleManagerState<M, T>
     // latestValue = vm;
 
     if (widget.onWillChange != null) {
-      widget.onWillChange(widget.manager);
+      widget.onWillChange!(widget.manager);
     }
 
     // if (widget.onDidChange != null) {
