@@ -1,5 +1,6 @@
 library dropsource_utils;
 
+export 'src/after_layout.dart';
 export 'src/app_config.dart';
 export 'src/collection_extensions.dart';
 export 'src/common_enums.dart';

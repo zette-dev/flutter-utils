@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   auto_size_text: ^3.0.0-nullsafety.0
-  # build_context: ^2.0.4
   build_context:
     git:
       url: https://github.com/pedromassango/build_context.git
