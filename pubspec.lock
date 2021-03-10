@@ -22,6 +22,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  build_context:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: e8b29dc4060c358c5b6d8e38eb21769109275ceb
+      resolved-ref: e8b29dc4060c358c5b6d8e38eb21769109275ceb
+      url: "https://github.com/pedromassango/build_context.git"
+    source: git
+    version: "3.0.0"
   characters:
     dependency: transitive
     description:
