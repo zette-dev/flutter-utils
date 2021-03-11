@@ -20,8 +20,8 @@ typedef OnWillChangeCallback<M> = void Function(M manager);
 typedef OnInitialBuildCallback<M> = void Function(M manager);
 
 class StatefulStreamBuilder<M, T> extends StatelessWidget {
-  final _Builder<M, T?> builder;
-  final InitialDataCreator<M, T>? initialData;
+  final _Builder<M, T> builder;
+  final InitialDataCreator<M, T> initialData;
   final StreamCreator<M, T> stream;
   final IgnoreChangeTest<T>? ignoreChange;
   final OnInitCallback<M>? onInit;
@@ -32,8 +32,8 @@ class StatefulStreamBuilder<M, T> extends StatelessWidget {
     Key? key,
     required this.builder,
     required this.stream,
+    required this.initialData,
     this.ignoreChange,
-    this.initialData,
     this.onInit,
     this.onDispose,
     this.onWillChange,
@@ -58,8 +58,8 @@ class StatefulStreamBuilder<M, T> extends StatelessWidget {
 
 class _StatefulLifecycleManager<M, T> extends StatefulWidget {
   final M manager;
-  final _Builder<M, T?> builder;
-  final InitialDataCreator<M, T>? initialData;
+  final _Builder<M, T> builder;
+  final InitialDataCreator<M, T> initialData;
   final StreamCreator<M, T> stream;
   final IgnoreChangeTest<T>? ignoreChange;
   final OnInitCallback<M>? onInit;
@@ -72,7 +72,7 @@ class _StatefulLifecycleManager<M, T> extends StatefulWidget {
     required this.builder,
     required this.stream,
     required this.manager,
-    this.initialData,
+    required this.initialData,
     this.onInit,
     this.onDispose,
     this.onWillChange,
@@ -114,12 +114,10 @@ class _StatefulLifecycleManagerState<M, T>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<T>(
-      initialData: widget.initialData != null
-          ? widget.initialData!(widget.manager)
-          : null,
+      initialData: widget.initialData(widget.manager),
       stream: _createStream(),
       builder: (ctx, snapshot) =>
-          widget.builder(ctx, widget.manager, snapshot.data),
+          widget.builder(ctx, widget.manager, snapshot.data!),
     );
   }
 
