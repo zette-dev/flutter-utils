@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'helpers.dart' show compute;
-import 'package:equatable/equatable.dart';
 
 class NetworkConnectionError implements Exception {}
 
@@ -13,7 +12,7 @@ class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
   ApiResponseError(this.message, {this.code, this.request});
-  final HTTPRequest request;
+  final RequestOptions request;
   final String message;
   final int code;
 
@@ -21,6 +20,7 @@ class ApiResponseError implements Exception {
         'request': request?.path,
         'message': message,
         'code': code,
+        'request_id': request?.headers['Request-Id'],
       });
 }
 
