@@ -55,20 +55,20 @@ class Translations {
   /// would return 'Welcome David, I see you are feeling sad'
   ///
   /// Please note that the arguments will NOT be localized and will replace the markers as they are passed.
-  String textWithArgs(String key, List<String> args) {
-    String text = _localizedValues[key];
+  String textWithArgs(String? key, List<String> args) {
+    String? text = _localizedValues[key];
     if (text == null) {
       return '_$key';
     }
     var marker = '\$\$s';
     int markerIndex = 0;
     for (var arg in args) {
-      markerIndex = text.indexOf(marker);
+      markerIndex = text!.indexOf(marker);
       if (markerIndex != -1) {
         text = text.replaceFirst(marker, arg ?? '', markerIndex);
       }
     }
-    return text;
+    return text!;
   }
 
   static Future<Translations> load(
