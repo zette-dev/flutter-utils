@@ -16,7 +16,7 @@ class FlutterAppEnv extends EnvConfig<AppState> {
   }) : super(
           appName: appName,
           environment: environment,
-          initializeCrashlytics: initializeCrashlytics,
+          useCrashlytics: initializeCrashlytics,
         );
 
   final String apiBaseUrl;

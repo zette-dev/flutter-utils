@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:dropsource_utils/src/helpers.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 enum AppEnvironment {
   staging,
@@ -17,19 +16,19 @@ abstract class EnvConfig<S> {
   EnvConfig({
     @required this.appName,
     @required this.environment,
-    this.initializeCrashlytics = true,
+    this.useCrashlytics = true,
     this.enableCrashlyiticsInDevMode = true,
   });
 
   final String appName;
   final AppEnvironment environment;
-  final bool initializeCrashlytics, enableCrashlyiticsInDevMode;
+  final bool useCrashlytics, enableCrashlyiticsInDevMode;
 
   Future startCrashlytics() async {
     // Wait for Firebase to initialize
     await Firebase.initializeApp();
 
-    if (initializeCrashlytics) {
+    if (useCrashlytics) {
       await FirebaseCrashlytics.instance
           .setCrashlyticsCollectionEnabled(kReleaseMode);
       // Pass all uncaught errors to Crashlytics.
@@ -49,7 +48,9 @@ abstract class EnvConfig<S> {
   Future run() => runZonedGuarded(() async {
         runApp(createApp());
       }, (error, stackTrace) {
-        print('runZonedGuarded: Caught error in my root zone.');
-        FirebaseCrashlytics.instance.recordError(error, stackTrace);
+        print('runZonedGuarded: $error');
+        if (useCrashlytics) {
+          FirebaseCrashlytics.instance.recordError(error, stackTrace);
+        }
       });
 }
