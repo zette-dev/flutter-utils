@@ -17,12 +17,11 @@ abstract class EnvConfig<S> {
     @required this.appName,
     @required this.environment,
     this.useCrashlytics = true,
-    this.enableCrashlyiticsInDevMode = true,
   });
 
   final String appName;
   final AppEnvironment environment;
-  final bool useCrashlytics, enableCrashlyiticsInDevMode;
+  final bool useCrashlytics;
 
   Future startCrashlytics() async {
     // Wait for Firebase to initialize
