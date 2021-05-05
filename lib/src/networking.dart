@@ -13,7 +13,7 @@ class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
   ApiResponseError(this.message, {this.code, this.request});
-  final HTTPRequest? request;
+  final RequestOptions? request;
   final String message;
   final int? code;
 
@@ -21,6 +21,7 @@ class ApiResponseError implements Exception {
         'request': request?.path,
         'message': message,
         'code': code,
+        'request_id': request?.headers['Request-Id'],
       });
 }
 
@@ -92,7 +93,7 @@ class HTTPRequest {
       _extras['authenticated'] = true;
     }
 
-    File _file = await new File(savePath).create();
+    File _file = await File(savePath).create();
 
     return await client.download(
       path,

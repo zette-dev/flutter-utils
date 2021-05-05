@@ -113,9 +113,16 @@ class PlatformLoader extends StatelessWidget {
         ),
         data: CupertinoTheme.of(context).copyWith(brightness: brightness),
       ),
-      android: (context) => CircularProgressIndicator(
-          valueColor:
-              color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
+      // android: (context) => CircularProgressIndicator(
+      //     valueColor:
+      //         color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
+      android: (context) => SizedBox(
+        height: size * 2,
+        width: size * 2,
+        child: CircularProgressIndicator(
+            valueColor:
+                color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
+      ),
     );
 
     if (centered ?? false) {

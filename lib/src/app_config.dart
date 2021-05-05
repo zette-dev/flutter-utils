@@ -16,19 +16,18 @@ abstract class EnvConfig<S> {
   EnvConfig({
     required this.appName,
     required this.environment,
-    this.initializeCrashlytics = true,
-    this.enableCrashlyiticsInDevMode = true,
+    this.useCrashlytics = true,
   });
 
   final String appName;
   final AppEnvironment environment;
-  final bool initializeCrashlytics, enableCrashlyiticsInDevMode;
+  final bool useCrashlytics;
 
   Future startCrashlytics() async {
     // Wait for Firebase to initialize
     await Firebase.initializeApp();
 
-    if (initializeCrashlytics) {
+    if (useCrashlytics) {
       await FirebaseCrashlytics.instance
           .setCrashlyticsCollectionEnabled(kReleaseMode);
       // Pass all uncaught errors to Crashlytics.
@@ -50,7 +49,9 @@ abstract class EnvConfig<S> {
   Future<Null>? run() => runZonedGuarded(() async {
         runApp(createApp());
       }, (error, stackTrace) {
-        print('runZonedGuarded: Caught error in my root zone.');
-        FirebaseCrashlytics.instance.recordError(error, stackTrace);
+        print('runZonedGuarded: $error');
+        if (useCrashlytics) {
+          FirebaseCrashlytics.instance.recordError(error, stackTrace);
+        }
       });
 }
