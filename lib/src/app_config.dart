@@ -58,7 +58,7 @@ abstract class EnvConfig<S> {
       runApp(createApp());
     } catch (e) {
       if (useCrashlytics) {
-        FirebaseCrashlytics.instance.recordError(error, stackTrace);
+        FirebaseCrashlytics.instance.recordError(e, StackTrace.current);
       }
     }
   }
