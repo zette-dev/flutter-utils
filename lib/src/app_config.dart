@@ -44,7 +44,7 @@ abstract class EnvConfig<S> {
 
   Widget createApp();
 
-  Future run() => runZonedGuarded(() async {
+  Future runGuarded() => runZonedGuarded(() {
         runApp(createApp());
       }, (error, stackTrace) {
         print('runZonedGuarded: $error');
@@ -52,4 +52,14 @@ abstract class EnvConfig<S> {
           FirebaseCrashlytics.instance.recordError(error, stackTrace);
         }
       });
+
+  void run() {
+    try {
+      runApp(createApp());
+    } catch (e) {
+      if (useCrashlytics) {
+        FirebaseCrashlytics.instance.recordError(error, stackTrace);
+      }
+    }
+  }
 }
