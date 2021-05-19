@@ -3,7 +3,7 @@ import 'networking.dart';
 
 extension MapListMethods<K, T> on Map<K, List<T>> {
   Map<K, List<T>> filter(
-    bool Function(T) filterList,
+    bool Function(K, T) filterList,
   ) {
     final List<K> _keys = keys?.toList() ?? [];
     if (_keys.isNotEmpty) {
@@ -11,7 +11,7 @@ extension MapListMethods<K, T> on Map<K, List<T>> {
     }
     var map = <K, List<T>>{};
     for (var key in _keys) {
-      final _list = this[key].where(filterList).toList();
+      final _list = this[key].where((v) => filterList(key, v)).toList();
       if (_list.isNotEmpty) {
         map.putIfAbsent(key, () => _list);
       }
