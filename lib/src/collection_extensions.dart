@@ -2,11 +2,10 @@ import 'common_enums.dart';
 import 'networking.dart';
 
 extension MapListMethods<K, T> on Map<K, List<T>> {
-  Map<K, List<T>> filter(
-    bool Function(K, T) filterList,
-  ) {
+  Map<K, List<T>> filter(bool Function(K, T) filterList,
+      {bool sortKeys = true}) {
     final List<K> _keys = keys?.toList() ?? [];
-    if (_keys.isNotEmpty) {
+    if (_keys.isNotEmpty && sortKeys) {
       _keys.sort();
     }
     var map = <K, List<T>>{};
