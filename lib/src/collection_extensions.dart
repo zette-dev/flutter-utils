@@ -31,7 +31,7 @@ extension MapMethods<K, T> on Map {
   }
 
   Map<K, T> sortKeys() {
-    final _keys = keys.toList() ?? [];
+    final _keys = keys.toList();
     if (_keys.isNotEmpty) {
       _keys.sort();
     }

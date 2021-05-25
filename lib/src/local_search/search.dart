@@ -11,7 +11,7 @@ mixin SearchModel {
   List<T> searchResults<T extends SearchObject>(List<T> initialData,
       {bool Function(T)? filter}) {
     final _index = searchIndex;
-    List<T> _r = initialData ?? [];
+    List<T> _r = initialData;
     if (filter != null) {
       _r = _r.where(filter).toList();
     }
