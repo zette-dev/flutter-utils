@@ -43,10 +43,11 @@ extension MapMethods<K, T> on Map {
   }
 }
 
-extension ListMethods<T> on List<T> {
-  List<T> filterOutNulls() =>
-      isNotEmpty ? where((item) => item != null).toList() : <T>[];
+extension NullListMethods<T> on List<T?> {
+  List<T> filterOutNulls() => List<T>.from(where((item) => item != null));
+}
 
+extension ListMethods<T> on List<T> {
   Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) => fold(
       <K, List<T>>{},
       (Map<K, List<T>> map, T element) =>
