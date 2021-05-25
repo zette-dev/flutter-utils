@@ -4,9 +4,6 @@ import 'package:intl/intl.dart';
 
 extension StringFormatting on String {
   String capitalize() {
-    if (this == null) {
-      throw ArgumentError('string: $this');
-    }
     if (isEmpty) {
       return this;
     }
@@ -20,7 +17,7 @@ String? formatPhoneNumber(String? phoneNumber) {
   }
   final numbersOnly = phoneNumber.replaceAll(RegExp('/[^0-9]/g'), phoneNumber);
   final length = numbersOnly.length;
-  final hasLeadingOne = (numbersOnly[0] ?? '') == '1';
+  final hasLeadingOne = numbersOnly[0] == '1';
   if (length == 7 || length == 10 || (length == 11 && hasLeadingOne)) {
     final hasAreaCode = (length >= 10);
     var sourceIndex = 0;
@@ -78,8 +75,7 @@ class MaskedTextInputFormatter extends TextInputFormatter {
   MaskedTextInputFormatter({
     required this.mask,
     required this.separator,
-  })   : assert(mask != null),
-        assert(separator != null);
+  });
 
   @override
   TextEditingValue formatEditUpdate(

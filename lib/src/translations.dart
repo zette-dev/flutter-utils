@@ -65,7 +65,7 @@ class Translations {
     for (var arg in args) {
       markerIndex = text!.indexOf(marker);
       if (markerIndex != -1) {
-        text = text.replaceFirst(marker, arg ?? '', markerIndex);
+        text = text.replaceFirst(marker, arg, markerIndex);
       }
     }
     return text!;

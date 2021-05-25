@@ -9,7 +9,7 @@ class _GenericListNetorkingModel<T extends Identifiable>
     bool? isLoadingMore,
     bool? canLoadMore,
     List<T>? listData,
-    dynamic? error,
+    dynamic error,
   }) : super(
           isConnectedToNetwork: isConnectedToNetwork,
           isInProgress: isInProgress,
@@ -34,7 +34,7 @@ abstract class ListNetworkingModel<T extends Identifiable>
     bool? isLoadingMore,
     bool? canLoadMore,
     List<T>? listData,
-    dynamic? error,
+    dynamic error,
   })  : _isLoadingMore = isLoadingMore ?? false,
         _canLoadMore = canLoadMore ?? true,
         _listData = listData ?? [],
@@ -50,7 +50,7 @@ abstract class ListNetworkingModel<T extends Identifiable>
     bool? isLoadingMore,
     bool? canLoadMore,
     List<T>? listData,
-    dynamic? error,
+    dynamic error,
   }) =>
       _GenericListNetorkingModel<T>(
         isConnectedToNetwork: isConnectedToNetwork,
@@ -74,7 +74,7 @@ abstract class ListNetworkingModel<T extends Identifiable>
   bool get shouldLoadMore =>
       canLoadMore && !isLoadingMore && itemCount >= collectionSize;
   int get collectionSize;
-  int get itemCount => listData?.length ?? 0;
+  int get itemCount => listData.length;
   bool get hasData => itemCount > 0;
 
   ListNetworkingModel setData(
@@ -109,7 +109,7 @@ abstract class NetworkingModel {
   NetworkingModel({
     bool? isConnectedToNetwork,
     bool? isInProgress,
-    dynamic? error,
+    dynamic error,
   })  : _isConnectedToNetwork = isConnectedToNetwork ?? true,
         _isInProgress = isInProgress ?? false,
         _error = error;

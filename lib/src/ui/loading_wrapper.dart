@@ -16,7 +16,7 @@ class LoadingWrapper extends StatelessWidget {
   final Brightness? loaderBrightness;
   @override
   Widget build(BuildContext context) {
-    var _children = children ?? [];
+    var _children = children;
     var _loading = loading ?? false;
     if (_loading)
       _children.add(PlatformLoader(

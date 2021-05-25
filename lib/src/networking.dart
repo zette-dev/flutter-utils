@@ -202,7 +202,8 @@ abstract class WebServiceInterface extends ServiceInterface {
     _client.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         options = onRequestInterceptor(options);
-        if (options.extra['authenticated'] as bool ?? false) {
+        bool? _authenticated = options.extra['authenticated'];
+        if (_authenticated ?? false) {
           options = authorizationInterceptor(options);
         }
 
