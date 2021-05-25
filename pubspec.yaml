@@ -6,28 +6,24 @@ author: Nathan Frechette<nate@dropsource.com>
 homepage: https://dropsource.com
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   auto_size_text: ^3.0.0-nullsafety.0
-  build_context:
-    git:
-      url: https://github.com/pedromassango/build_context.git
-      ref: e8b29dc4060c358c5b6d8e38eb21769109275ceb
-  dio: ^4.0.0-beta7
-  equatable: ^2.0.0
-  firebase_analytics: ^7.1.1
-  firebase_core: ^1.0.1
-  firebase_crashlytics: ^1.0.0
+  build_context: ^3.0.0
+  dio: ^4.0.0
+  equatable: ^2.0.2
+  firebase_analytics: ^8.1.0
+  firebase_core: ^1.2.0
+  firebase_crashlytics: ^2.0.4
   flutter_email_sender: ^5.0.0
   intl: ^0.17.0
-  logging: ^1.0.0
+  logging: ^1.0.1
   provider: ^5.0.0
-
-  rxdart: ^0.26.0
-  url_launcher: ^6.0.2
+  rxdart: ^0.27.0
+  url_launcher: ^6.0.4
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,3 @@
-// import 'package:build_context/build_context.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +73,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.appBarElevation,
     this.scrollController,
     this.shrinkWrap = false,
+    this.toolbarHeight = kToolbarHeight,
     this.scrollPhysics =
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
@@ -103,6 +103,8 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final List<Widget>? appBarActions;
   final ScrollController? scrollController;
   final ScrollPhysics? scrollPhysics;
+  final double toolbarHeight;
+
 
   bool get loadMoreEnabled =>
       (model?.shouldLoadMore != null) &&
@@ -184,6 +186,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           slivers: [
             SliverAppBar(
               backgroundColor: widget.appBarColor,
+              toolbarHeight: widget.toolbarHeight,
               automaticallyImplyLeading:
                   widget.automaticallyImplyLeading ?? true,
               titleSpacing:

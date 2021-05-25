@@ -200,13 +200,13 @@ abstract class WebServiceInterface extends ServiceInterface {
   WebServiceInterface(this._client) {
     _client.transformer = FlutterJsonTransformer();
     _client.interceptors.add(InterceptorsWrapper(
-      onRequest: (options) async {
+      onRequest: (options, handler) async {
         options = onRequestInterceptor(options);
         if (options.extra['authenticated'] as bool ?? false) {
           options = authorizationInterceptor(options);
         }
 
-        return options;
+        handler.next(options);
       },
     ));
   }

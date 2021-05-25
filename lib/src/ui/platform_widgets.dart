@@ -21,6 +21,7 @@ class PlatformTabBar extends StatelessWidget {
     this.backgroundColor,
     required this.currentIndex,
     this.onTap,
+    this.labelTextStyle,
   });
   final List<BottomNavigationBarItem> items;
   final Color? activeColor;
@@ -28,16 +29,24 @@ class PlatformTabBar extends StatelessWidget {
   final Color? backgroundColor;
   final int currentIndex;
   final Function(int)? onTap;
+  final TextStyle? labelTextStyle;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
-      ios: (context) => CupertinoTabBar(
-        backgroundColor: backgroundColor,
-        activeColor: activeColor,
-        inactiveColor: inactiveColor,
-        items: items,
-        onTap: onTap,
-        currentIndex: currentIndex,
+      ios: (context) => CupertinoTheme(
+        data: CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(
+            tabLabelTextStyle: labelTextStyle,
+          ),
+        ),
+        child: CupertinoTabBar(
+          backgroundColor: backgroundColor,
+          activeColor: activeColor,
+          inactiveColor: inactiveColor,
+          items: items,
+          onTap: onTap,
+          currentIndex: currentIndex,
+        ),
       ),
       android: (context) => Theme(
         data: Theme.of(context).copyWith(
