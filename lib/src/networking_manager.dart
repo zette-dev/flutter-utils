@@ -77,7 +77,7 @@ abstract class ListNetworkingModel<T extends Identifiable>
   int get itemCount => listData.length;
   bool get hasData => itemCount > 0;
 
-  ListNetworkingModel setData(
+  ListNetworkingModel<T> setData(
     List<T> newData, {
     MergeDirection mergeDirection = MergeDirection.replace,
   }) {

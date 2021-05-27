@@ -45,6 +45,27 @@ extension DateTimeExtensions on DateTime {
     return _description;
   }
 
+  String timeAgoShortHand(DateTime other) {
+    final _difference = other.difference(this);
+    String _description;
+    if (_difference > Duration(days: 30)) {
+      _description = '${_difference.inDays ~/ 7}w';
+    } else if (_difference > Duration(days: 1) &&
+        _difference < Duration(days: 30)) {
+      _description = '${_difference.inDays}d';
+    } else if (_difference < Duration(hours: 24) &&
+        _difference > Duration(hours: 1)) {
+      _description = '${_difference.inHours}h';
+    } else if (_difference < Duration(minutes: 60) &&
+        _difference > Duration(minutes: 1)) {
+      _description = '${_difference.inMinutes}m';
+    } else {
+      _description = '< 1m';
+    }
+
+    return _description;
+  }
+
   int weekNumber() {
     int dayOfYear = int.parse(DateFormat('D').format(this));
     int woy = ((dayOfYear - weekday + 10) / 7).floor();
