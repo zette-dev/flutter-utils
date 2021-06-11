@@ -211,7 +211,7 @@ abstract class WebServiceInterface extends ServiceInterface {
       },
     ));
   }
-  Dio _client;
+  late Dio _client;
   Dio get client => _client;
 
   dynamic authorizationInterceptor(RequestOptions options) => options;
@@ -220,4 +220,8 @@ abstract class WebServiceInterface extends ServiceInterface {
 
 mixin Identifiable<T> {
   T get id;
+}
+
+extension StringIdentifiable on Identifiable<String> {
+    bool get hasId => id.isNotEmpty;
 }
