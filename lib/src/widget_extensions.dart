@@ -20,6 +20,6 @@ extension WidgetExtensions on Widget {
 extension ContextExtensions on BuildContext {
   T provider<T>({bool listen = false}) => Provider.of<T>(this, listen: listen);
 
-  void popToRoot() =>
-      Navigator.of(this, rootNavigator: true).popUntil((r) => r.isFirst);
+  void popToRoot([RoutePredicate? predicate]) =>
+      Navigator.of(this, rootNavigator: true).popUntil(predicate ?? (r) => r.isFirst);
 }

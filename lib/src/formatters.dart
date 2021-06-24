@@ -15,7 +15,8 @@ String? formatPhoneNumber(String? phoneNumber) {
   if (phoneNumber == null) {
     return '';
   }
-  final numbersOnly = phoneNumber.replaceAll(RegExp('/[^0-9]/g'), phoneNumber);
+  const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+  final numbersOnly = phoneNumber.characters.where(digits.contains).join('');
   final length = numbersOnly.length;
   final hasLeadingOne = numbersOnly[0] == '1';
   if (length == 7 || length == 10 || (length == 11 && hasLeadingOne)) {
