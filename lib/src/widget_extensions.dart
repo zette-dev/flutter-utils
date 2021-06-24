@@ -21,5 +21,11 @@ extension ContextExtensions on BuildContext {
   T provider<T>({bool listen = false}) => Provider.of<T>(this, listen: listen);
 
   void popToRoot([RoutePredicate? predicate]) =>
-      Navigator.of(this, rootNavigator: true).popUntil(predicate ?? (r) => r.isFirst);
+      Navigator.of(this, rootNavigator: true).popUntil((r) {
+        if (predicate != null) {
+          return predicate(r) || r.isFirst;
+        }
+
+        return r.isFirst;
+      });
 }
