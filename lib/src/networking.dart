@@ -201,10 +201,10 @@ abstract class WebServiceInterface extends ServiceInterface {
     _client.transformer = FlutterJsonTransformer();
     _client.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        options = onRequestInterceptor(options);
+        options = await onRequestInterceptor(options);
         bool? _authenticated = options.extra['authenticated'];
         if (_authenticated ?? false) {
-          options = authorizationInterceptor(options);
+          options = await authorizationInterceptor(options);
         }
 
         handler.next(options);
@@ -214,8 +214,8 @@ abstract class WebServiceInterface extends ServiceInterface {
   late Dio _client;
   Dio get client => _client;
 
-  dynamic authorizationInterceptor(RequestOptions options) => options;
-  dynamic onRequestInterceptor(RequestOptions options) => options;
+  Future<RequestOptions> authorizationInterceptor(RequestOptions options) async => options;
+  Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
 }
 
 mixin Identifiable<T> {
