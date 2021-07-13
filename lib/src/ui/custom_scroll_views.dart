@@ -74,6 +74,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.scrollController,
     this.shrinkWrap = false,
     this.toolbarHeight = kToolbarHeight,
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
     this.scrollPhysics =
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
@@ -104,6 +105,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final ScrollController? scrollController;
   final ScrollPhysics? scrollPhysics;
   final double toolbarHeight;
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
 
   bool get loadMoreEnabled =>
@@ -183,6 +185,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           controller: _controller,
           physics: widget.scrollPhysics,
           shrinkWrap: widget.shrinkWrap ?? false,
+          keyboardDismissBehavior: widget.keyboardDismissBehavior, 
           slivers: [
             SliverAppBar(
               backgroundColor: widget.appBarColor,
