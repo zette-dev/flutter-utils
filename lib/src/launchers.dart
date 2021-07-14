@@ -17,12 +17,15 @@ Future makeCall(String phoneNumber) async {
   }
 }
 
-Future sendText(String phoneNumber) async {
+Future sendText(String phoneNumber, {String? body}) async {
   // Strips out extensions
   var _number = "+1${numberValueAsString(phoneNumber.split(', ').first)}";
 
   // _number = Platform.isAndroid ? '+$_number' : _number;
-  final url = 'sms:$_number';
+  String url = 'sms:$_number';
+  if (body != null && body.isNotEmpty) {
+    url += '&$body';
+  }
   if (await canLaunch(url)) {
     return await launch(url);
   } else {
