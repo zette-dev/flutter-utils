@@ -24,7 +24,7 @@ Future sendText(String phoneNumber, {String? body}) async {
   // _number = Platform.isAndroid ? '+$_number' : _number;
   String url = 'sms:$_number';
   if (body != null && body.isNotEmpty) {
-    url += '&$body';
+    url += '&body=${Uri.encodeComponent(body)}';
   }
   if (await canLaunch(url)) {
     return await launch(url);
