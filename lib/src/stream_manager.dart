@@ -78,7 +78,7 @@ extension StreamManagerExtensions<T extends NetworkingModel>
     return future
         .then(then ?? (_) => null)
         .catchError((err) => model = model.toError(err) as T)
-        .whenComplete(() => update(model.stopLoading() as T));
+        .whenComplete(() => update(startLoading ? model.stopLoading() as T : model));
   }
 
   Future<V?> executeWithLoadingReturn<V>(
@@ -99,6 +99,6 @@ extension StreamManagerExtensions<T extends NetworkingModel>
     return future.then(then ?? (_) async => null).catchError((err) {
       model = model.toError(err) as T;
       return null;
-    }).whenComplete(() => update(model.stopLoading() as T));
+    }).whenComplete(() => update(startLoading ? model.stopLoading() as T : model));
   }
 }
