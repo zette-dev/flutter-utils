@@ -29,3 +29,7 @@ extension ContextExtensions on BuildContext {
         return r.isFirst;
       });
 }
+
+extension StateExtensions<T extends StatefulWidget> on State<T> {
+  void safeSetState(VoidCallback fn) => mounted ? fn() : null;
+}
