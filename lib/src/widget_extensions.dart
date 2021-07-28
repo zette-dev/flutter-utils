@@ -31,5 +31,5 @@ extension ContextExtensions on BuildContext {
 }
 
 extension StateExtensions<T extends StatefulWidget> on State<T> {
-  void safeSetState(VoidCallback fn) => mounted ? fn() : null;
+  void safeSetState(VoidCallback fn) => mounted ? setState(fn) : null;
 }
