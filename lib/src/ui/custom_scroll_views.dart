@@ -41,6 +41,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   ScrollableLayout({
     String? scrollKey,
     this.model,
+    this.showAppBar = true,
     this.appBarExpandedHeight = 0,
     this.appBarCollapsedHeight,
     this.appBarColor,
@@ -88,6 +89,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final IndexedWidgetBuilder? itemBuilder, separatorBuilder;
   final WidgetBuilder? errorBuilder, emptyBuilder, loadMoreBuilder;
 
+  final bool showAppBar;
   final Color? appBarColor;
   final Widget? scrollingAppBarTitle;
   final Widget? backButton;
@@ -106,7 +108,6 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
   final double toolbarHeight;
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
-
 
   bool get loadMoreEnabled =>
       (model?.shouldLoadMore != null) &&
@@ -185,42 +186,43 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           controller: _controller,
           physics: widget.scrollPhysics,
           shrinkWrap: widget.shrinkWrap ?? false,
-          keyboardDismissBehavior: widget.keyboardDismissBehavior, 
+          keyboardDismissBehavior: widget.keyboardDismissBehavior,
           slivers: [
-            SliverAppBar(
-              backgroundColor: widget.appBarColor,
-              toolbarHeight: widget.toolbarHeight,
-              automaticallyImplyLeading:
-                  widget.automaticallyImplyLeading ?? true,
-              titleSpacing:
-                  widget.appBarTitleSpacing ?? NavigationToolbar.kMiddleSpacing,
-              title: _requiresScrollListener
-                  ? AnimatedOpacity(
-                      duration: Duration(milliseconds: 300),
-                      opacity: _isScrolled ? 1.0 : 0.0,
-                      curve: Curves.easeIn,
-                      child: widget.scrollingAppBarTitle,
-                    )
-                  : widget.scrollingAppBarTitle,
-              leading: widget.backButton,
-              actions: widget.appBarActions,
-              centerTitle: widget.centerAppBarTitle ?? true,
-              pinned: widget.pinned ?? false,
-              stretch: widget.stretch ?? false,
-              floating: widget.floating ?? false,
-              elevation: widget.appBarElevation,
-              snap: widget.snap ?? false,
-              expandedHeight: widget.appBarExpandedHeight,
-              collapsedHeight: widget.appBarCollapsedHeight,
-              primary: true,
-              bottom: widget.appBarBottom,
-              flexibleSpace: _hasFlexibleSpace
-                  ? FlexibleSpaceBar(
-                      collapseMode: CollapseMode.pin,
-                      background: widget.scrollingHeader,
-                    )
-                  : null,
-            ),
+            if (widget.showAppBar)
+              SliverAppBar(
+                backgroundColor: widget.appBarColor,
+                toolbarHeight: widget.toolbarHeight,
+                automaticallyImplyLeading:
+                    widget.automaticallyImplyLeading ?? true,
+                titleSpacing: widget.appBarTitleSpacing ??
+                    NavigationToolbar.kMiddleSpacing,
+                title: _requiresScrollListener
+                    ? AnimatedOpacity(
+                        duration: Duration(milliseconds: 300),
+                        opacity: _isScrolled ? 1.0 : 0.0,
+                        curve: Curves.easeIn,
+                        child: widget.scrollingAppBarTitle,
+                      )
+                    : widget.scrollingAppBarTitle,
+                leading: widget.backButton,
+                actions: widget.appBarActions,
+                centerTitle: widget.centerAppBarTitle ?? true,
+                pinned: widget.pinned ?? false,
+                stretch: widget.stretch ?? false,
+                floating: widget.floating ?? false,
+                elevation: widget.appBarElevation,
+                snap: widget.snap ?? false,
+                expandedHeight: widget.appBarExpandedHeight,
+                collapsedHeight: widget.appBarCollapsedHeight,
+                primary: true,
+                bottom: widget.appBarBottom,
+                flexibleSpace: _hasFlexibleSpace
+                    ? FlexibleSpaceBar(
+                        collapseMode: CollapseMode.pin,
+                        background: widget.scrollingHeader,
+                      )
+                    : null,
+              ),
             ...refreshBuilder,
             ...(widget.beforeSlivers ?? []),
             ...errorBuilder,
