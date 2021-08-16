@@ -56,6 +56,7 @@ extension ListMethods<T> on List<T> {
 
 extension IterableMethods<T> on Iterable<T> {
   T? get tryFirst => isNotEmpty ? first : null;
+  T? get tryLast => isNotEmpty ? last : null;
 }
 
 extension ListOfListMethods<T> on List<List<T>> {
