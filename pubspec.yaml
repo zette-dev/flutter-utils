@@ -4,6 +4,7 @@ description: A set of useful functions and libraries used in almost all
 version: 0.0.3+5
 author: Nathan Frechette<nate@dropsource.com>
 homepage: https://dropsource.com
+publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
