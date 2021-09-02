@@ -146,8 +146,8 @@ class PlatformLoader extends StatelessWidget {
   }
 }
 
-class PlatformSliverRefreshIndicator extends CupertinoSliverRefreshControl {
-  PlatformSliverRefreshIndicator(
+class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
+  PlatformSliverRefreshControl(
       {Future Function()? onRefresh, Color? refreshColor})
       : super(
             onRefresh: onRefresh,
