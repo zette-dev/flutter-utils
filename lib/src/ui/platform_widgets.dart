@@ -172,11 +172,14 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
               return Center(
                 child: Stack(
                   clipBehavior: Clip.none,
+                  alignment: Alignment.topCenter,
                   children: <Widget>[
                     Positioned(
                       top: 16,
-                      left: 0.0,
-                      right: 0.0,
+                      width: radius, 
+                      height: radius,
+                      // left: 0.0,
+                      // right: 0.0,
                       child: Builder(
                         builder: (ctx) {
                           switch (refreshState) {
