@@ -106,31 +106,35 @@ class PlatformLoader extends StatelessWidget {
     this.centered,
     this.brightness = Brightness.light,
     this.size = 15.0,
+    this.progress,
   }) : super(key: key);
   final bool? centered;
   final Color? color;
   final Brightness brightness;
   final double size;
+  final double? progress;
 
   @override
   Widget build(BuildContext context) {
     final _widget = PlatformWidget(
       ios: (context) => CupertinoTheme(
-        child: CupertinoActivityIndicator(
-          animating: true,
-          radius: size,
-        ),
+        child: progress != null
+            ? CupertinoActivityIndicator.partiallyRevealed(
+                radius: size, progress: progress!)
+            : CupertinoActivityIndicator(
+                animating: true,
+                radius: size,
+              ),
         data: CupertinoTheme.of(context).copyWith(brightness: brightness),
       ),
-      // android: (context) => CircularProgressIndicator(
-      //     valueColor:
-      //         color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
       android: (context) => SizedBox(
         height: size * 2,
         width: size * 2,
         child: CircularProgressIndicator(
-            valueColor:
-                color != null ? AlwaysStoppedAnimation<Color>(color!) : null),
+          value: progress,
+          valueColor:
+              color != null ? AlwaysStoppedAnimation<Color>(color!) : null,
+        ),
       ),
     );
 
@@ -140,6 +144,78 @@ class PlatformLoader extends StatelessWidget {
       return _widget;
     }
   }
+}
+
+class PlatformPullDownRefreshIndicator extends CupertinoSliverRefreshControl {
+  PlatformPullDownRefreshIndicator(
+      {Future Function()? onRefresh, Color? refreshColor})
+      : super(
+            onRefresh: onRefresh,
+            builder: (
+              ctx,
+              refreshState,
+              pulledExtent,
+              refreshTriggerPullDistance,
+              refreshIndicatorExtent,
+            ) {
+              final double percentageComplete =
+                  (pulledExtent / refreshTriggerPullDistance).clamp(0.0, 1.0);
+
+              // Place the indicator at the top of the sliver that opens up. Note that we're using
+              // a Stack/Positioned widget because the CupertinoActivityIndicator does some internal
+              // translations based on the current size (which grows as the user drags) that makes
+              // Padding calculations difficult. Rather than be reliant on the internal implementation
+              // of the activity indicator, the Positioned widget allows us to be explicit where the
+              // widget gets placed. Also note that the indicator should appear over the top of the
+              // dragged widget, hence the use of Overflow.visible.
+              const radius = 14.0;
+              return Center(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: <Widget>[
+                    Positioned(
+                      top: 16,
+                      left: 0.0,
+                      right: 0.0,
+                      child: Builder(
+                        builder: (ctx) {
+                          switch (refreshState) {
+                            case RefreshIndicatorMode.drag:
+                              // While we're dragging, we draw individual ticks of the spinner while simultaneously
+                              // easing the opacity in. Note that the opacity curve values here were derived using
+                              // Xcode through inspecting a native app running on iOS 13.5.
+                              const Curve opacityCurve =
+                                  Interval(0.0, 0.35, curve: Curves.easeInOut);
+                              return Opacity(
+                                opacity:
+                                    opacityCurve.transform(percentageComplete),
+                                child: PlatformLoader(
+                                    color: refreshColor,
+                                    size: radius,
+                                    progress: percentageComplete),
+                              );
+                            case RefreshIndicatorMode.armed:
+                            case RefreshIndicatorMode.refresh:
+                              // Once we're armed or performing the refresh, we just show the normal spinner.
+                              return PlatformLoader(
+                                  size: radius, color: refreshColor);
+                            case RefreshIndicatorMode.done:
+                              // When the user lets go, the standard transition is to shrink the spinner.
+                              return PlatformLoader(
+                                size: radius * percentageComplete,
+                                color: refreshColor,
+                              );
+                            case RefreshIndicatorMode.inactive:
+                              // Anything else doesn't show anything.
+                              return Container();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
 }
 
 class PlatformButton extends StatelessWidget {

@@ -14,6 +14,7 @@ export 'src/local_search/search.dart';
 export 'src/networking.dart';
 export 'src/networking_manager.dart';
 export 'src/routing.dart';
+export 'src/scroll.dart';
 export 'src/stateful_stream_builder.dart';
 export 'src/stream_manager.dart';
 export 'src/translations.dart';
