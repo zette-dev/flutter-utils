@@ -148,7 +148,7 @@ class PlatformLoader extends StatelessWidget {
 
 class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
   PlatformSliverRefreshControl(
-      {Future Function()? onRefresh, Color? refreshColor})
+      {Future Function()? onRefresh, Color? refreshColor, double radius = 14.0})
       : super(
             onRefresh: onRefresh,
             builder: (
@@ -168,7 +168,6 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
               // of the activity indicator, the Positioned widget allows us to be explicit where the
               // widget gets placed. Also note that the indicator should appear over the top of the
               // dragged widget, hence the use of Overflow.visible.
-              const radius = 14.0;
               return Center(
                 child: Stack(
                   clipBehavior: Clip.none,
