@@ -64,8 +64,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  equatable:
+  dropsource_core:
     dependency: "direct main"
+    description:
+      path: core
+      ref: "98506c5266721d6df915cb1a224d993cd3a2e694"
+      resolved-ref: "98506c5266721d6df915cb1a224d993cd3a2e694"
+      url: "https://github.com/Dropsource/flutter_utils.git"
+    source: git
+    version: "1.0.0"
+  equatable:
+    dependency: transitive
     description:
       name: equatable
       url: "https://pub.dartlang.org"
@@ -178,7 +187,7 @@ packages:
     source: hosted
     version: "4.0.0"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -248,7 +257,7 @@ packages:
     source: hosted
     version: "6.0.0"
   rxdart:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: rxdart
       url: "https://pub.dartlang.org"

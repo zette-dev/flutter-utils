@@ -14,7 +14,7 @@ dependencies:
     git:
       url: https://github.com/Dropsource/flutter_utils.git
       path: core
-      ref: 4e6e9fc90b7da7669426428769d38f799b4d6b36
+      ref: 98506c5266721d6df915cb1a224d993cd3a2e694
   auto_size_text: ^3.0.0-nullsafety.0
   build_context: ^3.0.0
   dio: ^4.0.0

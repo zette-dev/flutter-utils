@@ -1,3 +1,5 @@
+import 'package:dropsource_core/dropsource_core.dart';
+
 import '../dropsource_ui.dart';
 import 'networking.dart' show NetworkConnectionError;
 
