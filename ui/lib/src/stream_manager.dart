@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dropsource_utils/src/networking_manager.dart';
+import 'package:dropsource_ui/src/networking_manager.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class DataStreamManager<D, M> extends StreamManager<M> {
@@ -26,13 +26,11 @@ abstract class StreamManager<M> {
 
   final BehaviorSubject<M> _streamController = BehaviorSubject<M>();
 
-  // final StreamController<M> _streamController = StreamController<M>.broadcast();
   Stream<M> get stream => _streamController.stream;
   StreamSubscription? _streamSubscription;
   M? _latestModel;
   M _lastUpdatedModel;
 
-  // bool get isDirty => _dirtyModel != null;
 
   // override if you want to intercept any updates to streams
   // the manager is listening to

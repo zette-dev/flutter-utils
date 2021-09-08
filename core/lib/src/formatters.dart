@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 extension StringFormatting on String {
@@ -16,7 +14,7 @@ String? formatPhoneNumber(String? phoneNumber) {
     return '';
   }
   const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-  final numbersOnly = phoneNumber.characters.where(digits.contains).join('');
+  final numbersOnly = phoneNumber.split('').where(digits.contains).join('');
   final length = numbersOnly.length;
   final hasLeadingOne = numbersOnly[0] == '1';
   if (length == 7 || length == 10 || (length == 11 && hasLeadingOne)) {
@@ -69,39 +67,6 @@ String? emailValidator(String? emailInput,
   return !_emailRegex.hasMatch(emailInput!) ? errorMessage : null;
 }
 
-class MaskedTextInputFormatter extends TextInputFormatter {
-  final String mask;
-  final String separator;
-
-  MaskedTextInputFormatter({
-    required this.mask,
-    required this.separator,
-  });
-
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.isNotEmpty) {
-      if (newValue.text.length > oldValue.text.length) {
-        if (newValue.text.length > mask.length) {
-          return oldValue;
-        }
-        if (newValue.text.length < mask.length &&
-            mask[newValue.text.length - 1] == separator) {
-          return TextEditingValue(
-            text:
-                '${oldValue.text}$separator${newValue.text.substring(newValue.text.length - 1)}',
-            selection: TextSelection.collapsed(
-              offset: newValue.selection.end + 1,
-            ),
-          );
-        }
-      }
-    }
-    return newValue;
-  }
-}
-
 String numberValueAsString(String text, {int precision = 0}) {
   List<String> parts = _getOnlyNumbers(text).split('').toList(growable: true);
 
@@ -145,27 +110,3 @@ double parseDouble(dynamic value) {
 }
 
 final NumberFormat percentageFormatter = NumberFormat.percentPattern();
-
-class PercentageTextInputFormatter extends TextInputFormatter {
-  String _stripStartingZero(String str) =>
-      str.startsWith('0') ? str.substring(1, str.length) : str;
-
-  String _sanitize(String str) => List<String Function(String)>.from(
-          [numberValueAsString, _stripStartingZero])
-      .fold<String>(str, (previousValue, func) => func(previousValue));
-
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final _new = _sanitize(newValue.text);
-    String returnValue = _new.isEmpty ? '0' : _new;
-    double _intValue = int.parse(returnValue) / 100;
-    final result = percentageFormatter.format(_intValue);
-    return TextEditingValue(
-      text: result,
-      selection: TextSelection.collapsed(
-        offset: result.length - 1,
-      ),
-    );
-  }
-}

@@ -1,16 +1,10 @@
-library dropsource_utils;
+library dropsource_ui;
 
 export 'src/after_layout.dart';
 export 'src/app_config.dart';
-export 'src/collection_extensions.dart';
-export 'src/common_enums.dart';
-export 'src/date_time_extensions.dart';
-export 'src/file_extensions.dart';
-export 'src/formatters.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
 export 'src/launchers.dart';
-export 'src/local_search/search.dart';
 export 'src/networking.dart';
 export 'src/networking_manager.dart';
 export 'src/routing.dart';

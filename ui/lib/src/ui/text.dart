@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../dropsource_utils.dart';
+import '../../dropsource_ui.dart';
 
 class TextHeadline1 extends TextWidget {
   TextHeadline1(

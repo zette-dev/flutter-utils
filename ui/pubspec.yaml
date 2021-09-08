@@ -1,4 +1,4 @@
-name: dropsource_utils
+name: dropsource_ui
 description: A set of useful functions and libraries used in almost all
   Dropsource flutter apps.
 version: 0.0.3+5
@@ -10,20 +10,22 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  dropsource_core:
+    git:
+      url: https://github.com/Dropsource/flutter_utils.git
+      path: core
+      ref: 4e6e9fc90b7da7669426428769d38f799b4d6b36
   auto_size_text: ^3.0.0-nullsafety.0
   build_context: ^3.0.0
   dio: ^4.0.0
-  equatable: ^2.0.3
   firebase_analytics: ^8.3.1
   firebase_core: ^1.6.0
   firebase_crashlytics: ^2.2.1
   flutter:
     sdk: flutter
   flutter_email_sender: ^5.0.2
-  intl: ^0.17.0
   logging: ^1.0.1
   provider: ^6.0.0
-  rxdart: ^0.27.1
   url_launcher: ^6.0.9
 
 dev_dependencies:

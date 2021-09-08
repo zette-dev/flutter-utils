@@ -19,7 +19,3 @@ bool isTablet(BuildContext context) {
   var useMobileLayout = shortestSide < 600;
   return !useMobileLayout;
 }
-
-int currentTimestamp() {
-  return DateTime.now().millisecondsSinceEpoch ~/ 1000;
-}

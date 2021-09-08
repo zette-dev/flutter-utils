@@ -1,4 +1,4 @@
-import '../dropsource_utils.dart';
+import '../dropsource_ui.dart';
 import 'networking.dart' show NetworkConnectionError;
 
 class _GenericListNetorkingModel<T extends Identifiable>

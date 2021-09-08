@@ -218,10 +218,4 @@ abstract class WebServiceInterface extends ServiceInterface {
   Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
 }
 
-mixin Identifiable<T> {
-  T get id;
-}
 
-extension StringIdentifiable on Identifiable<String> {
-    bool get hasId => id.isNotEmpty;
-}

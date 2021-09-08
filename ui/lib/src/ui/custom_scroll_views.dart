@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../dropsource_utils.dart';
+import '../../dropsource_ui.dart';
 
 final ScrollPhysics alwaysBouncingScrollPhysics =
     BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());

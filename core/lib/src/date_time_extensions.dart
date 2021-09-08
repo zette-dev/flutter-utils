@@ -83,3 +83,8 @@ int numOfWeeksInYear(int year) {
   int dayOfDec28 = int.parse(DateFormat('D').format(dec28));
   return ((dayOfDec28 - dec28.weekday + 10) / 7).floor();
 }
+
+
+int currentTimestamp() {
+  return DateTime.now().millisecondsSinceEpoch ~/ 1000;
+}

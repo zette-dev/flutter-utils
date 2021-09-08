@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../dropsource_utils.dart';
+import '../../dropsource_ui.dart';
 import 'grouped_list_view.dart';
 
 class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {

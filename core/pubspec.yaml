@@ -1,0 +1,15 @@
+name: dropsource_core
+description: A set of useful functions and libraries used in almost all
+  Dropsource flutter apps.
+version: 1.0.0
+author: Nathan Frechette<nate@dropsource.com>
+homepage: https://dropsource.com
+publish_to: none
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  intl: ^0.17.0
+  rxdart: ^0.27.1
