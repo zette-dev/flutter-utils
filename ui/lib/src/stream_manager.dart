@@ -16,11 +16,7 @@ abstract class StreamManager<M> {
       : _lastUpdatedModel = model {
     update(model);
     if (dependencies != null && dependencies.isNotEmpty) {
-      final _dependencyStreams = dependencies.where((s) => s != null);
-      if (_dependencyStreams.isNotEmpty) {
-        _streamSubscription =
-            Rx.merge(_dependencyStreams).listen(dependenciesUpdated);
-      }
+      _streamSubscription = Rx.merge(dependencies).listen(dependenciesUpdated);
     }
   }
 
@@ -30,7 +26,6 @@ abstract class StreamManager<M> {
   StreamSubscription? _streamSubscription;
   M? _latestModel;
   M _lastUpdatedModel;
-
 
   // override if you want to intercept any updates to streams
   // the manager is listening to
@@ -76,7 +71,8 @@ extension StreamManagerExtensions<T extends NetworkingModel>
     return future
         .then(then ?? (_) => null)
         .catchError((err) => model = model.toError(err) as T)
-        .whenComplete(() => update(startLoading ? model.stopLoading() as T : model));
+        .whenComplete(
+            () => update(startLoading ? model.stopLoading() as T : model));
   }
 
   Future<V?> executeWithLoadingReturn<V>(
@@ -97,6 +93,7 @@ extension StreamManagerExtensions<T extends NetworkingModel>
     return future.then(then ?? (_) async => null).catchError((err) {
       model = model.toError(err) as T;
       return null;
-    }).whenComplete(() => update(startLoading ? model.stopLoading() as T : model));
+    }).whenComplete(
+        () => update(startLoading ? model.stopLoading() as T : model));
   }
 }

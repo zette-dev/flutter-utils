@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' as flutter show compute, kDebugMode;
+import 'package:flutter/foundation.dart' as flutter show compute;
 import 'package:flutter/foundation.dart' show ComputeCallback;
 import 'package:flutter/widgets.dart';
 

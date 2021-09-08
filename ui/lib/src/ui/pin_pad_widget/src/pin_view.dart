@@ -29,12 +29,12 @@ class PinView extends StatelessWidget {
     );
   }
 
-  _getCodeViews() {
+  List<Widget> _getCodeViews() {
     List<Widget> widgets = [];
     for (var i = 0; i < length; i++) {
       final int index = i + 1;
       widgets.add(
-        _buildItem(code == null || code.length < index),
+        _buildItem(code.length < index),
       );
     }
 
