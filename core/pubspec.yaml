@@ -12,4 +12,4 @@ environment:
 dependencies:
   equatable: ^2.0.3
   intl: ^0.17.0
-  rxdart: ^0.27.1
+  rxdart: ^0.27.2
