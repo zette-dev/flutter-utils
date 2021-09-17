@@ -1,7 +1,8 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:dropsource_core/dropsource_core.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 Future makeCall(String phoneNumber) async {
@@ -42,14 +43,29 @@ Future openUrl(String url) async {
   }
 }
 
-Future sendEmail(String email, String subject, String body) async {
-  final Email _email = Email(
-    body: body,
-    subject: subject,
-    recipients: [email],
+Future sendEmail(String email,
+    {String? subject, String? body, VoidCallback? onCantLaunch}) async {
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'smith@example.com',
+    query: encodeQueryParameters(<String, String>{
+      if (subject != null) 'subject': subject,
+      if (body != null) 'body': body
+    }),
   );
 
-  return await FlutterEmailSender.send(_email);
+  if (await canLaunch(emailLaunchUri.toString())) {
+    return launch(emailLaunchUri.toString());
+  } else {
+    onCantLaunch?.call();
+  }
 }
 
 class DirectionsLauncher {
