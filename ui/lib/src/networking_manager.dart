@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dropsource_core/dropsource_core.dart';
 
 import '../dropsource_ui.dart';
@@ -145,6 +146,11 @@ extension NetworkingMutators on NetworkingModel {
   // ERROR HANDLING
   NetworkingModel toError(dynamic err) {
     _error = err;
+    return this;
+  }
+
+  NetworkingModel connectivityResult(ConnectivityResult result) {
+    _isConnectedToNetwork = result != ConnectivityResult.none;
     return this;
   }
 
