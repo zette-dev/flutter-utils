@@ -27,6 +27,8 @@ abstract class StreamManager<M> {
   M? _latestModel;
   M _lastUpdatedModel;
 
+  bool get hasListener => _streamController.hasListener;
+
   // override if you want to intercept any updates to streams
   // the manager is listening to
   void dependenciesUpdated(dynamic data) {}
