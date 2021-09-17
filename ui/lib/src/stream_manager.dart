@@ -34,6 +34,7 @@ abstract class StreamManager<M> {
   void dependenciesUpdated(dynamic data) {}
 
   M get model => _latestModel ?? _lastUpdatedModel;
+  bool get hasChanges => _latestModel != null;
 
   // Dirty model is the most updated model that has not been streamed
   M get lastUpdatedModel => _lastUpdatedModel;
