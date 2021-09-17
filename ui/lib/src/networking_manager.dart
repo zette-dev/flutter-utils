@@ -154,9 +154,8 @@ extension NetworkingMutators on NetworkingModel {
     return this;
   }
 
-  NetworkingModel failedLoading(dynamic error) {
+  NetworkingModel networkError(dynamic error) {
     final _isNetworkError = error is NetworkConnectionError;
-    stopLoading();
     _error = _isNetworkError ? null : error;
     _isConnectedToNetwork = !_isNetworkError;
     return this;
