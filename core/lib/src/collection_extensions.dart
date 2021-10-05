@@ -1,3 +1,5 @@
+import 'package:rxdart/rxdart.dart';
+
 import 'common_enums.dart';
 import 'networking.dart';
 
@@ -116,21 +118,21 @@ extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
   }
 }
 
-// Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
-//         {int Function(T, T) sorter}) =>
-//     Rx.combineLatest<List<T>, List<T>>(streams, (list) {
-//       final _combined = flattenList(list);
-//       if (sorter != null) _combined.sort(sorter);
-//       return _combined.toList();
-//     });
+Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
+        {int Function(T, T)? sorter}) =>
+    Rx.combineLatest<List<T>, List<T>>(streams, (list) {
+      final _combined = list.flatten();
+      if (sorter != null) _combined.sort(sorter);
+      return _combined.toList();
+    });
 
-// Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures,
-//         {int Function(T, T) sorter}) =>
-//     Future.wait(futures).then((list) {
-//       final _combined = flattenList(list);
-//       if (sorter != null) _combined.sort(sorter);
-//       return _combined.toList();
-//     });
+Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures,
+        {int Function(T, T)? sorter}) =>
+    Future.wait(futures).then((list) {
+      final _combined = list.flatten();
+      if (sorter != null) _combined.sort(sorter);
+      return _combined.toList();
+    });
 
 extension FutureListExtension<T> on List<Future<List<T>>> {
   Future<List<T>> mergeFuturesList({int Function(T, T)? sorter}) =>
