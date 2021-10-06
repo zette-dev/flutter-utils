@@ -2,12 +2,11 @@ name: dropsource_ui
 description: A set of useful functions and libraries used in almost all
   Dropsource flutter apps.
 version: 0.0.3+5
-author: Nathan Frechette<nate@dropsource.com>
 homepage: https://dropsource.com
 publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   auto_size_text: ^3.0.0-nullsafety.0
