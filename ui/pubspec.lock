@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: refactor
-      resolved-ref: "79faf2f8c5228117c86b848d37479375ebf3a435"
+      resolved-ref: fb33cd5cff43d0db03dd87843465504ba4ce102d
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
