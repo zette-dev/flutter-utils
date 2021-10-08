@@ -79,6 +79,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
     this.scrollPhysics =
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+    this.flexibleSpaceCollapseMode = CollapseMode.pin,
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
         loadMoreBuilder = loadMoreBuilder ??
             ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true)));
@@ -109,6 +110,7 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
   final double toolbarHeight;
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+  final CollapseMode flexibleSpaceCollapseMode;
 
   bool get loadMoreEnabled =>
       (model?.shouldLoadMore != null) &&
@@ -219,7 +221,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
                 bottom: widget.appBarBottom,
                 flexibleSpace: _hasFlexibleSpace
                     ? FlexibleSpaceBar(
-                        collapseMode: CollapseMode.pin,
+                        collapseMode: widget.flexibleSpaceCollapseMode,
                         background: widget.scrollingHeader,
                       )
                     : null,
