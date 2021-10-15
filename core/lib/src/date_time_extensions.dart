@@ -88,3 +88,9 @@ int numOfWeeksInYear(int year) {
 int currentTimestamp() {
   return DateTime.now().millisecondsSinceEpoch ~/ 1000;
 }
+
+int descendingSorter(DateTime? d1, DateTime? d2) =>
+    d1 != null && d2 != null ? d2.compareTo(d1) : 0;
+
+int ascendingSorter(DateTime? d1, DateTime? d2) =>
+    d1 != null && d2 != null ? d1.compareTo(d2) : 0;

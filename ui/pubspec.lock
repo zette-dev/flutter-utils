@@ -84,7 +84,7 @@ packages:
       name: connectivity_plus_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: refactor
-      resolved-ref: fb33cd5cff43d0db03dd87843465504ba4ce102d
+      resolved-ref: "61ec467cb550f1d9a038f8fef2a4fe2d467f2e49"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
