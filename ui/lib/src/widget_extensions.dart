@@ -21,7 +21,7 @@ extension WidgetExtensions on Widget {
 extension ContextExtensions on BuildContext {
   T provider<T>({bool listen = false}) => Provider.of<T>(this, listen: listen);
 
-  Translations? translations() => Translations.of(this);
+  Translations? get translations => Translations.of(this);
 
   void popToRoot([RoutePredicate? predicate]) =>
       Navigator.of(this, rootNavigator: true).popUntil((r) {
