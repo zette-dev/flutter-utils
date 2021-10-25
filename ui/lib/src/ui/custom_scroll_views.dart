@@ -74,6 +74,8 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.floating,
     this.appBarElevation,
     this.scrollController,
+    this.scrollingHeaderTitle,
+    this.centerScrollingHeaderTitle,
     this.shrinkWrap = false,
     this.toolbarHeight = kToolbarHeight,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
@@ -95,7 +97,8 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final Color? appBarColor;
   final Widget? scrollingAppBarTitle;
   final Widget? backButton;
-  final Widget? scrollingHeader;
+  final Widget? scrollingHeader, scrollingHeaderTitle;
+  final bool? centerScrollingHeaderTitle;
   final double? appBarExpandedHeight, appBarCollapsedHeight, appBarTitleSpacing;
   final PreferredSizeWidget? appBarBottom;
   final List<Widget>? beforeSlivers, afterSlivers, overlays;
@@ -223,6 +226,8 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
                     ? FlexibleSpaceBar(
                         collapseMode: widget.flexibleSpaceCollapseMode,
                         background: widget.scrollingHeader,
+                        title: widget.scrollingHeaderTitle,
+                        centerTitle: widget.centerScrollingHeaderTitle,
                       )
                     : null,
               ),
