@@ -12,20 +12,29 @@ class NetworkConnectionError implements Exception {}
 class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
-  ApiResponseError(this.message, {this.code, this.request});
+  ApiResponseError(this.message, {this.code, this.request, this.errorCode});
   final RequestOptions? request;
   final String message;
+  final String? errorCode;
   final int? code;
 
   String toJson() => json.encode({
         'request': request?.path,
         'message': message,
+        'error_code': errorCode,
         'code': code,
         'request_id': request?.headers['Request-Id'],
       });
+
+  ApiResponseError withErrorCode(String? errorCode) => ApiResponseError(
+        message,
+        errorCode: errorCode,
+        code: code,
+        request: request,
+      );
 }
 
-enum HTTPRequestMethod { GET, POST, PUT, DELETE, PATCH }
+enum HTTPRequestMethod { get, post, put, delete, patch }
 
 @immutable
 class HTTPRequest {
@@ -51,15 +60,15 @@ class HTTPRequest {
 
   String get methodString {
     switch (method) {
-      case HTTPRequestMethod.DELETE:
+      case HTTPRequestMethod.delete:
         return 'DELETE';
-      case HTTPRequestMethod.POST:
+      case HTTPRequestMethod.post:
         return 'POST';
-      case HTTPRequestMethod.PUT:
+      case HTTPRequestMethod.put:
         return 'PUT';
-      case HTTPRequestMethod.PATCH:
+      case HTTPRequestMethod.patch:
         return 'PATCH';
-      case HTTPRequestMethod.GET:
+      case HTTPRequestMethod.get:
       default:
         return 'GET';
     }
@@ -179,6 +188,28 @@ class HTTPRequest {
                 e.type == DioErrorType.other &&
                 e.message.toLowerCase().contains('failed host lookup'));
   }
+
+  Future<T> run<T>(
+    Dio client, {
+    int successCode = 200,
+    required Future<T> Function(dynamic) onSuccess,
+    ApiResponseError Function(ApiResponseError)? onError,
+  }) {
+    return execute(client).then((response) async {
+      if (response.statusCode == successCode) {
+        return onSuccess(response.data);
+      } else {
+        var _error = ApiResponseError(
+          response.data['message'],
+          code: response.statusCode,
+          request: response.requestOptions,
+        );
+
+        _error = onError?.call(_error) ?? _error;
+        throw _error;
+      }
+    });
+  }
 }
 
 class FlutterJsonTransformer extends DefaultTransformer {
@@ -214,8 +245,9 @@ abstract class WebServiceInterface extends ServiceInterface {
   late Dio _client;
   Dio get client => _client;
 
-  Future<RequestOptions> authorizationInterceptor(RequestOptions options) async => options;
-  Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
+  Future<RequestOptions> authorizationInterceptor(
+          RequestOptions options) async =>
+      options;
+  Future<RequestOptions> onRequestInterceptor(RequestOptions options) async =>
+      options;
 }
-
-
