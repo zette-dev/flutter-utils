@@ -129,6 +129,7 @@ abstract class NetworkingModel {
   dynamic get error => _error;
   bool get hasError => _error != null;
   String get errorMessage;
+  String localizedErrorMessage(Translations translations);
 }
 
 extension NetworkingMutators on NetworkingModel {
