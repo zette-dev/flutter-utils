@@ -27,6 +27,9 @@ class _GenericListNetorkingModel<T extends Identifiable>
 
   @override
   String get errorMessage => '';
+
+  @override
+  String localizedErrorMessage(Translations translations) => '';
 }
 
 abstract class ListNetworkingModel<T extends Identifiable>
