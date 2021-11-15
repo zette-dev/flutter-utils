@@ -26,7 +26,7 @@ class _GenericListNetorkingModel<T extends Identifiable>
   int get collectionSize => 25;
 
   @override
-  String localizedErrorMessage(Translations? translations) => '';
+  String localizedErrorMessage([Translations? translations]) => '';
 }
 
 abstract class ListNetworkingModel<T extends Identifiable>
@@ -128,7 +128,7 @@ abstract class NetworkingModel {
   dynamic _error;
   dynamic get error => _error;
   bool get hasError => _error != null;
-  String localizedErrorMessage(Translations? translations);
+  String localizedErrorMessage([Translations? translations]);
 }
 
 extension NetworkingMutators on NetworkingModel {
