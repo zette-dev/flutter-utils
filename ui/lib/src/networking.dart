@@ -61,7 +61,7 @@ class HTTPRequest {
   Uri? get uri {
     if (baseUrl != null) {
       final _root = Uri.tryParse(baseUrl ?? '');
-      Uri(scheme: _root!.scheme, host: _root.host, path: path, queryParameters: query);
+      return Uri(scheme: _root!.scheme, host: _root.host, path: path, queryParameters: query);
     }
 
     return null;
