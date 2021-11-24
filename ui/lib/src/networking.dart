@@ -58,7 +58,14 @@ class HTTPRequest {
   final bool authenticated, autoRefreshToken;
   final String? contentType;
 
-  Uri get uri => Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: query);
+  Uri? get uri {
+    if (baseUrl != null) {
+      final _root = Uri.tryParse(baseUrl ?? '');
+      Uri(scheme: _root!.scheme, host: _root.host, path: path, queryParameters: query);
+    }
+
+    return null;
+  }
 
   String get methodString {
     switch (method) {
