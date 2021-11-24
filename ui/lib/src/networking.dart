@@ -58,6 +58,8 @@ class HTTPRequest {
   final bool authenticated, autoRefreshToken;
   final String? contentType;
 
+  Uri get uri => Uri(scheme: 'http', host: baseUrl, path: path, queryParameters: query);
+
   String get methodString {
     switch (method) {
       case HTTPRequestMethod.delete:
