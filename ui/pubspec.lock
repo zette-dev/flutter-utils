@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: refactor
-      resolved-ref: ea4d8a70399a8e531fc5c2f623558fd291089505
+      resolved-ref: f917532749206f3366d2e69b8799ad98615605dc
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -156,7 +156,7 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.2"
+    version: "9.0.3"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
@@ -170,7 +170,7 @@ packages:
       name: firebase_analytics_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0+2"
+    version: "0.4.0+3"
   firebase_core:
     dependency: "direct main"
     description:
@@ -276,7 +276,7 @@ packages:
       name: nm
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1"
+    version: "0.4.2"
   path:
     dependency: transitive
     description:
