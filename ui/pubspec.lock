@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: refactor
-      resolved-ref: f917532749206f3366d2e69b8799ad98615605dc
+      resolved-ref: "43c5b2a7c8fa4011fb12a7865fde5196e77c5905"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -156,56 +156,56 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.0.3"
+    version: "9.0.4"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_analytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.3"
   firebase_analytics_web:
     dependency: transitive
     description:
       name: firebase_analytics_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0+3"
+    version: "0.4.0+4"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.5"
+    version: "1.10.6"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.2"
+    version: "4.2.3"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.2"
+    version: "1.5.3"
   firebase_crashlytics:
     dependency: "direct main"
     description:
       name: firebase_crashlytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   firebase_crashlytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_crashlytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.10"
+    version: "3.1.11"
   flutter:
     dependency: "direct main"
     description: flutter

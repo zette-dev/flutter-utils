@@ -18,9 +18,9 @@ dependencies:
       url: https://github.com/Dropsource/flutter_utils.git
       path: core
       ref: refactor
-  firebase_analytics: ^9.0.3
-  firebase_core: ^1.10.5
-  firebase_crashlytics: ^2.4.3
+  firebase_analytics: ^9.0.4
+  firebase_core: ^1.10.6
+  firebase_crashlytics: ^2.4.4
   flutter:
     sdk: flutter
   logging: ^1.0.2

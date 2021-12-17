@@ -1,6 +1,6 @@
+import 'package:build_context/build_context.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:build_context/build_context.dart';
 
 ScrollPhysics platformScrollPhysics(BuildContext context) => context.isIOS
     ? BouncingScrollPhysics(

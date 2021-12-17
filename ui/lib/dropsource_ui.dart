@@ -16,7 +16,6 @@ export 'src/translations.dart';
 export 'src/ui/animated_card_navigator.dart';
 export 'src/ui/custom_scroll_views.dart';
 export 'src/ui/error_view.dart';
-export 'src/ui/grouped_list_view.dart';
 export 'src/ui/infinite_scroll_list.dart';
 export 'src/ui/loading_wrapper.dart';
 export 'src/ui/pin_pad_widget/pin_pad_widget.dart';

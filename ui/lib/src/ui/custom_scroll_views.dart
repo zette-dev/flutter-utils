@@ -262,8 +262,8 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       ];
 
   List<Widget> get loadMoreBuilder => [
-        if (widget.model?.isLoadingMore ??
-            false && widget.loadMoreBuilder != null)
+        if ((widget.model?.isLoadingMore ?? false) &&
+            widget.loadMoreBuilder != null)
           SliverPadding(
             padding: const EdgeInsets.all(8.0),
             sliver: widget.loadMoreBuilder!(context),

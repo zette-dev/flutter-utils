@@ -2,7 +2,6 @@ import 'package:dropsource_core/dropsource_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../dropsource_ui.dart';
-import 'grouped_list_view.dart';
 
 class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
   InfiniteScrollList({
@@ -164,70 +163,6 @@ class _InfinteScrollListState extends State<InfiniteScrollList> {
           widget.listView(widget.scrollController),
         ...(widget.overlays ?? []),
       ],
-    );
-  }
-}
-
-class GroupedInfiniteScrollList<T extends Identifiable, E>
-    extends InfiniteScrollList<T> {
-  GroupedInfiniteScrollList({
-    required this.groupBy,
-    required this.groupSeparatorBuilder,
-    required ListNetworkingModel<T> model,
-    required IndexedWidgetBuilder itemBuilder,
-    this.useStickHeader = false,
-    ScrollController? scrollController,
-    Color? refreshColor,
-    Color? refreshBackgroundColor,
-    String? listKey,
-    RefreshCallback? onRefresh,
-    RefreshCallback? onLoadMore,
-    IndexedWidgetBuilder? separatorBuilder,
-    WidgetBuilder? errorBuilder,
-    WidgetBuilder? emptyBuilder,
-    Brightness brightness = Brightness.light,
-    List<Widget>? overlays,
-    EdgeInsetsGeometry? padding,
-    int? extraItemCount,
-    this.order = GroupedListOrder.ASC,
-  }) : super(
-          scrollController: scrollController,
-          model: model,
-          refreshColor: refreshColor,
-          refreshBackgroundColor: refreshBackgroundColor,
-          listKey: listKey,
-          onRefresh: onRefresh,
-          onLoadMore: onLoadMore,
-          itemBuilder: itemBuilder,
-          separatorBuilder: separatorBuilder,
-          emptyBuilder: emptyBuilder,
-          errorBuilder: errorBuilder,
-          brightness: brightness,
-          overlays: overlays,
-          padding: padding,
-          extraItemCount: extraItemCount,
-        );
-
-  final E Function(T element) groupBy;
-  final Widget Function(BuildContext contex, E value) groupSeparatorBuilder;
-  final bool useStickHeader;
-  final GroupedListOrder order;
-  @override
-  Widget listView(ScrollController? controller) {
-    return GroupedListView<T, E>(
-      key: super.key,
-      elements: model.listData,
-      groupBy: groupBy,
-      sort: false,
-      groupSeparatorBuilder: groupSeparatorBuilder,
-      itemBuilder: (ctx, _, i) => hasDataOrIsLoading
-          ? super.hasDataOrLoadingBuilder(ctx, i)
-          : super.emptyOrErrorBuilder(ctx, i),
-      physics: scrollPhysics,
-      padding: padding,
-      controller: controller,
-      useStickyGroupSeparators: useStickHeader,
-      order: order,
     );
   }
 }
