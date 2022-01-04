@@ -124,8 +124,8 @@ packages:
     dependency: "direct main"
     description:
       path: core
-      ref: refactor
-      resolved-ref: "617d3024393621575c440d62dd0c67d1508fda42"
+      ref: master
+      resolved-ref: "24a6f141e7bc5c80adcde4e1ce38edc855563e38"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
