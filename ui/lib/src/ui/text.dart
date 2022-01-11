@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../dropsource_ui.dart';
 
@@ -9,6 +10,7 @@ class TextHeadline1 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -23,6 +25,7 @@ class TextHeadline1 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -47,6 +50,7 @@ class TextHeadline2 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -61,6 +65,7 @@ class TextHeadline2 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -85,6 +90,7 @@ class TextHeadline3 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -99,6 +105,7 @@ class TextHeadline3 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -123,6 +130,7 @@ class TextHeadline4 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -137,6 +145,7 @@ class TextHeadline4 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -161,6 +170,7 @@ class TextHeadline5 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -175,6 +185,7 @@ class TextHeadline5 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -199,6 +210,7 @@ class TextHeadline6 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -213,6 +225,7 @@ class TextHeadline6 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -237,6 +250,7 @@ class TextSubtitle1 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -251,6 +265,7 @@ class TextSubtitle1 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -275,6 +290,7 @@ class TextSubtitle2 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -289,6 +305,7 @@ class TextSubtitle2 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -313,6 +330,7 @@ class TextBody1 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -327,6 +345,7 @@ class TextBody1 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -351,6 +370,7 @@ class TextBody2 extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -365,6 +385,7 @@ class TextBody2 extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -389,6 +410,7 @@ class TextCaption extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -403,11 +425,13 @@ class TextCaption extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
           overflow: overflow,
           maxLines: maxLines,
+          maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
@@ -425,6 +449,7 @@ class TextOverline extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -439,11 +464,13 @@ class TextOverline extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
           overflow: overflow,
           maxLines: maxLines,
+          maxFontSize: maxFontSize,
           minFontSize: minFontSize,
           shouldAutoResize: shouldAutoResize,
           fontSizeMultiplier: fontSizeMultiplier,
@@ -462,6 +489,7 @@ class ButtonText extends TextWidget {
     Key? key,
     List<String>? args,
     bool? shouldTranslate,
+    bool? shouldBeCopyable,
     TextAlign? textAlign,
     TextOverflow? overflow,
     int? maxLines,
@@ -476,6 +504,7 @@ class ButtonText extends TextWidget {
           text,
           key: key,
           shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
           styles: styles,
           args: args,
           textAlign: textAlign,
@@ -496,12 +525,14 @@ class ButtonText extends TextWidget {
 abstract class TextWidget extends StatelessWidget {
   final String text;
   final List<String>? args;
-  final bool? shouldTranslate;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final int? maxLines;
   final double? maxFontSize, minFontSize;
-  final bool? shouldUpperCase, shouldAutoResize;
+  final bool? shouldUpperCase,
+      shouldAutoResize,
+      shouldTranslate,
+      shouldBeCopyable;
   final AutoSizeGroup? resizeGroup;
   final TextStyle? styles;
   final double? fontSizeMultiplier;
@@ -511,6 +542,7 @@ abstract class TextWidget extends StatelessWidget {
     this.text, {
     this.shouldTranslate,
     this.shouldAutoResize,
+    this.shouldBeCopyable,
     this.resizeGroup,
     this.fontSizeMultiplier,
     this.minFontSize,
@@ -527,6 +559,7 @@ abstract class TextWidget extends StatelessWidget {
   bool get _shouldTranslate => shouldTranslate ?? false;
   bool get _shouldUpperCase => shouldUpperCase ?? false;
   bool get _shouldAutoResize => shouldAutoResize ?? false;
+  bool get _shouldBeCopyable => shouldBeCopyable ?? false;
 
   @override
   Widget build(BuildContext context) {
@@ -541,9 +574,10 @@ abstract class TextWidget extends StatelessWidget {
     var _styles =
         styles == null ? style(context) : style(context)?.merge(styles);
 
+    late Widget _text;
     // This will auto
     if (_shouldAutoResize) {
-      return AutoSizeText(
+      _text = AutoSizeText(
         formattedText,
         overflow: overflow,
         style: _styles,
@@ -556,13 +590,27 @@ abstract class TextWidget extends StatelessWidget {
         // ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
         // : _styles.fontSize,
       );
+    } else {
+      _text = Text(
+        formattedText,
+        overflow: overflow,
+        style: _styles,
+        textAlign: textAlign,
+        maxLines: maxLines,
+      );
     }
-    return Text(
-      formattedText,
-      overflow: overflow,
-      style: _styles,
-      textAlign: textAlign,
-      maxLines: maxLines,
-    );
+
+    if (_shouldBeCopyable) {
+      return GestureDetector(
+        child: _text,
+        onLongPress: () {
+          Clipboard.setData(ClipboardData(text: formattedText));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Text Copied!')));
+        },
+      );
+    }
+
+    return _text;
   }
 }
