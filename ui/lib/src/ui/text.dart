@@ -614,9 +614,6 @@ abstract class TextWidget extends StatelessWidget {
         group: resizeGroup,
         maxFontSize: maxFontSize ?? _styles!.fontSize!,
         minFontSize: minFontSize ?? 10,
-        // (isTablet(context) ?? false)
-        // ? _styles.fontSize * (fontSizeMultiplier ?? 1.2)
-        // : _styles.fontSize,
       );
     } else {
       _text = Text(

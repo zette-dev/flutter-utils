@@ -122,16 +122,20 @@ Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
         {int Function(T, T)? sorter}) =>
     Rx.combineLatest<List<T>, List<T>>(streams, (list) {
       final _combined = list.flatten();
-      if (sorter != null) _combined.sort(sorter);
-      return _combined.toList();
+      if (sorter != null) {
+        return _combined..sort(sorter);
+      }
+      return _combined;
     });
 
 Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures,
         {int Function(T, T)? sorter}) =>
     Future.wait(futures).then((list) {
       final _combined = list.flatten();
-      if (sorter != null) _combined.sort(sorter);
-      return _combined.toList();
+      if (sorter != null) {
+        return _combined..sort(sorter);
+      }
+      return _combined;
     });
 
 extension FutureListExtension<T> on List<Future<List<T>>> {
@@ -141,6 +145,6 @@ extension FutureListExtension<T> on List<Future<List<T>>> {
         if (sorter != null && _combined.isNotEmpty) {
           _combined.sort(sorter);
         }
-        return _combined.toList();
+        return _combined;
       });
 }
