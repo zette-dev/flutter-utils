@@ -6,7 +6,7 @@ enum SessionState {
   firstTimeAuthenticating,
 }
 
-SessionState sessionStatusInit(String value) {
+SessionState sessionStatusInit(String? value) {
   switch (value) {
     case 'loggedInAsMember': // for ocean reef, legacy
     case 'loggedIn':
@@ -23,7 +23,7 @@ SessionState sessionStatusInit(String value) {
   }
 }
 
-String sessionStatusToString(SessionState status) {
+String sessionStatusToString(SessionState? status) {
   switch (status) {
     case SessionState.loggedIn:
       return 'loggedIn';
@@ -47,7 +47,7 @@ enum MergeDirection {
 
 enum AuthentiationMechanism { biometrics, pin, none }
 
-String authMechanismToString(AuthentiationMechanism status) {
+String authMechanismToString(AuthentiationMechanism? status) {
   switch (status) {
     case AuthentiationMechanism.biometrics:
       return 'biometrics';
@@ -59,7 +59,7 @@ String authMechanismToString(AuthentiationMechanism status) {
   }
 }
 
-AuthentiationMechanism authMechanismInit(String value) {
+AuthentiationMechanism authMechanismInit(String? value) {
   switch (value) {
     case 'biometrics':
       return AuthentiationMechanism.biometrics;
