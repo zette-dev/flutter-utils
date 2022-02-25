@@ -6,9 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../dropsource_ui.dart';
 
-mixin ServiceProviderReadable<S extends Loadable<S>> {
-  Ref get ref;
-
+mixin LoadableProvider<S extends Loadable<S>> {
   S get state;
   set state(S s);
 
