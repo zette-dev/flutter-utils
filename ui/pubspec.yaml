@@ -17,7 +17,7 @@ dependencies:
     git:
       url: https://github.com/Dropsource/flutter_utils.git
       path: core
-      ref: master
+      ref: riverpod
   firebase_analytics: ^9.1.2
   firebase_core: ^1.13.1
   firebase_crashlytics: ^2.5.3

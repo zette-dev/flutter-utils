@@ -6,8 +6,8 @@ import 'package:ms_map_utils/ms_map_utils.dart';
 import 'service_provider.dart' show Serializable;
 
 class ProviderLogger extends ProviderObserver {
-  ProviderLogger(this.log) {
-    Logger.root.level = Level.ALL; // defaults to Level.INFO
+  ProviderLogger(this.log, {Level level = Level.ALL}) {
+    Logger.root.level = level;
     Logger.root.onRecord.listen((record) {
       print('${record.level.name}: ${record.time}: ${record.message}');
     });
@@ -43,10 +43,12 @@ class ProviderLogger extends ProviderObserver {
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
       if (!mapEquals(beforeDiff, afterDiff)) {
-        log.fine('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
+        log.fine(
+            'UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.fine('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
+      log.fine(
+          'UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
 }
