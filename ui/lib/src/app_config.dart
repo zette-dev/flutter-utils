@@ -6,11 +6,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart'
     show FlutterExceptionHandler, kReleaseMode;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum AppEnvironment {
   staging,
   production,
   automation,
+}
+
+final envProvider = StateNotifierProvider<EnvConfigNotifier, EnvConfig?>(
+  (ref) => EnvConfigNotifier(),
+  name: 'AppEnv',
+);
+
+class EnvConfigNotifier extends StateNotifier<EnvConfig?> {
+  // Initialize with null and `EnvConfig` gets set on AppEnv.loadState
+  EnvConfigNotifier() : super(null);
+
+  void initialize(EnvConfig config) => state = config;
 }
 
 abstract class EnvConfig<S> {
@@ -43,7 +56,7 @@ abstract class EnvConfig<S> {
     }
   }
 
-  Future<S> loadState();
+  Future loadState(WidgetRef ref);
 
   Widget createApp();
 
