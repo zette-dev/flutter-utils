@@ -88,3 +88,7 @@ mixin Loadable<T> {
 
   String localizedErrorMessage(WidgetRef ref);
 }
+
+mixin Serializable {
+  Map<String, dynamic> toMap();
+}

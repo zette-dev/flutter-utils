@@ -6,6 +6,7 @@ export 'src/helpers.dart';
 export 'src/hex_color.dart';
 export 'src/input_formatters.dart';
 export 'src/launchers.dart';
+export 'src/logging.dart';
 export 'src/networking.dart';
 export 'src/networking_manager.dart';
 export 'src/routing.dart';
