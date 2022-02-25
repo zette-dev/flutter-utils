@@ -26,7 +26,7 @@ class EnvConfigNotifier extends StateNotifier<EnvConfig?> {
   void initialize(EnvConfig config) => state = config;
 }
 
-abstract class EnvConfig<S> {
+abstract class EnvConfig {
   EnvConfig({
     required this.appName,
     required this.environment,

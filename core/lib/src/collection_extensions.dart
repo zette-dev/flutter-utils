@@ -32,6 +32,20 @@ extension MapMethods<K, T> on Map {
     return filtered;
   }
 
+  Map<K, T> filterOutNullsOrEmpty() {
+    final Map<K, T> filtered = <K, T>{};
+    forEach((key, value) {
+      if (value != null && value is! Map && value is! Iterable) {
+        filtered[key] = value;
+      } else if (value is Map<dynamic, dynamic> && value.isNotEmpty) {
+        filtered[key] = value as T;
+      } else if (value is Iterable && value.isNotEmpty) {
+        filtered[key] = value as T;
+      }
+    });
+    return filtered;
+  }
+
   Map<K, T> sortKeys() {
     final _keys = keys.toList();
     if (_keys.isNotEmpty) {
