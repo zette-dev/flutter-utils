@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: riverpod
-      resolved-ref: "8b2b59e03d204263e768bab6a556b476863c0f3b"
+      resolved-ref: ff5a951f050a01ec4e2beadd8d5f288577ae6f3e
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
