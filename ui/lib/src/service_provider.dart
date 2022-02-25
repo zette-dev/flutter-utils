@@ -1,10 +1,13 @@
 import 'dart:async';
 
-import 'package:dropsource_ui/src/networking_manager.dart';
+import 'package:flutter/widgets.dart' show protected;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rxdart/rxdart.dart';
 
-import '../dropsource_ui.dart';
+abstract class ManagedStateNotifier<T> extends StateNotifier<T> {
+  ManagedStateNotifier(this.ref, T state) : super(state);
+  @protected
+  final Ref ref;
+}
 
 mixin LoadableProvider<S extends Loadable<S>> {
   S get state;
