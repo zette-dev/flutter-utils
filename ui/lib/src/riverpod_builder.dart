@@ -7,6 +7,7 @@ import '../dropsource_ui.dart';
 
 typedef _Builder<M, T> = Widget Function(
   BuildContext,
+  WidgetRef ref,
   M controller,
   T state,
 );
@@ -64,6 +65,7 @@ class _StateStreamBuilderState<S, N extends StateNotifier<S>>
       stream: ref.watch(widget.notifier.notifier).stream,
       builder: (ctx, snapshot) => widget.builder(
         ctx,
+        ref,
         ref.read(widget.notifier.notifier),
         snapshot.data!,
       ),
