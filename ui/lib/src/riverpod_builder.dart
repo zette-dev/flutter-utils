@@ -13,6 +13,7 @@ typedef _Builder<M, T> = Widget Function(
 );
 typedef OnControllerCallback<M> = void Function(
   M controller,
+  WidgetRef ref,
 );
 
 class StateStreamBuilder<S, N extends StateNotifier<S>>
@@ -44,18 +45,18 @@ class _StateStreamBuilderState<S, N extends StateNotifier<S>>
   void initState() {
     super.initState();
     Future.delayed(Duration.zero,
-        () => widget.onInit?.call(ref.read(widget.notifier.notifier)));
+        () => widget.onInit?.call(ref.read(widget.notifier.notifier), ref));
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
-    widget.onInitialBuild?.call(ref.read(widget.notifier.notifier));
+    widget.onInitialBuild?.call(ref.read(widget.notifier.notifier), ref);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.onDispose?.call(ref.read(widget.notifier.notifier));
+    widget.onDispose?.call(ref.read(widget.notifier.notifier), ref);
   }
 
   @override
