@@ -41,9 +41,9 @@ class ShakeController extends AnimationController {
 
   Future shake() async {
     if (status == AnimationStatus.completed) {
-      return await this.reverse();
+      return await reverse();
     } else {
-      return await this.forward();
+      return await forward();
     }
   }
 }

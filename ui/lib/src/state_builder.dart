@@ -14,6 +14,7 @@ typedef _Builder<M, T> = Widget Function(
 
 typedef OnControllerCallback<M> = void Function(
   M controller,
+  WidgetRef ref,
 );
 
 enum _BuilderType { stream, watch }
@@ -33,9 +34,11 @@ class StateBuilder<S, N extends StateNotifier<S>>
     this.onDispose,
     this.onInitialBuild,
     required this.type,
+    this.asyncInitDelay = Duration.zero,
   }) : super(key: key);
 
   final _BuilderType type;
+  final Duration asyncInitDelay;
 
   factory StateBuilder.stream({
     Key? key,
@@ -88,20 +91,22 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
   @override
   void initState() {
     super.initState();
-    widget.onInit?.call(ref.read(widget.provider.notifier));
-    Future.delayed(Duration.zero,
-        () => widget.onAsyncInit?.call(ref.read(widget.provider.notifier)));
+    widget.onInit?.call(ref.read(widget.provider.notifier), ref);
+    Future.delayed(
+        Duration.zero,
+        () =>
+            widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
-    widget.onInitialBuild?.call(ref.read(widget.provider.notifier));
+    widget.onInitialBuild?.call(ref.read(widget.provider.notifier), ref);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.onDispose?.call(ref.read(widget.provider.notifier));
+    widget.onDispose?.call(ref.read(widget.provider.notifier), ref);
   }
 
   @override
