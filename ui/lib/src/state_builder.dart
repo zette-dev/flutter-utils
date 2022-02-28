@@ -48,6 +48,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     OnControllerCallback<N>? onAsyncInit,
     OnControllerCallback<N>? onDispose,
     OnControllerCallback<N>? onInitialBuild,
+    Duration asyncInitDelay = Duration.zero,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -58,6 +59,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onDispose: onDispose,
         onInitialBuild: onInitialBuild,
         type: _BuilderType.stream,
+        asyncInitDelay: asyncInitDelay,
       );
 
   factory StateBuilder.watch({
@@ -68,6 +70,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     OnControllerCallback<N>? onAsyncInit,
     OnControllerCallback<N>? onDispose,
     OnControllerCallback<N>? onInitialBuild,
+    Duration asyncInitDelay = Duration.zero,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -78,6 +81,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onDispose: onDispose,
         onInitialBuild: onInitialBuild,
         type: _BuilderType.watch,
+        asyncInitDelay: asyncInitDelay,
       );
 
   @override
