@@ -9,6 +9,7 @@ export 'src/launchers.dart';
 export 'src/logging.dart';
 export 'src/networking.dart';
 export 'src/networking_manager.dart';
+export 'src/riverpod_builder.dart';
 export 'src/routing.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';
