@@ -11,9 +11,12 @@ typedef _Builder<M, T> = Widget Function(
   M controller,
   T state,
 );
+
 typedef OnControllerCallback<M> = void Function(
   M controller,
 );
+
+enum _BuilderType { stream, watch }
 
 class StateBuilder<S, N extends StateNotifier<S>>
     extends ConsumerStatefulWidget {
@@ -29,7 +32,50 @@ class StateBuilder<S, N extends StateNotifier<S>>
     this.onAsyncInit,
     this.onDispose,
     this.onInitialBuild,
+    required this.type,
   }) : super(key: key);
+
+  final _BuilderType type;
+
+  factory StateBuilder.stream({
+    Key? key,
+    required _Builder<N, S> builder,
+    required StateNotifierProvider<N, S> provider,
+    OnControllerCallback<N>? onInit,
+    OnControllerCallback<N>? onAsyncInit,
+    OnControllerCallback<N>? onDispose,
+    OnControllerCallback<N>? onInitialBuild,
+  }) =>
+      StateBuilder<S, N>(
+        key: key,
+        builder: builder,
+        provider: provider,
+        onInit: onInit,
+        onAsyncInit: onAsyncInit,
+        onDispose: onDispose,
+        onInitialBuild: onInitialBuild,
+        type: _BuilderType.stream,
+      );
+
+  factory StateBuilder.watch({
+    Key? key,
+    required _Builder<N, S> builder,
+    required StateNotifierProvider<N, S> provider,
+    OnControllerCallback<N>? onInit,
+    OnControllerCallback<N>? onAsyncInit,
+    OnControllerCallback<N>? onDispose,
+    OnControllerCallback<N>? onInitialBuild,
+  }) =>
+      StateBuilder<S, N>(
+        key: key,
+        builder: builder,
+        provider: provider,
+        onInit: onInit,
+        onAsyncInit: onAsyncInit,
+        onDispose: onDispose,
+        onInitialBuild: onInitialBuild,
+        type: _BuilderType.watch,
+      );
 
   @override
   _StateBuilderState createState() {
@@ -60,15 +106,24 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<S>(
-      initialData: ref.read(widget.provider),
-      stream: ref.watch(widget.provider.notifier).stream,
-      builder: (ctx, snapshot) => widget.builder(
-        ctx,
-        ref,
-        ref.read(widget.provider.notifier),
-        snapshot.data!,
-      ),
+    if (widget.type == _BuilderType.stream) {
+      return StreamBuilder<S>(
+        initialData: ref.read(widget.provider),
+        stream: ref.watch(widget.provider.notifier).stream,
+        builder: (ctx, snapshot) => widget.builder(
+          ctx,
+          ref,
+          ref.read(widget.provider.notifier),
+          snapshot.data!,
+        ),
+      );
+    }
+    final state = ref.watch(widget.provider);
+    return widget.builder(
+      context,
+      ref,
+      ref.read(widget.provider.notifier),
+      state,
     );
   }
 }
