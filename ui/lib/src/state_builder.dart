@@ -7,67 +7,66 @@ import '../dropsource_ui.dart';
 
 typedef _Builder<M, T> = Widget Function(
   BuildContext,
-  WidgetRef ref,
+  WidgetRef,
   M controller,
   T state,
 );
 typedef OnControllerCallback<M> = void Function(
   M controller,
-  WidgetRef ref,
 );
 
-class StateStreamBuilder<S, N extends StateNotifier<S>>
+class StateBuilder<S, N extends StateNotifier<S>>
     extends ConsumerStatefulWidget {
-  final StateNotifierProvider<N, S> notifier;
+  final StateNotifierProvider<N, S> provider;
   final _Builder<N, S> builder;
-  final OnControllerCallback<N>? onInit;
-  final OnControllerCallback<N>? onDispose;
-  final OnControllerCallback<N>? onInitialBuild;
+  final OnControllerCallback<N>? onInit, onAsyncInit, onDispose, onInitialBuild;
 
-  const StateStreamBuilder({
+  const StateBuilder({
     Key? key,
     required this.builder,
-    required this.notifier,
+    required this.provider,
     this.onInit,
+    this.onAsyncInit,
     this.onDispose,
     this.onInitialBuild,
   }) : super(key: key);
 
   @override
-  _StateStreamBuilderState createState() {
-    return _StateStreamBuilderState<S, N>();
+  _StateBuilderState createState() {
+    return _StateBuilderState<S, N>();
   }
 }
 
-class _StateStreamBuilderState<S, N extends StateNotifier<S>>
-    extends ConsumerState<StateStreamBuilder<S, N>> with AfterLayoutMixin {
+class _StateBuilderState<S, N extends StateNotifier<S>>
+    extends ConsumerState<StateBuilder<S, N>> with AfterLayoutMixin {
   @override
   void initState() {
     super.initState();
+    widget.onInit?.call(ref.read(widget.provider.notifier));
     Future.delayed(Duration.zero,
-        () => widget.onInit?.call(ref.read(widget.notifier.notifier), ref));
+        () => widget.onAsyncInit?.call(ref.read(widget.provider.notifier)));
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
-    widget.onInitialBuild?.call(ref.read(widget.notifier.notifier), ref);
+    widget.onInitialBuild?.call(ref.read(widget.provider.notifier));
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.onDispose?.call(ref.read(widget.notifier.notifier), ref);
+    widget.onDispose?.call(ref.read(widget.provider.notifier));
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<S>(
-      initialData: ref.read(widget.notifier),
-      stream: ref.watch(widget.notifier.notifier).stream,
+      initialData: ref.read(widget.provider),
+      stream: ref.watch(widget.provider.notifier).stream,
       builder: (ctx, snapshot) => widget.builder(
         ctx,
         ref,
-        ref.read(widget.notifier.notifier),
+        ref.read(widget.provider.notifier),
         snapshot.data!,
       ),
     );

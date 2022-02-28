@@ -88,7 +88,7 @@ class HTTPRequest {
     String? baseUrl,
     Map<String, String>? headers,
     Map<String, String>? query,
-    dynamic? body,
+    dynamic body,
     HTTPRequestMethod? method,
     String? contentType,
     bool? authenticated,
@@ -226,11 +226,11 @@ class FlutterJsonTransformer extends DefaultTransformer {
 }
 
 // Must be top-level function
-_parseAndDecode(String response) {
+dynamic _parseAndDecode(String response) {
   return jsonDecode(response);
 }
 
-_parseJson(String text) {
+dynamic _parseJson(String text) {
   return compute(_parseAndDecode, text);
 }
 

@@ -51,7 +51,7 @@ class PinCode extends StatelessWidget {
     this.tapDuration = const Duration(milliseconds: 90),
   });
 
-  bool get pinExists => pin != null && pin.isNotEmpty;
+  bool get pinExists => pin.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +97,10 @@ class PinCode extends StatelessWidget {
                 onCodeUpdated(_pin);
               }
               if (_pin.length == codeLength) {
-                if (onCodeCompleted != null) {
-                  onCodeCompleted(_pin);
-                }
-                if (clearOnCodeEntered) {
-                  onCodeUpdated('');
-                }
+                onCodeCompleted(_pin);
+              }
+              if (clearOnCodeEntered) {
+                onCodeUpdated('');
               }
             },
             backIcon: _backIcon,

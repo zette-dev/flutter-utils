@@ -34,6 +34,7 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final int? extraItemCount;
 
+  @override
   final PageStorageKey? key;
 
   int get extraItemsNeeded {
@@ -48,10 +49,7 @@ class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
     return _count;
   }
 
-  bool get loadMoreEnabled =>
-      (model.shouldLoadMore != null) &&
-      onLoadMore != null &&
-      (model.canLoadMore != null);
+  bool get loadMoreEnabled => onLoadMore != null && (model.canLoadMore != null);
 
   int get calculatedItemCount => model.itemCount + extraItemsNeeded;
 
