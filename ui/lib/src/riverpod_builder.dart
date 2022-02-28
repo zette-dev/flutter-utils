@@ -1,82 +1,72 @@
 import 'dart:async';
 
-import 'package:dropsource_ui/dropsource_ui.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
-typedef OnInitCallback<M> = void Function(M manager);
-typedef InitialDataCreator<M, T> = T Function(M manager);
-typedef StreamCreator<M, T> = Stream<T> Function(M manager);
-typedef IgnoreChangeTest<T> = bool Function(T model);
+
+import '../dropsource_ui.dart';
 
 typedef _Builder<M, T> = Widget Function(
   BuildContext,
   M controller,
   T state,
 );
-typedef OnDisposeCallback<M> = void Function(
+typedef OnControllerCallback<M> = void Function(
   M controller,
 );
-typedef OnWillChangeCallback<M> = void Function(M manager);
-typedef OnInitialBuildCallback<M> = void Function(M manager);
 
-class RiverpodBuilder<SN extends StateNotifierProvider<N, StateNotifier<S>>
+class StateStreamBuilder<S, N extends StateNotifier<S>>
     extends ConsumerStatefulWidget {
-  final N notifier;
+  final StateNotifierProvider<N, S> notifier;
   final _Builder<N, S> builder;
-  final InitialDataCreator<N, S> initialData;
-  final StreamCreator<N, S> stream;
-  final OnInitCallback<N>? onInit;
-  final OnDisposeCallback<N>? onDispose;
-  final OnInitialBuildCallback<N>? onInitialBuild;
+  final OnControllerCallback<N>? onInit;
+  final OnControllerCallback<N>? onDispose;
+  final OnControllerCallback<N>? onInitialBuild;
 
-  const RiverpodBuilder({
+  const StateStreamBuilder({
     Key? key,
     required this.builder,
-    required this.stream,
     required this.notifier,
-    required this.initialData,
     this.onInit,
     this.onDispose,
     this.onInitialBuild,
   }) : super(key: key);
 
   @override
-  _RiverpodBuilderState createState() {
-    return _RiverpodBuilderState<N, S>();
+  _StateStreamBuilderState createState() {
+    return _StateStreamBuilderState<S, N>();
   }
 }
 
-class _RiverpodBuilderState<N extends StateNotifier<S>, S>
-    extends ConsumerState<RiverpodBuilder<N, S>> with AfterLayoutMixin {
+class _StateStreamBuilderState<S, N extends StateNotifier<S>>
+    extends ConsumerState<StateStreamBuilder<S, N>> with AfterLayoutMixin {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () => widget.onInit?.call(widget.notifier));
+    Future.delayed(Duration.zero,
+        () => widget.onInit?.call(ref.read(widget.notifier.notifier)));
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
-    widget.onInitialBuild?.call(widget.notifier);
+    widget.onInitialBuild?.call(ref.read(widget.notifier.notifier));
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.onDispose?.call(widget.notifier);
+    widget.onDispose?.call(ref.read(widget.notifier.notifier));
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return StreamBuilder<S>(
-      initialData: widget.initialData(widget.manager),
-      stream: _createStream(),
-      builder: (ctx, snapshot) =>
-          widget.builder(ctx, widget.manager, snapshot.data!),
+      initialData: ref.read(widget.notifier),
+      stream: ref.watch(widget.notifier.notifier).stream,
+      builder: (ctx, snapshot) => widget.builder(
+        ctx,
+        ref.read(widget.notifier.notifier),
+        snapshot.data!,
+      ),
     );
   }
-
-  Stream<T> _createStream() => widget.stream(widget.notifier);
 }
