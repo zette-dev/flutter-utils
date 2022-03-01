@@ -109,8 +109,8 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
 
   @override
   void dispose() {
-    super.dispose();
     widget.onDispose?.call(ref.read(widget.provider.notifier), ref);
+    super.dispose();
   }
 
   @override
