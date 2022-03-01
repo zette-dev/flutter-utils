@@ -92,14 +92,23 @@ class StateBuilder<S, N extends StateNotifier<S>>
 
 class _StateBuilderState<S, N extends StateNotifier<S>>
     extends ConsumerState<StateBuilder<S, N>> with AfterLayoutMixin {
+  WidgetRef? _lastRef;
+  WidgetRef? get _latestRef => _lastRef;
   @override
   void initState() {
     super.initState();
+    _lastRef = ref;
     widget.onInit?.call(ref.read(widget.provider.notifier), ref);
     Future.delayed(
         Duration.zero,
         () =>
             widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
+  }
+
+  @override
+  void didChangeDependencies() {
+    _lastRef = ref;
+    super.didChangeDependencies();
   }
 
   @override
@@ -109,7 +118,12 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
 
   @override
   void dispose() {
-    widget.onDispose?.call(ref.read(widget.provider.notifier), ref);
+    if (widget.onDispose != null && _latestRef != null) {
+      widget.onDispose!(
+        _latestRef!.read(widget.provider.notifier),
+        _latestRef!,
+      );
+    }
     super.dispose();
   }
 
