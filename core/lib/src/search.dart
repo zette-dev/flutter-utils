@@ -6,7 +6,7 @@ mixin SearchModel {
   String? get searchTerm;
   bool get hasSearch => searchTerm?.isNotEmpty ?? false;
   List<String>? get searchIndex =>
-      searchTerm?.split(' ').map((e) => e.toLowerCase()).toList();
+      searchTerm?.split(' ').map((e) => e.toLowerCase()).where((e) => e.isNotEmpty).toList();
 
   List<T> searchResults<T extends SearchObject>(List<T> initialData,
       {bool Function(T)? filter}) {
