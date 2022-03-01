@@ -107,8 +107,8 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
 
   @override
   void didChangeDependencies() {
-    _lastRef = ref;
     super.didChangeDependencies();
+    _lastRef = ref;
   }
 
   @override
@@ -118,13 +118,13 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
 
   @override
   void dispose() {
+    super.dispose();
     if (widget.onDispose != null && _latestRef != null) {
       widget.onDispose!(
         _latestRef!.read(widget.provider.notifier),
         _latestRef!,
       );
     }
-    super.dispose();
   }
 
   @override
