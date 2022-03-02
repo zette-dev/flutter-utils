@@ -108,12 +108,6 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
             widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-    // _lastRef = ref;
-  // }
-
   @override
   void afterFirstLayout(BuildContext context) {
     widget.onInitialBuild?.call(ref.read(widget.provider.notifier), ref);
