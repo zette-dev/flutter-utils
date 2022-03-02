@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../dropsource_ui.dart';
 
 typedef _Builder<M, T> = Widget
-    Function(BuildContext, WidgetRef, M controller, T state, {Widget? child});
+    Function(BuildContext, WidgetRef, M controller, T state);
 
 typedef OnControllerCallback<M> = void Function(
   M controller,
@@ -32,12 +32,12 @@ class StateBuilder<S, N extends StateNotifier<S>>
     this.onInitialBuild,
     required this.type,
     this.asyncInitDelay = Duration.zero,
-    this.child,
+    // this.child,
   }) : super(key: key);
 
   final _BuilderType type;
   final Duration asyncInitDelay;
-  final Widget? child;
+  // final Widget? child;
 
   factory StateBuilder.stream({
     Key? key,
@@ -48,7 +48,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     VoidCallback? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
-    Widget? child,
+    // Widget? child,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -60,7 +60,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onInitialBuild: onInitialBuild,
         type: _BuilderType.stream,
         asyncInitDelay: asyncInitDelay,
-        child: child,
+        // child: child,
       );
 
   factory StateBuilder.watch({
@@ -72,7 +72,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     VoidCallback? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
-    Widget? child,
+    // Widget? child,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -84,7 +84,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onInitialBuild: onInitialBuild,
         type: _BuilderType.watch,
         asyncInitDelay: asyncInitDelay,
-        child: child,
+        // child: child,
       );
 
   @override
@@ -135,7 +135,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
           ref,
           ref.read(widget.provider.notifier),
           snapshot.data!,
-          child: widget.child,
+          // child: widget.child,
         ),
       );
     }
@@ -145,7 +145,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
       ref,
       ref.read(widget.provider.notifier),
       state,
-      child: widget.child,
+      // child: widget.child,
     );
   }
 }
