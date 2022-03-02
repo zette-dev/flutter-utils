@@ -5,12 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../dropsource_ui.dart';
 
-typedef _Builder<M, T> = Widget Function(
-  BuildContext,
-  WidgetRef,
-  M controller,
-  T state,
-);
+typedef _Builder<M, T> = Widget
+    Function(BuildContext, WidgetRef, M controller, T state, {Widget? child});
 
 typedef OnControllerCallback<M> = void Function(
   M controller,
@@ -35,10 +31,12 @@ class StateBuilder<S, N extends StateNotifier<S>>
     this.onInitialBuild,
     required this.type,
     this.asyncInitDelay = Duration.zero,
+    this.child,
   }) : super(key: key);
 
   final _BuilderType type;
   final Duration asyncInitDelay;
+  final Widget? child;
 
   factory StateBuilder.stream({
     Key? key,
@@ -49,6 +47,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     OnControllerCallback<N>? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
+    Widget? child,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -60,6 +59,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onInitialBuild: onInitialBuild,
         type: _BuilderType.stream,
         asyncInitDelay: asyncInitDelay,
+        child: child,
       );
 
   factory StateBuilder.watch({
@@ -71,6 +71,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     OnControllerCallback<N>? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
+    Widget? child,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -82,6 +83,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
         onInitialBuild: onInitialBuild,
         type: _BuilderType.watch,
         asyncInitDelay: asyncInitDelay,
+        child: child,
       );
 
   @override
@@ -92,12 +94,12 @@ class StateBuilder<S, N extends StateNotifier<S>>
 
 class _StateBuilderState<S, N extends StateNotifier<S>>
     extends ConsumerState<StateBuilder<S, N>> with AfterLayoutMixin {
-  WidgetRef? _lastRef;
-  WidgetRef? get _latestRef => _lastRef;
+  // WidgetRef? _lastRef;
+  // WidgetRef? get _latestRef => _lastRef;
   @override
   void initState() {
     super.initState();
-    _lastRef = ref;
+    // _lastRef = ref;
     widget.onInit?.call(ref.read(widget.provider.notifier), ref);
     Future.delayed(
         Duration.zero,
@@ -105,27 +107,27 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
             widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _lastRef = ref;
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+    // _lastRef = ref;
+  // }
 
   @override
   void afterFirstLayout(BuildContext context) {
     widget.onInitialBuild?.call(ref.read(widget.provider.notifier), ref);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    if (widget.onDispose != null && _latestRef != null) {
-      widget.onDispose!(
-        _latestRef!.read(widget.provider.notifier),
-        _latestRef!,
-      );
-    }
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   if (widget.onDispose != null && _latestRef != null) {
+  //     widget.onDispose!(
+  //       _latestRef!.read(widget.provider.notifier),
+  //       _latestRef!,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +140,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
           ref,
           ref.read(widget.provider.notifier),
           snapshot.data!,
+          child: widget.child,
         ),
       );
     }
@@ -147,6 +150,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
       ref,
       ref.read(widget.provider.notifier),
       state,
+      child: widget.child,
     );
   }
 }
