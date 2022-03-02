@@ -19,7 +19,8 @@ class StateBuilder<S, N extends StateNotifier<S>>
     extends ConsumerStatefulWidget {
   final StateNotifierProvider<N, S> provider;
   final _Builder<N, S> builder;
-  final OnControllerCallback<N>? onInit, onAsyncInit, onDispose, onInitialBuild;
+  final OnControllerCallback<N>? onInit, onAsyncInit, onInitialBuild;
+  final VoidCallback? onDispose;
 
   const StateBuilder({
     Key? key,
@@ -44,7 +45,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     required StateNotifierProvider<N, S> provider,
     OnControllerCallback<N>? onInit,
     OnControllerCallback<N>? onAsyncInit,
-    OnControllerCallback<N>? onDispose,
+    VoidCallback? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
     Widget? child,
@@ -68,7 +69,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     required StateNotifierProvider<N, S> provider,
     OnControllerCallback<N>? onInit,
     OnControllerCallback<N>? onAsyncInit,
-    OnControllerCallback<N>? onDispose,
+    VoidCallback? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
     Widget? child,
@@ -118,16 +119,16 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     widget.onInitialBuild?.call(ref.read(widget.provider.notifier), ref);
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   if (widget.onDispose != null && _latestRef != null) {
-  //     widget.onDispose!(
-  //       _latestRef!.read(widget.provider.notifier),
-  //       _latestRef!,
-  //     );
-  //   }
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    if (widget.onDispose != null) {
+      widget.onDispose!(
+        // _latestRef!.read(widget.provider.notifier),
+        // _latestRef!,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
