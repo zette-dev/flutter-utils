@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: riverpod
-      resolved-ref: "5a7f72e28f0050475577040a925026a1e89b5101"
+      resolved-ref: "3a6b194a753d60929fa9cbbecf9e81432d390b40"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -234,7 +234,7 @@ packages:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   http_parser:
     dependency: transitive
     description:
@@ -290,7 +290,7 @@ packages:
       name: ms_map_utils
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   nm:
     dependency: transitive
     description:
