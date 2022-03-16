@@ -53,7 +53,7 @@ Future sendEmail(String email,
 
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
-    path: 'smith@example.com',
+    path: email,
     query: encodeQueryParameters(<String, String>{
       if (subject != null) 'subject': subject,
       if (body != null) 'body': body
