@@ -26,7 +26,7 @@ class _GenericListNetorkingModel<T extends Identifiable>
   int get collectionSize => 25;
 
   @override
-  String localizedErrorMessage([Translations? translations]) => '';
+  String localizedErrorMessage([Object? translations]) => '';
 }
 
 abstract class ListNetworkingModel<T extends Identifiable>
