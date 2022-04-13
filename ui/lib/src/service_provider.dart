@@ -83,7 +83,7 @@ mixin Loadable<T> {
   T load() => copyWith(isLoading: true);
   T loaded() => copyWith(isLoading: false);
   T copyWith({bool? isLoading, Object? error});
-  T withError(Object error) => copyWith(error: error);
+  T withError(Object error) => copyWith(error: error, isLoading: false);
   T withoutError() => copyWith(error: ResetError());
 
   String localizedErrorMessage(WidgetRef ref);
