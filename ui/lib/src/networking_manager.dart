@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dropsource_core/dropsource_core.dart';
 
 import '../dropsource_ui.dart';
-import 'networking.dart' show NetworkConnectionError;
 
 class _GenericListNetorkingModel<T extends Identifiable>
     extends ListNetworkingModel<T> {

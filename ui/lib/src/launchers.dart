@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:dropsource_core/dropsource_core.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 Future makeCall(String phoneNumber) async {
   // Strips out extensions
   final _number = phoneNumber.split(', ').first;
   final url = 'tel:$_number';
-  if (await canLaunch(url)) {
-    return await launch(url);
+  if (await canLaunchUrlString(url)) {
+    return await launchUrlString(url);
   } else {
     print('Cannot make phone call: $phoneNumber');
     return null;
@@ -25,8 +25,8 @@ Future sendText(String phoneNumber, {String? body}) async {
   if (body != null && body.isNotEmpty) {
     url += '&body=${Uri.encodeComponent(body)}';
   }
-  if (await canLaunch(url)) {
-    return await launch(url);
+  if (await canLaunchUrlString(url)) {
+    return await launchUrlString(url);
   } else {
     print('Cannot send text: $phoneNumber');
     return null;
@@ -34,8 +34,8 @@ Future sendText(String phoneNumber, {String? body}) async {
 }
 
 Future openUrl(String url) async {
-  if (await canLaunch(url)) {
-    return await launch(url);
+  if (await canLaunchUrlString(url)) {
+    return await launchUrlString(url);
   } else {
     print('Cannot open url: $url');
     return null;
@@ -60,8 +60,8 @@ Future sendEmail(String email,
     }),
   );
 
-  if (await canLaunch(emailLaunchUri.toString())) {
-    return launch(emailLaunchUri.toString());
+  if (await canLaunchUrlString(emailLaunchUri.toString())) {
+    return launchUrlString(emailLaunchUri.toString());
   } else {
     onCantLaunch?.call();
   }
@@ -70,9 +70,11 @@ Future sendEmail(String email,
 class DirectionsLauncher {
   DirectionsLauncher({this.lat, this.lng, this.address}) {
     if (hasCoordinates) {
-      canLaunch(appleMapsUrl).then((value) => _canOpenAppleMaps = value);
-      canLaunch(googleMapsUrl).then((value) => _canOpenGoogleMaps = value);
-      canLaunch(wazeUrl).then((value) => _canOpenWazeMaps = value);
+      canLaunchUrlString(appleMapsUrl)
+          .then((value) => _canOpenAppleMaps = value);
+      canLaunchUrlString(googleMapsUrl)
+          .then((value) => _canOpenGoogleMaps = value);
+      canLaunchUrlString(wazeUrl).then((value) => _canOpenWazeMaps = value);
     }
   }
   final String? address;
@@ -92,7 +94,7 @@ class DirectionsLauncher {
   bool _canOpenWazeMaps = false;
   bool get canOpenWazeMaps => _canOpenWazeMaps;
 
-  Future<bool> openAppleMaps() => launch(appleMapsUrl, forceSafariVC: false);
-  Future<bool> openGoogleMaps() => launch(googleMapsUrl);
-  Future<bool> openWazeMaps() => launch(wazeUrl, forceSafariVC: false);
+  Future<bool> openAppleMaps() => launchUrlString(appleMapsUrl);
+  Future<bool> openGoogleMaps() => launchUrlString(googleMapsUrl);
+  Future<bool> openWazeMaps() => launchUrlString(wazeUrl);
 }

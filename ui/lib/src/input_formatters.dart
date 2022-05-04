@@ -1,6 +1,5 @@
 import 'package:dropsource_core/dropsource_core.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class MaskedTextInputFormatter extends TextInputFormatter {
   final String mask;
