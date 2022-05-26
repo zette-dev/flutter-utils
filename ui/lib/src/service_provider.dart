@@ -75,20 +75,26 @@ class ResetError {}
 
 mixin Loadable<T> {
   bool get isLoading;
-  LocalizedErrorInterface? get error;
-  bool get hasError {
-    return error != null;
-  }
+  Object? get error;
 
-  T load() => copyWith(isLoading: true);
-  T loaded() => copyWith(isLoading: false);
-  T copyWith({bool? isLoading, Object? error});
-  T withError(Object error) => copyWith(error: error, isLoading: false);
-  T withoutError() => copyWith(error: ResetError());
+  bool get hasError => error != null;
 
-  String localizedErrorMessage(WidgetRef ref);
+  T load() => _loadableCopyWith(this, isLoading: true);
+  T loaded() => _loadableCopyWith(this, isLoading: false);
+  T withError(Object error) =>
+      _loadableCopyWith(this, error: error, isLoading: false);
+  T withoutError() => _loadableCopyWith(this, error: ResetError());
 }
 
-mixin Serializable {
-  Map<String, dynamic> toMap();
+T _loadableCopyWith<T>(Loadable<T> self, {bool? isLoading, Object? error}) {
+  try {
+    final copyWith = (self as dynamic).copyWith;
+    isLoading = isLoading ?? self.isLoading;
+    error = error is ResetError ? null : error ?? self.error;
+    return copyWith(isLoading: isLoading, error: error);
+  } on NoSuchMethodError catch (_) {
+    // ignore: avoid_print
+    print('ERROR: Object ${self.runtimeType} has no copyWith() method!');
+    rethrow;
+  }
 }

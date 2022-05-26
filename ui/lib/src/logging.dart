@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:ms_map_utils/ms_map_utils.dart';
 
-import 'service_provider.dart' show Serializable;
-
 class ProviderLogger extends ProviderObserver {
   ProviderLogger(this.log, {Level level = Level.ALL}) {
     Logger.root.level = level;
@@ -37,9 +35,9 @@ class ProviderLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    if (previousValue is Serializable && newValue is Serializable) {
-      final before = previousValue.toMap();
-      final after = newValue.toMap();
+    if (previousValue is Loggable && newValue is Loggable) {
+      final before = previousValue.toLog();
+      final after = newValue.toLog();
       final beforeDiff = diff(after, before).filterOutNullsOrEmpty();
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
@@ -52,4 +50,8 @@ class ProviderLogger extends ProviderObserver {
           'UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
+}
+
+mixin Loggable {
+  Map<String, dynamic> toLog();
 }
