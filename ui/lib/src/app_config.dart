@@ -40,7 +40,7 @@ class EnvConfigNotifier extends StateNotifier<EnvConfig?> {
 }
 
 abstract class EnvConfig {
-  EnvConfig({
+  const EnvConfig({
     required this.appName,
     required this.environment,
     this.useCrashlytics = true,
