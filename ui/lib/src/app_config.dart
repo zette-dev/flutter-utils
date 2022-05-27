@@ -37,6 +37,7 @@ class EnvConfigNotifier extends StateNotifier<EnvConfig?> {
   EnvConfigNotifier() : super(null);
 
   void initialize(EnvConfig config) => state = config;
+  bool get isInitialized => state != null;
 }
 
 abstract class EnvConfig {
@@ -77,7 +78,7 @@ abstract class EnvConfig {
         return runApp(createApp());
       }, (error, stackTrace) {
         print('runZonedGuarded: $error');
-        if (useCrashlytics) {
+        if (useCrashlytics && !kIsWeb) {
           FirebaseCrashlytics.instance.recordError(error, stackTrace);
         }
       });
@@ -86,7 +87,7 @@ abstract class EnvConfig {
     try {
       runApp(createApp());
     } catch (e) {
-      if (useCrashlytics) {
+    if (useCrashlytics && !kIsWeb) {
         FirebaseCrashlytics.instance.recordError(e, StackTrace.current);
       }
     }
