@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dropsource_core/dropsource_core.dart';
+import 'package:ds_utils/ds_utils.dart';
 
 import '../dropsource_ui.dart';
 

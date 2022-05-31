@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dropsource_core/dropsource_core.dart';
+import 'package:ds_utils/ds_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

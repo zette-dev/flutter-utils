@@ -1,4 +1,4 @@
-library dropsource_core;
+library ds_utils;
 
 export 'src/collection_extensions.dart';
 export 'src/common_enums.dart';

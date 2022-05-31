@@ -1,4 +1,4 @@
-name: dropsource_core
+name: ds_crashlytics
 description: A set of useful functions and libraries used in almost all
   Dropsource flutter apps.
 version: 1.0.0
@@ -9,7 +9,5 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  equatable: ^2.0.3
-  intl: ^0.17.0
-  ms_map_utils: ^1.1.0
-  rxdart: ^0.27.3
+  firebase_crashlytics: ^2.8.1
+  flutter_riverpod: ^1.0.4

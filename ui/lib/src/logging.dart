@@ -1,4 +1,4 @@
-import 'package:dropsource_core/dropsource_core.dart';
+import 'package:ds_utils/ds_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
