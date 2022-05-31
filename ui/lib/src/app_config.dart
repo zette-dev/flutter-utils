@@ -31,8 +31,9 @@ mixin EnvConfigData {
   AppEnvironment get environment;
 }
 
-mixin AppLoader<C extends EnvConfigData> {
-  C get config;
+abstract class AppLoader<C extends EnvConfigData> {
+  AppLoader(this.config);
+  final C config;
   Future init(WidgetRef ref);
   Widget appBuilder();
   void onError(Object error, StackTrace? stack);
@@ -42,14 +43,4 @@ mixin AppLoader<C extends EnvConfigData> {
         print('runZonedGuarded: $error');
         onError(error, stackTrace);
       });
-}
-
-abstract class EnvConfig {
-  const EnvConfig({
-    required this.appName,
-    required this.environment,
-  });
-
-  final String appName;
-  final AppEnvironment environment;
 }
