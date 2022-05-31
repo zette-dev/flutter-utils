@@ -79,7 +79,7 @@ class ScrollableAppBarBehavior {
   final bool centerAppBarTitle, automaticallyImplyLeading;
 }
 
-class ScrollableLayout<T> extends StatefulWidget {
+class ScrollableLayout extends StatefulWidget {
   ScrollableLayout({
     String? scrollKey,
     // AppBar
@@ -89,10 +89,7 @@ class ScrollableLayout<T> extends StatefulWidget {
     this.onLoadMore,
 
     // Builders
-    this.itemBuilder,
     WidgetBuilder? loadMoreBuilder,
-    // this.refreshControlBuilder,
-    this.separatorBuilder,
     this.errorBuilder,
     this.emptyBuilder,
     this.beforeSlivers,
@@ -122,7 +119,6 @@ class ScrollableLayout<T> extends StatefulWidget {
   @override
   final PageStorageKey? key;
   final RefreshCallback? onRefresh, onLoadMore;
-  final IndexedWidgetBuilder? itemBuilder, separatorBuilder;
   final WidgetBuilder? errorBuilder, emptyBuilder, loadMoreBuilder;
 
   final List<Widget>? beforeSlivers, afterSlivers, overlays;
@@ -140,6 +136,147 @@ class ScrollableLayout<T> extends StatefulWidget {
       isLoading,
       hasData,
       hasError;
+
+  factory ScrollableLayout.fixedList({
+    ScrollableAppBarBehavior? appBarBehavior,
+    RefreshCallback? onRefresh,
+    WidgetBuilder? errorBuilder,
+    WidgetBuilder? emptyBuilder,
+    WidgetBuilder? loadMoreBuilder,
+    List<Widget>? beforeSlivers,
+    List<Widget>? afterSlivers,
+    List<Widget>? overlays,
+    EdgeInsetsGeometry? bodyPadding,
+    bool? shrinkWrap,
+    ScrollController? scrollController,
+    ScrollPhysics? scrollPhysics,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
+        ScrollViewKeyboardDismissBehavior.manual,
+    bool Function()? isLoading,
+    bool Function()? hasData,
+    bool Function()? hasError,
+    required List<Widget> children,
+  }) =>
+      ScrollableLayout(
+        appBarBehavior: appBarBehavior,
+        onRefresh: onRefresh,
+        onLoadMore: null, // fixed lists won't load more
+        shouldLoadMore: null,
+        canLoadMore: null,
+        errorBuilder: errorBuilder,
+        emptyBuilder: emptyBuilder,
+        loadMoreBuilder: loadMoreBuilder,
+        beforeSlivers: beforeSlivers,
+        afterSlivers: afterSlivers,
+        overlays: overlays,
+        keyboardDismissBehavior: keyboardDismissBehavior,
+        bodyPadding: bodyPadding,
+        shrinkWrap: shrinkWrap,
+        scrollController: scrollController,
+        scrollPhysics: scrollPhysics,
+        isLoading: isLoading,
+        hasData: hasData,
+        hasError: hasError,
+        sliver: SliverList(delegate: SliverChildListDelegate.fixed(children)),
+      );
+
+  factory ScrollableLayout.dynamicList({
+    ScrollableAppBarBehavior? appBarBehavior,
+    RefreshCallback? onRefresh,
+    WidgetBuilder? errorBuilder,
+    WidgetBuilder? emptyBuilder,
+    WidgetBuilder? loadMoreBuilder,
+    List<Widget>? beforeSlivers,
+    List<Widget>? afterSlivers,
+    List<Widget>? overlays,
+    EdgeInsetsGeometry? bodyPadding,
+    bool? shrinkWrap,
+    ScrollController? scrollController,
+    ScrollPhysics? scrollPhysics,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
+        ScrollViewKeyboardDismissBehavior.manual,
+    bool Function()? isLoading,
+    bool Function()? hasData,
+    bool Function()? hasError,
+    required IndexedWidgetBuilder builder,
+    required int itemCount,
+  }) =>
+      ScrollableLayout(
+        appBarBehavior: appBarBehavior,
+        onRefresh: onRefresh,
+        onLoadMore: null, // fixed lists won't load more
+        shouldLoadMore: null,
+        canLoadMore: null,
+        errorBuilder: errorBuilder,
+        emptyBuilder: emptyBuilder,
+        loadMoreBuilder: loadMoreBuilder,
+        beforeSlivers: beforeSlivers,
+        afterSlivers: afterSlivers,
+        overlays: overlays,
+        keyboardDismissBehavior: keyboardDismissBehavior,
+        bodyPadding: bodyPadding,
+        shrinkWrap: shrinkWrap,
+        scrollController: scrollController,
+        scrollPhysics: scrollPhysics,
+        isLoading: isLoading,
+        hasData: hasData,
+        hasError: hasError,
+        sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+          builder,
+          childCount: itemCount,
+        )),
+      );
+
+  factory ScrollableLayout.infiniteList({
+    ScrollableAppBarBehavior? appBarBehavior,
+    RefreshCallback? onRefresh,
+    WidgetBuilder? errorBuilder,
+    WidgetBuilder? emptyBuilder,
+    WidgetBuilder? loadMoreBuilder,
+    List<Widget>? beforeSlivers,
+    List<Widget>? overlays,
+    EdgeInsetsGeometry? bodyPadding,
+    bool? shrinkWrap,
+    ScrollController? scrollController,
+    ScrollPhysics? scrollPhysics,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
+        ScrollViewKeyboardDismissBehavior.manual,
+    bool Function()? isLoading,
+    bool Function()? hasData,
+    bool Function()? hasError,
+    required bool Function() shouldLoadMore,
+    required bool Function() canLoadMore,
+    required RefreshCallback onLoadMore,
+    required IndexedWidgetBuilder builder,
+    required int itemCount,
+  }) =>
+      ScrollableLayout(
+        appBarBehavior: appBarBehavior,
+        onRefresh: onRefresh,
+        onLoadMore: onLoadMore,
+        shouldLoadMore: shouldLoadMore,
+        canLoadMore: canLoadMore,
+        errorBuilder: errorBuilder,
+        emptyBuilder: emptyBuilder,
+        loadMoreBuilder: loadMoreBuilder,
+        beforeSlivers: beforeSlivers,
+        afterSlivers: null,
+        overlays: overlays,
+        keyboardDismissBehavior: keyboardDismissBehavior,
+        bodyPadding: bodyPadding,
+        shrinkWrap: shrinkWrap,
+        scrollController: scrollController,
+        scrollPhysics: scrollPhysics,
+        isLoading: isLoading,
+        hasData: hasData,
+        hasError: hasError,
+        sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+          builder,
+          childCount: itemCount,
+        )),
+      );
 
   @override
   _ScrollableLayoutState createState() => _ScrollableLayoutState();
