@@ -200,13 +200,13 @@ class HTTPRequest {
 
   Future<T> run<T>(
     Dio client, {
-    int successCode = 200,
-    required Future<T> Function(dynamic) onSuccess,
+    List<int> successCodes = const [200],
+    required Future<T> Function(dynamic, int) onSuccess,
     ApiResponseError Function(ApiResponseError)? onError,
   }) {
     return execute(client).then((response) async {
-      if (response.statusCode == successCode) {
-        return onSuccess(response.data);
+      if (successCodes.contains(response.statusCode)) {
+        return onSuccess(response.data, response.statusCode!);
       } else {
         var _error = ApiResponseError(
           response.data['message'],
