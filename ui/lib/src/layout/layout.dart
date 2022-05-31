@@ -39,6 +39,10 @@ class LayoutData with _$LayoutData {
       constraints != null ? Layout.fromSize(constraints!.maxWidth, this) : null;
 
   bool get hasLayout => constraints != null && layout != null;
+
+  bool get isMobile => layout == Layout.mobile;
+  bool get isTablet => layout == Layout.tablet;
+  bool get isDesktop => layout == Layout.desktop;
 }
 
 final layoutProvider = StateNotifierProvider<_LayoutNotifier, LayoutData>(
