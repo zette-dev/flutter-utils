@@ -1,12 +1,25 @@
 import 'dart:async';
 
+import 'package:ds_ui/src/layout/layout.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../dropsource_ui.dart';
+import '../ds_ui.dart';
 
-typedef _Builder<M, T> = Widget
-    Function(BuildContext, WidgetRef, M controller, T state);
+typedef _Builder<M, T> = Widget Function(
+  BuildContext,
+  WidgetRef,
+  M controller,
+  T state,
+);
+
+typedef _LayoutBuilder<M, T> = Widget Function(
+  BuildContext,
+  LayoutData,
+  WidgetRef,
+  M controller,
+  T state,
+);
 
 typedef OnControllerCallback<M> = void Function(
   M controller,
@@ -18,14 +31,16 @@ enum _BuilderType { stream, watch }
 class StateBuilder<S, N extends StateNotifier<S>>
     extends ConsumerStatefulWidget {
   final StateNotifierProvider<N, S> provider;
-  final _Builder<N, S> builder;
+  final _Builder<N, S>? builder;
+  final _LayoutBuilder<N, S>? layoutBuilder;
   final OnControllerCallback<N>? onInit, onAsyncInit, onInitialBuild;
   final VoidCallback? onDispose;
 
   const StateBuilder({
     Key? key,
-    required this.builder,
     required this.provider,
+    this.layoutBuilder,
+    this.builder,
     this.onInit,
     this.onAsyncInit,
     this.onDispose,
@@ -33,7 +48,8 @@ class StateBuilder<S, N extends StateNotifier<S>>
     required this.type,
     this.asyncInitDelay = Duration.zero,
     // this.child,
-  }) : super(key: key);
+  })  : assert(builder != null && layoutBuilder != null),
+        super(key: key);
 
   final _BuilderType type;
   final Duration asyncInitDelay;
@@ -118,34 +134,55 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     super.dispose();
     if (widget.onDispose != null) {
       widget.onDispose!(
-        // _latestRef!.read(widget.provider.notifier),
-        // _latestRef!,
-      );
+          // _latestRef!.read(widget.provider.notifier),
+          // _latestRef!,
+          );
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _builder(BuildContext ctx, S data, [LayoutData? layoutData]) =>
+      layoutData != null
+          ? widget.layoutBuilder!.call(
+              ctx,
+              layoutData,
+              ref,
+              ref.read(widget.provider.notifier),
+              data,
+            )
+          : widget.builder!.call(
+              ctx,
+              ref,
+              ref.read(widget.provider.notifier),
+              data,
+            );
+
+  Widget _builderWithData([LayoutData? layoutData]) {
     if (widget.type == _BuilderType.stream) {
       return StreamBuilder<S>(
         initialData: ref.read(widget.provider),
         stream: ref.watch(widget.provider.notifier).stream,
-        builder: (ctx, snapshot) => widget.builder(
-          ctx,
-          ref,
-          ref.read(widget.provider.notifier),
-          snapshot.data!,
-          // child: widget.child,
-        ),
+        builder: (ctx, snapshot) => _builder(ctx, snapshot.data!, layoutData),
       );
     }
+
     final state = ref.watch(widget.provider);
-    return widget.builder(
+    return _builder(
       context,
-      ref,
-      ref.read(widget.provider.notifier),
       state,
+      layoutData,
       // child: widget.child,
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.layoutBuilder != null) {
+      return LayoutBuilder(
+        builder: (ctx, constraints) =>
+            _builderWithData(LayoutData(constraints: constraints)),
+      );
+    }
+
+    return _builderWithData();
   }
 }

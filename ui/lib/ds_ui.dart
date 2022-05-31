@@ -1,4 +1,4 @@
-library dropsource_ui;
+library ds_ui;
 
 export 'src/after_layout.dart';
 export 'src/app_config.dart';
@@ -8,7 +8,6 @@ export 'src/input_formatters.dart';
 export 'src/launchers.dart';
 export 'src/logging.dart';
 export 'src/networking.dart';
-export 'src/networking_manager.dart';
 export 'src/routing.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';

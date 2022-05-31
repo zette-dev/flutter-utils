@@ -1,11 +1,17 @@
-import 'package:dropsource_ui/dropsource_ui.dart';
 import 'package:flutter/widgets.dart';
+
+import '../ds_ui.dart';
 
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
 
   Widget paddedSides(double padding) =>
       Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
+
+  Widget withPadding(EdgeInsets padding) => Padding(
+        child: this,
+        padding: padding,
+      );
 
   Widget slivered({EdgeInsets? padding}) {
     Widget _sliver = SliverToBoxAdapter(child: this);
@@ -18,8 +24,6 @@ extension WidgetExtensions on Widget {
 }
 
 extension ContextExtensions on BuildContext {
-  Translations? get translations => Translations.of(this);
-
   void popToRoot([RoutePredicate? predicate]) =>
       Navigator.of(this, rootNavigator: true).popUntil((r) {
         if (predicate != null) {
