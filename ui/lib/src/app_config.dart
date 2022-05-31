@@ -31,8 +31,8 @@ mixin AppConfigData {
   AppEnvironment get environment;
 }
 
-mixin AppLoader {
-  AppConfigData get config;
+mixin AppLoader<C extends AppConfigData> {
+  C get config;
   @mustCallSuper
   Future loadState(WidgetRef ref) => initializeCrashReporting();
   Future initializeCrashReporting();
