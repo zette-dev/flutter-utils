@@ -179,9 +179,11 @@ packages:
   ds_utils:
     dependency: "direct main"
     description:
-      path: "../utils"
-      relative: true
-    source: path
+      path: utils
+      ref: dev
+      resolved-ref: "05565e5bfad25a74cac6e484b337b34ddfc27d02"
+      url: "https://github.com/Dropsource/flutter_utils.git"
+    source: git
     version: "1.0.0"
   equatable:
     dependency: transitive

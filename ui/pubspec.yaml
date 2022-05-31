@@ -14,7 +14,10 @@ dependencies:
   connectivity_plus: ^2.3.1
   dio: ^4.0.6
   ds_utils:
-    path: ../utils
+    git:
+      url: https://github.com/Dropsource/flutter_utils.git
+      path: utils
+      ref: dev
   flutter:
     sdk: flutter
   flutter_riverpod: ^1.0.4
