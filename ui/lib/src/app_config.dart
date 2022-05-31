@@ -37,12 +37,12 @@ mixin AppLoader<C extends EnvConfigData> {
   Future loadState(WidgetRef ref) => initializeCrashReporting();
   Future initializeCrashReporting();
   Widget createApp();
-  Future recordCrash(dynamic exception, StackTrace? stack);
+  Future onError(dynamic exception, StackTrace? stack);
   Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
         return runApp(createApp());
       }, (error, stackTrace) {
         print('runZonedGuarded: $error');
-        recordCrash(error, stackTrace);
+        onError(error, stackTrace);
       });
 }
 
