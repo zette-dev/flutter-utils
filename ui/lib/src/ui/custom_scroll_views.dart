@@ -47,17 +47,17 @@ class ScrollableAppBarBehavior {
     this.appBarTitleSpacing = NavigationToolbar.kMiddleSpacing,
     this.scrollingAppBarTitle,
     this.backButton,
-    this.scrollingHeader,
+    this.flexibleBackground,
     this.appBarActions,
     this.pinned = false,
     this.stretch = false,
     this.snap = false,
     this.floating = false,
     this.appBarElevation,
-    this.scrollingHeaderTitle,
-    this.centerScrollingHeaderTitle,
+    this.flexibleTitle,
+    this.centerFlexibleTitle,
     this.toolbarHeight = kToolbarHeight,
-    this.flexibleSpaceCollapseMode = CollapseMode.pin,
+    this.flexibleCollapseMode = CollapseMode.pin,
     this.centerAppBarTitle = true,
     this.automaticallyImplyLeading = true,
   });
@@ -65,22 +65,22 @@ class ScrollableAppBarBehavior {
   final Color? appBarColor;
   final Widget? scrollingAppBarTitle;
   final Widget? backButton;
-  final Widget? scrollingHeader, scrollingHeaderTitle;
-  final bool? centerScrollingHeaderTitle;
+  final Widget? flexibleBackground, flexibleTitle;
+  final bool? centerFlexibleTitle;
   final double? appBarExpandedHeight, appBarCollapsedHeight;
   final double appBarTitleSpacing;
   final PreferredSizeWidget? appBarBottom;
   final bool pinned, stretch, snap, floating;
   final double? appBarElevation;
   final List<Widget>? appBarActions;
-  final CollapseMode flexibleSpaceCollapseMode;
+  final CollapseMode flexibleCollapseMode;
   final double toolbarHeight;
   final bool appBarHiddenUntilScroll;
   final bool centerAppBarTitle, automaticallyImplyLeading;
 }
 
-class ScrollableLayout extends StatefulWidget {
-  ScrollableLayout({
+class ScrollLayout extends StatefulWidget {
+  ScrollLayout({
     String? scrollKey,
     // AppBar
     this.appBarBehavior = const ScrollableAppBarBehavior(),
@@ -137,7 +137,7 @@ class ScrollableLayout extends StatefulWidget {
       hasData,
       hasError;
 
-  factory ScrollableLayout.fixedList({
+  factory ScrollLayout.fixedList({
     ScrollableAppBarBehavior? appBarBehavior,
     RefreshCallback? onRefresh,
     WidgetBuilder? errorBuilder,
@@ -157,7 +157,7 @@ class ScrollableLayout extends StatefulWidget {
     bool Function()? hasError,
     required List<Widget> children,
   }) =>
-      ScrollableLayout(
+      ScrollLayout(
         appBarBehavior: appBarBehavior,
         onRefresh: onRefresh,
         onLoadMore: null, // fixed lists won't load more
@@ -180,7 +180,7 @@ class ScrollableLayout extends StatefulWidget {
         sliver: SliverList(delegate: SliverChildListDelegate.fixed(children)),
       );
 
-  factory ScrollableLayout.dynamicList({
+  factory ScrollLayout.dynamicList({
     ScrollableAppBarBehavior? appBarBehavior,
     RefreshCallback? onRefresh,
     WidgetBuilder? errorBuilder,
@@ -201,7 +201,7 @@ class ScrollableLayout extends StatefulWidget {
     required IndexedWidgetBuilder builder,
     required int itemCount,
   }) =>
-      ScrollableLayout(
+      ScrollLayout(
         appBarBehavior: appBarBehavior,
         onRefresh: onRefresh,
         onLoadMore: null, // fixed lists won't load more
@@ -228,7 +228,7 @@ class ScrollableLayout extends StatefulWidget {
         )),
       );
 
-  factory ScrollableLayout.infiniteList({
+  factory ScrollLayout.infiniteList({
     ScrollableAppBarBehavior? appBarBehavior,
     RefreshCallback? onRefresh,
     WidgetBuilder? errorBuilder,
@@ -251,7 +251,7 @@ class ScrollableLayout extends StatefulWidget {
     required IndexedWidgetBuilder builder,
     required int itemCount,
   }) =>
-      ScrollableLayout(
+      ScrollLayout(
         appBarBehavior: appBarBehavior,
         onRefresh: onRefresh,
         onLoadMore: onLoadMore,
@@ -279,13 +279,17 @@ class ScrollableLayout extends StatefulWidget {
       );
 
   @override
-  _ScrollableLayoutState createState() => _ScrollableLayoutState();
+  _ScrollLayoutState createState() => _ScrollLayoutState();
 }
 
-class _ScrollableLayoutState extends State<ScrollableLayout> {
+class _ScrollLayoutState extends State<ScrollLayout> {
+  /// Scrolling
   ScrollController? _controller;
   bool _isScrolled = false;
-  bool get isLoading => widget.isLoading?.call() ?? false;
+  bool get _requiresScrollListener =>
+      _hasFlexibleSpace && widget.appBarBehavior!.appBarHiddenUntilScroll;
+
+  /// Loading More
   bool get shouldLoadMore => widget.shouldLoadMore?.call() ?? false;
   bool get isLoadingMore => widget.isLoadingMore?.call() ?? false;
   bool get loadMoreEnabled =>
@@ -293,16 +297,15 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       widget.onLoadMore != null &&
       (widget.canLoadMore != null);
 
+  /// Display
+  bool get isLoading => widget.isLoading?.call() ?? false;
   bool get hasData => widget.hasData?.call() ?? false;
   bool get hasError => widget.hasError?.call() ?? false;
 
   bool get hasDataOrIsLoading => hasData || isLoading;
 
-  bool get _requiresScrollListener =>
-      _hasFlexibleSpace && widget.appBarBehavior!.appBarHiddenUntilScroll;
-
   bool get _hasFlexibleSpace =>
-      widget.appBarBehavior!.scrollingHeader != null &&
+      widget.appBarBehavior!.flexibleBackground != null &&
       widget.appBarBehavior!.appBarExpandedHeight != null;
 
   @override
@@ -330,21 +333,23 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
 
   VoidCallback _listenToScrollChange(BuildContext context) => () {
         // TODO: need a better way of doing this so I don't have to lookup context over scroll
-        try {
-          final offset = MediaQuery.of(context).padding.top;
-          if (_controller!.offset >=
-                  (widget.appBarBehavior!.appBarExpandedHeight ?? 0) - offset &&
-              mounted) {
-            setState(() {
-              _isScrolled = true;
-            });
-          } else if (_isScrolled && mounted) {
-            setState(() {
-              _isScrolled = false;
-            });
+        if (mounted) {
+          try {
+            final offset = MediaQuery.of(context).padding.top;
+            if (_controller!.offset >=
+                (widget.appBarBehavior!.appBarExpandedHeight ?? 0) - offset) {
+              safeSetState(() {
+                _isScrolled = true;
+              });
+            } else if (_isScrolled) {
+              safeSetState(() {
+                _isScrolled = false;
+              });
+            }
+            // ignore: avoid_catching_errors
+          } on TypeError catch (e) {
+            print(e);
           }
-        } on TypeError catch (e) {
-          print(e);
         }
       };
 
@@ -391,11 +396,10 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
                 flexibleSpace: _hasFlexibleSpace
                     ? FlexibleSpaceBar(
                         collapseMode:
-                            widget.appBarBehavior!.flexibleSpaceCollapseMode,
-                        background: widget.appBarBehavior!.scrollingHeader,
-                        title: widget.appBarBehavior!.scrollingHeaderTitle,
-                        centerTitle:
-                            widget.appBarBehavior!.centerScrollingHeaderTitle,
+                            widget.appBarBehavior!.flexibleCollapseMode,
+                        background: widget.appBarBehavior!.flexibleBackground,
+                        title: widget.appBarBehavior!.flexibleTitle,
+                        centerTitle: widget.appBarBehavior!.centerFlexibleTitle,
                       )
                     : null,
               ),
