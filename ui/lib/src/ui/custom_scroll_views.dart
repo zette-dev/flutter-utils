@@ -1,4 +1,3 @@
-import 'package:ds_utils/ds_utils.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,21 +37,58 @@ class ScrollableAppBar extends SliverAppBar {
         );
 }
 
-class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
-  ScrollableLayout({
-    String? scrollKey,
-    this.showAppBar = true,
+class ScrollableAppBarBehavior {
+  const ScrollableAppBarBehavior({
     this.appBarExpandedHeight = 0,
     this.appBarCollapsedHeight,
     this.appBarColor,
     this.appBarHiddenUntilScroll = true,
     this.appBarBottom,
-    this.appBarTitleSpacing,
+    this.appBarTitleSpacing = NavigationToolbar.kMiddleSpacing,
     this.scrollingAppBarTitle,
     this.backButton,
     this.scrollingHeader,
+    this.appBarActions,
+    this.pinned = false,
+    this.stretch = false,
+    this.snap = false,
+    this.floating = false,
+    this.appBarElevation,
+    this.scrollingHeaderTitle,
+    this.centerScrollingHeaderTitle,
+    this.toolbarHeight = kToolbarHeight,
+    this.flexibleSpaceCollapseMode = CollapseMode.pin,
+    this.centerAppBarTitle = true,
+    this.automaticallyImplyLeading = true,
+  });
+
+  final Color? appBarColor;
+  final Widget? scrollingAppBarTitle;
+  final Widget? backButton;
+  final Widget? scrollingHeader, scrollingHeaderTitle;
+  final bool? centerScrollingHeaderTitle;
+  final double? appBarExpandedHeight, appBarCollapsedHeight;
+  final double appBarTitleSpacing;
+  final PreferredSizeWidget? appBarBottom;
+  final bool pinned, stretch, snap, floating;
+  final double? appBarElevation;
+  final List<Widget>? appBarActions;
+  final CollapseMode flexibleSpaceCollapseMode;
+  final double toolbarHeight;
+  final bool appBarHiddenUntilScroll;
+  final bool centerAppBarTitle, automaticallyImplyLeading;
+}
+
+class ScrollableLayout<T> extends StatefulWidget {
+  ScrollableLayout({
+    String? scrollKey,
+    // AppBar
+    this.appBarBehavior = const ScrollableAppBarBehavior(),
+    // Loaders
     this.onRefresh,
     this.onLoadMore,
+
+    // Builders
     this.itemBuilder,
     WidgetBuilder? loadMoreBuilder,
     // this.refreshControlBuilder,
@@ -63,20 +99,11 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.sliver,
     this.afterSlivers,
     this.overlays,
-    this.appBarActions,
     this.bodyPadding,
-    this.pinned,
-    this.stretch,
-    this.snap,
-    this.centerAppBarTitle = true,
-    this.automaticallyImplyLeading = true,
-    this.floating,
-    this.appBarElevation,
     this.scrollController,
-    this.scrollingHeaderTitle,
-    this.centerScrollingHeaderTitle,
+
+    // List
     this.shrinkWrap = false,
-    this.toolbarHeight = kToolbarHeight,
     this.shouldLoadMore,
     this.canLoadMore,
     this.isLoading,
@@ -86,10 +113,11 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
     this.scrollPhysics =
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-    this.flexibleSpaceCollapseMode = CollapseMode.pin,
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
         loadMoreBuilder = loadMoreBuilder ??
             ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true)));
+
+  final ScrollableAppBarBehavior? appBarBehavior;
 
   @override
   final PageStorageKey? key;
@@ -97,27 +125,14 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final IndexedWidgetBuilder? itemBuilder, separatorBuilder;
   final WidgetBuilder? errorBuilder, emptyBuilder, loadMoreBuilder;
 
-  final bool showAppBar;
-  final Color? appBarColor;
-  final Widget? scrollingAppBarTitle;
-  final Widget? backButton;
-  final Widget? scrollingHeader, scrollingHeaderTitle;
-  final bool? centerScrollingHeaderTitle;
-  final double? appBarExpandedHeight, appBarCollapsedHeight, appBarTitleSpacing;
-  final PreferredSizeWidget? appBarBottom;
   final List<Widget>? beforeSlivers, afterSlivers, overlays;
   final Widget? sliver;
   final EdgeInsetsGeometry? bodyPadding;
-  final bool? pinned, stretch, snap, floating;
-  final bool? shrinkWrap, centerAppBarTitle;
-  final bool? appBarHiddenUntilScroll, automaticallyImplyLeading;
-  final double? appBarElevation;
-  final List<Widget>? appBarActions;
+  final bool? shrinkWrap;
+
   final ScrollController? scrollController;
   final ScrollPhysics? scrollPhysics;
-  final double toolbarHeight;
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
-  final CollapseMode flexibleSpaceCollapseMode;
 
   final bool Function()? shouldLoadMore,
       canLoadMore,
@@ -147,10 +162,11 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
   bool get hasDataOrIsLoading => hasData || isLoading;
 
   bool get _requiresScrollListener =>
-      _hasFlexibleSpace && (widget.appBarHiddenUntilScroll ?? false);
+      _hasFlexibleSpace && widget.appBarBehavior!.appBarHiddenUntilScroll;
 
   bool get _hasFlexibleSpace =>
-      widget.scrollingHeader != null && widget.appBarExpandedHeight != null;
+      widget.appBarBehavior!.scrollingHeader != null &&
+      widget.appBarBehavior!.appBarExpandedHeight != null;
 
   @override
   void initState() {
@@ -180,7 +196,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
         try {
           final offset = MediaQuery.of(context).padding.top;
           if (_controller!.offset >=
-                  (widget.appBarExpandedHeight ?? 0) - offset &&
+                  (widget.appBarBehavior!.appBarExpandedHeight ?? 0) - offset &&
               mounted) {
             setState(() {
               _isScrolled = true;
@@ -208,40 +224,41 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
           shrinkWrap: widget.shrinkWrap ?? false,
           keyboardDismissBehavior: widget.keyboardDismissBehavior,
           slivers: [
-            if (widget.showAppBar)
+            if (widget.appBarBehavior != null)
               SliverAppBar(
-                backgroundColor: widget.appBarColor,
-                toolbarHeight: widget.toolbarHeight,
+                backgroundColor: widget.appBarBehavior!.appBarColor,
+                toolbarHeight: widget.appBarBehavior!.toolbarHeight,
                 automaticallyImplyLeading:
-                    widget.automaticallyImplyLeading ?? true,
-                titleSpacing: widget.appBarTitleSpacing ??
-                    NavigationToolbar.kMiddleSpacing,
+                    widget.appBarBehavior!.automaticallyImplyLeading,
+                titleSpacing: widget.appBarBehavior!.appBarTitleSpacing,
                 title: _requiresScrollListener
                     ? AnimatedOpacity(
                         duration: Duration(milliseconds: 300),
                         opacity: _isScrolled ? 1.0 : 0.0,
                         curve: Curves.easeIn,
-                        child: widget.scrollingAppBarTitle,
+                        child: widget.appBarBehavior!.scrollingAppBarTitle,
                       )
-                    : widget.scrollingAppBarTitle,
-                leading: widget.backButton,
-                actions: widget.appBarActions,
-                centerTitle: widget.centerAppBarTitle ?? true,
-                pinned: widget.pinned ?? false,
-                stretch: widget.stretch ?? false,
-                floating: widget.floating ?? false,
-                elevation: widget.appBarElevation,
-                snap: widget.snap ?? false,
-                expandedHeight: widget.appBarExpandedHeight,
-                collapsedHeight: widget.appBarCollapsedHeight,
+                    : widget.appBarBehavior!.scrollingAppBarTitle,
+                leading: widget.appBarBehavior!.backButton,
+                actions: widget.appBarBehavior!.appBarActions,
+                centerTitle: widget.appBarBehavior!.centerAppBarTitle,
+                pinned: widget.appBarBehavior!.pinned,
+                stretch: widget.appBarBehavior!.stretch,
+                floating: widget.appBarBehavior!.floating,
+                elevation: widget.appBarBehavior!.appBarElevation,
+                snap: widget.appBarBehavior!.snap,
+                expandedHeight: widget.appBarBehavior!.appBarExpandedHeight,
+                collapsedHeight: widget.appBarBehavior!.appBarCollapsedHeight,
                 primary: true,
-                bottom: widget.appBarBottom,
+                bottom: widget.appBarBehavior!.appBarBottom,
                 flexibleSpace: _hasFlexibleSpace
                     ? FlexibleSpaceBar(
-                        collapseMode: widget.flexibleSpaceCollapseMode,
-                        background: widget.scrollingHeader,
-                        title: widget.scrollingHeaderTitle,
-                        centerTitle: widget.centerScrollingHeaderTitle,
+                        collapseMode:
+                            widget.appBarBehavior!.flexibleSpaceCollapseMode,
+                        background: widget.appBarBehavior!.scrollingHeader,
+                        title: widget.appBarBehavior!.scrollingHeaderTitle,
+                        centerTitle:
+                            widget.appBarBehavior!.centerScrollingHeaderTitle,
                       )
                     : null,
               ),
@@ -296,95 +313,4 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
         if (widget.errorBuilder != null && hasError)
           widget.errorBuilder!(context),
       ];
-}
-
-// This widget is used in cases where you have a banner image or background that you want
-// to be able to scroll up to hide it and down to expand it. For an example, see `module_detail_page.dart`
-class ScrollableHeaderFixedChildrenLayout extends ScrollableLayout {
-  ScrollableHeaderFixedChildrenLayout({
-    required double appBarExpandedHeight,
-    Color? appBarColor,
-    Widget? scrollingAppBarTitle,
-    Widget? backButton,
-    Widget? scrollingHeader,
-    List<Widget>? bodyChildren,
-    List<Widget>? appBarActions,
-    EdgeInsetsGeometry? bodyPadding,
-    double? appBarElevation,
-  }) : super(
-          appBarExpandedHeight: appBarExpandedHeight,
-          appBarColor: appBarColor,
-          scrollingAppBarTitle: scrollingAppBarTitle,
-          backButton: backButton,
-          scrollingHeader: scrollingHeader,
-          sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(bodyChildren ?? [])),
-          appBarActions: appBarActions,
-          bodyPadding: bodyPadding,
-          appBarElevation: appBarElevation,
-          stretch: true,
-          pinned: true,
-          snap: false,
-        );
-}
-
-class ScrollableHeaderBuilderLayout extends ScrollableLayout {
-  ScrollableHeaderBuilderLayout({
-    required double appBarExpandedHeight,
-    required IndexedWidgetBuilder builder,
-    Color? appBarColor,
-    Widget? scrollingAppBarTitle,
-    Widget? backButton,
-    Widget? scrollingHeader,
-    int? itemCount,
-    List<Widget>? appBarActions,
-    EdgeInsetsGeometry? bodyPadding,
-    double? appBarElevation,
-  }) : super(
-          appBarExpandedHeight: appBarExpandedHeight,
-          appBarColor: appBarColor,
-          scrollingAppBarTitle: scrollingAppBarTitle,
-          backButton: backButton,
-          scrollingHeader: scrollingHeader,
-          sliver: SliverList(
-              delegate:
-                  SliverChildBuilderDelegate(builder, childCount: itemCount)),
-          appBarActions: appBarActions,
-          bodyPadding: bodyPadding,
-          appBarElevation: appBarElevation,
-          stretch: true,
-          pinned: true,
-          snap: false,
-        );
-}
-
-class DSScrollToHideAppBarLayout extends ScrollableLayout {
-  DSScrollToHideAppBarLayout({
-    Color? appBarColor,
-    Widget? scrollingAppBarTitle,
-    Widget? backButton,
-    List<Widget>? bodyChildren,
-    List<Widget>? appBarActions,
-    EdgeInsetsGeometry? bodyPadding,
-    double? appBarElevation,
-    bool pinAppBar = true,
-    bool stretchAppBar = true,
-    bool snapAppBar = false,
-    bool floatingAppBar = false,
-  }) : super(
-          appBarExpandedHeight: null,
-          appBarColor: appBarColor,
-          scrollingAppBarTitle: scrollingAppBarTitle,
-          backButton: backButton,
-          scrollingHeader: null,
-          sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(bodyChildren ?? [])),
-          appBarActions: appBarActions,
-          appBarElevation: appBarElevation,
-          bodyPadding: bodyPadding,
-          stretch: stretchAppBar,
-          pinned: pinAppBar,
-          snap: snapAppBar,
-          floating: floatingAppBar,
-        );
 }
