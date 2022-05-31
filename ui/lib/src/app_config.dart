@@ -33,13 +33,11 @@ mixin EnvConfigData {
 
 mixin AppLoader<C extends EnvConfigData> {
   C get config;
-  @mustCallSuper
-  Future loadState(WidgetRef ref) => initializeCrashReporting();
-  Future initializeCrashReporting();
-  Widget createApp();
+  Future init(WidgetRef ref);
+  Widget appBuilder();
   void onError(Object error, StackTrace? stack);
   Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
-        return runApp(createApp());
+        return runApp(appBuilder());
       }, (error, stackTrace) {
         print('runZonedGuarded: $error');
         onError(error, stackTrace);
