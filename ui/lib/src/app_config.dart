@@ -14,24 +14,24 @@ enum AppEnvironment {
   automation,
 }
 
-final envProvider = StateNotifierProvider<EnvConfigNotifier, AppConfigData?>(
+final envProvider = StateNotifierProvider<EnvConfigNotifier, EnvConfigData?>(
   (ref) => EnvConfigNotifier(),
   name: 'AppEnv',
 );
 
-class EnvConfigNotifier extends StateNotifier<AppConfigData?> {
+class EnvConfigNotifier extends StateNotifier<EnvConfigData?> {
   // Initialize with null and `AppConfigData` gets set on AppEnv.loadState
   EnvConfigNotifier() : super(null);
 
-  void initialize(AppConfigData config) => state = config;
+  void initialize(EnvConfigData config) => state = config;
   bool get isInitialized => state != null;
 }
 
-mixin AppConfigData {
+mixin EnvConfigData {
   AppEnvironment get environment;
 }
 
-mixin AppLoader<C extends AppConfigData> {
+mixin AppLoader<C extends EnvConfigData> {
   C get config;
   @mustCallSuper
   Future loadState(WidgetRef ref) => initializeCrashReporting();
