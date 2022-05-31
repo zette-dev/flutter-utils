@@ -33,16 +33,12 @@ class LayoutData with _$LayoutData {
     @Default(992.0) double laptopScreenBreakpoint,
     BoxConstraints? constraints,
   }) = _LayoutData;
-  LayoutData._();
+  const LayoutData._();
 
-  Layout get layout {
-    if (constraints!.maxWidth <= phoneScreenBreakpoint) {
-      return Layout.mobile;
-    } else if (constraints!.maxWidth <= mobileScreenBreakpoint) {
-      return Layout.tablet;
-    } else {
-      return Layout.desktop;
-    }
+  Layout? get layout =>
+      constraints != null ? Layout.fromSize(constraints!.maxWidth, this) : null;
+
+  bool get hasLayout => constraints != null && layout != null;
 }
 
 final layoutProvider = StateNotifierProvider<_LayoutNotifier, LayoutData>(
@@ -59,4 +55,3 @@ final layoutProvider = StateNotifierProvider<_LayoutNotifier, LayoutData>(
 //             Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider)),
 //           ),
 //         );
-}
