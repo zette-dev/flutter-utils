@@ -37,7 +37,7 @@ mixin AppLoader<C extends EnvConfigData> {
   Future loadState(WidgetRef ref) => initializeCrashReporting();
   Future initializeCrashReporting();
   Widget createApp();
-  Future onError(Object error, StackTrace? stack);
+  void onError(Object error, StackTrace? stack);
   Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
         return runApp(createApp());
       }, (error, stackTrace) {
