@@ -45,7 +45,7 @@ class ScrollableAppBarBehavior {
     this.hiddenUntilScroll = true,
     this.bottom,
     this.titleSpacing = NavigationToolbar.kMiddleSpacing,
-    this.scrollingAppBarTitle,
+    this.title,
     this.backButton,
     this.flexibleBackground,
     this.actions,
@@ -63,7 +63,7 @@ class ScrollableAppBarBehavior {
   });
 
   final Color? color;
-  final Widget? scrollingAppBarTitle;
+  final Widget? title;
   final Widget? backButton;
   final Widget? flexibleBackground, flexibleTitle;
   final bool? centerFlexibleTitle;
@@ -378,9 +378,9 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                         duration: Duration(milliseconds: 300),
                         opacity: _isScrolled ? 1.0 : 0.0,
                         curve: Curves.easeIn,
-                        child: widget.appBarBehavior!.scrollingAppBarTitle,
+                        child: widget.appBarBehavior!.title,
                       )
-                    : widget.appBarBehavior!.scrollingAppBarTitle,
+                    : widget.appBarBehavior!.title,
                 leading: widget.appBarBehavior!.backButton,
                 actions: widget.appBarBehavior!.actions,
                 centerTitle: widget.appBarBehavior!.centerTitle,
