@@ -18,41 +18,22 @@ final crashlyticsProvider = Provider<FirebaseCrashlytics?>(
 );
 
 mixin CrashlyticsLoader {
-  Future startCrashlytics(WidgetRef ref) async {
+  Future<FirebaseCrashlytics?> startCrashlytics(WidgetRef ref) async {
     // Wait for Firebase to initialize
     await Firebase.initializeApp();
 
     final crashlytics = ref.read(crashlyticsProvider);
-    await crashlytics!.setCrashlyticsCollectionEnabled(kReleaseMode);
+    await crashlytics?.setCrashlyticsCollectionEnabled(kReleaseMode);
     // Pass all uncaught errors to Crashlytics.
     FlutterExceptionHandler? originalOnError = FlutterError.onError;
     FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-      await crashlytics.recordFlutterError(errorDetails);
+      await crashlytics?.recordFlutterError(errorDetails);
       // Forward to original handler.
       if (originalOnError != null) {
         originalOnError(errorDetails);
       }
     };
-  }
 
-  Widget createApp();
-
-  Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
-        return runApp(createApp());
-      }, (error, stackTrace) {
-        print('runZonedGuarded: $error');
-        if (!kIsWeb) {
-          FirebaseCrashlytics.instance.recordError(error, stackTrace);
-        }
-      });
-
-  void run() {
-    try {
-      runApp(createApp());
-    } catch (e) {
-      if (!kIsWeb) {
-        FirebaseCrashlytics.instance.recordError(e, StackTrace.current);
-      }
-    }
+    return crashlytics;
   }
 }
