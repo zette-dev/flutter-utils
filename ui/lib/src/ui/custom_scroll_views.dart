@@ -39,16 +39,16 @@ class ScrollableAppBar extends SliverAppBar {
 
 class ScrollableAppBarBehavior {
   const ScrollableAppBarBehavior({
-    this.appBarExpandedHeight = 0,
-    this.appBarCollapsedHeight,
-    this.appBarColor,
-    this.appBarHiddenUntilScroll = true,
-    this.appBarBottom,
-    this.appBarTitleSpacing = NavigationToolbar.kMiddleSpacing,
+    this.expandedHeight = 0,
+    this.collapsedHeight,
+    this.color,
+    this.hiddenUntilScroll = true,
+    this.bottom,
+    this.titleSpacing = NavigationToolbar.kMiddleSpacing,
     this.scrollingAppBarTitle,
     this.backButton,
     this.flexibleBackground,
-    this.appBarActions,
+    this.actions,
     this.pinned = false,
     this.stretch = false,
     this.snap = false,
@@ -58,25 +58,25 @@ class ScrollableAppBarBehavior {
     this.centerFlexibleTitle,
     this.toolbarHeight = kToolbarHeight,
     this.flexibleCollapseMode = CollapseMode.pin,
-    this.centerAppBarTitle = true,
+    this.centerTitle = true,
     this.automaticallyImplyLeading = true,
   });
 
-  final Color? appBarColor;
+  final Color? color;
   final Widget? scrollingAppBarTitle;
   final Widget? backButton;
   final Widget? flexibleBackground, flexibleTitle;
   final bool? centerFlexibleTitle;
-  final double? appBarExpandedHeight, appBarCollapsedHeight;
-  final double appBarTitleSpacing;
-  final PreferredSizeWidget? appBarBottom;
+  final double? expandedHeight, collapsedHeight;
+  final double titleSpacing;
+  final PreferredSizeWidget? bottom;
   final bool pinned, stretch, snap, floating;
   final double? appBarElevation;
-  final List<Widget>? appBarActions;
+  final List<Widget>? actions;
   final CollapseMode flexibleCollapseMode;
   final double toolbarHeight;
-  final bool appBarHiddenUntilScroll;
-  final bool centerAppBarTitle, automaticallyImplyLeading;
+  final bool hiddenUntilScroll;
+  final bool centerTitle, automaticallyImplyLeading;
 }
 
 class ScrollLayout extends StatefulWidget {
@@ -287,7 +287,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   ScrollController? _controller;
   bool _isScrolled = false;
   bool get _requiresScrollListener =>
-      _hasFlexibleSpace && widget.appBarBehavior!.appBarHiddenUntilScroll;
+      _hasFlexibleSpace && widget.appBarBehavior!.hiddenUntilScroll;
 
   /// Loading More
   bool get shouldLoadMore => widget.shouldLoadMore?.call() ?? false;
@@ -306,7 +306,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
 
   bool get _hasFlexibleSpace =>
       widget.appBarBehavior!.flexibleBackground != null &&
-      widget.appBarBehavior!.appBarExpandedHeight != null;
+      widget.appBarBehavior!.expandedHeight != null;
 
   @override
   void initState() {
@@ -337,7 +337,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
           try {
             final offset = MediaQuery.of(context).padding.top;
             if (_controller!.offset >=
-                (widget.appBarBehavior!.appBarExpandedHeight ?? 0) - offset) {
+                (widget.appBarBehavior!.expandedHeight ?? 0) - offset) {
               safeSetState(() {
                 _isScrolled = true;
               });
@@ -368,11 +368,11 @@ class _ScrollLayoutState extends State<ScrollLayout> {
           slivers: [
             if (widget.appBarBehavior != null)
               SliverAppBar(
-                backgroundColor: widget.appBarBehavior!.appBarColor,
+                backgroundColor: widget.appBarBehavior!.color,
                 toolbarHeight: widget.appBarBehavior!.toolbarHeight,
                 automaticallyImplyLeading:
                     widget.appBarBehavior!.automaticallyImplyLeading,
-                titleSpacing: widget.appBarBehavior!.appBarTitleSpacing,
+                titleSpacing: widget.appBarBehavior!.titleSpacing,
                 title: _requiresScrollListener
                     ? AnimatedOpacity(
                         duration: Duration(milliseconds: 300),
@@ -382,17 +382,17 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                       )
                     : widget.appBarBehavior!.scrollingAppBarTitle,
                 leading: widget.appBarBehavior!.backButton,
-                actions: widget.appBarBehavior!.appBarActions,
-                centerTitle: widget.appBarBehavior!.centerAppBarTitle,
+                actions: widget.appBarBehavior!.actions,
+                centerTitle: widget.appBarBehavior!.centerTitle,
                 pinned: widget.appBarBehavior!.pinned,
                 stretch: widget.appBarBehavior!.stretch,
                 floating: widget.appBarBehavior!.floating,
                 elevation: widget.appBarBehavior!.appBarElevation,
                 snap: widget.appBarBehavior!.snap,
-                expandedHeight: widget.appBarBehavior!.appBarExpandedHeight,
-                collapsedHeight: widget.appBarBehavior!.appBarCollapsedHeight,
+                expandedHeight: widget.appBarBehavior!.expandedHeight,
+                collapsedHeight: widget.appBarBehavior!.collapsedHeight,
                 primary: true,
-                bottom: widget.appBarBehavior!.appBarBottom,
+                bottom: widget.appBarBehavior!.bottom,
                 flexibleSpace: _hasFlexibleSpace
                     ? FlexibleSpaceBar(
                         collapseMode:
