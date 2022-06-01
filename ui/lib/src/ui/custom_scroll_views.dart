@@ -287,7 +287,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   ScrollController? _controller;
   bool _isScrolled = false;
   bool get _requiresScrollListener =>
-      _hasFlexibleSpace && widget.appBarBehavior!.hiddenUntilScroll;
+      _hasFlexibleSpace && (widget.appBarBehavior?.hiddenUntilScroll ?? false);
 
   /// Loading More
   bool get shouldLoadMore => widget.shouldLoadMore?.call() ?? false;
@@ -305,8 +305,8 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   bool get hasDataOrIsLoading => hasData || isLoading;
 
   bool get _hasFlexibleSpace =>
-      widget.appBarBehavior!.flexibleBackground != null &&
-      widget.appBarBehavior!.expandedHeight != null;
+      widget.appBarBehavior?.flexibleBackground != null &&
+      widget.appBarBehavior?.expandedHeight != null;
 
   @override
   void initState() {
