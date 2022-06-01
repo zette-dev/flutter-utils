@@ -48,7 +48,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
     required this.type,
     this.asyncInitDelay = Duration.zero,
     // this.child,
-  })  : assert(builder != null && layoutBuilder != null),
+  })  : assert(builder != null || layoutBuilder != null),
         super(key: key);
 
   final _BuilderType type;
@@ -139,20 +139,21 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     }
   }
 
-  Widget _builder(BuildContext ctx, S data, [Layout? layout]) => layout != null
-      ? widget.layoutBuilder!.call(
-          ctx,
-          layout,
-          ref,
-          ref.read(widget.provider.notifier),
-          data,
-        )
-      : widget.builder!.call(
-          ctx,
-          ref,
-          ref.read(widget.provider.notifier),
-          data,
-        );
+  Widget _builder(BuildContext ctx, S data, [Layout? layout]) =>
+      layout != null && widget.layoutBuilder != null
+          ? widget.layoutBuilder!.call(
+              ctx,
+              layout,
+              ref,
+              ref.read(widget.provider.notifier),
+              data,
+            )
+          : widget.builder!.call(
+              ctx,
+              ref,
+              ref.read(widget.provider.notifier),
+              data,
+            );
 
   Widget _builderWithData([Layout? layout]) {
     if (widget.type == _BuilderType.stream) {
