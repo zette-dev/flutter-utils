@@ -15,7 +15,7 @@ typedef _Builder<M, T> = Widget Function(
 
 typedef _LayoutBuilder<M, T> = Widget Function(
   BuildContext,
-  LayoutData,
+  Layout,
   WidgetRef,
   M controller,
   T state,
@@ -64,7 +64,6 @@ class StateBuilder<S, N extends StateNotifier<S>>
     VoidCallback? onDispose,
     OnControllerCallback<N>? onInitialBuild,
     Duration asyncInitDelay = Duration.zero,
-    // Widget? child,
   }) =>
       StateBuilder<S, N>(
         key: key,
@@ -140,28 +139,27 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     }
   }
 
-  Widget _builder(BuildContext ctx, S data, [LayoutData? layoutData]) =>
-      layoutData != null
-          ? widget.layoutBuilder!.call(
-              ctx,
-              layoutData,
-              ref,
-              ref.read(widget.provider.notifier),
-              data,
-            )
-          : widget.builder!.call(
-              ctx,
-              ref,
-              ref.read(widget.provider.notifier),
-              data,
-            );
+  Widget _builder(BuildContext ctx, S data, [Layout? layout]) => layout != null
+      ? widget.layoutBuilder!.call(
+          ctx,
+          layout,
+          ref,
+          ref.read(widget.provider.notifier),
+          data,
+        )
+      : widget.builder!.call(
+          ctx,
+          ref,
+          ref.read(widget.provider.notifier),
+          data,
+        );
 
-  Widget _builderWithData([LayoutData? layoutData]) {
+  Widget _builderWithData([Layout? layout]) {
     if (widget.type == _BuilderType.stream) {
       return StreamBuilder<S>(
         initialData: ref.read(widget.provider),
         stream: ref.watch(widget.provider.notifier).stream,
-        builder: (ctx, snapshot) => _builder(ctx, snapshot.data!, layoutData),
+        builder: (ctx, snapshot) => _builder(ctx, snapshot.data!, layout),
       );
     }
 
@@ -169,7 +167,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     return _builder(
       context,
       state,
-      layoutData,
+      layout,
       // child: widget.child,
     );
   }
@@ -177,9 +175,9 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
   @override
   Widget build(BuildContext context) {
     if (widget.layoutBuilder != null) {
-      return LayoutBuilder(
-        builder: (ctx, constraints) =>
-            _builderWithData(LayoutData(constraints: constraints)),
+      return AdaptiveLayout.maybeWhen(
+        ref,
+        builder: (ctx, constraints, layout) => _builderWithData(layout),
       );
     }
 

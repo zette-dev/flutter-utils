@@ -48,14 +48,82 @@ class LayoutData with _$LayoutData {
 final layoutProvider = StateNotifierProvider<_LayoutNotifier, LayoutData>(
     (ref) => _LayoutNotifier());
 
-// class AdaptiveLayout extends LayoutBuilder {
-//   AdaptiveLayout({
-//     required WidgetRef ref,
-//     required Widget Function(BuildContext, BoxConstraints, Layout) builder,
-//   }) : super(
-//           builder: (ctx, constraints) => builder(
-//             ctx,
-//             constraints,
-//             Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider)),
-//           ),
-//         );
+typedef AdaptiveLayoutBuilder = Widget Function(
+    BuildContext, BoxConstraints, Layout);
+
+class _AdaptiveLayout extends AdaptiveLayout {
+  _AdaptiveLayout({
+    required super.ref,
+    super.builder,
+    super.mobileBuilder,
+    super.tabletBuilder,
+    super.desktopBuilder,
+  });
+}
+
+abstract class AdaptiveLayout extends LayoutBuilder {
+  AdaptiveLayout({
+    required WidgetRef ref,
+    AdaptiveLayoutBuilder? builder,
+    AdaptiveLayoutBuilder? mobileBuilder,
+    AdaptiveLayoutBuilder? tabletBuilder,
+    AdaptiveLayoutBuilder? desktopBuilder,
+  })  : assert(
+            builder != null ||
+                (mobileBuilder != null &&
+                    tabletBuilder != null &&
+                    desktopBuilder != null),
+            'If builder is not specified, mobileBuilder, tabletBuilder, and dekstopBuilder must be specified'),
+        super(
+          builder: (ctx, constraints) {
+            final layout =
+                Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider));
+            AdaptiveLayoutBuilder? builderMethod;
+            switch (layout) {
+              case Layout.mobile:
+                builderMethod = mobileBuilder ?? builder;
+                break;
+              case Layout.tablet:
+                builderMethod = tabletBuilder ?? builder;
+                break;
+              case Layout.desktop:
+                builderMethod = desktopBuilder ?? builder;
+                break;
+            }
+
+            return builderMethod!.call(
+              ctx,
+              constraints,
+              Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider)),
+            );
+          },
+        );
+
+  factory AdaptiveLayout.when(
+    WidgetRef ref, {
+    required AdaptiveLayoutBuilder mobileBuilder,
+    required AdaptiveLayoutBuilder tabletBuilder,
+    required AdaptiveLayoutBuilder desktopBuilder,
+  }) =>
+      _AdaptiveLayout(
+        ref: ref,
+        mobileBuilder: mobileBuilder,
+        tabletBuilder: tabletBuilder,
+        desktopBuilder: desktopBuilder,
+      );
+
+  factory AdaptiveLayout.maybeWhen(
+    WidgetRef ref, {
+    AdaptiveLayoutBuilder? mobileBuilder,
+    AdaptiveLayoutBuilder? tabletBuilder,
+    AdaptiveLayoutBuilder? desktopBuilder,
+    required AdaptiveLayoutBuilder builder,
+  }) =>
+      _AdaptiveLayout(
+        ref: ref,
+        mobileBuilder: mobileBuilder,
+        tabletBuilder: tabletBuilder,
+        desktopBuilder: desktopBuilder,
+        builder: builder,
+      );
+}
