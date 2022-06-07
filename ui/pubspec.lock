@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: master
-      resolved-ref: e5380f756ead7f349c2566ca4e5e462d487994f9
+      resolved-ref: "1bc4becc3f35b7724d35ee71632d63d63a6ceb98"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
