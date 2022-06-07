@@ -90,7 +90,7 @@ class HTTPRequest {
     String? baseUrl,
     Map<String, String>? headers,
     Map<String, String>? query,
-    dynamic? body,
+    dynamic body,
     HTTPRequestMethod? method,
     String? contentType,
     bool? authenticated,

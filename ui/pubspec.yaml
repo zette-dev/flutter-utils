@@ -6,25 +6,25 @@ homepage: https://dropsource.com
 publish_to: none
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   auto_size_text: ^3.0.0
   build_context: ^3.0.0
-  connectivity_plus: ^2.3.0
+  connectivity_plus: ^2.3.3
   dio: ^4.0.6
   dropsource_core:
     git:
       url: https://github.com/Dropsource/flutter_utils.git
       path: core
       ref: master
-  firebase_analytics: ^9.1.8
-  firebase_core: ^1.17.0
-  firebase_crashlytics: ^2.8.0
+  firebase_analytics: ^9.1.9
+  firebase_core: ^1.17.1
+  firebase_crashlytics: ^2.8.1
   flutter:
     sdk: flutter
   logging: ^1.0.2
-  provider: ^6.0.2
+  provider: ^6.0.3
   url_launcher: ^6.1.2
 
 dev_dependencies:
