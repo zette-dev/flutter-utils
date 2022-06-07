@@ -41,7 +41,6 @@ class ScrollableAppBar extends SliverAppBar {
 class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   ScrollableLayout({
     String? scrollKey,
-    this.model,
     this.showAppBar = true,
     this.appBarExpandedHeight = 0,
     this.appBarCollapsedHeight,
@@ -78,6 +77,12 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
     this.centerScrollingHeaderTitle,
     this.shrinkWrap = false,
     this.toolbarHeight = kToolbarHeight,
+    this.shouldLoadMore,
+    this.canLoadMore,
+    this.isLoading,
+    this.hasData,
+    this.hasError,
+    this.isLoadingMore,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
     this.scrollPhysics =
         const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -88,7 +93,6 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
 
   @override
   final PageStorageKey? key;
-  final ListNetworkingModel<T>? model;
   final RefreshCallback? onRefresh, onLoadMore;
   final IndexedWidgetBuilder? itemBuilder, separatorBuilder;
   final WidgetBuilder? errorBuilder, emptyBuilder, loadMoreBuilder;
@@ -115,14 +119,12 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
   final CollapseMode flexibleSpaceCollapseMode;
 
-  bool get loadMoreEnabled =>
-      (model?.shouldLoadMore != null) &&
-      onLoadMore != null &&
-      (model?.canLoadMore != null);
-
-  bool get hasDataOrIsLoading => model?.hasData ?? false || isLoading;
-
-  bool get isLoading => model?.isInProgress ?? false;
+  final bool Function()? shouldLoadMore,
+      canLoadMore,
+      isLoadingMore,
+      isLoading,
+      hasData,
+      hasError;
 
   @override
   _ScrollableLayoutState createState() => _ScrollableLayoutState();
@@ -131,6 +133,18 @@ class ScrollableLayout<T extends Identifiable> extends StatefulWidget {
 class _ScrollableLayoutState extends State<ScrollableLayout> {
   ScrollController? _controller;
   bool _isScrolled = false;
+  bool get isLoading => widget.isLoading?.call() ?? false;
+  bool get shouldLoadMore => widget.shouldLoadMore?.call() ?? false;
+  bool get isLoadingMore => widget.isLoadingMore?.call() ?? false;
+  bool get loadMoreEnabled =>
+      (widget.shouldLoadMore != null) &&
+      widget.onLoadMore != null &&
+      (widget.canLoadMore != null);
+
+  bool get hasData => widget.hasData?.call() ?? false;
+  bool get hasError => widget.hasError?.call() ?? false;
+
+  bool get hasDataOrIsLoading => hasData || isLoading;
 
   bool get _requiresScrollListener =>
       _hasFlexibleSpace && (widget.appBarHiddenUntilScroll ?? false);
@@ -146,7 +160,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       _controller?.addListener(_listenToScrollChange(context));
     }
 
-    if (widget.loadMoreEnabled) {
+    if (loadMoreEnabled) {
       _controller?.addListener(_scrollListener);
     }
   }
@@ -154,7 +168,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
   void _scrollListener() {
     if (widget.scrollController?.position.pixels ==
             widget.scrollController?.position.maxScrollExtent &&
-        (widget.model?.shouldLoadMore ?? false) &&
+        shouldLoadMore &&
         widget.onLoadMore != null) {
       print('LOAD MORE');
       widget.onLoadMore!();
@@ -184,7 +198,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
   @override
   Widget build(BuildContext context) {
     return LoadingWrapper(
-      loading: widget.isLoading,
+      loading: isLoading,
       ignorePointerWhenLoading: false,
       children: [
         CustomScrollView(
@@ -254,7 +268,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       ];
 
   List<Widget> get hasDataOrLoadingBuilder => [
-        if (widget.hasDataOrIsLoading && widget.sliver != null)
+        if (hasDataOrIsLoading && widget.sliver != null)
           SliverPadding(
             sliver: widget.sliver,
             padding: widget.bodyPadding ?? EdgeInsets.all(0),
@@ -262,8 +276,7 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
       ];
 
   List<Widget> get loadMoreBuilder => [
-        if ((widget.model?.isLoadingMore ?? false) &&
-            widget.loadMoreBuilder != null)
+        if (isLoadingMore && widget.loadMoreBuilder != null)
           SliverPadding(
             padding: const EdgeInsets.all(8.0),
             sliver: widget.loadMoreBuilder!(context),
@@ -272,15 +285,15 @@ class _ScrollableLayoutState extends State<ScrollableLayout> {
 
   List<Widget> get emptyBuilder => [
         if (widget.emptyBuilder != null &&
-            !(widget.model?.hasError ?? false) &&
-            !(widget.model?.hasData ?? false) &&
-            !widget.isLoading &&
+            !hasError &&
+            !hasData &&
+            !isLoading &&
             widget.emptyBuilder != null)
           widget.emptyBuilder!(context),
       ];
 
   List<Widget> get errorBuilder => [
-        if (widget.errorBuilder != null && (widget.model?.hasError ?? false))
+        if (widget.errorBuilder != null && hasError)
           widget.errorBuilder!(context),
       ];
 }
