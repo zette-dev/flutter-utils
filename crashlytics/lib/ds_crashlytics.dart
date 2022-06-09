@@ -18,9 +18,10 @@ final crashlyticsProvider = Provider<FirebaseCrashlytics?>(
 );
 
 mixin CrashlyticsLoader {
-  Future<FirebaseCrashlytics?> startCrashlytics(WidgetRef ref) async {
+  Future<FirebaseCrashlytics?> startCrashlytics(WidgetRef ref,
+      {FirebaseOptions? options}) async {
     // Wait for Firebase to initialize
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(options: options);
 
     final crashlytics = ref.read(crashlyticsProvider);
     await crashlytics?.setCrashlyticsCollectionEnabled(kReleaseMode);

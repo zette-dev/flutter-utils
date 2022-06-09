@@ -37,7 +37,9 @@ abstract class AppLoader<C extends EnvConfigData> {
   Future init(WidgetRef ref);
   Widget appBuilder();
   void onError(Object error, StackTrace? stack);
+  void onBeforeRunApp() {}
   Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
+        onBeforeRunApp();
         return runApp(appBuilder());
       }, (error, stackTrace) {
         print('runZonedGuarded: $error');
