@@ -24,9 +24,11 @@ abstract class EnvConfig<S> {
   final AppEnvironment environment;
   final bool useCrashlytics;
 
-  Future startCrashlytics() async {
+  Future startCrashlytics({FirebaseOptions? options}) async {
     // Wait for Firebase to initialize
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: options,
+    );
 
     if (useCrashlytics) {
       await FirebaseCrashlytics.instance
