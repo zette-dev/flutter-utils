@@ -47,7 +47,9 @@ class SearchParam<T> {
   const SearchParam({
     required this.query,
     this.filter,
+    this.additionalItems = const [],
   });
   final String query;
   final SearchFilter<T>? filter;
+  final List<T> additionalItems;
 }
