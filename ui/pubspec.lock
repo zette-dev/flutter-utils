@@ -154,7 +154,7 @@ packages:
       name: connectivity_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.3"
+    version: "2.3.4"
   connectivity_plus_linux:
     dependency: transitive
     description:
@@ -182,7 +182,7 @@ packages:
       name: connectivity_plus_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   connectivity_plus_windows:
     dependency: transitive
     description:
@@ -230,7 +230,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: e5271d887c4fe39bce52fce80fed6df0236f0c1a
+      resolved-ref: "34914c1199b3ed9088a0751d1be134ee9f2a77b8"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -423,7 +423,7 @@ packages:
       name: package_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   path:
     dependency: transitive
     description:
@@ -624,7 +624,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.12"
   url_launcher_windows:
     dependency: transitive
     description:

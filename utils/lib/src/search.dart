@@ -40,3 +40,14 @@ extension SearchIndex on String {
       .where((e) => e.isNotEmpty)
       .toList();
 }
+
+typedef SearchFilter = bool Function(SearchObject);
+
+class SearchParam {
+  const SearchParam({
+    required this.query,
+    this.filter,
+  });
+  final String query;
+  final SearchFilter? filter;
+}
