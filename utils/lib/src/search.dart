@@ -41,13 +41,13 @@ extension SearchIndex on String {
       .toList();
 }
 
-typedef SearchFilter = bool Function(SearchObject);
+typedef SearchFilter<T> = bool Function(T);
 
-class SearchParam {
+class SearchParam<T> {
   const SearchParam({
     required this.query,
     this.filter,
   });
   final String query;
-  final SearchFilter? filter;
+  final SearchFilter<T>? filter;
 }
