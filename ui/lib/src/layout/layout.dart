@@ -21,10 +21,6 @@ enum Layout {
   }
 }
 
-class _LayoutNotifier extends StateNotifier<LayoutData> {
-  _LayoutNotifier() : super(LayoutData());
-}
-
 @freezed
 class LayoutData with _$LayoutData {
   const factory LayoutData({
@@ -45,8 +41,7 @@ class LayoutData with _$LayoutData {
   bool get isDesktop => layout == Layout.desktop;
 }
 
-final layoutProvider = StateNotifierProvider<_LayoutNotifier, LayoutData>(
-    (ref) => _LayoutNotifier());
+final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
 
 typedef AdaptiveLayoutBuilder = Widget Function(
     BuildContext, BoxConstraints, Layout);

@@ -14,18 +14,10 @@ enum AppEnvironment {
   automation,
 }
 
-final envProvider = StateNotifierProvider<EnvConfigNotifier, EnvConfigData?>(
-  (ref) => EnvConfigNotifier(),
-  name: 'AppEnv',
+final envProvider = StateProvider<EnvConfigData?>(
+  (ref) => null,
+  name: 'AppEnvProvider',
 );
-
-class EnvConfigNotifier extends StateNotifier<EnvConfigData?> {
-  // Initialize with null and `AppConfigData` gets set on AppEnv.loadState
-  EnvConfigNotifier() : super(null);
-
-  void initialize(EnvConfigData config) => state = config;
-  bool get isInitialized => state != null;
-}
 
 mixin EnvConfigData {
   AppEnvironment get environment;
