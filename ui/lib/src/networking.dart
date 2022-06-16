@@ -251,7 +251,7 @@ abstract class WebServiceInterface extends ServiceInterface {
       },
     ));
   }
-  late Dio _client;
+  final Dio _client;
   Dio get client => _client;
 
   Future<RequestOptions> authorizationInterceptor(

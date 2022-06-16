@@ -1,6 +1,6 @@
-import 'package:flutter/widgets.dart';
+// ignore_for_file: invalid_use_of_protected_member
 
-import '../ds_ui.dart';
+import 'package:flutter/widgets.dart';
 
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
