@@ -47,6 +47,7 @@ class ScrollableAppBarBehavior {
     this.titleSpacing = NavigationToolbar.kMiddleSpacing,
     this.title,
     this.backButton,
+    this.leadingWidth,
     this.flexibleBackground,
     this.actions,
     this.pinned = false,
@@ -67,7 +68,7 @@ class ScrollableAppBarBehavior {
   final Widget? backButton;
   final Widget? flexibleBackground, flexibleTitle;
   final bool? centerFlexibleTitle;
-  final double? expandedHeight, collapsedHeight;
+  final double? expandedHeight, collapsedHeight, leadingWidth;
   final double titleSpacing;
   final PreferredSizeWidget? bottom;
   final bool pinned, stretch, snap, floating;
@@ -382,6 +383,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                       )
                     : widget.appBarBehavior!.title,
                 leading: widget.appBarBehavior!.backButton,
+                leadingWidth: widget.appBarBehavior!.leadingWidth,
                 actions: widget.appBarBehavior!.actions,
                 centerTitle: widget.appBarBehavior!.centerTitle,
                 pinned: widget.appBarBehavior!.pinned,
