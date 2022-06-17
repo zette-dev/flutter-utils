@@ -14,7 +14,7 @@ enum AppEnvironment {
   automation,
 }
 
-final envProvider = StateProvider<EnvConfigData?>(
+final envProvider = Provider<EnvConfigData?>(
   (ref) => null,
   name: 'AppEnvProvider',
 );
