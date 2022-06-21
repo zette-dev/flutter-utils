@@ -15,7 +15,7 @@ typedef _Builder<M, T> = Widget Function(
 
 typedef _LayoutBuilder<M, T> = Widget Function(
   BuildContext,
-  Layout,
+  LayoutData,
   WidgetRef,
   M controller,
   T state,
@@ -139,7 +139,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     }
   }
 
-  Widget _builder(BuildContext ctx, S data, [Layout? layout]) =>
+  Widget _builder(BuildContext ctx, S data, [LayoutData? layout]) =>
       layout != null && widget.layoutBuilder != null
           ? widget.layoutBuilder!.call(
               ctx,
@@ -155,7 +155,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
               data,
             );
 
-  Widget _builderWithData([Layout? layout]) {
+  Widget _builderWithData([LayoutData? layout]) {
     if (widget.type == _BuilderType.stream) {
       return StreamBuilder<S>(
         initialData: ref.read(widget.provider),
@@ -178,7 +178,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     if (widget.layoutBuilder != null) {
       return AdaptiveLayout.maybeWhen(
         ref,
-        builder: (ctx, constraints, layout) => _builderWithData(layout),
+        builder: (ctx, layout) => _builderWithData(layout),
       );
     }
 
