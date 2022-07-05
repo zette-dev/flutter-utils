@@ -19,8 +19,8 @@ dependencies:
       path: core
       ref: master
   firebase_analytics: ^9.1.10
-  firebase_core: ^1.17.1
-  firebase_crashlytics: ^2.8.1
+  firebase_core: ^1.19.1
+  firebase_crashlytics: ^2.8.4
   flutter:
     sdk: flutter
   logging: ^1.0.2
