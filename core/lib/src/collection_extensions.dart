@@ -122,9 +122,10 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
   }
 }
 
-extension IdentifiableIterableMethods<T extends Identifiable> on Iterable<T> {
-  Map<String, T> index({List<T>? merge}) {
-    return Map<String, T>.fromIterable(
+extension IdentifiableIterableMethods<Key, T extends Identifiable<Key>>
+    on Iterable<T> {
+  Map<Key, T> index<Key>({List<T>? merge}) {
+    return Map<Key, T>.fromIterable(
       [...this, ...(merge ?? [])],
       key: (item) => item.id,
       value: (item) => item,
