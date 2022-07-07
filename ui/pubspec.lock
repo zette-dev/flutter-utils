@@ -125,7 +125,7 @@ packages:
     description:
       path: core
       ref: master
-      resolved-ref: b75bd5a430611802dbea0fe39d554bb898155ecd
+      resolved-ref: "55de5baaf2a3b861c83d3365dfa4bdca2731d3e0"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -156,21 +156,21 @@ packages:
       name: firebase_analytics
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.10"
+    version: "9.1.12"
   firebase_analytics_platform_interface:
     dependency: transitive
     description:
       name: firebase_analytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.8"
+    version: "3.1.10"
   firebase_analytics_web:
     dependency: transitive
     description:
       name: firebase_analytics_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0+15"
+    version: "0.4.0+17"
   firebase_core:
     dependency: "direct main"
     description:

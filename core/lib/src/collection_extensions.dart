@@ -75,7 +75,7 @@ extension ListOfListMethods<T> on List<List<T>> {
       : <T>[];
 }
 
-extension IdentifiableListMethods<T extends Identifiable> on List<T> {
+extension IdentifiableListMethods<K, T extends Identifiable<K>> on List<T> {
   List<T> merge({
     MergeDirection? direction,
     required List<T> newList,
@@ -83,7 +83,7 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
     if (direction == null || direction == MergeDirection.replace) {
       return newList;
     } else {
-      Map<String, T> _indexedNew = newList.index();
+      Map<K, T> _indexedNew = Map<K, T>.from(newList.index());
 
       // Replace any existing items in the initialList
       List<T> _updatedList = map((e) {
@@ -108,10 +108,10 @@ extension IdentifiableListMethods<T extends Identifiable> on List<T> {
   }
 }
 
-extension IdentifiableIterableMethods<Key, T extends Identifiable<Key>>
+extension IdentifiableIterableMethods<K, T extends Identifiable<K>>
     on Iterable<T> {
-  Map<Key, T> index<Key>({List<T>? merge}) {
-    return Map<Key, T>.fromIterable(
+  Map<K, T> index({List<T>? merge}) {
+    return Map<K, T>.fromIterable(
       [...this, ...(merge ?? [])],
       key: (item) => item.id,
       value: (item) => item,
