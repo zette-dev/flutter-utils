@@ -11,4 +11,3 @@ environment:
 dependencies:
   firebase_crashlytics: ^2.8.4
   flutter_riverpod: ^1.0.4
-  

@@ -4,19 +4,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'layout.freezed.dart';
 
-@JsonEnum()
-enum Layout {
-  mobile,
-  tablet,
-  desktop;
+@freezed
+class Layout with _$Layout {
+  const factory Layout.mobile() = _Mobile;
+  const factory Layout.desktop() = _Desktop;
+  const factory Layout.tablet() = _Tablet;
 
   factory Layout.fromSize(double width, LayoutData data) {
     if (width <= data.phoneScreenBreakpoint) {
-      return Layout.mobile;
+      return Layout.mobile();
     } else if (width <= data.mobileScreenBreakpoint) {
-      return Layout.tablet;
+      return Layout.tablet();
     } else {
-      return Layout.desktop;
+      return Layout.desktop();
     }
   }
 }
@@ -36,9 +36,24 @@ class LayoutData with _$LayoutData {
 
   bool get hasLayout => constraints != null && layout != null;
 
-  bool get isMobile => layout == Layout.mobile;
-  bool get isTablet => layout == Layout.tablet;
-  bool get isDesktop => layout == Layout.desktop;
+  bool get isMobile =>
+      layout != null &&
+      layout!.maybeWhen(
+        orElse: () => false,
+        mobile: () => true,
+      );
+  bool get isTablet =>
+      layout != null &&
+      layout!.maybeWhen(
+        orElse: () => false,
+        tablet: () => true,
+      );
+  bool get isDesktop =>
+      layout != null &&
+      layout!.maybeWhen(
+        orElse: () => false,
+        desktop: () => true,
+      );
 }
 
 final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
@@ -73,17 +88,12 @@ abstract class AdaptiveLayout extends LayoutBuilder {
             final layout =
                 Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider));
             AdaptiveLayoutBuilder? builderMethod;
-            switch (layout) {
-              case Layout.mobile:
-                builderMethod = mobileBuilder ?? builder;
-                break;
-              case Layout.tablet:
-                builderMethod = tabletBuilder ?? builder;
-                break;
-              case Layout.desktop:
-                builderMethod = desktopBuilder ?? builder;
-                break;
-            }
+            builderMethod = layout.when(
+                  mobile: () => mobileBuilder,
+                  tablet: () => tabletBuilder,
+                  desktop: () => desktopBuilder,
+                ) ??
+                builder;
 
             return builderMethod!.call(
               ctx,

@@ -56,7 +56,7 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   build_context:
     dependency: "direct main"
     description:
@@ -84,7 +84,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.11"
+    version: "2.2.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -230,7 +230,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: a0277354d0a17878222c40eee4cd0e7a79cf47c2
+      resolved-ref: aafc56694d87f3d4505d7b6ae1e247844399098f
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -297,7 +297,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -367,7 +367,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.0"
+    version: "4.6.0"
   logging:
     dependency: "direct main"
     description:
