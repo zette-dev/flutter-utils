@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
@@ -23,6 +24,16 @@ extension WidgetExtensions on Widget {
 
     return _sliver;
   }
+
+  Widget providerScoped({
+    List<Override> overrides = const [],
+    List<ProviderObserver> observers = const [],
+  }) =>
+      ProviderScope(
+        child: this,
+        overrides: overrides,
+        observers: observers,
+      );
 }
 
 extension ContextExtensions on BuildContext {
