@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
 
+  Widget expanded() => Expanded(child: this);
+
   Widget paddedSides(double padding) =>
       Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
 
