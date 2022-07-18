@@ -12,4 +12,4 @@ dependencies:
   equatable: ^2.0.3
   intl: ^0.17.0
   ms_map_utils: ^1.1.0
-  rxdart: ^0.27.4
+  rxdart: ^0.27.5
