@@ -105,7 +105,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.3.3"
+    version: "8.4.0"
   characters:
     dependency: transitive
     description:
@@ -230,7 +230,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: aafc56694d87f3d4505d7b6ae1e247844399098f
+      resolved-ref: "81d5b8aa3f486a7a4fa30ee5dbd7bee5e05d8fa2"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -297,7 +297,7 @@ packages:
       name: freezed
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.5"
+    version: "2.1.0+1"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -479,7 +479,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.4"
+    version: "0.27.5"
   shelf:
     dependency: transitive
     description:
