@@ -48,25 +48,28 @@ class _AnimatedTapState extends State<AnimatedTap> {
       builder: (BuildContext context, double size, Widget? child) {
         double _transformScale = 1 - size;
 
-        return GestureDetector(
-          behavior: widget.behavior,
-          onTapDown: hasHandler ? _onTapDown : null,
-          onTapCancel: hasHandler
-              ? () => setState(() {
-                    _cancelled = true;
-                    _released = true;
-                    _end = 0;
-                  })
-              : null,
-          onTapUp: hasHandler
-              ? (_) => setState(() {
-                    _released = true;
-                    _end = size == widget.end ? 0 : _end;
-                  })
-              : null,
-          child: Transform.scale(
-            scale: _transformScale,
-            child: widget.child,
+        return MouseRegion(
+          cursor: hasHandler ? SystemMouseCursors.click : MouseCursor.defer,
+          child: GestureDetector(
+            behavior: widget.behavior,
+            onTapDown: hasHandler ? _onTapDown : null,
+            onTapCancel: hasHandler
+                ? () => setState(() {
+                      _cancelled = true;
+                      _released = true;
+                      _end = 0;
+                    })
+                : null,
+            onTapUp: hasHandler
+                ? (_) => setState(() {
+                      _released = true;
+                      _end = size == widget.end ? 0 : _end;
+                    })
+                : null,
+            child: Transform.scale(
+              scale: _transformScale,
+              child: widget.child,
+            ),
           ),
         );
       },

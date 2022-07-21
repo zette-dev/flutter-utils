@@ -217,7 +217,7 @@ packages:
       name: dbus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.7"
   dio:
     dependency: "direct main"
     description:
@@ -230,7 +230,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: "81d5b8aa3f486a7a4fa30ee5dbd7bee5e05d8fa2"
+      resolved-ref: ec78471c0950b5c387738bf30e29a0ec2d240b93
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
