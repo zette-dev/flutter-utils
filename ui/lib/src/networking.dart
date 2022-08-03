@@ -12,9 +12,17 @@ class NetworkConnectionError implements Exception {}
 class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
-  ApiResponseError(this.message, {this.code, this.request, this.errorCode, this.localizedMessage});
+  ApiResponseError(
+    this.message, {
+    this.code,
+    this.request,
+    this.errorCode,
+    this.localizedMessage,
+    this.originalException,
+  });
   final RequestOptions? request;
   final String message;
+  final Object? originalException;
   final String? errorCode, localizedMessage;
   final int? code;
 
@@ -27,11 +35,14 @@ class ApiResponseError implements Exception {
         'localized_message': localizedMessage,
       });
 
-  ApiResponseError withErrorCode(String? errorCode, {String? localizedMessage}) => ApiResponseError(
+  ApiResponseError withErrorCode(String? errorCode,
+          {String? localizedMessage}) =>
+      ApiResponseError(
         message,
         errorCode: errorCode,
         code: code,
         request: request,
+        originalException: originalException,
         localizedMessage: localizedMessage ?? this.localizedMessage,
       );
 }
@@ -63,7 +74,11 @@ class HTTPRequest {
   Uri? get uri {
     if (baseUrl != null) {
       final _root = Uri.tryParse(baseUrl ?? '');
-      return Uri(scheme: _root!.scheme, host: _root.host, path: path, queryParameters: query);
+      return Uri(
+          scheme: _root!.scheme,
+          host: _root.host,
+          path: path,
+          queryParameters: query);
     }
 
     return null;

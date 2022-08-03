@@ -12,6 +12,7 @@ dependencies:
   auto_size_text: ^3.0.0
   build_context: ^3.0.0
   connectivity_plus: ^2.3.6
+  dartz: ^0.10.1
   dio: ^4.0.6
   ds_utils:
     git:
