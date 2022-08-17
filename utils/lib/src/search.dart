@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 mixin SearchObject {
   bool isSearchMatch(List<String>? searchIndex) => true;
 }
@@ -43,7 +45,7 @@ extension SearchIndex on String {
 
 typedef SearchFilter<T> = bool Function(T);
 
-class SearchParam<T> {
+class SearchParam<T> extends Equatable {
   const SearchParam({
     required this.query,
     this.filter,
@@ -52,4 +54,11 @@ class SearchParam<T> {
   final String query;
   final SearchFilter<T>? filter;
   final List<T> additionalItems;
+
+  @override
+  List<Object?> get props => [
+        query,
+        additionalItems.length,
+        if (filter != null) filter,
+      ];
 }
