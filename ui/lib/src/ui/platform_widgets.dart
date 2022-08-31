@@ -220,46 +220,6 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
             });
 }
 
-class PlatformButton extends StatelessWidget {
-  PlatformButton({
-    Key? key,
-    required this.child,
-    required this.onPressed,
-    this.color,
-    this.disabledColor,
-    this.padding,
-    this.borderRadius = const BorderRadius.all(Radius.zero),
-  }) : super(key: key);
-  final Widget child;
-  final void Function() onPressed;
-  final Color? color;
-  final Color? disabledColor;
-  final EdgeInsetsGeometry? padding;
-  final BorderRadius? borderRadius;
-  @override
-  Widget build(BuildContext context) {
-    return PlatformWidget(
-      ios: (ctx) => CupertinoButton(
-        child: child,
-        onPressed: onPressed,
-        color: color,
-        disabledColor: disabledColor ?? CupertinoColors.quaternarySystemFill,
-        pressedOpacity: 0.9,
-        borderRadius: borderRadius,
-        padding: padding ?? Theme.of(context).buttonTheme.padding,
-      ),
-      android: (ctx) => FlatButton(
-        child: child,
-        onPressed: onPressed,
-        color: color,
-        textTheme: ButtonTextTheme.primary,
-        disabledColor: disabledColor,
-        padding: padding ?? Theme.of(context).buttonTheme.padding,
-      ),
-    );
-  }
-}
-
 Route<T> platformRoute<T>(
   BuildContext context, {
   required WidgetBuilder builder,
@@ -303,28 +263,4 @@ Future<T?> showPlatformDialog<T>(BuildContext context,
           );
         }
       });
-}
-
-void showPlatformBottomSheet(BuildContext context,
-    {List<Widget>? actions, TextStyle? style}) {
-  if (Theme.of(context).platform == TargetPlatform.iOS) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (ctx) => CupertinoActionSheet(
-              cancelButton: PlatformButton(
-                key: Key('bottom-sheet-cancel-button'),
-                child: Text('Cancel', style: style),
-                onPressed: () => Navigator.of(ctx).pop(),
-              ),
-              actions: actions ?? [],
-            ));
-  } else {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (ctx) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: actions ?? [],
-      ),
-    );
-  }
 }
