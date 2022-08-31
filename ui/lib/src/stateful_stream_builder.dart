@@ -92,7 +92,7 @@ class _StatefulLifecycleManagerState<M, T>
   void initState() {
     super.initState();
     if (widget.onInitialBuild != null) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         widget.onInitialBuild!(widget.manager);
       });
     }
