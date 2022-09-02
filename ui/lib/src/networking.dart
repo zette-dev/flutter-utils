@@ -266,10 +266,13 @@ abstract class WebServiceInterface extends ServiceInterface {
 
         handler.next(options);
       },
+      onError: onError,
     ));
   }
   final Dio _client;
   Dio get client => _client;
+
+  void onError(DioError error, ErrorInterceptorHandler handler);
 
   Future<RequestOptions> authorizationInterceptor(
           RequestOptions options) async =>
