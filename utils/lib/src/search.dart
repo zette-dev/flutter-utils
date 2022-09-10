@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'search.freezed.dart';
 
 mixin SearchObject {
   bool isSearchMatch(List<String>? searchIndex) => true;
@@ -45,20 +48,18 @@ extension SearchIndex on String {
 
 typedef SearchFilter<T> = bool Function(T);
 
-class SearchParam<T> extends Equatable {
-  const SearchParam({
-    required this.query,
-    this.filter,
-    this.additionalItems = const [],
-  });
-  final String query;
-  final SearchFilter<T>? filter;
-  final List<T> additionalItems;
+@freezed
+class SearchParam<T> with _$SearchParam<T> {
+  const factory SearchParam({
+    required String query,
+    SearchFilter<T>? filter,
+    @Default([]) List<T> additionalItems,
+  }) = _SearchParam;
 
-  @override
-  List<Object?> get props => [
-        query,
-        additionalItems.length,
-        if (filter != null) filter,
-      ];
+  // @override
+  // List<Object?> get props => [
+  //       query,
+  //       additionalItems.length,
+  //       if (filter != null) filter,
+  //     ];
 }
