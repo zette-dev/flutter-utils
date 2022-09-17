@@ -175,7 +175,7 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
                   children: <Widget>[
                     Positioned(
                       top: 16,
-                      width: radius, 
+                      width: radius,
                       height: radius,
                       // left: 0.0,
                       // right: 0.0,
@@ -219,7 +219,6 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
               );
             });
 }
-
 
 Route<T> platformRoute<T>(
   BuildContext context, {
@@ -266,3 +265,72 @@ Future<T?> showPlatformDialog<T>(BuildContext context,
       });
 }
 
+class PlatformButton extends StatelessWidget {
+  PlatformButton({
+    Key? key,
+    required this.child,
+    required this.onPressed,
+    this.color,
+    this.disabledColor,
+    this.padding,
+    this.borderRadius = const BorderRadius.all(Radius.zero),
+  }) : super(key: key);
+  final Widget child;
+  final void Function() onPressed;
+  final Color? color;
+  final Color? disabledColor;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadius? borderRadius;
+  @override
+  Widget build(BuildContext context) {
+    return PlatformWidget(
+      ios: (ctx) => CupertinoButton(
+        child: child,
+        onPressed: onPressed,
+        color: color,
+        disabledColor: disabledColor ?? CupertinoColors.quaternarySystemFill,
+        pressedOpacity: 0.9,
+        borderRadius: borderRadius,
+        padding: padding ?? Theme.of(context).buttonTheme.padding,
+      ),
+      android: (ctx) => TextButton(
+        child: child,
+        onPressed: onPressed,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return disabledColor;
+            }
+            return color;
+          }),
+          padding: MaterialStateProperty.all(
+              padding ?? Theme.of(context).buttonTheme.padding),
+        ),
+      ),
+    );
+  }
+}
+
+void showPlatformBottomSheet(BuildContext context,
+    {List<Widget>? actions, TextStyle? style}) {
+  if (Theme.of(context).platform == TargetPlatform.iOS) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) => CupertinoActionSheet(
+              cancelButton: PlatformButton(
+                key: Key('bottom-sheet-cancel-button'),
+                child: Text('Cancel', style: style),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
+              actions: actions ?? [],
+            ));
+  } else {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (ctx) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: actions ?? [],
+      ),
+    );
+  }
+}
