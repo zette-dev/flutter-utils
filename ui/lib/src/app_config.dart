@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 @JsonEnum()
 enum AppEnvironment {
@@ -21,20 +22,47 @@ final envProvider = Provider<EnvConfigData?>(
 
 mixin EnvConfigData {
   AppEnvironment get environment;
+  String get sentryDns;
 }
 
-abstract class AppLoader<C extends EnvConfigData> {
+abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
   Future init(WidgetRef ref);
   Widget appBuilder();
   void onError(Object error, StackTrace? stack);
   void onBeforeRunApp() {}
-  Future<void>? runGuarded() => runZonedGuarded<Future<void>>(() async {
-        onBeforeRunApp();
-        return runApp(appBuilder());
-      }, (error, stackTrace) {
-        print('runZonedGuarded: $error');
-        onError(error, stackTrace);
-      });
+  Future<void>? runGuarded() => initSentry(
+        config.sentryDns,
+        config.environment,
+        runner: () => runApp(appBuilder()),
+      );
+}
+
+mixin SentryInitializer {
+  Future<void> initSentry(String? dns, AppEnvironment env,
+      {required AppRunner runner}) {
+    if (dns != null) {
+      return SentryFlutter.init(
+        (options) {
+          options
+            ..dsn = dns
+            ..environment = env.name
+            ..beforeSend = (event, {hint}) {
+              // Ignore handled exceptions
+              if (event.exceptions != null &&
+                  event.exceptions!.isNotEmpty &&
+                  event.exceptions![0].mechanism != null &&
+                  event.exceptions![0].mechanism!.handled == true) {
+                return null;
+              }
+              return event;
+            };
+        },
+        appRunner: runner,
+      );
+    }
+
+    return Future.value(runner());
+  }
 }
