@@ -22,7 +22,7 @@ final envProvider = Provider<EnvConfigData?>(
 
 mixin EnvConfigData {
   AppEnvironment get environment;
-  String get sentryDns;
+  String? get sentryDns;
 }
 
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
