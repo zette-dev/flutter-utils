@@ -65,7 +65,7 @@ class HTTPRequest {
 
   final String path;
   final String? baseUrl;
-  final Map<String, String>? headers, query;
+  final Map<String, dynamic>? headers, query;
   final dynamic body;
   final HTTPRequestMethod method;
   final bool authenticated, autoRefreshToken;
