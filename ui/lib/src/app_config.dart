@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -42,7 +43,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
 mixin SentryInitializer {
   Future<void> initSentry(String? dns, AppEnvironment env,
       {required AppRunner runner}) {
-    if (dns != null) {
+    if (dns != null && !kDebugMode) {
       return SentryFlutter.init(
         (options) {
           options
