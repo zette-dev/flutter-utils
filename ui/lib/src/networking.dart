@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,7 +14,7 @@ class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
   ApiResponseError(
-    this.message, {
+    this.response, {
     this.code,
     this.request,
     this.errorCode,
@@ -21,14 +22,14 @@ class ApiResponseError implements Exception {
     this.originalException,
   });
   final RequestOptions? request;
-  final String message;
+  final Object? response;
   final Object? originalException;
   final String? errorCode, localizedMessage;
   final int? code;
 
   String toJson() => json.encode({
         'request': request?.path,
-        'message': message,
+        'response': response,
         'error_code': errorCode,
         'code': code,
         'request_id': request?.headers['Request-Id'],
@@ -38,7 +39,7 @@ class ApiResponseError implements Exception {
   ApiResponseError withErrorCode(String? errorCode,
           {String? localizedMessage}) =>
       ApiResponseError(
-        message,
+        response,
         errorCode: errorCode,
         code: code,
         request: request,
@@ -234,6 +235,36 @@ class HTTPRequest {
         _error = onError?.call(_error) ?? _error;
         throw _error;
       }
+    });
+  }
+
+  Future<Either<T, ApiResponseError>> runSafe<T>(
+    Dio client, {
+    List<int> successCodes = const [200],
+    required Future<T> Function(dynamic, int) onSuccess,
+    ApiResponseError Function(ApiResponseError)? onError,
+  }) {
+    return execute(client).then<Either<T, ApiResponseError>>((response) async {
+      if (successCodes.contains(response.statusCode)) {
+        return onSuccess(response.data, response.statusCode!).then(Left.new);
+      } else {
+        var _error = ApiResponseError(
+          response.data,
+          code: response.statusCode,
+          request: response.requestOptions,
+        );
+
+        _error = onError?.call(_error) ?? _error;
+        return Right(_error);
+      }
+    }).catchError((e) {
+      ApiResponseError _error = ApiResponseError(
+        e.toString(),
+        originalException: e,
+      );
+
+      _error = onError?.call(_error) ?? _error;
+      return Right(_error);
     });
   }
 }
