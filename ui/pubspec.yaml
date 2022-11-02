@@ -11,7 +11,7 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   build_context: ^3.0.0
-  connectivity_plus: ^2.3.9
+  connectivity_plus: ^3.0.2
   dartz: ^0.10.1
   dio: ^4.0.6
   ds_utils:
@@ -21,14 +21,14 @@ dependencies:
       ref: dev
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.0.2
+  flutter_riverpod: ^2.1.1
   freezed_annotation: ^2.2.0
   logging: ^1.1.0
   sentry_flutter: ^6.13.1
   url_launcher: ^6.1.6
 
 dev_dependencies:
-  build_runner: ^2.2.1
+  build_runner: ^2.3.2
   flutter_test:
     sdk: flutter
   freezed: ^2.2.1
