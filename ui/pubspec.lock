@@ -202,7 +202,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: "0b1bf5a95878caf390af906d4131c3a0b19de7a2"
+      resolved-ref: "209545eb23c28589fdd9c7c257e3b36f5d7a1e5a"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -479,14 +479,14 @@ packages:
       name: sentry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.13.1"
+    version: "6.15.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.13.1"
+    version: "6.15.0"
   shelf:
     dependency: transitive
     description:
@@ -500,7 +500,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -547,7 +547,7 @@ packages:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:
@@ -673,7 +673,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.1"
   xml:
     dependency: transitive
     description:
