@@ -11,6 +11,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 @JsonEnum()
 enum AppEnvironment {
+  development,
   staging,
   production,
   automation,
