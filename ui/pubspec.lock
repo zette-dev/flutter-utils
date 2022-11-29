@@ -202,7 +202,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: f4366f38d9d896864a9d342d22e4b4bb6e5415b0
+      resolved-ref: "377fe824f8d89463cfafa6a9a313b21bf7d8bf6c"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -283,7 +283,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   glob:
     dependency: transitive
     description:
@@ -673,7 +673,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   xml:
     dependency: transitive
     description:
