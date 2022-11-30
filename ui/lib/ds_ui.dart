@@ -18,6 +18,7 @@ export 'src/ui/animated_card_navigator.dart';
 export 'src/ui/custom_scroll_views.dart';
 export 'src/ui/error_view.dart';
 export 'src/ui/infinite_scroll_list.dart';
+export 'src/ui/loadable_action.dart';
 export 'src/ui/loading_wrapper.dart';
 export 'src/ui/pin_pad_widget/pin_pad_widget.dart';
 export 'src/ui/platform_widgets.dart';
