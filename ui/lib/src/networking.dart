@@ -62,12 +62,14 @@ class HTTPRequest {
     this.contentType,
     this.authenticated = false,
     this.autoRefreshToken = false,
+    this.listFormat,
   });
 
   final String path;
   final String? baseUrl;
   final Map<String, dynamic>? headers, query;
   final dynamic body;
+  final ListFormat? listFormat;
   final HTTPRequestMethod method;
   final bool authenticated, autoRefreshToken;
   final String? contentType;
@@ -110,6 +112,7 @@ class HTTPRequest {
     HTTPRequestMethod? method,
     String? contentType,
     bool? authenticated,
+    ListFormat? listFormat,
   }) {
     return HTTPRequest(
       path: path ?? this.path,
@@ -120,6 +123,7 @@ class HTTPRequest {
       contentType: contentType ?? this.contentType,
       authenticated: authenticated ?? this.authenticated,
       baseUrl: baseUrl ?? this.baseUrl,
+      listFormat: listFormat ?? this.listFormat,
     );
   }
 
@@ -141,6 +145,7 @@ class HTTPRequest {
         method: methodString,
         extra: _extras,
         contentType: contentType,
+        listFormat: listFormat,
       ),
     );
   }
@@ -161,6 +166,7 @@ class HTTPRequest {
       extra: _extras,
       responseType: ResponseType.json,
       contentType: contentType?.toString(),
+      listFormat: listFormat,
     );
 
     Future<Response> response = client.request(
