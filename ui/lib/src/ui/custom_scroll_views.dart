@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../ds_ui.dart';
 
@@ -61,6 +62,7 @@ class ScrollableAppBarBehavior {
     this.flexibleCollapseMode = CollapseMode.pin,
     this.centerTitle = true,
     this.automaticallyImplyLeading = true,
+    this.statusBarBrightness,
   });
 
   final Color? color;
@@ -78,6 +80,7 @@ class ScrollableAppBarBehavior {
   final double toolbarHeight;
   final bool hiddenUntilScroll;
   final bool centerTitle, automaticallyImplyLeading;
+  final Brightness? statusBarBrightness;
 }
 
 class ScrollLayout extends StatefulWidget {
@@ -382,6 +385,10 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                         child: widget.appBarBehavior!.title,
                       )
                     : widget.appBarBehavior!.title,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarBrightness:
+                      widget.appBarBehavior?.statusBarBrightness,
+                ),
                 leading: widget.appBarBehavior!.backButton,
                 leadingWidth: widget.appBarBehavior!.leadingWidth,
                 actions: widget.appBarBehavior!.actions,
