@@ -193,7 +193,7 @@ class HTTPRequest {
     }
 
     bool _isResponseError(dynamic e) {
-      return e is DioError && e.type == DioErrorType.response;
+      return e is DioError && e.type == DioErrorType.badResponse;
     }
 
     bool _isRefreshableResponeError(dynamic e) {
@@ -218,8 +218,9 @@ class HTTPRequest {
         .catchError(_handleNetworkIssues,
             test: (e) =>
                 e is DioError &&
-                e.type == DioErrorType.other &&
-                e.message.toLowerCase().contains('failed host lookup'));
+                e.type == DioErrorType.connectionError &&
+                (e.message?.toLowerCase().contains('failed host lookup') ??
+                    false));
   }
 
   Future<T> run<T>(
@@ -275,24 +276,11 @@ class HTTPRequest {
   }
 }
 
-class FlutterJsonTransformer extends DefaultTransformer {
-  FlutterJsonTransformer() : super(jsonDecodeCallback: _parseJson);
-}
-
-// Must be top-level function
-dynamic _parseAndDecode(String response) {
-  return jsonDecode(response);
-}
-
-dynamic _parseJson(String text) {
-  return compute(_parseAndDecode, text);
-}
-
 abstract class ServiceInterface {}
 
 abstract class WebServiceInterface extends ServiceInterface {
   WebServiceInterface(this._client) {
-    _client.transformer = FlutterJsonTransformer();
+    _client.transformer = BackgroundTransformer();
     _client.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         options = await onRequestInterceptor(options);
