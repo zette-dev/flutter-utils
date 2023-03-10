@@ -12,16 +12,16 @@ class NetworkConnectionError implements Exception {}
 class UnauthorizedRequestError implements Exception {}
 
 class ApiResponseError implements Exception {
-  ApiResponseError(this.message,
+  ApiResponseError(this.error,
       {this.code, this.request, this.errorCode, this.localizedMessage});
   final RequestOptions? request;
-  final String message;
+  final Object error;
   final String? errorCode, localizedMessage;
   final int? code;
 
   String toJson() => json.encode({
         'request': request?.path,
-        'message': message,
+        'message': error,
         'error_code': errorCode,
         'code': code,
         'request_id': request?.headers['Request-Id'],
@@ -31,7 +31,7 @@ class ApiResponseError implements Exception {
   ApiResponseError withErrorCode(String? errorCode,
           {String? localizedMessage}) =>
       ApiResponseError(
-        message,
+        error,
         errorCode: errorCode,
         code: code,
         request: request,
