@@ -181,11 +181,11 @@ class HTTPRequest {
       }));
     }
 
-    Future _handleUnauthenticatedResponse(dynamic error) async {
+    Future<Response> _handleUnauthenticatedResponse(dynamic error) async {
       throw UnauthorizedRequestError();
     }
 
-    Future _handleNetworkIssues(dynamic error) async {
+    Future<Response> _handleNetworkIssues(dynamic error) async {
       print('Throw network error');
       throw NetworkConnectionError();
     }
