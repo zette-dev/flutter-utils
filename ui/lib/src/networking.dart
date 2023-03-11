@@ -6,8 +6,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 
-import 'helpers.dart' show compute;
-
 class NetworkConnectionError implements Exception {}
 
 class UnauthorizedRequestError implements Exception {}
@@ -183,11 +181,11 @@ class HTTPRequest {
       }));
     }
 
-    void _handleUnauthenticatedResponse(dynamic error) {
+    Future _handleUnauthenticatedResponse(dynamic error) async {
       throw UnauthorizedRequestError();
     }
 
-    void _handleNetworkIssues(dynamic error) {
+    Future _handleNetworkIssues(dynamic error) async {
       print('Throw network error');
       throw NetworkConnectionError();
     }
@@ -234,7 +232,7 @@ class HTTPRequest {
         return onSuccess(response.data, response.statusCode!);
       } else {
         var _error = ApiResponseError(
-          response.data['message'],
+          response.data,
           code: response.statusCode,
           request: response.requestOptions,
         );
@@ -271,7 +269,7 @@ class HTTPRequest {
       );
 
       _error = onError?.call(_error) ?? _error;
-      return Right(_error);
+      return Future.value(Right<T, ApiResponseError>(_error));
     });
   }
 }
