@@ -202,7 +202,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: "557997f1bb70903a4d24c5cc1905a29102ebd950"
+      resolved-ref: d03e2478ada68941683bc9f9ad8c3a6055ae8ea1
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -252,7 +252,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -465,7 +465,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   rxdart:
     dependency: transitive
     description:
@@ -479,14 +479,14 @@ packages:
       name: sentry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.22.0"
+    version: "7.0.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.22.0"
+    version: "7.0.0"
   shelf:
     dependency: transitive
     description:
