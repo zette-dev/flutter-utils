@@ -13,7 +13,7 @@ dependencies:
   build_context: ^3.0.0
   connectivity_plus: ^3.0.3
   dartz: ^0.10.1
-  dio: ^5.0.2
+  dio: ^5.1.1
   ds_utils:
     git:
       url: https://github.com/Dropsource/flutter_utils.git
@@ -24,7 +24,7 @@ dependencies:
   flutter_riverpod: ^2.3.2
   freezed_annotation: ^2.2.0
   logging: ^1.1.1
-  sentry_flutter: ^7.0.0
+  sentry_flutter: ^7.4.0
   url_launcher: ^6.1.10
 
 dev_dependencies:
