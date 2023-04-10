@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
 
-  Widget expanded() => Expanded(child: this);
+  Widget expanded({bool expanded = true}) =>
+      expanded ? Expanded(child: this) : this;
 
   Widget paddedSides(double padding) =>
       Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
