@@ -24,7 +24,7 @@ dependencies:
   flutter_riverpod: ^2.3.4
   freezed_annotation: ^2.2.0
   logging: ^1.1.1
-  sentry_flutter: ^7.4.1
+  sentry_flutter: ^7.4.2
   url_launcher: ^6.1.10
 
 dev_dependencies:

@@ -8,7 +8,6 @@ export 'src/input_formatters.dart';
 export 'src/launchers.dart';
 export 'src/layout/layout.dart';
 export 'src/logging.dart';
-export 'src/networking.dart';
 export 'src/routing.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';
