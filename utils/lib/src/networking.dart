@@ -51,6 +51,9 @@ class ApiResponseError implements Exception {
         originalException: originalException,
         localizedMessage: localizedMessage ?? this.localizedMessage,
       );
+
+  @override
+  String toString() => 'ApiResponseError ($code): ${toJson()}';
 }
 
 enum HTTPRequestMethod { get, post, put, delete, patch }
