@@ -178,7 +178,7 @@ class HTTPRequest {
     }
 
     bool _isResponseError(dynamic e) {
-      return e is DioError && e.type == DioErrorType.response;
+      return e is DioError && e.type == DioErrorType.badResponse;
     }
 
     bool _isRefreshableResponeError(dynamic e) {
@@ -203,8 +203,9 @@ class HTTPRequest {
         .catchError(_handleNetworkIssues,
             test: (e) =>
                 e is DioError &&
-                e.type == DioErrorType.other &&
-                e.message.toLowerCase().contains('failed host lookup'));
+                e.type == DioErrorType.unknown &&
+                (e.message?.toLowerCase().contains('failed host lookup') ??
+                    false));
   }
 
   Future<T> run<T>(
