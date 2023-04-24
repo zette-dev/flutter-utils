@@ -9,7 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-@JsonEnum()
+// part 'app_config.g.dart';
+
+@JsonEnum(alwaysCreate: true)
 enum AppEnvironment {
   development,
   staging,
