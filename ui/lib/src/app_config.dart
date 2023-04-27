@@ -52,17 +52,17 @@ mixin SentryInitializer {
           options
             ..dsn = dns
             ..environment = env.name
-            ..tracesSampleRate = 1.0
-            ..beforeSend = (event, {hint}) {
-              // Ignore handled exceptions
-              if (event.exceptions != null &&
-                  event.exceptions!.isNotEmpty &&
-                  event.exceptions![0].mechanism != null &&
-                  event.exceptions![0].mechanism!.handled == true) {
-                return null;
-              }
-              return event;
-            };
+            ..tracesSampleRate = 1.0;
+          // ..beforeSend = (event, {hint}) {
+          //   // Ignore handled exceptions
+          //   if (event.exceptions != null && event.exceptions!.isNotEmpty
+          //       // event.exceptions![0].mechanism != null &&
+          //       // event.exceptions![0].mechanism!.handled == true
+          //       ) {
+          //     return null;
+          //   }
+          //   return event;
+          // };
         },
         appRunner: runner,
       );
