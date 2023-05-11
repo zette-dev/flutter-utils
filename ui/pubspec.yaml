@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
-  build_context: ^3.0.0
   connectivity_plus: ^4.0.0
   dartz: ^0.10.1
   dio: ^5.1.2

@@ -80,3 +80,5 @@ screenshots/
 CCDATA/
 .storybook/
 ToolBox-Full-LogoFiles/
+
+.fvm/flutter_sdk
