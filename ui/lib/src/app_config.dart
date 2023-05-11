@@ -44,8 +44,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
 }
 
 mixin SentryInitializer {
-  Future<void> initSentry(String? dns, AppEnvironment env,
-      {required AppRunner runner}) {
+  Future<void> initSentry(String? dns, AppEnvironment env, {required AppRunner runner}) {
     if (dns != null && !kDebugMode) {
       return SentryFlutter.init(
         (options) {
