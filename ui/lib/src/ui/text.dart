@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../ds_ui.dart';
 
+@Deprecated('use TextDisplayLarge instead')
 class TextHeadline1 extends TextWidget {
   TextHeadline1(
     String text, {
@@ -46,6 +47,7 @@ class TextHeadline1 extends TextWidget {
       Theme.of(context).textTheme.headline1;
 }
 
+@Deprecated('use TextDisplayMedium instead')
 class TextHeadline2 extends TextWidget {
   TextHeadline2(
     String text, {
@@ -88,6 +90,7 @@ class TextHeadline2 extends TextWidget {
       Theme.of(context).textTheme.headline2;
 }
 
+@Deprecated('use TextDisplaySmall instead')
 class TextHeadline3 extends TextWidget {
   TextHeadline3(
     String text, {
@@ -130,6 +133,7 @@ class TextHeadline3 extends TextWidget {
       Theme.of(context).textTheme.headline3;
 }
 
+@Deprecated('use TextHeadlineMedium instead')
 class TextHeadline4 extends TextWidget {
   TextHeadline4(
     String text, {
@@ -172,6 +176,7 @@ class TextHeadline4 extends TextWidget {
       Theme.of(context).textTheme.headline4;
 }
 
+@Deprecated('use TextHeadlineSmall instead')
 class TextHeadline5 extends TextWidget {
   TextHeadline5(
     String text, {
@@ -214,6 +219,7 @@ class TextHeadline5 extends TextWidget {
       Theme.of(context).textTheme.headline5;
 }
 
+@Deprecated('use TextTitleLarge instead')
 class TextHeadline6 extends TextWidget {
   TextHeadline6(
     String text, {
@@ -256,6 +262,7 @@ class TextHeadline6 extends TextWidget {
       Theme.of(context).textTheme.headline6;
 }
 
+@Deprecated('use TextTitleMedium instead')
 class TextSubtitle1 extends TextWidget {
   TextSubtitle1(
     String text, {
@@ -298,6 +305,7 @@ class TextSubtitle1 extends TextWidget {
       Theme.of(context).textTheme.subtitle1;
 }
 
+@Deprecated('use TextTitleSmall')
 class TextSubtitle2 extends TextWidget {
   TextSubtitle2(
     String text, {
@@ -340,6 +348,7 @@ class TextSubtitle2 extends TextWidget {
       Theme.of(context).textTheme.subtitle2;
 }
 
+@Deprecated('use TextBodyLarge instead')
 class TextBody1 extends TextWidget {
   TextBody1(
     String text, {
@@ -382,6 +391,7 @@ class TextBody1 extends TextWidget {
       Theme.of(context).textTheme.bodyText1;
 }
 
+@Deprecated('use TextBodyMedium instead')
 class TextBody2 extends TextWidget {
   TextBody2(
     String text, {
@@ -424,6 +434,7 @@ class TextBody2 extends TextWidget {
       Theme.of(context).textTheme.bodyText2;
 }
 
+@Deprecated('use TextBodySmall instead')
 class TextCaption extends TextWidget {
   TextCaption(
     String text, {
@@ -465,6 +476,7 @@ class TextCaption extends TextWidget {
   TextStyle? style(BuildContext context) => Theme.of(context).textTheme.caption;
 }
 
+@Deprecated('use TextLabelSmall instead')
 class TextOverline extends TextWidget {
   TextOverline(
     String text, {
@@ -507,6 +519,7 @@ class TextOverline extends TextWidget {
       Theme.of(context).textTheme.overline;
 }
 
+@Deprecated('use TextLabelLarge instead')
 class ButtonText extends TextWidget {
   ButtonText(
     String text, {
@@ -548,6 +561,552 @@ class ButtonText extends TextWidget {
   TextStyle? style(BuildContext context) => Theme.of(context).textTheme.button;
 }
 
+class TextDisplayLarge extends TextWidget {
+  TextDisplayLarge(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.displayLarge;
+}
+
+class TextDisplayMedium extends TextWidget {
+  TextDisplayMedium(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.displayMedium;
+}
+
+class TextDisplaySmall extends TextWidget {
+  TextDisplaySmall(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.displaySmall;
+}
+
+class TextHeadlineMedium extends TextWidget {
+  TextHeadlineMedium(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium;
+}
+
+class TextHeadlineSmall extends TextWidget {
+  TextHeadlineSmall(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.headlineSmall;
+}
+
+class TextTitleLarge extends TextWidget {
+  TextTitleLarge(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge;
+}
+
+class TextTitleMedium extends TextWidget {
+  TextTitleMedium(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium;
+}
+
+class TextTitleSmall extends TextWidget {
+  TextTitleSmall(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.titleSmall;
+}
+
+class TextBodyLarge extends TextWidget {
+  TextBodyLarge(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.bodyLarge;
+}
+
+class TextBodyMedium extends TextWidget {
+  TextBodyMedium(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium;
+}
+
+class TextBodySmall extends TextWidget {
+  TextBodySmall(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.bodySmall;
+}
+
+class TextLabelSmall extends TextWidget {
+  TextLabelSmall(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.labelSmall;
+}
+
+class TextLabelLarge extends TextWidget {
+  TextLabelLarge(
+    String text, {
+    Key? key,
+    List<String>? args,
+    bool? shouldTranslate,
+    bool? shouldBeCopyable,
+    String? copyConfirmationText,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+    int? maxLines,
+    double? maxFontSize,
+    double? minFontSize,
+    bool? shouldAutoResize,
+    bool? shouldUpperCase,
+    double? fontSizeMultiplier,
+    TextStyle? styles,
+    AutoSizeGroup? resizeGroup,
+  }) : super(
+          text,
+          key: key,
+          shouldTranslate: shouldTranslate,
+          shouldBeCopyable: shouldBeCopyable,
+          copyConfirmationText: copyConfirmationText,
+          styles: styles,
+          args: args,
+          textAlign: textAlign,
+          overflow: overflow,
+          maxLines: maxLines,
+          maxFontSize: maxFontSize,
+          minFontSize: minFontSize,
+          shouldAutoResize: shouldAutoResize,
+          fontSizeMultiplier: fontSizeMultiplier,
+          shouldUpperCase: shouldUpperCase,
+          resizeGroup: resizeGroup,
+        );
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      Theme.of(context).textTheme.labelLarge;
+}
+
 abstract class TextWidget extends StatelessWidget {
   final String text;
   final List<String>? args;
@@ -563,6 +1122,7 @@ abstract class TextWidget extends StatelessWidget {
   final AutoSizeGroup? resizeGroup;
   final TextStyle? styles;
   final double? fontSizeMultiplier;
+
   TextStyle? style(BuildContext context);
 
   TextWidget(
@@ -585,8 +1145,11 @@ abstract class TextWidget extends StatelessWidget {
   }) : super(key: key);
 
   bool get _shouldTranslate => shouldTranslate ?? false;
+
   bool get _shouldUpperCase => shouldUpperCase ?? false;
+
   bool get _shouldAutoResize => shouldAutoResize ?? false;
+
   bool get _shouldBeCopyable => shouldBeCopyable ?? false;
 
   @override
