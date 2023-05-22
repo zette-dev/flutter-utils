@@ -41,9 +41,7 @@ class ApiResponseError implements Exception {
         'localized_message': localizedMessage,
       });
 
-  ApiResponseError withErrorCode(String? errorCode,
-          {String? localizedMessage}) =>
-      ApiResponseError(
+  ApiResponseError withErrorCode(String? errorCode, {String? localizedMessage}) => ApiResponseError(
         response,
         errorCode: errorCode,
         code: code,
@@ -84,11 +82,7 @@ class HTTPRequest {
   Uri? get uri {
     if (baseUrl != null) {
       final _root = Uri.tryParse(baseUrl ?? '');
-      return Uri(
-          scheme: _root!.scheme,
-          host: _root.host,
-          path: path,
-          queryParameters: query);
+      return Uri(scheme: _root!.scheme, host: _root.host, path: path, queryParameters: query);
     }
 
     return null;
@@ -162,15 +156,9 @@ class HTTPRequest {
     int refreshStatusCode = 401,
     Future Function()? refreshAuth,
   }) async {
-    Map<String, dynamic> _extras = {'authenticated': false};
-    if (authenticated) {
-      _extras['authenticated'] = true;
-    }
-
     var options = Options(
       headers: headers,
       method: methodString,
-      extra: _extras,
       responseType: ResponseType.json,
       contentType: contentType?.toString(),
       listFormat: listFormat,
@@ -212,22 +200,20 @@ class HTTPRequest {
     }
 
     bool _isNonRefreshableResponeError(dynamic e) {
-      return e is DioError &&
-          _isResponseError(e) &&
-          e.response?.statusCode == refreshStatusCode;
+      return e is DioError && _isResponseError(e) && e.response?.statusCode == refreshStatusCode;
     }
 
-    return await response
-        .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
-        .catchError(_handleUnauthenticatedResponse,
-            test: _isNonRefreshableResponeError)
-        .catchError((e) => e.response, test: _isResponseError)
-        .catchError(_handleNetworkIssues,
-            test: (e) =>
-                e is DioError &&
-                e.type == DioErrorType.connectionError &&
-                (e.message?.toLowerCase().contains('failed host lookup') ??
-                    false));
+    return await response;
+    // .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
+    // .catchError(_handleUnauthenticatedResponse,
+    //     test: _isNonRefreshableResponeError)
+    // .catchError((e) => e.response, test: _isResponseError);
+    // .catchError(_handleNetworkIssues,
+    //     test: (e) =>
+    //         e is DioError &&
+    //         e.type == DioErrorType.connectionError &&
+    //         (e.message?.toLowerCase().contains('failed host lookup') ??
+    //             false));
   }
 
   Future<T> run<T>(
@@ -306,9 +292,6 @@ abstract class WebServiceInterface extends ServiceInterface {
 
   void onError(DioError error, ErrorInterceptorHandler handler);
 
-  Future<RequestOptions> authorizationInterceptor(
-          RequestOptions options) async =>
-      options;
-  Future<RequestOptions> onRequestInterceptor(RequestOptions options) async =>
-      options;
+  Future<RequestOptions> authorizationInterceptor(RequestOptions options) async => options;
+  Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
 }
