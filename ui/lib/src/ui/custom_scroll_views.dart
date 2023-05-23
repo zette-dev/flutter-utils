@@ -5,8 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../../ds_ui.dart';
 
-final ScrollPhysics alwaysBouncingScrollPhysics =
-    BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+final ScrollPhysics alwaysBouncingScrollPhysics = BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
 
 class ScrollableAppBar extends SliverAppBar {
   ScrollableAppBar({
@@ -28,9 +27,7 @@ class ScrollableAppBar extends SliverAppBar {
           backgroundColor: backgroundColor ?? Colors.transparent,
           leading: null,
           title: title,
-          actions: [
-            SizedBox()
-          ], // Used to hide the Scaffold.endDrawer specified in home_page.dart
+          actions: [SizedBox()], // Used to hide the Scaffold.endDrawer specified in home_page.dart
           elevation: appBarElevation,
           onStretchTrigger: onStretchTrigger,
           expandedHeight: expandedHeight,
@@ -99,6 +96,7 @@ class ScrollLayout extends StatefulWidget {
     this.beforeSlivers,
     this.sliver,
     this.afterSlivers,
+    this.beforeAppBar,
     this.overlays,
     this.bodyPadding,
     this.scrollController,
@@ -112,11 +110,9 @@ class ScrollLayout extends StatefulWidget {
     this.hasError,
     this.isLoadingMore,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.onDrag,
-    this.scrollPhysics =
-        const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+    this.scrollPhysics = const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
   })  : key = scrollKey != null ? PageStorageKey(scrollKey) : null,
-        loadMoreBuilder = loadMoreBuilder ??
-            ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true)));
+        loadMoreBuilder = loadMoreBuilder ?? ((_) => SliverToBoxAdapter(child: PlatformLoader(centered: true)));
 
   final ScrollableAppBarBehavior? appBarBehavior;
 
@@ -125,7 +121,7 @@ class ScrollLayout extends StatefulWidget {
   final RefreshCallback? onRefresh, onLoadMore;
   final WidgetBuilder? errorBuilder, emptyBuilder, loadMoreBuilder;
 
-  final List<Widget>? beforeSlivers, afterSlivers, overlays;
+  final List<Widget>? beforeSlivers, afterSlivers, overlays, beforeAppBar;
   final Widget? sliver;
   final EdgeInsetsGeometry? bodyPadding;
   final bool? shrinkWrap;
@@ -134,12 +130,7 @@ class ScrollLayout extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
-  final bool Function()? shouldLoadMore,
-      canLoadMore,
-      isLoadingMore,
-      isLoading,
-      hasData,
-      hasError;
+  final bool Function()? shouldLoadMore, canLoadMore, isLoadingMore, isLoading, hasData, hasError;
 
   factory ScrollLayout.fixedList({
     ScrollableAppBarBehavior? appBarBehavior,
@@ -150,12 +141,12 @@ class ScrollLayout extends StatefulWidget {
     List<Widget>? beforeSlivers,
     List<Widget>? afterSlivers,
     List<Widget>? overlays,
+    List<Widget>? beforeAppBar,
     EdgeInsetsGeometry? bodyPadding,
     bool? shrinkWrap,
     ScrollController? scrollController,
     ScrollPhysics? scrollPhysics,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
-        ScrollViewKeyboardDismissBehavior.manual,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     bool Function()? isLoading,
     bool Function()? hasData,
     bool Function()? hasError,
@@ -172,6 +163,7 @@ class ScrollLayout extends StatefulWidget {
         loadMoreBuilder: loadMoreBuilder,
         beforeSlivers: beforeSlivers,
         afterSlivers: afterSlivers,
+        beforeAppBar: beforeAppBar,
         overlays: overlays,
         keyboardDismissBehavior: keyboardDismissBehavior,
         bodyPadding: bodyPadding,
@@ -197,8 +189,7 @@ class ScrollLayout extends StatefulWidget {
     bool? shrinkWrap,
     ScrollController? scrollController,
     ScrollPhysics? scrollPhysics,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
-        ScrollViewKeyboardDismissBehavior.manual,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     bool Function()? isLoading,
     bool Function()? hasData,
     bool Function()? hasError,
@@ -244,8 +235,7 @@ class ScrollLayout extends StatefulWidget {
     bool? shrinkWrap,
     ScrollController? scrollController,
     ScrollPhysics? scrollPhysics,
-    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
-        ScrollViewKeyboardDismissBehavior.manual,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
     bool Function()? isLoading,
     bool Function()? hasData,
     bool Function()? hasError,
@@ -290,16 +280,13 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   /// Scrolling
   ScrollController? _controller;
   bool _isScrolled = false;
-  bool get _requiresScrollListener =>
-      _hasFlexibleSpace && (widget.appBarBehavior?.hiddenUntilScroll ?? false);
+  bool get _requiresScrollListener => _hasFlexibleSpace && (widget.appBarBehavior?.hiddenUntilScroll ?? false);
 
   /// Loading More
   bool get shouldLoadMore => widget.shouldLoadMore?.call() ?? false;
   bool get isLoadingMore => widget.isLoadingMore?.call() ?? false;
   bool get loadMoreEnabled =>
-      (widget.shouldLoadMore != null) &&
-      widget.onLoadMore != null &&
-      (widget.canLoadMore != null);
+      (widget.shouldLoadMore != null) && widget.onLoadMore != null && (widget.canLoadMore != null);
 
   /// Display
   bool get isLoading => widget.isLoading?.call() ?? false;
@@ -309,8 +296,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   bool get hasDataOrIsLoading => hasData || isLoading;
 
   bool get _hasFlexibleSpace =>
-      widget.appBarBehavior?.flexibleBackground != null &&
-      widget.appBarBehavior?.expandedHeight != null;
+      widget.appBarBehavior?.flexibleBackground != null && widget.appBarBehavior?.expandedHeight != null;
 
   @override
   void initState() {
@@ -326,8 +312,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   }
 
   void _scrollListener() {
-    if (widget.scrollController?.position.pixels ==
-            widget.scrollController?.position.maxScrollExtent &&
+    if (widget.scrollController?.position.pixels == widget.scrollController?.position.maxScrollExtent &&
         shouldLoadMore &&
         widget.onLoadMore != null) {
       print('LOAD MORE');
@@ -340,8 +325,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
         if (mounted) {
           try {
             final offset = MediaQuery.of(context).padding.top;
-            if (_controller!.offset >=
-                (widget.appBarBehavior!.expandedHeight ?? 0) - offset) {
+            if (_controller!.offset >= (widget.appBarBehavior!.expandedHeight ?? 0) - offset) {
               safeSetState(() {
                 _isScrolled = true;
               });
@@ -370,12 +354,12 @@ class _ScrollLayoutState extends State<ScrollLayout> {
           shrinkWrap: widget.shrinkWrap ?? false,
           keyboardDismissBehavior: widget.keyboardDismissBehavior,
           slivers: [
+            ...(widget.beforeAppBar ?? []),
             if (widget.appBarBehavior != null)
               SliverAppBar(
                 backgroundColor: widget.appBarBehavior!.color,
                 toolbarHeight: widget.appBarBehavior!.toolbarHeight,
-                automaticallyImplyLeading:
-                    widget.appBarBehavior!.automaticallyImplyLeading,
+                automaticallyImplyLeading: widget.appBarBehavior!.automaticallyImplyLeading,
                 titleSpacing: widget.appBarBehavior!.titleSpacing,
                 title: _requiresScrollListener
                     ? AnimatedOpacity(
@@ -386,8 +370,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                       )
                     : widget.appBarBehavior!.title,
                 systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarBrightness:
-                      widget.appBarBehavior?.statusBarBrightness,
+                  statusBarBrightness: widget.appBarBehavior?.statusBarBrightness,
                 ),
                 leading: widget.appBarBehavior!.backButton,
                 leadingWidth: widget.appBarBehavior!.leadingWidth,
@@ -404,8 +387,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                 bottom: widget.appBarBehavior!.bottom,
                 flexibleSpace: _hasFlexibleSpace
                     ? FlexibleSpaceBar(
-                        collapseMode:
-                            widget.appBarBehavior!.flexibleCollapseMode,
+                        collapseMode: widget.appBarBehavior!.flexibleCollapseMode,
                         background: widget.appBarBehavior!.flexibleBackground,
                         title: widget.appBarBehavior!.flexibleTitle,
                         centerTitle: widget.appBarBehavior!.centerFlexibleTitle,
@@ -451,16 +433,11 @@ class _ScrollLayoutState extends State<ScrollLayout> {
       ];
 
   List<Widget> get emptyBuilder => [
-        if (widget.emptyBuilder != null &&
-            !hasError &&
-            !hasData &&
-            !isLoading &&
-            widget.emptyBuilder != null)
+        if (widget.emptyBuilder != null && !hasError && !hasData && !isLoading && widget.emptyBuilder != null)
           widget.emptyBuilder!(context),
       ];
 
   List<Widget> get errorBuilder => [
-        if (widget.errorBuilder != null && hasError)
-          widget.errorBuilder!(context),
+        if (widget.errorBuilder != null && hasError) widget.errorBuilder!(context),
       ];
 }
