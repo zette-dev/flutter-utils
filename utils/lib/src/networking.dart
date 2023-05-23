@@ -155,6 +155,8 @@ class HTTPRequest {
     Dio client, {
     int refreshStatusCode = 401,
     Future Function()? refreshAuth,
+    Duration? sendTimeout,
+    Duration? receiveTimeout,
   }) async {
     var options = Options(
       headers: headers,
@@ -162,6 +164,8 @@ class HTTPRequest {
       responseType: ResponseType.json,
       contentType: contentType?.toString(),
       listFormat: listFormat,
+      sendTimeout: sendTimeout,
+      receiveTimeout: receiveTimeout,
     );
 
     Future<Response> response = client.request(
