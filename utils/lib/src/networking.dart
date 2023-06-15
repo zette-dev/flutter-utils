@@ -267,6 +267,15 @@ class HTTPRequest {
         originalException: e,
       );
 
+      if (e is DioException) {
+        _error = ApiResponseError(
+          e.response?.data,
+          code: e.response?.statusCode,
+          request: e.requestOptions,
+          originalException: e,
+        );
+      }
+
       _error = onError?.call(_error) ?? _error;
       return Future.value(Right<T, ApiResponseError>(_error));
     });
