@@ -192,11 +192,11 @@ class HTTPRequest {
     }
 
     bool _isResponseError(dynamic e) {
-      return e is DioError && e.type == DioErrorType.badResponse;
+      return e is DioException && e.type == DioExceptionType.badResponse;
     }
 
     bool _isRefreshableResponeError(dynamic e) {
-      return e is DioError &&
+      return e is DioException &&
           _isResponseError(e) &&
           autoRefreshToken &&
           e.response?.statusCode == refreshStatusCode &&
@@ -204,7 +204,7 @@ class HTTPRequest {
     }
 
     bool _isNonRefreshableResponeError(dynamic e) {
-      return e is DioError && _isResponseError(e) && e.response?.statusCode == refreshStatusCode;
+      return e is DioException && _isResponseError(e) && e.response?.statusCode == refreshStatusCode;
     }
 
     return await response;
@@ -303,7 +303,7 @@ abstract class WebServiceInterface extends ServiceInterface {
   final Dio _client;
   Dio get client => _client;
 
-  void onError(DioError error, ErrorInterceptorHandler handler);
+  void onError(DioException error, ErrorInterceptorHandler handler);
 
   Future<RequestOptions> authorizationInterceptor(RequestOptions options) async => options;
   Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;

@@ -18,7 +18,7 @@ class InlineErrorView extends StatelessWidget {
     return Container(
       margin: margin,
       padding: padding,
-      color: backgroundColor ?? Theme.of(context).errorColor,
+      color: backgroundColor ?? Theme.of(context).colorScheme.error,
       child: Text(
         text,
         textAlign: TextAlign.center,

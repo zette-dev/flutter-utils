@@ -53,7 +53,7 @@ class PlatformTabBar extends StatelessWidget {
           // sets the background color of the `BottomNavigationBar`
           canvasColor: backgroundColor,
           textTheme: Theme.of(context).textTheme.copyWith(
-                caption: TextStyle(
+                bodySmall: TextStyle(
                   color: inactiveColor,
                 ),
               ),

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'search.dart';
 
@@ -29,39 +29,42 @@ mixin _$SearchParam<T> {
 abstract class $SearchParamCopyWith<T, $Res> {
   factory $SearchParamCopyWith(
           SearchParam<T> value, $Res Function(SearchParam<T>) then) =
-      _$SearchParamCopyWithImpl<T, $Res>;
+      _$SearchParamCopyWithImpl<T, $Res, SearchParam<T>>;
+  @useResult
   $Res call({String query, SearchFilter<T>? filter, List<T> additionalItems});
 }
 
 /// @nodoc
-class _$SearchParamCopyWithImpl<T, $Res>
+class _$SearchParamCopyWithImpl<T, $Res, $Val extends SearchParam<T>>
     implements $SearchParamCopyWith<T, $Res> {
   _$SearchParamCopyWithImpl(this._value, this._then);
 
-  final SearchParam<T> _value;
   // ignore: unused_field
-  final $Res Function(SearchParam<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
+    Object? query = null,
     Object? filter = freezed,
-    Object? additionalItems = freezed,
+    Object? additionalItems = null,
   }) {
     return _then(_value.copyWith(
-      query: query == freezed
+      query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
-      filter: filter == freezed
+      filter: freezed == filter
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as SearchFilter<T>?,
-      additionalItems: additionalItems == freezed
+      additionalItems: null == additionalItems
           ? _value.additionalItems
           : additionalItems // ignore: cast_nullable_to_non_nullable
               as List<T>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,36 +75,35 @@ abstract class _$$_SearchParamCopyWith<T, $Res>
           _$_SearchParam<T> value, $Res Function(_$_SearchParam<T>) then) =
       __$$_SearchParamCopyWithImpl<T, $Res>;
   @override
+  @useResult
   $Res call({String query, SearchFilter<T>? filter, List<T> additionalItems});
 }
 
 /// @nodoc
 class __$$_SearchParamCopyWithImpl<T, $Res>
-    extends _$SearchParamCopyWithImpl<T, $Res>
+    extends _$SearchParamCopyWithImpl<T, $Res, _$_SearchParam<T>>
     implements _$$_SearchParamCopyWith<T, $Res> {
   __$$_SearchParamCopyWithImpl(
       _$_SearchParam<T> _value, $Res Function(_$_SearchParam<T>) _then)
-      : super(_value, (v) => _then(v as _$_SearchParam<T>));
+      : super(_value, _then);
 
-  @override
-  _$_SearchParam<T> get _value => super._value as _$_SearchParam<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? query = freezed,
+    Object? query = null,
     Object? filter = freezed,
-    Object? additionalItems = freezed,
+    Object? additionalItems = null,
   }) {
     return _then(_$_SearchParam<T>(
-      query: query == freezed
+      query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
-      filter: filter == freezed
+      filter: freezed == filter
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as SearchFilter<T>?,
-      additionalItems: additionalItems == freezed
+      additionalItems: null == additionalItems
           ? _value._additionalItems
           : additionalItems // ignore: cast_nullable_to_non_nullable
               as List<T>,
@@ -126,6 +128,7 @@ class _$_SearchParam<T> implements _SearchParam<T> {
   @override
   @JsonKey()
   List<T> get additionalItems {
+    if (_additionalItems is EqualUnmodifiableListView) return _additionalItems;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_additionalItems);
   }
@@ -140,21 +143,19 @@ class _$_SearchParam<T> implements _SearchParam<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchParam<T> &&
-            const DeepCollectionEquality().equals(other.query, query) &&
+            (identical(other.query, query) || other.query == query) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             const DeepCollectionEquality()
                 .equals(other._additionalItems, _additionalItems));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(query),
-      filter,
+  int get hashCode => Object.hash(runtimeType, query, filter,
       const DeepCollectionEquality().hash(_additionalItems));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SearchParamCopyWith<T, _$_SearchParam<T>> get copyWith =>
       __$$_SearchParamCopyWithImpl<T, _$_SearchParam<T>>(this, _$identity);
 }
