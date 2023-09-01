@@ -68,11 +68,11 @@ class HTTPRequest {
     this.authenticated = false,
     this.autoRefreshToken = false,
     this.listFormat,
-  });
+  }) : _extras = {'authenticated': authenticated};
 
   final String path;
   final String? baseUrl;
-  final Map<String, dynamic>? headers, query;
+  final Map<String, dynamic>? headers, query, _extras;
   final dynamic body;
   final ListFormat? listFormat;
   final HTTPRequestMethod method;
@@ -129,11 +129,6 @@ class HTTPRequest {
   }
 
   Future<Response> download(Dio client, String savePath) async {
-    Map<String, dynamic> _extras = {'authenticated': false};
-    if (authenticated) {
-      _extras['authenticated'] = true;
-    }
-
     File _file = await File(savePath).create();
 
     return await client.download(
@@ -166,6 +161,7 @@ class HTTPRequest {
       listFormat: listFormat,
       sendTimeout: sendTimeout,
       receiveTimeout: receiveTimeout,
+      extra: _extras,
     );
 
     Future<Response> response = client.request(
