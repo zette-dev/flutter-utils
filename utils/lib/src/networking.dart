@@ -203,17 +203,17 @@ class HTTPRequest {
       return e is DioException && _isResponseError(e) && e.response?.statusCode == refreshStatusCode;
     }
 
-    return await response;
-    // .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
-    // .catchError(_handleUnauthenticatedResponse,
-    //     test: _isNonRefreshableResponeError)
-    // .catchError((e) => e.response, test: _isResponseError);
-    // .catchError(_handleNetworkIssues,
-    //     test: (e) =>
-    //         e is DioError &&
-    //         e.type == DioErrorType.connectionError &&
-    //         (e.message?.toLowerCase().contains('failed host lookup') ??
-    //             false));
+    return await response
+    .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
+    .catchError(_handleUnauthenticatedResponse,
+        test: _isNonRefreshableResponeError)
+    .catchError((e) => e.response, test: _isResponseError)
+    .catchError(_handleNetworkIssues,
+        test: (e) =>
+            e is DioException &&
+            e.type == DioErrorType.connectionError &&
+            (e.message?.toLowerCase().contains('failed host lookup') ??
+                false));
   }
 
   Future<T> run<T>(
