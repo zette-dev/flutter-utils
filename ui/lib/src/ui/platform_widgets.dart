@@ -7,9 +7,7 @@ class PlatformWidget extends StatelessWidget {
   final Widget Function(BuildContext) android;
   @override
   Widget build(BuildContext context) {
-    return Theme.of(context).platform == TargetPlatform.android
-        ? android(context)
-        : ios(context);
+    return Theme.of(context).platform == TargetPlatform.android ? android(context) : ios(context);
   }
 }
 
@@ -22,6 +20,7 @@ class PlatformTabBar extends StatelessWidget {
     required this.currentIndex,
     this.onTap,
     this.labelTextStyle,
+    this.height,
   });
   final List<BottomNavigationBarItem> items;
   final Color? activeColor;
@@ -30,6 +29,7 @@ class PlatformTabBar extends StatelessWidget {
   final int currentIndex;
   final Function(int)? onTap;
   final TextStyle? labelTextStyle;
+  final double? height;
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -46,24 +46,28 @@ class PlatformTabBar extends StatelessWidget {
           items: items,
           onTap: onTap,
           currentIndex: currentIndex,
+          height: height ?? 50.0,
         ),
       ),
-      android: (context) => Theme(
-        data: Theme.of(context).copyWith(
-          // sets the background color of the `BottomNavigationBar`
-          canvasColor: backgroundColor,
-          textTheme: Theme.of(context).textTheme.copyWith(
-                bodySmall: TextStyle(
-                  color: inactiveColor,
+      android: (context) => SizedBox(
+        height: height ?? 50.0,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            // sets the background color of the `BottomNavigationBar`
+            canvasColor: backgroundColor,
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodySmall: TextStyle(
+                    color: inactiveColor,
+                  ),
                 ),
-              ),
-        ), // sets the inactive color of the `BottomNavigationBar`
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          fixedColor: activeColor,
-          currentIndex: currentIndex,
-          onTap: onTap,
-          items: items,
+          ), // sets the inactive color of the `BottomNavigationBar`
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            fixedColor: activeColor,
+            currentIndex: currentIndex,
+            onTap: onTap,
+            items: items,
+          ),
         ),
       ),
     );
@@ -119,8 +123,7 @@ class PlatformLoader extends StatelessWidget {
     final _widget = PlatformWidget(
       ios: (context) => CupertinoTheme(
         child: progress != null
-            ? CupertinoActivityIndicator.partiallyRevealed(
-                radius: size, progress: progress!)
+            ? CupertinoActivityIndicator.partiallyRevealed(radius: size, progress: progress!)
             : CupertinoActivityIndicator(
                 animating: true,
                 radius: size,
@@ -132,8 +135,7 @@ class PlatformLoader extends StatelessWidget {
         width: size * 2,
         child: CircularProgressIndicator(
           value: progress,
-          valueColor:
-              color != null ? AlwaysStoppedAnimation<Color>(color!) : null,
+          valueColor: color != null ? AlwaysStoppedAnimation<Color>(color!) : null,
         ),
       ),
     );
@@ -147,8 +149,7 @@ class PlatformLoader extends StatelessWidget {
 }
 
 class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
-  PlatformSliverRefreshControl(
-      {Future Function()? onRefresh, Color? refreshColor, double radius = 14.0})
+  PlatformSliverRefreshControl({Future Function()? onRefresh, Color? refreshColor, double radius = 14.0})
       : super(
             onRefresh: onRefresh,
             builder: (
@@ -158,8 +159,7 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
               refreshTriggerPullDistance,
               refreshIndicatorExtent,
             ) {
-              final double percentageComplete =
-                  (pulledExtent / refreshTriggerPullDistance).clamp(0.0, 1.0);
+              final double percentageComplete = (pulledExtent / refreshTriggerPullDistance).clamp(0.0, 1.0);
 
               // Place the indicator at the top of the sliver that opens up. Note that we're using
               // a Stack/Positioned widget because the CupertinoActivityIndicator does some internal
@@ -175,7 +175,7 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
                   children: <Widget>[
                     Positioned(
                       top: 16,
-                      width: radius, 
+                      width: radius,
                       height: radius,
                       // left: 0.0,
                       // right: 0.0,
@@ -186,21 +186,15 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
                               // While we're dragging, we draw individual ticks of the spinner while simultaneously
                               // easing the opacity in. Note that the opacity curve values here were derived using
                               // Xcode through inspecting a native app running on iOS 13.5.
-                              const Curve opacityCurve =
-                                  Interval(0.0, 0.35, curve: Curves.easeInOut);
+                              const Curve opacityCurve = Interval(0.0, 0.35, curve: Curves.easeInOut);
                               return Opacity(
-                                opacity:
-                                    opacityCurve.transform(percentageComplete),
-                                child: PlatformLoader(
-                                    color: refreshColor,
-                                    size: radius,
-                                    progress: percentageComplete),
+                                opacity: opacityCurve.transform(percentageComplete),
+                                child: PlatformLoader(color: refreshColor, size: radius, progress: percentageComplete),
                               );
                             case RefreshIndicatorMode.armed:
                             case RefreshIndicatorMode.refresh:
                               // Once we're armed or performing the refresh, we just show the normal spinner.
-                              return PlatformLoader(
-                                  size: radius, color: refreshColor);
+                              return PlatformLoader(size: radius, color: refreshColor);
                             case RefreshIndicatorMode.done:
                               // When the user lets go, the standard transition is to shrink the spinner.
                               return PlatformLoader(
@@ -241,8 +235,7 @@ Route<T> platformRoute<T>(
   }
 }
 
-Future<T?> showPlatformDialog<T>(BuildContext context,
-    {String? title, String? content, List<Widget>? actions}) {
+Future<T?> showPlatformDialog<T>(BuildContext context, {String? title, String? content, List<Widget>? actions}) {
   final _title = title != null ? Text(title) : null;
   final _content = content != null ? Text(content) : null;
 
