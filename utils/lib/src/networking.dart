@@ -211,7 +211,7 @@ class HTTPRequest {
     .catchError(_handleNetworkIssues,
         test: (e) =>
             e is DioException &&
-            e.type == DioErrorType.connectionError &&
+            e.type == DioExceptionType.connectionError &&
             (e.message?.toLowerCase().contains('failed host lookup') ??
                 false));
   }

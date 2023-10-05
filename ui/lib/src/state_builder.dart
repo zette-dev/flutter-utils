@@ -27,9 +27,8 @@ typedef OnControllerCallback<M> = void Function(
 
 enum _BuilderType { stream, watch }
 
-class StateBuilder<S, N extends StateNotifier<S>>
-    extends ConsumerStatefulWidget {
-  final StateNotifierProvider<N, S> provider;
+class StateBuilder<S, N extends Notifier<S>> extends ConsumerStatefulWidget {
+  final NotifierProvider<N, S> provider;
   final _Builder<N, S>? builder;
   final _LayoutBuilder<N, S>? layoutBuilder;
   final OnControllerCallback<N>? onInit, onAsyncInit, onInitialBuild;
@@ -57,7 +56,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
   factory StateBuilder.stream({
     Key? key,
     required _Builder<N, S> builder,
-    required StateNotifierProvider<N, S> provider,
+    required NotifierProvider<N, S> provider,
     OnControllerCallback<N>? onInit,
     OnControllerCallback<N>? onAsyncInit,
     VoidCallback? onDispose,
@@ -80,7 +79,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
   factory StateBuilder.watch({
     Key? key,
     required _Builder<N, S> builder,
-    required StateNotifierProvider<N, S> provider,
+    required NotifierProvider<N, S> provider,
     OnControllerCallback<N>? onInit,
     OnControllerCallback<N>? onAsyncInit,
     VoidCallback? onDispose,
@@ -107,8 +106,7 @@ class StateBuilder<S, N extends StateNotifier<S>>
   }
 }
 
-class _StateBuilderState<S, N extends StateNotifier<S>>
-    extends ConsumerState<StateBuilder<S, N>> with AfterLayoutMixin {
+class _StateBuilderState<S, N extends Notifier<S>> extends ConsumerState<StateBuilder<S, N>> with AfterLayoutMixin {
   // WidgetRef? _lastRef;
   // WidgetRef? get _latestRef => _lastRef;
   @override
@@ -116,10 +114,7 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     super.initState();
     // _lastRef = ref;
     widget.onInit?.call(ref.read(widget.provider.notifier), ref);
-    Future.delayed(
-        Duration.zero,
-        () =>
-            widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
+    Future.delayed(Duration.zero, () => widget.onAsyncInit?.call(ref.read(widget.provider.notifier), ref));
   }
 
   @override
@@ -138,31 +133,22 @@ class _StateBuilderState<S, N extends StateNotifier<S>>
     }
   }
 
-  Widget _builder(BuildContext ctx, S data, [LayoutData? layout]) =>
-      layout != null && widget.layoutBuilder != null
-          ? widget.layoutBuilder!.call(
-              ctx,
-              layout,
-              ref,
-              ref.read(widget.provider.notifier),
-              data,
-            )
-          : widget.builder!.call(
-              ctx,
-              ref,
-              ref.read(widget.provider.notifier),
-              data,
-            );
+  Widget _builder(BuildContext ctx, S data, [LayoutData? layout]) => layout != null && widget.layoutBuilder != null
+      ? widget.layoutBuilder!.call(
+          ctx,
+          layout,
+          ref,
+          ref.read(widget.provider.notifier),
+          data,
+        )
+      : widget.builder!.call(
+          ctx,
+          ref,
+          ref.read(widget.provider.notifier),
+          data,
+        );
 
   Widget _builderWithData([LayoutData? layout]) {
-    if (widget.type == _BuilderType.stream) {
-      return StreamBuilder<S>(
-        initialData: ref.read(widget.provider),
-        stream: ref.watch(widget.provider.notifier).stream,
-        builder: (ctx, snapshot) => _builder(ctx, snapshot.data!, layout),
-      );
-    }
-
     final state = ref.watch(widget.provider);
     return _builder(
       context,
