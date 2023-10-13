@@ -80,23 +80,25 @@ class _$LayoutCopyWithImpl<$Res, $Val extends Layout>
 }
 
 /// @nodoc
-abstract class _$$_MobileCopyWith<$Res> {
-  factory _$$_MobileCopyWith(_$_Mobile value, $Res Function(_$_Mobile) then) =
-      __$$_MobileCopyWithImpl<$Res>;
+abstract class _$$MobileImplCopyWith<$Res> {
+  factory _$$MobileImplCopyWith(
+          _$MobileImpl value, $Res Function(_$MobileImpl) then) =
+      __$$MobileImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_MobileCopyWithImpl<$Res>
-    extends _$LayoutCopyWithImpl<$Res, _$_Mobile>
-    implements _$$_MobileCopyWith<$Res> {
-  __$$_MobileCopyWithImpl(_$_Mobile _value, $Res Function(_$_Mobile) _then)
+class __$$MobileImplCopyWithImpl<$Res>
+    extends _$LayoutCopyWithImpl<$Res, _$MobileImpl>
+    implements _$$MobileImplCopyWith<$Res> {
+  __$$MobileImplCopyWithImpl(
+      _$MobileImpl _value, $Res Function(_$MobileImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Mobile implements _Mobile {
-  const _$_Mobile();
+class _$MobileImpl implements _Mobile {
+  const _$MobileImpl();
 
   @override
   String toString() {
@@ -106,7 +108,7 @@ class _$_Mobile implements _Mobile {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Mobile);
+        (other.runtimeType == runtimeType && other is _$MobileImpl);
   }
 
   @override
@@ -182,28 +184,29 @@ class _$_Mobile implements _Mobile {
 }
 
 abstract class _Mobile implements Layout {
-  const factory _Mobile() = _$_Mobile;
+  const factory _Mobile() = _$MobileImpl;
 }
 
 /// @nodoc
-abstract class _$$_DesktopCopyWith<$Res> {
-  factory _$$_DesktopCopyWith(
-          _$_Desktop value, $Res Function(_$_Desktop) then) =
-      __$$_DesktopCopyWithImpl<$Res>;
+abstract class _$$DesktopImplCopyWith<$Res> {
+  factory _$$DesktopImplCopyWith(
+          _$DesktopImpl value, $Res Function(_$DesktopImpl) then) =
+      __$$DesktopImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_DesktopCopyWithImpl<$Res>
-    extends _$LayoutCopyWithImpl<$Res, _$_Desktop>
-    implements _$$_DesktopCopyWith<$Res> {
-  __$$_DesktopCopyWithImpl(_$_Desktop _value, $Res Function(_$_Desktop) _then)
+class __$$DesktopImplCopyWithImpl<$Res>
+    extends _$LayoutCopyWithImpl<$Res, _$DesktopImpl>
+    implements _$$DesktopImplCopyWith<$Res> {
+  __$$DesktopImplCopyWithImpl(
+      _$DesktopImpl _value, $Res Function(_$DesktopImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Desktop implements _Desktop {
-  const _$_Desktop();
+class _$DesktopImpl implements _Desktop {
+  const _$DesktopImpl();
 
   @override
   String toString() {
@@ -213,7 +216,7 @@ class _$_Desktop implements _Desktop {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Desktop);
+        (other.runtimeType == runtimeType && other is _$DesktopImpl);
   }
 
   @override
@@ -289,27 +292,29 @@ class _$_Desktop implements _Desktop {
 }
 
 abstract class _Desktop implements Layout {
-  const factory _Desktop() = _$_Desktop;
+  const factory _Desktop() = _$DesktopImpl;
 }
 
 /// @nodoc
-abstract class _$$_TabletCopyWith<$Res> {
-  factory _$$_TabletCopyWith(_$_Tablet value, $Res Function(_$_Tablet) then) =
-      __$$_TabletCopyWithImpl<$Res>;
+abstract class _$$TabletImplCopyWith<$Res> {
+  factory _$$TabletImplCopyWith(
+          _$TabletImpl value, $Res Function(_$TabletImpl) then) =
+      __$$TabletImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_TabletCopyWithImpl<$Res>
-    extends _$LayoutCopyWithImpl<$Res, _$_Tablet>
-    implements _$$_TabletCopyWith<$Res> {
-  __$$_TabletCopyWithImpl(_$_Tablet _value, $Res Function(_$_Tablet) _then)
+class __$$TabletImplCopyWithImpl<$Res>
+    extends _$LayoutCopyWithImpl<$Res, _$TabletImpl>
+    implements _$$TabletImplCopyWith<$Res> {
+  __$$TabletImplCopyWithImpl(
+      _$TabletImpl _value, $Res Function(_$TabletImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Tablet implements _Tablet {
-  const _$_Tablet();
+class _$TabletImpl implements _Tablet {
+  const _$TabletImpl();
 
   @override
   String toString() {
@@ -319,7 +324,7 @@ class _$_Tablet implements _Tablet {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Tablet);
+        (other.runtimeType == runtimeType && other is _$TabletImpl);
   }
 
   @override
@@ -395,7 +400,7 @@ class _$_Tablet implements _Tablet {
 }
 
 abstract class _Tablet implements Layout {
-  const factory _Tablet() = _$_Tablet;
+  const factory _Tablet() = _$TabletImpl;
 }
 
 /// @nodoc
@@ -463,11 +468,11 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
 }
 
 /// @nodoc
-abstract class _$$_LayoutDataCopyWith<$Res>
+abstract class _$$LayoutDataImplCopyWith<$Res>
     implements $LayoutDataCopyWith<$Res> {
-  factory _$$_LayoutDataCopyWith(
-          _$_LayoutData value, $Res Function(_$_LayoutData) then) =
-      __$$_LayoutDataCopyWithImpl<$Res>;
+  factory _$$LayoutDataImplCopyWith(
+          _$LayoutDataImpl value, $Res Function(_$LayoutDataImpl) then) =
+      __$$LayoutDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -478,11 +483,11 @@ abstract class _$$_LayoutDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LayoutDataCopyWithImpl<$Res>
-    extends _$LayoutDataCopyWithImpl<$Res, _$_LayoutData>
-    implements _$$_LayoutDataCopyWith<$Res> {
-  __$$_LayoutDataCopyWithImpl(
-      _$_LayoutData _value, $Res Function(_$_LayoutData) _then)
+class __$$LayoutDataImplCopyWithImpl<$Res>
+    extends _$LayoutDataCopyWithImpl<$Res, _$LayoutDataImpl>
+    implements _$$LayoutDataImplCopyWith<$Res> {
+  __$$LayoutDataImplCopyWithImpl(
+      _$LayoutDataImpl _value, $Res Function(_$LayoutDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -493,7 +498,7 @@ class __$$_LayoutDataCopyWithImpl<$Res>
     Object? laptopScreenBreakpoint = null,
     Object? constraints = freezed,
   }) {
-    return _then(_$_LayoutData(
+    return _then(_$LayoutDataImpl(
       phoneScreenBreakpoint: null == phoneScreenBreakpoint
           ? _value.phoneScreenBreakpoint
           : phoneScreenBreakpoint // ignore: cast_nullable_to_non_nullable
@@ -516,8 +521,8 @@ class __$$_LayoutDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LayoutData extends _LayoutData {
-  const _$_LayoutData(
+class _$LayoutDataImpl extends _LayoutData {
+  const _$LayoutDataImpl(
       {this.phoneScreenBreakpoint = 480.0,
       this.mobileScreenBreakpoint = 768.0,
       this.laptopScreenBreakpoint = 992.0,
@@ -545,7 +550,7 @@ class _$_LayoutData extends _LayoutData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LayoutData &&
+            other is _$LayoutDataImpl &&
             (identical(other.phoneScreenBreakpoint, phoneScreenBreakpoint) ||
                 other.phoneScreenBreakpoint == phoneScreenBreakpoint) &&
             (identical(other.mobileScreenBreakpoint, mobileScreenBreakpoint) ||
@@ -563,8 +568,8 @@ class _$_LayoutData extends _LayoutData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LayoutDataCopyWith<_$_LayoutData> get copyWith =>
-      __$$_LayoutDataCopyWithImpl<_$_LayoutData>(this, _$identity);
+  _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>
+      __$$LayoutDataImplCopyWithImpl<_$LayoutDataImpl>(this, _$identity);
 }
 
 abstract class _LayoutData extends LayoutData {
@@ -572,7 +577,7 @@ abstract class _LayoutData extends LayoutData {
       {final double phoneScreenBreakpoint,
       final double mobileScreenBreakpoint,
       final double laptopScreenBreakpoint,
-      final BoxConstraints? constraints}) = _$_LayoutData;
+      final BoxConstraints? constraints}) = _$LayoutDataImpl;
   const _LayoutData._() : super._();
 
   @override
@@ -585,6 +590,6 @@ abstract class _LayoutData extends LayoutData {
   BoxConstraints? get constraints;
   @override
   @JsonKey(ignore: true)
-  _$$_LayoutDataCopyWith<_$_LayoutData> get copyWith =>
+  _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

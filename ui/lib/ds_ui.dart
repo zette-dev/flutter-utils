@@ -2,13 +2,13 @@ library ds_ui;
 
 export 'src/after_layout.dart';
 export 'src/app_config.dart';
+export 'src/date_time_provider.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
 export 'src/input_formatters.dart';
 export 'src/launchers.dart';
 export 'src/layout/layout.dart';
 export 'src/logging.dart';
-export 'src/routing.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';
 export 'src/state_builder.dart';
