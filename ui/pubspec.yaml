@@ -19,7 +19,7 @@ dependencies:
       ref: dev
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.4.3
+  flutter_riverpod: ^2.4.4
   freezed_annotation: ^2.4.1
   logging: ^1.2.0
   sentry_flutter: ^7.10.1
