@@ -32,7 +32,7 @@ mixin EnvConfigData {
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
-  Future init(WidgetRef ref);
+  Future init(BuildContext context, WidgetRef ref);
   Widget appBuilder();
   void onError(Object error, StackTrace? stack);
   void onBeforeRunApp() {}

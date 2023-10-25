@@ -1,7 +1,7 @@
 library ds_ui;
 
 export 'src/after_layout.dart';
-export 'src/app_config.dart';
+export 'src/app_loader.dart';
 export 'src/date_time_provider.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
