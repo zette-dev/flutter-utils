@@ -46,11 +46,11 @@ class PlatformTabBar extends StatelessWidget {
           items: items,
           onTap: onTap,
           currentIndex: currentIndex,
-          height: height ?? 50.0,
+          height: height ?? kBottomNavigationBarHeight,
         ),
       ),
       android: (context) => SizedBox(
-        height: height ?? 50.0,
+        height: height ?? kBottomNavigationBarHeight,
         child: Theme(
           data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
