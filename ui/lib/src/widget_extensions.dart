@@ -38,7 +38,7 @@ extension WidgetExtensions on Widget {
 }
 
 extension ContextExtensions on BuildContext {
-  void popToRoot([RoutePredicate? predicate]) => Navigator.of(this, rootNavigator: true).popUntil((r) {
+  void popToRoot([RoutePredicate? predicate]) => Navigator.maybeOf(this, rootNavigator: true)?.popUntil((r) {
         if (predicate != null) {
           return predicate(r) || r.isFirst;
         }

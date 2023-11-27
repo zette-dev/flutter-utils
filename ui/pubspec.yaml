@@ -11,7 +11,7 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   dartz: ^0.10.1
-  dio: ^5.3.3
+  dio: ^5.3.4
   ds_utils:
     git:
       url: https://github.com/Dropsource/flutter_utils.git
@@ -19,10 +19,10 @@ dependencies:
       ref: dev
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.4.5
+  flutter_riverpod: ^2.4.9
   freezed_annotation: ^2.4.1
   logging: ^1.2.0
-  sentry_flutter: ^7.12.0
+  sentry_flutter: ^7.13.2
   url_launcher: ^6.2.1
 
 dev_dependencies:
