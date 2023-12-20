@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-// part 'app_config.g.dart';
-
 @JsonEnum(alwaysCreate: true)
 enum AppEnvironment {
   development,
   staging,
   production,
-  automation,
+  automation;
+
+  static AppEnvironment? fromString(String value) {
+    return AppEnvironment.values.firstWhereOrNull(
+      (e) => e.name == value,
+    );
+  }
 }
 
 final envProvider = Provider<EnvConfigData?>(
