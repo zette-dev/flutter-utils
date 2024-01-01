@@ -69,22 +69,22 @@ class _$SearchParamCopyWithImpl<T, $Res, $Val extends SearchParam<T>>
 }
 
 /// @nodoc
-abstract class _$$_SearchParamCopyWith<T, $Res>
+abstract class _$$SearchParamImplCopyWith<T, $Res>
     implements $SearchParamCopyWith<T, $Res> {
-  factory _$$_SearchParamCopyWith(
-          _$_SearchParam<T> value, $Res Function(_$_SearchParam<T>) then) =
-      __$$_SearchParamCopyWithImpl<T, $Res>;
+  factory _$$SearchParamImplCopyWith(_$SearchParamImpl<T> value,
+          $Res Function(_$SearchParamImpl<T>) then) =
+      __$$SearchParamImplCopyWithImpl<T, $Res>;
   @override
   @useResult
   $Res call({String query, SearchFilter<T>? filter, List<T> additionalItems});
 }
 
 /// @nodoc
-class __$$_SearchParamCopyWithImpl<T, $Res>
-    extends _$SearchParamCopyWithImpl<T, $Res, _$_SearchParam<T>>
-    implements _$$_SearchParamCopyWith<T, $Res> {
-  __$$_SearchParamCopyWithImpl(
-      _$_SearchParam<T> _value, $Res Function(_$_SearchParam<T>) _then)
+class __$$SearchParamImplCopyWithImpl<T, $Res>
+    extends _$SearchParamCopyWithImpl<T, $Res, _$SearchParamImpl<T>>
+    implements _$$SearchParamImplCopyWith<T, $Res> {
+  __$$SearchParamImplCopyWithImpl(
+      _$SearchParamImpl<T> _value, $Res Function(_$SearchParamImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +94,7 @@ class __$$_SearchParamCopyWithImpl<T, $Res>
     Object? filter = freezed,
     Object? additionalItems = null,
   }) {
-    return _then(_$_SearchParam<T>(
+    return _then(_$SearchParamImpl<T>(
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
@@ -113,8 +113,8 @@ class __$$_SearchParamCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$_SearchParam<T> implements _SearchParam<T> {
-  const _$_SearchParam(
+class _$SearchParamImpl<T> implements _SearchParam<T> {
+  const _$SearchParamImpl(
       {required this.query,
       this.filter,
       final List<T> additionalItems = const []})
@@ -139,10 +139,10 @@ class _$_SearchParam<T> implements _SearchParam<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SearchParam<T> &&
+            other is _$SearchParamImpl<T> &&
             (identical(other.query, query) || other.query == query) &&
             (identical(other.filter, filter) || other.filter == filter) &&
             const DeepCollectionEquality()
@@ -156,15 +156,16 @@ class _$_SearchParam<T> implements _SearchParam<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SearchParamCopyWith<T, _$_SearchParam<T>> get copyWith =>
-      __$$_SearchParamCopyWithImpl<T, _$_SearchParam<T>>(this, _$identity);
+  _$$SearchParamImplCopyWith<T, _$SearchParamImpl<T>> get copyWith =>
+      __$$SearchParamImplCopyWithImpl<T, _$SearchParamImpl<T>>(
+          this, _$identity);
 }
 
 abstract class _SearchParam<T> implements SearchParam<T> {
   const factory _SearchParam(
       {required final String query,
       final SearchFilter<T>? filter,
-      final List<T> additionalItems}) = _$_SearchParam<T>;
+      final List<T> additionalItems}) = _$SearchParamImpl<T>;
 
   @override
   String get query;
@@ -174,6 +175,6 @@ abstract class _SearchParam<T> implements SearchParam<T> {
   List<T> get additionalItems;
   @override
   @JsonKey(ignore: true)
-  _$$_SearchParamCopyWith<T, _$_SearchParam<T>> get copyWith =>
+  _$$SearchParamImplCopyWith<T, _$SearchParamImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

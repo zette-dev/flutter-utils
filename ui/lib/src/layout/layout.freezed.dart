@@ -106,7 +106,7 @@ class _$MobileImpl implements _Mobile {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$MobileImpl);
   }
@@ -214,7 +214,7 @@ class _$DesktopImpl implements _Desktop {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$DesktopImpl);
   }
@@ -322,7 +322,7 @@ class _$TabletImpl implements _Tablet {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$TabletImpl);
   }
@@ -547,7 +547,7 @@ class _$LayoutDataImpl extends _LayoutData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayoutDataImpl &&

@@ -2,13 +2,21 @@
 
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
+part 'app_loader.g.dart';
+
+const _$AppEnvironmentEnumValueMap = {
+  'development': AppEnvironment.development,
+  'staging': AppEnvironment.staging,
+  'production': AppEnvironment.production,
+  'automation': AppEnvironment.automation,
+};
 
 @JsonEnum(alwaysCreate: true)
 enum AppEnvironment {
@@ -17,11 +25,7 @@ enum AppEnvironment {
   production,
   automation;
 
-  static AppEnvironment? fromString(String value) {
-    return AppEnvironment.values.firstWhereOrNull(
-      (e) => e.name == value,
-    );
-  }
+  static AppEnvironment? fromString(String value) => _$AppEnvironmentEnumValueMap[value];
 }
 
 final envProvider = Provider<EnvConfigData?>(
