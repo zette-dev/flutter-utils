@@ -408,7 +408,7 @@ mixin _$LayoutData {
   double get phoneScreenBreakpoint => throw _privateConstructorUsedError;
   double get mobileScreenBreakpoint => throw _privateConstructorUsedError;
   double get laptopScreenBreakpoint => throw _privateConstructorUsedError;
-  BoxConstraints? get constraints => throw _privateConstructorUsedError;
+  Layout? get layout => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LayoutDataCopyWith<LayoutData> get copyWith =>
@@ -425,7 +425,9 @@ abstract class $LayoutDataCopyWith<$Res> {
       {double phoneScreenBreakpoint,
       double mobileScreenBreakpoint,
       double laptopScreenBreakpoint,
-      BoxConstraints? constraints});
+      Layout? layout});
+
+  $LayoutCopyWith<$Res>? get layout;
 }
 
 /// @nodoc
@@ -444,7 +446,7 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
     Object? laptopScreenBreakpoint = null,
-    Object? constraints = freezed,
+    Object? layout = freezed,
   }) {
     return _then(_value.copyWith(
       phoneScreenBreakpoint: null == phoneScreenBreakpoint
@@ -459,11 +461,23 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
           ? _value.laptopScreenBreakpoint
           : laptopScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
-      constraints: freezed == constraints
-          ? _value.constraints
-          : constraints // ignore: cast_nullable_to_non_nullable
-              as BoxConstraints?,
+      layout: freezed == layout
+          ? _value.layout
+          : layout // ignore: cast_nullable_to_non_nullable
+              as Layout?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LayoutCopyWith<$Res>? get layout {
+    if (_value.layout == null) {
+      return null;
+    }
+
+    return $LayoutCopyWith<$Res>(_value.layout!, (value) {
+      return _then(_value.copyWith(layout: value) as $Val);
+    });
   }
 }
 
@@ -479,7 +493,10 @@ abstract class _$$LayoutDataImplCopyWith<$Res>
       {double phoneScreenBreakpoint,
       double mobileScreenBreakpoint,
       double laptopScreenBreakpoint,
-      BoxConstraints? constraints});
+      Layout? layout});
+
+  @override
+  $LayoutCopyWith<$Res>? get layout;
 }
 
 /// @nodoc
@@ -496,7 +513,7 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
     Object? laptopScreenBreakpoint = null,
-    Object? constraints = freezed,
+    Object? layout = freezed,
   }) {
     return _then(_$LayoutDataImpl(
       phoneScreenBreakpoint: null == phoneScreenBreakpoint
@@ -511,10 +528,10 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
           ? _value.laptopScreenBreakpoint
           : laptopScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
-      constraints: freezed == constraints
-          ? _value.constraints
-          : constraints // ignore: cast_nullable_to_non_nullable
-              as BoxConstraints?,
+      layout: freezed == layout
+          ? _value.layout
+          : layout // ignore: cast_nullable_to_non_nullable
+              as Layout?,
     ));
   }
 }
@@ -526,7 +543,7 @@ class _$LayoutDataImpl extends _LayoutData {
       {this.phoneScreenBreakpoint = 480.0,
       this.mobileScreenBreakpoint = 768.0,
       this.laptopScreenBreakpoint = 992.0,
-      this.constraints})
+      this.layout})
       : super._();
 
   @override
@@ -539,11 +556,11 @@ class _$LayoutDataImpl extends _LayoutData {
   @JsonKey()
   final double laptopScreenBreakpoint;
   @override
-  final BoxConstraints? constraints;
+  final Layout? layout;
 
   @override
   String toString() {
-    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint, laptopScreenBreakpoint: $laptopScreenBreakpoint, constraints: $constraints)';
+    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint, laptopScreenBreakpoint: $laptopScreenBreakpoint, layout: $layout)';
   }
 
   @override
@@ -557,13 +574,12 @@ class _$LayoutDataImpl extends _LayoutData {
                 other.mobileScreenBreakpoint == mobileScreenBreakpoint) &&
             (identical(other.laptopScreenBreakpoint, laptopScreenBreakpoint) ||
                 other.laptopScreenBreakpoint == laptopScreenBreakpoint) &&
-            (identical(other.constraints, constraints) ||
-                other.constraints == constraints));
+            (identical(other.layout, layout) || other.layout == layout));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, phoneScreenBreakpoint,
-      mobileScreenBreakpoint, laptopScreenBreakpoint, constraints);
+      mobileScreenBreakpoint, laptopScreenBreakpoint, layout);
 
   @JsonKey(ignore: true)
   @override
@@ -577,7 +593,7 @@ abstract class _LayoutData extends LayoutData {
       {final double phoneScreenBreakpoint,
       final double mobileScreenBreakpoint,
       final double laptopScreenBreakpoint,
-      final BoxConstraints? constraints}) = _$LayoutDataImpl;
+      final Layout? layout}) = _$LayoutDataImpl;
   const _LayoutData._() : super._();
 
   @override
@@ -587,7 +603,7 @@ abstract class _LayoutData extends LayoutData {
   @override
   double get laptopScreenBreakpoint;
   @override
-  BoxConstraints? get constraints;
+  Layout? get layout;
   @override
   @JsonKey(ignore: true)
   _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>

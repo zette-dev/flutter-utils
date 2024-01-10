@@ -27,33 +27,9 @@ class LayoutData with _$LayoutData {
     @Default(480.0) double phoneScreenBreakpoint,
     @Default(768.0) double mobileScreenBreakpoint,
     @Default(992.0) double laptopScreenBreakpoint,
-    BoxConstraints? constraints,
+    Layout? layout,
   }) = _LayoutData;
   const LayoutData._();
-
-  Layout? get layout =>
-      constraints != null ? Layout.fromSize(constraints!.maxWidth, this) : null;
-
-  bool get hasLayout => constraints != null && layout != null;
-
-  bool get isMobile =>
-      layout != null &&
-      layout!.maybeWhen(
-        orElse: () => false,
-        mobile: () => true,
-      );
-  bool get isTablet =>
-      layout != null &&
-      layout!.maybeWhen(
-        orElse: () => false,
-        tablet: () => true,
-      );
-  bool get isDesktop =>
-      layout != null &&
-      layout!.maybeWhen(
-        orElse: () => false,
-        desktop: () => true,
-      );
 }
 
 final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
@@ -77,16 +53,11 @@ abstract class AdaptiveLayout extends LayoutBuilder {
     AdaptiveLayoutBuilder? mobileBuilder,
     AdaptiveLayoutBuilder? tabletBuilder,
     AdaptiveLayoutBuilder? desktopBuilder,
-  })  : assert(
-            builder != null ||
-                (mobileBuilder != null &&
-                    tabletBuilder != null &&
-                    desktopBuilder != null),
+  })  : assert(builder != null || (mobileBuilder != null && tabletBuilder != null && desktopBuilder != null),
             'If builder is not specified, mobileBuilder, tabletBuilder, and dekstopBuilder must be specified'),
         super(
           builder: (ctx, constraints) {
-            final layout =
-                Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider));
+            final layout = Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider));
             AdaptiveLayoutBuilder? builderMethod;
             builderMethod = layout.when(
                   mobile: () => mobileBuilder,
@@ -97,7 +68,7 @@ abstract class AdaptiveLayout extends LayoutBuilder {
 
             return builderMethod!.call(
               ctx,
-              ref.read(layoutProvider).copyWith(constraints: constraints),
+              ref.read(layoutProvider).copyWith(layout: layout),
             );
           },
         );
