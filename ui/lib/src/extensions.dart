@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,4 +55,9 @@ extension StateExtensions<T extends StatefulWidget> on State<T> {
 
 extension ConsumerStateExtensions<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   void safeSetState(VoidCallback fn) => mounted ? setState(fn) : null;
+}
+
+extension Base64String on String {
+  String toBase64() => base64.encode(utf8.encode(this));
+  String fromBase64() => utf8.decode(base64.decode(this));
 }
