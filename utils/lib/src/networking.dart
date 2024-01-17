@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:dartz/dartz.dart' show Either, Left, Right;
 import 'package:dio/dio.dart';
 
@@ -68,6 +69,7 @@ class HTTPRequest {
     this.authenticated = false,
     this.autoRefreshToken = false,
     this.listFormat,
+    this.responseType,
   }) : _extras = {'authenticated': authenticated};
 
   final String path;
@@ -78,6 +80,7 @@ class HTTPRequest {
   final HTTPRequestMethod method;
   final bool authenticated, autoRefreshToken;
   final String? contentType;
+  final ResponseType? responseType;
 
   Uri? get uri {
     if (baseUrl != null) {
@@ -114,6 +117,7 @@ class HTTPRequest {
     String? contentType,
     bool? authenticated,
     ListFormat? listFormat,
+    ResponseType? responseType,
   }) {
     return HTTPRequest(
       path: path ?? this.path,
@@ -125,25 +129,51 @@ class HTTPRequest {
       authenticated: authenticated ?? this.authenticated,
       baseUrl: baseUrl ?? this.baseUrl,
       listFormat: listFormat ?? this.listFormat,
+      responseType: responseType ?? this.responseType,
     );
   }
 
-  Future<Response> download(Dio client, String savePath) async {
-    File _file = await File(savePath).create();
+  Future<Response<XFile>> download(Dio client, String savePath) async {
+    if (responseType == ResponseType.bytes) {
+      return execute(client).then((value) => Response<XFile>(
+            data: XFile.fromData(value.data as Uint8List, path: savePath),
+            requestOptions: value.requestOptions,
+            statusCode: value.statusCode,
+            statusMessage: value.statusMessage,
+            headers: value.headers,
+            isRedirect: value.isRedirect,
+            redirects: value.redirects,
+            extra: value.extra,
+          ));
+    } else {
+      XFile _file = await XFile(savePath);
+      _file.saveTo(savePath);
 
-    return await client.download(
-      path,
-      _file.path,
-      data: body,
-      queryParameters: query,
-      options: Options(
-        headers: headers,
-        method: methodString,
-        extra: _extras,
-        contentType: contentType,
-        listFormat: listFormat,
-      ),
-    );
+      return await client
+          .download(
+            path,
+            _file.path,
+            data: body,
+            queryParameters: query,
+            options: Options(
+              headers: headers,
+              method: methodString,
+              extra: _extras,
+              contentType: contentType,
+              listFormat: listFormat,
+            ),
+          )
+          .then((value) => Response<XFile>(
+                data: _file,
+                requestOptions: value.requestOptions,
+                statusCode: value.statusCode,
+                statusMessage: value.statusMessage,
+                headers: value.headers,
+                isRedirect: value.isRedirect,
+                redirects: value.redirects,
+                extra: value.extra,
+              ));
+    }
   }
 
   Future<Response> execute(
@@ -156,7 +186,7 @@ class HTTPRequest {
     var options = Options(
       headers: headers,
       method: methodString,
-      responseType: ResponseType.json,
+      responseType: responseType ?? ResponseType.json,
       contentType: contentType?.toString(),
       listFormat: listFormat,
       sendTimeout: sendTimeout,
@@ -204,16 +234,14 @@ class HTTPRequest {
     }
 
     return await response
-    .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
-    .catchError(_handleUnauthenticatedResponse,
-        test: _isNonRefreshableResponeError)
-    .catchError((e) => e.response, test: _isResponseError)
-    .catchError(_handleNetworkIssues,
-        test: (e) =>
-            e is DioException &&
-            e.type == DioExceptionType.connectionError &&
-            (e.message?.toLowerCase().contains('failed host lookup') ??
-                false));
+        .catchError(_handleFailedResponse, test: _isRefreshableResponeError)
+        .catchError(_handleUnauthenticatedResponse, test: _isNonRefreshableResponeError)
+        .catchError((e) => e.response, test: _isResponseError)
+        .catchError(_handleNetworkIssues,
+            test: (e) =>
+                e is DioException &&
+                e.type == DioExceptionType.connectionError &&
+                (e.message?.toLowerCase().contains('failed host lookup') ?? false));
   }
 
   Future<T> run<T>(

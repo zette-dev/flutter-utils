@@ -9,6 +9,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  cross_file: ^0.3.3+8
   dartz: ^0.10.1
   dio: ^5.4.0
   equatable: ^2.0.5
