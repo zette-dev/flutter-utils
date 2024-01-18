@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cross_file/cross_file.dart';
@@ -146,9 +147,7 @@ class HTTPRequest {
             extra: value.extra,
           ));
     } else {
-      XFile _file = await XFile(savePath);
-      _file.saveTo(savePath);
-
+      File _file = await File(savePath).create();
       return await client
           .download(
             path,
@@ -164,7 +163,7 @@ class HTTPRequest {
             ),
           )
           .then((value) => Response<XFile>(
-                data: _file,
+                data: XFile(_file.path),
                 requestOptions: value.requestOptions,
                 statusCode: value.statusCode,
                 statusMessage: value.statusMessage,
