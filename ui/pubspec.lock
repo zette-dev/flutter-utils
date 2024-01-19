@@ -206,18 +206,10 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: "3ca7b82ee9771853bd2d208cb90f802388f95daa"
+      resolved-ref: "6a37efd1cea97e1a0cf450a1e7fc442110226ec2"
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
