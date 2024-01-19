@@ -1,8 +1,7 @@
 import 'package:ds_utils/ds_utils.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:ms_map_utils/ms_map_utils.dart';
+import 'package:riverpod/riverpod.dart';
 
 class ProviderLogger extends ProviderObserver {
   ProviderLogger(this.log, {Level level = Level.ALL}) {
@@ -42,12 +41,10 @@ class ProviderLogger extends ProviderObserver {
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
       if (!mapEquals(beforeDiff, afterDiff)) {
-        log.fine(
-            'UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
+        log.fine('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.fine(
-          'UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
+      log.fine('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
 }

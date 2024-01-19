@@ -4,8 +4,7 @@ import 'common_enums.dart';
 import 'networking.dart';
 
 extension MapListMethods<K, T> on Map<K, List<T>> {
-  Map<K, List<T>> filter(bool Function(K, T) filterList,
-      {bool sortKeys = true}) {
+  Map<K, List<T>> filter(bool Function(K, T) filterList, {bool sortKeys = true}) {
     final List<K> _keys = keys.toList();
     if (_keys.isNotEmpty && sortKeys) {
       _keys.sort();
@@ -64,10 +63,8 @@ extension NullListMethods<T> on List<T?> {
 }
 
 extension ListMethods<T> on List<T> {
-  Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) => fold(
-      <K, List<T>>{},
-      (Map<K, List<T>> map, T element) =>
-          map..putIfAbsent(keyFunction(element), () => <T>[]).add(element));
+  Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) => fold(<K, List<T>>{},
+      (Map<K, List<T>> map, T element) => map..putIfAbsent(keyFunction(element), () => <T>[]).add(element));
 }
 
 extension IterableMethods<T> on Iterable<T> {
@@ -114,16 +111,14 @@ extension IdentifiableListMethods<K, T extends Identifiable<K>> on List<T> {
         _updatedList.addAll(_indexedNew.values);
         return _updatedList;
       } else {
-        List<T> _returnableList = _indexedNew.values.toList()
-          ..addAll(_updatedList);
+        List<T> _returnableList = _indexedNew.values.toList()..addAll(_updatedList);
         return _returnableList;
       }
     }
   }
 }
 
-extension IdentifiableIterableMethods<K, T extends Identifiable<K>>
-    on Iterable<T> {
+extension IdentifiableIterableMethods<K, T extends Identifiable<K>> on Iterable<T> {
   Map<K, T> index({List<T>? merge}) {
     return Map<K, T>.fromIterable(
       [...this, ...(merge ?? [])],
@@ -133,8 +128,7 @@ extension IdentifiableIterableMethods<K, T extends Identifiable<K>>
   }
 }
 
-Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
-        {int Function(T, T)? sorter}) =>
+Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams, {int Function(T, T)? sorter}) =>
     Rx.combineLatest<List<T>, List<T>>(streams, (list) {
       final _combined = list.flatten();
       if (sorter != null) {
@@ -143,8 +137,7 @@ Stream<List<T>> mergeStreamsList<T>(List<Stream<List<T>>> streams,
       return _combined;
     });
 
-Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures,
-        {int Function(T, T)? sorter}) =>
+Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures, {int Function(T, T)? sorter}) =>
     Future.wait(futures).then((list) {
       final _combined = list.flatten();
       if (sorter != null) {
@@ -154,12 +147,29 @@ Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures,
     });
 
 extension FutureListExtension<T> on List<Future<List<T>>> {
-  Future<List<T>> mergeFuturesList({int Function(T, T)? sorter}) =>
-      Future.wait(this).then((list) {
+  Future<List<T>> mergeFuturesList({int Function(T, T)? sorter}) => Future.wait(this).then((list) {
         final _combined = list.flatten().toList();
         if (sorter != null && _combined.isNotEmpty) {
           _combined.sort(sorter);
         }
         return _combined;
       });
+}
+
+bool mapEquals<T, U>(Map<T, U>? a, Map<T, U>? b) {
+  if (a == null) {
+    return b == null;
+  }
+  if (b == null || a.length != b.length) {
+    return false;
+  }
+  if (identical(a, b)) {
+    return true;
+  }
+  for (final T key in a.keys) {
+    if (!b.containsKey(key) || b[key] != a[key]) {
+      return false;
+    }
+  }
+  return true;
 }
