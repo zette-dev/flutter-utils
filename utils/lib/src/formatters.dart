@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
 
+const _digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
 extension StringFormatting on String {
   String capitalize() {
     if (isEmpty) {
@@ -7,14 +9,15 @@ extension StringFormatting on String {
     }
     return this[0].toUpperCase() + substring(1);
   }
+
+  String onlyNumbers() => this.split('').where(_digits.contains).join('');
 }
 
 String? formatPhoneNumber(String? phoneNumber) {
   if (phoneNumber == null) {
     return '';
   }
-  const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-  final numbersOnly = phoneNumber.split('').where(digits.contains).join('');
+  final numbersOnly = phoneNumber.onlyNumbers();
   final length = numbersOnly.length;
   final hasLeadingOne = numbersOnly[0] == '1';
   if (length == 7 || length == 10 || (length == 11 && hasLeadingOne)) {
