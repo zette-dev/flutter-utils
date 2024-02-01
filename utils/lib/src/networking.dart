@@ -136,15 +136,20 @@ class HTTPRequest {
 
   Future<Response<XFile>> download(Dio client, String savePath) async {
     if (responseType == ResponseType.bytes) {
-      return execute(client).then((value) => Response<XFile>(
-            data: XFile.fromData(value.data as Uint8List, path: savePath),
-            requestOptions: value.requestOptions,
-            statusCode: value.statusCode,
-            statusMessage: value.statusMessage,
-            headers: value.headers,
-            isRedirect: value.isRedirect,
-            redirects: value.redirects,
-            extra: value.extra,
+      return execute(client).then((response) => Response<XFile>(
+            data: XFile.fromData(
+              response.data as Uint8List,
+              name: savePath,
+              lastModified: DateTime.now(),
+              mimeType: contentType,
+            ),
+            requestOptions: response.requestOptions,
+            statusCode: response.statusCode,
+            statusMessage: response.statusMessage,
+            headers: response.headers,
+            isRedirect: response.isRedirect,
+            redirects: response.redirects,
+            extra: response.extra,
           ));
     } else {
       File _file = await File(savePath).create();
