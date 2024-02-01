@@ -134,12 +134,11 @@ class HTTPRequest {
     );
   }
 
-  Future<Response<XFile>> download(Dio client, String savePath) async {
-    if (responseType == ResponseType.bytes) {
+  Future<Response<XFile>> download(Dio client, {String? filePath}) async {
+    if (responseType == ResponseType.bytes && filePath == null) {
       return execute(client).then((response) => Response<XFile>(
             data: XFile.fromData(
               response.data as Uint8List,
-              name: savePath,
               lastModified: DateTime.now(),
               mimeType: contentType,
             ),
@@ -152,7 +151,7 @@ class HTTPRequest {
             extra: response.extra,
           ));
     } else {
-      File _file = await File(savePath).create();
+      File _file = await File(filePath!).create();
       return await client
           .download(
             path,
