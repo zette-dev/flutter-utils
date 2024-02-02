@@ -216,9 +216,9 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
 }
 
 Route<T> platformRoute<T>(
-  BuildContext context, {
+  BuildContext context,
+  LayoutData layout, {
   required WidgetBuilder builder,
-  required LayoutData layout,
   RouteSettings? settings,
   bool fullscreenDialog = false,
   bool useDialogWhenDesktop = false,
