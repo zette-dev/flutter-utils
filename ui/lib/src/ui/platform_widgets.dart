@@ -1,3 +1,4 @@
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -217,10 +218,26 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
 Route<T> platformRoute<T>(
   BuildContext context, {
   required WidgetBuilder builder,
+  required LayoutData layout,
   RouteSettings? settings,
   bool fullscreenDialog = false,
+  bool useDialogWhenDesktop = false,
 }) {
-  if (Theme.of(context).platform == TargetPlatform.iOS) {
+  if (useDialogWhenDesktop && layout.isDesktop(context)) {
+    return DialogRoute(
+      context: context,
+      builder: (ctx) => Dialog(
+        child: builder(ctx),
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: layout.isDesktop(context) ? (context.screenSize().width - 800) / 2 : 5,
+          vertical: layout.isDesktop(context) ? 50 : 25,
+        ),
+      ),
+      barrierDismissible: false,
+      settings: settings,
+      traversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
+    );
+  } else if (context.isIOS) {
     return CupertinoPageRoute<T>(
       builder: builder,
       settings: settings,

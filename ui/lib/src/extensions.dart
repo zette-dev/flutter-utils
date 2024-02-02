@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension WidgetExtensions on Widget {
@@ -60,4 +60,25 @@ extension ConsumerStateExtensions<T extends ConsumerStatefulWidget> on ConsumerS
 extension Base64String on String {
   String toBase64() => base64.encode(utf8.encode(this));
   String fromBase64() => utf8.decode(base64.decode(this));
+}
+
+extension FocusScopeExt on BuildContext {
+  void closeKeyboard() => FocusScope.of(this).requestFocus(FocusNode());
+}
+
+extension ThemeExt on BuildContext {
+  ThemeData theme() => Theme.of(this);
+  TextTheme textTheme() => theme().textTheme;
+  InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
+
+  bool get isAndroid => theme().platform == TargetPlatform.android;
+  bool get isIOS => theme().platform == TargetPlatform.iOS;
+}
+
+extension MediaDatExt on BuildContext {
+  MediaQueryData mediaData() => MediaQuery.of(this);
+  Size screenSize() => mediaData().size;
+  TextScaler textScaler() => mediaData().textScaler;
+  EdgeInsets padding() => mediaData().padding;
+  EdgeInsets viewInsets() => mediaData().viewInsets;
 }

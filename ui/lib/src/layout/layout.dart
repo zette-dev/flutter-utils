@@ -1,3 +1,4 @@
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -30,6 +31,26 @@ class LayoutData with _$LayoutData {
     Layout? layout,
   }) = _LayoutData;
   const LayoutData._();
+
+  Layout getLayout(BuildContext context) =>
+      layout ??
+      Layout.fromSize(
+        context.screenSize().width,
+        this,
+      );
+
+  bool isMobile(BuildContext context) => getLayout(context).maybeWhen(
+        orElse: () => false,
+        mobile: () => true,
+      );
+  bool isTablet(BuildContext context) => getLayout(context).maybeWhen(
+        orElse: () => false,
+        tablet: () => true,
+      );
+  bool isDesktop(BuildContext context) => getLayout(context).maybeWhen(
+        orElse: () => false,
+        desktop: () => true,
+      );
 }
 
 final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
