@@ -1,6 +1,9 @@
 import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class PlatformWidget extends StatelessWidget {
   PlatformWidget({required this.ios, required this.android});
@@ -252,6 +255,41 @@ Route<T> platformRoute<T>(
   }
 }
 
+Page platformPage(
+  BuildContext context,
+  Ref ref,
+  GoRouterState state, {
+  required Widget child,
+  bool fullscreenDialog = false,
+  bool Function(BuildContext, LayoutData)? useDialogWhen,
+}) {
+  LayoutData layoutData = ref.read(layoutProvider);
+  layoutData = layoutData.copyWith(layout: layoutData.getLayout(context));
+
+  if ((useDialogWhen?.call(context, layoutData) ?? false)) {
+    return DialogPage(
+      builder: (context) => child,
+    );
+  } else if (kIsWeb) {
+    return NoTransitionPage(
+      name: state.name,
+      child: child,
+    );
+  } else if (context.isIOS) {
+    return CupertinoPage(
+      child: child,
+      name: state.name,
+      fullscreenDialog: fullscreenDialog,
+    );
+  } else {
+    return MaterialPage(
+      child: child,
+      name: state.name,
+      fullscreenDialog: fullscreenDialog,
+    );
+  }
+}
+
 Future<T?> showPlatformDialog<T>(BuildContext context, {String? title, String? content, List<Widget>? actions}) {
   final _title = title != null ? Text(title) : null;
   final _content = content != null ? Text(content) : null;
@@ -273,4 +311,42 @@ Future<T?> showPlatformDialog<T>(BuildContext context, {String? title, String? c
           );
         }
       });
+}
+
+/// A dialog page with Material entrance and exit animations, modal barrier color,
+/// and modal barrier behavior (dialog is dismissible with a tap on the barrier).
+class DialogPage<T> extends Page<T> {
+  final Offset? anchorPoint;
+  final Color? barrierColor;
+  final bool barrierDismissible;
+  final String? barrierLabel;
+  final bool useSafeArea;
+  final CapturedThemes? themes;
+  final WidgetBuilder builder;
+
+  const DialogPage({
+    required this.builder,
+    this.anchorPoint,
+    this.barrierColor = Colors.black54,
+    this.barrierDismissible = true,
+    this.barrierLabel,
+    this.useSafeArea = true,
+    this.themes,
+    super.key,
+    super.name,
+    super.arguments,
+    super.restorationId,
+  });
+
+  @override
+  Route<T> createRoute(BuildContext context) => DialogRoute<T>(
+      context: context,
+      settings: this,
+      builder: builder,
+      anchorPoint: anchorPoint,
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
+      useSafeArea: useSafeArea,
+      themes: themes);
 }
