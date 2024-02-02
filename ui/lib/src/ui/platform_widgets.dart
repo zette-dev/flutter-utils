@@ -1,4 +1,5 @@
 import 'package:ds_ui/ds_ui.dart';
+import 'package:ds_ui/src/ref_like.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -220,20 +221,22 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
 
 Route<T> platformRoute<T>(
   BuildContext context,
-  LayoutData layout, {
+  RefLike ref, {
   required WidgetBuilder builder,
   RouteSettings? settings,
   bool fullscreenDialog = false,
-  bool useDialogWhenDesktop = false,
+  bool Function(BuildContext, LayoutData)? useDialogWhen,
 }) {
-  if (useDialogWhenDesktop && layout.isDesktop(context)) {
+  LayoutData layoutData = ref.read(layoutProvider);
+  layoutData = layoutData.copyWith(layout: layoutData.getLayout(context));
+  if ((useDialogWhen?.call(context, layoutData) ?? false)) {
     return DialogRoute(
       context: context,
       builder: (ctx) => Dialog(
         child: builder(ctx),
         insetPadding: EdgeInsets.symmetric(
-          horizontal: layout.isDesktop(context) ? (context.screenSize().width - 800) / 2 : 5,
-          vertical: layout.isDesktop(context) ? 50 : 25,
+          horizontal: layoutData.isDesktop(context) ? (context.screenSize().width - 800) / 2 : 5,
+          vertical: layoutData.isDesktop(context) ? 50 : 25,
         ),
       ),
       barrierDismissible: false,
