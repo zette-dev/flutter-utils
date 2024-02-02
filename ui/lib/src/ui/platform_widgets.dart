@@ -1,9 +1,7 @@
 import 'package:ds_ui/ds_ui.dart';
-import 'package:ds_ui/src/ref_like.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class PlatformWidget extends StatelessWidget {
@@ -260,16 +258,12 @@ Route<T> platformRoute<T>(
 
 Page platformPage(
   BuildContext context,
-  RefLike ref,
   GoRouterState state, {
   required Widget child,
   bool fullscreenDialog = false,
-  bool Function(BuildContext, LayoutData)? useDialogWhen,
+  bool Function(BuildContext)? useDialogWhen,
 }) {
-  LayoutData layoutData = ref.read(layoutProvider);
-  layoutData = layoutData.copyWith(layout: layoutData.getLayout(context));
-
-  if ((useDialogWhen?.call(context, layoutData) ?? false)) {
+  if ((useDialogWhen?.call(context) ?? false)) {
     return DialogPage(
       builder: (context) => child,
     );
