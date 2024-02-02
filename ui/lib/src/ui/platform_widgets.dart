@@ -260,7 +260,7 @@ Route<T> platformRoute<T>(
 
 Page platformPage(
   BuildContext context,
-  Ref ref,
+  RefLike ref,
   GoRouterState state, {
   required Widget child,
   bool fullscreenDialog = false,
