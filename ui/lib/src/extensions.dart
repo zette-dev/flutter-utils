@@ -67,6 +67,7 @@ extension FocusScopeExt on BuildContext {
 }
 
 extension ThemeExt on BuildContext {
+  T? themeExt<T>() => theme().extension<T>();
   ThemeData theme() => Theme.of(this);
   TextTheme textTheme() => theme().textTheme;
   InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
