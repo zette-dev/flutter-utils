@@ -262,10 +262,11 @@ Page platformPage(
   required Widget child,
   bool fullscreenDialog = false,
   bool Function(BuildContext)? useDialogWhen,
+  Widget Function(BuildContext, Widget)? dialogBuilder,
 }) {
   if ((useDialogWhen?.call(context) ?? false)) {
     return DialogPage(
-      builder: (context) => child,
+      builder: (context) => dialogBuilder?.call(context, child) ?? child,
     );
   } else if (kIsWeb) {
     return NoTransitionPage(
