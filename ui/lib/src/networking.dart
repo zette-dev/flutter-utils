@@ -1,6 +1,9 @@
+import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 import 'package:ds_utils/ds_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:uuid/uuid.dart';
 
 final apiAuthHeaders = StateProvider<Map<String, String>>(
@@ -16,6 +19,7 @@ final dioClientProvider = Provider.family<Dio, String>(
       contentType: 'application/json',
       responseType: ResponseType.json,
     )
+    ..httpClientAdapter = kIsWeb ? BrowserHttpClientAdapter() : NativeAdapter()
     ..transformer = BackgroundTransformer()
     ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
       final authHeaders = ref.read(apiAuthHeaders);

@@ -44,9 +44,8 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   Future init(BuildContext context, WidgetRef ref);
   Widget appBuilder();
   void onError(Object error, StackTrace? stack);
-  void onBeforeRunApp() {}
   Future<void>? runGuarded() => initSentry(
-        config.sentryDns,
+        config.sentryDsn,
         config.environment,
         runner: () => runApp(appBuilder()),
       );
