@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:ds_utils/ds_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:native_dio_adapter/native_dio_adapter.dart';
 import 'package:uuid/uuid.dart';
 
 final apiAuthHeaders = StateProvider<Map<String, String>>(
@@ -48,9 +45,6 @@ final dioClientProvider = Provider.family<Dio, String>(
 
         return handler.reject(e);
       })));
-    if (Platform.isIOS || Platform.isAndroid) {
-      client.httpClientAdapter = NativeAdapter();
-    }
 
     return client;
   },

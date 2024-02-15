@@ -161,14 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  cronet_http:
-    dependency: transitive
-    description:
-      name: cronet_http
-      sha256: "976e53c8d34ccc7b497e364569228a4167236e1b569e35c51335535ff65db76d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   cross_file:
     dependency: transitive
     description:
@@ -185,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  cupertino_http:
-    dependency: transitive
-    description:
-      name: cupertino_http
-      sha256: "0e3ed481280ad41d42d4881d4b6f89c083c17aa010205c9381ecb4c7ea7bdf1f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.0"
   dart_style:
     dependency: transitive
     description:
@@ -369,14 +353,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  jni:
-    dependency: transitive
-    description:
-      name: jni
-      sha256: "0d88790bdf7e298aa65a9094c62b58ea231169a2deb84f23defc7d7955885b43"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2"
   js:
     dependency: transitive
     description:
@@ -449,14 +425,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  native_dio_adapter:
-    dependency: "direct main"
-    description:
-      name: native_dio_adapter
-      sha256: "4c925ba15a44478be0eb6e97b62a1c1d07e56b28e566283dbcb15e58418bdaae"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.0"
   package_config:
     dependency: transitive
     description:
