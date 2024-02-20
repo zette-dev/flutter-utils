@@ -18,33 +18,18 @@ final dioClientProvider = Provider.family<Dio, String>(
         responseType: ResponseType.json,
       )
       ..transformer = BackgroundTransformer()
-      ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
-        final authHeaders = ref.read(apiAuthHeaders);
-        options.headers.addAll(
-          {
-            ...authHeaders,
-            'Request-Id': const Uuid().v4(),
-          },
-        );
-        return handler.next(options);
-      }), onError: ((DioException e, handler) async {
-        if (e.response != null) {
-          switch (e.response?.statusCode) {
-            case 401:
-              DioException(
-                requestOptions: e.requestOptions,
-                type: DioExceptionType.badResponse,
-                error: UnauthorizedRequestError(),
-                response: e.response,
-                message: e.message,
-                stackTrace: e.stackTrace,
-              );
-              break;
-          }
-        }
-
-        return handler.reject(e);
-      })));
+      ..interceptors.add(InterceptorsWrapper(
+        onRequest: ((options, handler) {
+          final authHeaders = ref.read(apiAuthHeaders);
+          options.headers.addAll(
+            {
+              ...authHeaders,
+              'Request-Id': const Uuid().v4(),
+            },
+          );
+          return handler.next(options);
+        }),
+      ));
 
     return client;
   },
