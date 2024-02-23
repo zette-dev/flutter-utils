@@ -6,12 +6,12 @@ homepage: https://dropsource.com
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   cross_file: ^0.3.3+8
   dartz: ^0.10.1
-  dio: ^5.4.0
+  dio: ^5.4.1
   freezed_annotation: ^2.4.1
   intl: ^0.18.1
   ms_map_utils: ^1.1.0
