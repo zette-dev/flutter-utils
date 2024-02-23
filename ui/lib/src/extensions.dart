@@ -10,12 +10,14 @@ extension WidgetExtensions on Widget {
 
   Widget expanded({bool expanded = true}) => expanded ? Expanded(child: this) : this;
 
-  Widget semantic(String identifier, [String? label]) => Semantics(
-        key: ValueKey(identifier),
-        identifier: identifier,
-        label: label,
-        child: this,
-      );
+  Widget semantic([String? identifier, String? label]) => identifier != null
+      ? Semantics(
+          key: ValueKey(identifier),
+          identifier: identifier,
+          label: label,
+          child: this,
+        )
+      : this;
 
   Widget paddedSides(double padding) => Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
 
