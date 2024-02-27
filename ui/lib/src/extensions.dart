@@ -90,3 +90,7 @@ extension MediaDatExt on BuildContext {
   EdgeInsets padding() => mediaData().padding;
   EdgeInsets viewInsets() => mediaData().viewInsets;
 }
+
+extension AsyncValueHelper<T> on AsyncValue<T> {
+  bool get shouldDisplayLoading => isLoading && !isRefreshing;
+}
