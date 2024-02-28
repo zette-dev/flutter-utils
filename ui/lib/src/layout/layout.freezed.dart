@@ -12,7 +12,7 @@ part of 'layout.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Layout {
@@ -407,7 +407,6 @@ abstract class _Tablet implements Layout {
 mixin _$LayoutData {
   double get phoneScreenBreakpoint => throw _privateConstructorUsedError;
   double get mobileScreenBreakpoint => throw _privateConstructorUsedError;
-  double get laptopScreenBreakpoint => throw _privateConstructorUsedError;
   Layout? get layout => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -424,7 +423,6 @@ abstract class $LayoutDataCopyWith<$Res> {
   $Res call(
       {double phoneScreenBreakpoint,
       double mobileScreenBreakpoint,
-      double laptopScreenBreakpoint,
       Layout? layout});
 
   $LayoutCopyWith<$Res>? get layout;
@@ -445,7 +443,6 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
   $Res call({
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
-    Object? laptopScreenBreakpoint = null,
     Object? layout = freezed,
   }) {
     return _then(_value.copyWith(
@@ -456,10 +453,6 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
       mobileScreenBreakpoint: null == mobileScreenBreakpoint
           ? _value.mobileScreenBreakpoint
           : mobileScreenBreakpoint // ignore: cast_nullable_to_non_nullable
-              as double,
-      laptopScreenBreakpoint: null == laptopScreenBreakpoint
-          ? _value.laptopScreenBreakpoint
-          : laptopScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
       layout: freezed == layout
           ? _value.layout
@@ -492,7 +485,6 @@ abstract class _$$LayoutDataImplCopyWith<$Res>
   $Res call(
       {double phoneScreenBreakpoint,
       double mobileScreenBreakpoint,
-      double laptopScreenBreakpoint,
       Layout? layout});
 
   @override
@@ -512,7 +504,6 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
   $Res call({
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
-    Object? laptopScreenBreakpoint = null,
     Object? layout = freezed,
   }) {
     return _then(_$LayoutDataImpl(
@@ -523,10 +514,6 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
       mobileScreenBreakpoint: null == mobileScreenBreakpoint
           ? _value.mobileScreenBreakpoint
           : mobileScreenBreakpoint // ignore: cast_nullable_to_non_nullable
-              as double,
-      laptopScreenBreakpoint: null == laptopScreenBreakpoint
-          ? _value.laptopScreenBreakpoint
-          : laptopScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
       layout: freezed == layout
           ? _value.layout
@@ -540,9 +527,8 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
 
 class _$LayoutDataImpl extends _LayoutData {
   const _$LayoutDataImpl(
-      {this.phoneScreenBreakpoint = 480.0,
-      this.mobileScreenBreakpoint = 768.0,
-      this.laptopScreenBreakpoint = 992.0,
+      {this.phoneScreenBreakpoint = 940.0,
+      this.mobileScreenBreakpoint = 1050.0,
       this.layout})
       : super._();
 
@@ -553,14 +539,11 @@ class _$LayoutDataImpl extends _LayoutData {
   @JsonKey()
   final double mobileScreenBreakpoint;
   @override
-  @JsonKey()
-  final double laptopScreenBreakpoint;
-  @override
   final Layout? layout;
 
   @override
   String toString() {
-    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint, laptopScreenBreakpoint: $laptopScreenBreakpoint, layout: $layout)';
+    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint, layout: $layout)';
   }
 
   @override
@@ -572,14 +555,12 @@ class _$LayoutDataImpl extends _LayoutData {
                 other.phoneScreenBreakpoint == phoneScreenBreakpoint) &&
             (identical(other.mobileScreenBreakpoint, mobileScreenBreakpoint) ||
                 other.mobileScreenBreakpoint == mobileScreenBreakpoint) &&
-            (identical(other.laptopScreenBreakpoint, laptopScreenBreakpoint) ||
-                other.laptopScreenBreakpoint == laptopScreenBreakpoint) &&
             (identical(other.layout, layout) || other.layout == layout));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phoneScreenBreakpoint,
-      mobileScreenBreakpoint, laptopScreenBreakpoint, layout);
+  int get hashCode => Object.hash(
+      runtimeType, phoneScreenBreakpoint, mobileScreenBreakpoint, layout);
 
   @JsonKey(ignore: true)
   @override
@@ -592,7 +573,6 @@ abstract class _LayoutData extends LayoutData {
   const factory _LayoutData(
       {final double phoneScreenBreakpoint,
       final double mobileScreenBreakpoint,
-      final double laptopScreenBreakpoint,
       final Layout? layout}) = _$LayoutDataImpl;
   const _LayoutData._() : super._();
 
@@ -600,8 +580,6 @@ abstract class _LayoutData extends LayoutData {
   double get phoneScreenBreakpoint;
   @override
   double get mobileScreenBreakpoint;
-  @override
-  double get laptopScreenBreakpoint;
   @override
   Layout? get layout;
   @override

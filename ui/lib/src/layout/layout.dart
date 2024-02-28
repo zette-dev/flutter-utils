@@ -25,9 +25,8 @@ class Layout with _$Layout {
 @freezed
 class LayoutData with _$LayoutData {
   const factory LayoutData({
-    @Default(480.0) double phoneScreenBreakpoint,
-    @Default(768.0) double mobileScreenBreakpoint,
-    @Default(992.0) double laptopScreenBreakpoint,
+    @Default(940.0) double phoneScreenBreakpoint,
+    @Default(1050.0) double mobileScreenBreakpoint,
     Layout? layout,
   }) = _LayoutData;
   const LayoutData._();
