@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart' show CupertinoSliverRefreshControl;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -410,7 +409,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
 
   List<Widget> get refreshBuilder => [
         if (widget.onRefresh != null)
-          CupertinoSliverRefreshControl(
+          PlatformSliverRefreshControl(
             onRefresh: widget.onRefresh,
             // builder: widget.refreshControlBuilder,
           ),

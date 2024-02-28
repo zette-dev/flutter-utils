@@ -11,7 +11,7 @@ class RefLike<T> {
   final void Function(ProviderOrFamily provider) invalidate;
   final dynamic _originalRef;
 
-  BuildContext? get context => _originalRef is WidgetRef ? (_originalRef as WidgetRef).context : null;
+  BuildContext? get context => _originalRef is WidgetRef ? _originalRef.context : null;
 
   const RefLike._(
     this._originalRef,
