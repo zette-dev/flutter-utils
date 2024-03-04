@@ -10,6 +10,10 @@ extension StringFormatting on String {
     return this[0].toUpperCase() + substring(1);
   }
 
+  String capitalizeWords() {
+    return this.split(' ').map((word) => word.capitalize()).join(' ');
+  }
+
   String onlyNumbers() => this.split('').where(_digits.contains).join('');
 }
 
