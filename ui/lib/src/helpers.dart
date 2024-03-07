@@ -20,5 +20,7 @@ bool isTablet(BuildContext context) {
   return !useMobileLayout;
 }
 
-final kIsWebMobile =
+final bool kIsWebMobile =
     kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android);
+
+final bool kIsWebDesktop = kIsWeb && !kIsWebMobile;
