@@ -52,12 +52,13 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
       );
 }
 
-abstract class MobileAppLoader<C extends EnvConfigData> extends AppLoader<C> {
-  MobileAppLoader(C config, {Color? statusBarColor, Brightness? statusBarBrightness, bool ensureBindingInit = true})
+abstract class BaseMobileAppLoader<C extends EnvConfigData> extends AppLoader<C> {
+  BaseMobileAppLoader(C config, {Color? statusBarColor, Brightness? statusBarBrightness, bool ensureBindingInit = true})
       : super(config) {
     if (ensureBindingInit) {
       WidgetsFlutterBinding.ensureInitialized();
     }
+
     if (statusBarBrightness != null || statusBarColor != null) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
@@ -69,8 +70,8 @@ abstract class MobileAppLoader<C extends EnvConfigData> extends AppLoader<C> {
   }
 }
 
-abstract class WebAppLoader<C extends EnvConfigData> extends AppLoader<C> {
-  WebAppLoader(C config) : super(config) {
+abstract class BaseWebAppLoader<C extends EnvConfigData> extends AppLoader<C> {
+  BaseWebAppLoader(C config) : super(config) {
     WidgetsFlutterBinding.ensureInitialized();
     setUrlStrategy(PathUrlStrategy());
   }
