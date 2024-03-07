@@ -1,15 +1,10 @@
 import 'package:ds_utils/ds_utils.dart';
-import 'package:logging/logging.dart';
+import 'package:logger/logger.dart';
 import 'package:ms_map_utils/ms_map_utils.dart';
 import 'package:riverpod/riverpod.dart';
 
 class ProviderLogger extends ProviderObserver {
-  ProviderLogger(this.log, {Level level = Level.ALL}) {
-    Logger.root.level = level;
-    Logger.root.onRecord.listen((record) {
-      print('${record.level.name}: ${record.time}: ${record.message}');
-    });
-  }
+  ProviderLogger(this.log);
   final Logger log;
 
   @override
@@ -18,14 +13,14 @@ class ProviderLogger extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) =>
-      log.fine('ADDED (${provider.name ?? provider.runtimeType})');
+      log.t('ADDED (${provider.name ?? provider.runtimeType})');
 
   @override
   void didDisposeProvider(
     ProviderBase provider,
     ProviderContainer containers,
   ) =>
-      log.fine('DISPOSED (${provider.name ?? provider.runtimeType})');
+      log.t('DISPOSED (${provider.name ?? provider.runtimeType})');
 
   @override
   void didUpdateProvider(
@@ -41,10 +36,10 @@ class ProviderLogger extends ProviderObserver {
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
       if (!mapEquals(beforeDiff, afterDiff)) {
-        log.fine('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
+        log.t('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.fine('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
+      log.t('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
 }

@@ -22,7 +22,7 @@ dependencies:
   flutter_riverpod: ^2.4.10
   freezed_annotation: ^2.4.1
   go_router: ^13.2.0
-  logging: ^1.2.0
+  logger: ^2.1.0
   sentry_dio: ^7.16.1
   sentry_flutter: ^7.16.1
   url_launcher: ^6.2.5
