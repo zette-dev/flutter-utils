@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -34,14 +33,14 @@ class ApiResponseError implements Exception {
   final String? errorCode, localizedMessage;
   final int? code;
 
-  String toJson() => json.encode({
+  Map<String, dynamic> toJson() => {
         'request': request?.path,
         'response': response,
         'error_code': errorCode,
         'code': code,
         'request_id': request?.headers['Request-Id'],
         'localized_message': localizedMessage,
-      });
+      };
 
   ApiResponseError withErrorCode(String? errorCode, {String? localizedMessage}) => ApiResponseError(
         response,
