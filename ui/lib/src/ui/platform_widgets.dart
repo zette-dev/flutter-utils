@@ -25,7 +25,7 @@ class PlatformTabBar extends StatelessWidget {
     this.labelTextStyle,
     this.height,
   });
-  final List<BottomNavigationBarItem> items;
+  final List<NavigationDestination> items;
   final Color? activeColor;
   final Color inactiveColor;
   final Color? backgroundColor;
@@ -46,32 +46,30 @@ class PlatformTabBar extends StatelessWidget {
           backgroundColor: backgroundColor,
           activeColor: activeColor,
           inactiveColor: inactiveColor,
-          items: items,
+          items: [
+            for (var d in items)
+              BottomNavigationBarItem(
+                key: d.key,
+                icon: d.icon,
+                label: d.label,
+                activeIcon: d.selectedIcon,
+                tooltip: d.tooltip,
+              ),
+          ],
           onTap: onTap,
           currentIndex: currentIndex,
           height: height ?? kBottomNavigationBarHeight,
         ),
       ),
-      android: (context) => SizedBox(
-        height: height ?? kBottomNavigationBarHeight,
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: backgroundColor,
-            textTheme: Theme.of(context).textTheme.copyWith(
-                  bodySmall: TextStyle(
-                    color: inactiveColor,
-                  ),
-                ),
-          ), // sets the inactive color of the `BottomNavigationBar`
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            fixedColor: activeColor,
-            currentIndex: currentIndex,
-            onTap: onTap,
-            items: items,
-          ),
-        ),
+      android: (context) => NavigationBar(
+        height: height,
+        backgroundColor: backgroundColor,
+        surfaceTintColor: Colors.transparent,
+        indicatorColor: activeColor,
+        selectedIndex: currentIndex,
+        onDestinationSelected: onTap,
+        destinations: items,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
     );
   }

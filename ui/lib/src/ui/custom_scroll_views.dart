@@ -13,7 +13,7 @@ class ScrollableAppBar extends SliverAppBar {
     super.stretch = false,
     super.elevation,
     super.scrolledUnderElevation,
-    super.backgroundColor = Colors.transparent,
+    super.backgroundColor,
     super.onStretchTrigger,
     super.expandedHeight,
     super.collapsedHeight,
