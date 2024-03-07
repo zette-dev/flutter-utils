@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -67,13 +66,6 @@ abstract class BaseMobileAppLoader<C extends EnvConfigData> extends AppLoader<C>
         ),
       );
     }
-  }
-}
-
-abstract class BaseWebAppLoader<C extends EnvConfigData> extends AppLoader<C> {
-  BaseWebAppLoader(C config) : super(config) {
-    WidgetsFlutterBinding.ensureInitialized();
-    setUrlStrategy(PathUrlStrategy());
   }
 }
 
