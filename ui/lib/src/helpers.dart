@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart' as flutter show compute;
-import 'package:flutter/foundation.dart' show ComputeCallback;
+import 'package:flutter/foundation.dart' show ComputeCallback, defaultTargetPlatform, kIsWeb;
 import 'package:flutter/widgets.dart';
 
 // WORKAROUND FOR NOW - isolates don't work with flutter driver
@@ -19,3 +19,6 @@ bool isTablet(BuildContext context) {
   var useMobileLayout = shortestSide < 600;
   return !useMobileLayout;
 }
+
+final kIsWebMobile =
+    kIsWeb && (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android);

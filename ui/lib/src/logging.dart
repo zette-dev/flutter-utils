@@ -13,14 +13,14 @@ class ProviderLogger extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) =>
-      log.t('ADDED (${provider.name ?? provider.runtimeType})');
+      log.d('ADDED (${provider.name ?? provider.runtimeType})');
 
   @override
   void didDisposeProvider(
     ProviderBase provider,
     ProviderContainer containers,
   ) =>
-      log.t('DISPOSED (${provider.name ?? provider.runtimeType})');
+      log.d('DISPOSED (${provider.name ?? provider.runtimeType})');
 
   @override
   void didUpdateProvider(
@@ -36,10 +36,10 @@ class ProviderLogger extends ProviderObserver {
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
       if (!mapEquals(beforeDiff, afterDiff)) {
-        log.t('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
+        log.d('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.t('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
+      log.d('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
 }
