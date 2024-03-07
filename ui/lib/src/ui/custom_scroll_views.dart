@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,29 +7,20 @@ final ScrollPhysics alwaysBouncingScrollPhysics = BouncingScrollPhysics(parent: 
 
 class ScrollableAppBar extends SliverAppBar {
   ScrollableAppBar({
-    Widget? title,
-    bool floating = true,
-    bool snap = true,
-    bool stretch = false,
-    double? appBarElevation,
-    Color? backgroundColor,
-    AsyncCallback? onStretchTrigger,
-    double? expandedHeight,
-    double? collapsedHeight,
-    bool automaticallyImplyLeading = false,
+    super.title,
+    super.floating = true,
+    super.snap = true,
+    super.stretch = false,
+    super.elevation,
+    super.scrolledUnderElevation,
+    super.backgroundColor = Colors.transparent,
+    super.onStretchTrigger,
+    super.expandedHeight,
+    super.collapsedHeight,
+    super.automaticallyImplyLeading = false,
   }) : super(
-          automaticallyImplyLeading: automaticallyImplyLeading,
-          floating: floating,
-          snap: snap,
-          stretch: stretch,
-          backgroundColor: backgroundColor ?? Colors.transparent,
           leading: null,
-          title: title,
           actions: [SizedBox()], // Used to hide the Scaffold.endDrawer specified in home_page.dart
-          elevation: appBarElevation,
-          onStretchTrigger: onStretchTrigger,
-          expandedHeight: expandedHeight,
-          collapsedHeight: collapsedHeight,
         );
 }
 
@@ -52,6 +42,7 @@ class ScrollableAppBarBehavior {
     this.snap = false,
     this.floating = false,
     this.appBarElevation,
+    this.scrolledUnderElevation,
     this.flexibleTitle,
     this.centerFlexibleTitle,
     this.toolbarHeight = kToolbarHeight,
@@ -70,7 +61,7 @@ class ScrollableAppBarBehavior {
   final double titleSpacing;
   final PreferredSizeWidget? bottom;
   final bool pinned, stretch, snap, floating;
-  final double? appBarElevation;
+  final double? appBarElevation, scrolledUnderElevation;
   final List<Widget>? actions;
   final CollapseMode flexibleCollapseMode;
   final double toolbarHeight;
@@ -360,6 +351,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
                 toolbarHeight: widget.appBarBehavior!.toolbarHeight,
                 automaticallyImplyLeading: widget.appBarBehavior!.automaticallyImplyLeading,
                 titleSpacing: widget.appBarBehavior!.titleSpacing,
+                scrolledUnderElevation: widget.appBarBehavior!.scrolledUnderElevation,
                 title: _requiresScrollListener
                     ? AnimatedOpacity(
                         duration: Duration(milliseconds: 300),
