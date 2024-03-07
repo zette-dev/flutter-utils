@@ -5,7 +5,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -43,12 +45,35 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   final C config;
   Future init(BuildContext context, WidgetRef ref);
   Widget appBuilder();
-  void onError(Object error, StackTrace? stack);
   Future<void>? runGuarded() => initSentry(
         config.sentryDsn,
         config.environment,
         runner: () => runApp(appBuilder()),
       );
+}
+
+abstract class MobileAppLoader<C extends EnvConfigData> extends AppLoader<C> {
+  MobileAppLoader(C config, {Color? statusBarColor, Brightness? statusBarBrightness, bool ensureBindingInit = true})
+      : super(config) {
+    if (ensureBindingInit) {
+      WidgetsFlutterBinding.ensureInitialized();
+    }
+    if (statusBarBrightness != null || statusBarColor != null) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: statusBarColor,
+          statusBarBrightness: statusBarBrightness,
+        ),
+      );
+    }
+  }
+}
+
+abstract class WebAppLoader<C extends EnvConfigData> extends AppLoader<C> {
+  WebAppLoader(C config) : super(config) {
+    WidgetsFlutterBinding.ensureInitialized();
+    setUrlStrategy(PathUrlStrategy());
+  }
 }
 
 mixin SentryInitializer {
