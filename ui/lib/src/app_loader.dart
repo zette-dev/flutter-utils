@@ -37,7 +37,7 @@ final envProvider = Provider<EnvConfigData?>(
 mixin EnvConfigData {
   AppEnvironment get environment;
   String? get sentryDsn;
-  String get release;
+  String get buildVersion;
   String get buildNumber;
 }
 
@@ -49,7 +49,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   Future<void>? runGuarded() => initSentry(
         config.sentryDsn,
         config.environment,
-        config.release,
+        config.buildVersion,
         config.buildNumber,
         runner: () => runApp(appBuilder()),
       );
