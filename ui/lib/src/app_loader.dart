@@ -37,6 +37,8 @@ final envProvider = Provider<EnvConfigData?>(
 mixin EnvConfigData {
   AppEnvironment get environment;
   String? get sentryDsn;
+  String get release;
+  String get buildNumber;
 }
 
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
@@ -47,6 +49,8 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   Future<void>? runGuarded() => initSentry(
         config.sentryDsn,
         config.environment,
+        config.release,
+        config.buildNumber,
         runner: () => runApp(appBuilder()),
       );
 }
@@ -70,13 +74,15 @@ abstract class BaseMobileAppLoader<C extends EnvConfigData> extends AppLoader<C>
 }
 
 mixin SentryInitializer {
-  Future<void> initSentry(String? dns, AppEnvironment env, {required AppRunner runner}) {
+  Future<void> initSentry(String? dns, AppEnvironment env, String release, String buildNumber, {required AppRunner runner}) {
     if (dns != null && !kDebugMode) {
       return SentryFlutter.init(
         (options) {
           options
             ..dsn = dns
             ..environment = env.name
+            ..release = release
+            ..dist = buildNumber
             ..tracesSampleRate = 1.0;
           // ..beforeSend = (event, {hint}) {
           //   // Ignore handled exceptions
