@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cross_file/cross_file.dart';
-import 'package:dartz/dartz.dart' show Either, Left, Right;
 import 'package:dio/dio.dart';
 
 mixin Identifiable<T> {
@@ -265,28 +264,6 @@ class HTTPRequest {
         _error = onError?.call(_error) ?? _error;
         throw _error;
       }
-    });
-  }
-
-  Future<Either<T, ApiResponseError>> runSafe<T>(
-    Dio client, {
-    List<int> successCodes = const [200],
-    required Future<T> Function(dynamic, int) onSuccess,
-    ApiResponseError Function(ApiResponseError)? onError,
-  }) {
-    return execute(client).then<Either<T, ApiResponseError>>((response) async {
-      if (successCodes.contains(response.statusCode)) {
-        return onSuccess(response.data, response.statusCode!).then(Left.new);
-      } else {
-        var _error = ApiResponseError(
-          response.data,
-          code: response.statusCode,
-          request: response.requestOptions,
-        );
-
-        _error = onError?.call(_error) ?? _error;
-        return Right(_error);
-      }
     }).catchError((e) {
       ApiResponseError _error = ApiResponseError(
         e.toString(),
@@ -303,7 +280,7 @@ class HTTPRequest {
       }
 
       _error = onError?.call(_error) ?? _error;
-      return Future.value(Right<T, ApiResponseError>(_error));
+      throw _error;
     });
   }
 }
