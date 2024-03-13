@@ -185,14 +185,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
-  dartz:
-    dependency: transitive
-    description:
-      name: dartz
-      sha256: e6acf34ad2e31b1eb00948692468c30ab48ac8250e0f0df661e29f12dd252168
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.1"
   dio:
     dependency: "direct main"
     description:
@@ -206,7 +198,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: "3017bf6aeceeb46e2d3437730d4c4e73d50715d5"
+      resolved-ref: bab3ec92582f1945411c57cca3503bc3251717f7
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
