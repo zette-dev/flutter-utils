@@ -198,7 +198,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: bab3ec92582f1945411c57cca3503bc3251717f7
+      resolved-ref: d039be426f36708599bb6d4ab67bcd44826d51ec
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
@@ -280,10 +280,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "170c46e237d6eb0e6e9f0e8b3f56101e14fb64f787016e42edd74c39cf8b176a"
+      sha256: "7ecb2f391edbca5473db591b48555a8912dde60edd0fb3013bd6743033b2d3f8"
       url: "https://pub.dev"
     source: hosted
-    version: "13.2.0"
+    version: "13.2.1"
   graphs:
     dependency: transitive
     description:
@@ -500,6 +500,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.18.0"
+  sentry_dio:
+    dependency: transitive
+    description:
+      name: sentry_dio
+      sha256: "5eb0b1759d86662fa73420d6d26b20aea48d0ca09982c4786b32b754aac37d69"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.18.0"
   sentry_flutter:
     dependency: "direct main"
     description:
@@ -698,7 +706,7 @@ packages:
     source: hosted
     version: "3.1.1"
   uuid:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: uuid
       sha256: cd210a09f7c18cbe5a02511718e0334de6559871052c90a90c0cca46a4aa81c8
