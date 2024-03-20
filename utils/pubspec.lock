@@ -321,14 +321,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  ms_map_utils:
-    dependency: "direct main"
-    description:
-      name: ms_map_utils
-      sha256: "595991482aa40856e3d8833595a3239589c1f4ce1490bed64b495a0f08bfcd04"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   package_config:
     dependency: transitive
     description:

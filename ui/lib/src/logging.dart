@@ -1,4 +1,4 @@
-import 'package:ds_utils/ds_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:ms_map_utils/ms_map_utils.dart';
 import 'package:riverpod/riverpod.dart';
@@ -46,4 +46,20 @@ class ProviderLogger extends ProviderObserver {
 
 mixin Loggable {
   Map<String, dynamic> toLog();
+}
+
+extension _MapMethods<K, T> on Map {
+  Map<K, T> filterOutNullsOrEmpty() {
+    final Map<K, T> filtered = <K, T>{};
+    forEach((key, value) {
+      if (value != null && value is! Map && value is! Iterable) {
+        filtered[key] = value;
+      } else if (value is Map<dynamic, dynamic> && value.isNotEmpty) {
+        filtered[key] = value as T;
+      } else if (value is Iterable && value.isNotEmpty) {
+        filtered[key] = value as T;
+      }
+    });
+    return filtered;
+  }
 }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ds_utils/ds_utils.dart';
+import 'package:ds_ui/src/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -42,22 +42,16 @@ Future openUrl(String url) async {
   }
 }
 
-Future sendEmail(String email,
-    {String? subject, String? body, VoidCallback? onCantLaunch}) async {
+Future sendEmail(String email, {String? subject, String? body, VoidCallback? onCantLaunch}) async {
   String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((e) =>
-            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
+    return params.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
   }
 
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
     path: email,
-    query: encodeQueryParameters(<String, String>{
-      if (subject != null) 'subject': subject,
-      if (body != null) 'body': body
-    }),
+    query: encodeQueryParameters(
+        <String, String>{if (subject != null) 'subject': subject, if (body != null) 'body': body}),
   );
 
   if (await canLaunchUrlString(emailLaunchUri.toString())) {
@@ -70,10 +64,8 @@ Future sendEmail(String email,
 class DirectionsLauncher {
   DirectionsLauncher({this.lat, this.lng, this.address}) {
     if (hasCoordinates) {
-      canLaunchUrlString(appleMapsUrl)
-          .then((value) => _canOpenAppleMaps = value);
-      canLaunchUrlString(googleMapsUrl)
-          .then((value) => _canOpenGoogleMaps = value);
+      canLaunchUrlString(appleMapsUrl).then((value) => _canOpenAppleMaps = value);
+      canLaunchUrlString(googleMapsUrl).then((value) => _canOpenGoogleMaps = value);
       canLaunchUrlString(wazeUrl).then((value) => _canOpenWazeMaps = value);
     }
   }

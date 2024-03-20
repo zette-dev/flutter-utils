@@ -4,6 +4,7 @@ export 'src/after_layout.dart';
 export 'src/app_loader.dart';
 export 'src/date_time_provider.dart';
 export 'src/extensions.dart';
+export 'src/formatters.dart';
 export 'src/helpers.dart';
 export 'src/hex_color.dart';
 export 'src/input_formatters.dart';

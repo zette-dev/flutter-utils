@@ -1,4 +1,4 @@
-import 'package:ds_utils/ds_utils.dart';
+import 'package:ds_ui/src/formatters.dart';
 import 'package:flutter/services.dart';
 
 class MaskedTextInputFormatter extends TextInputFormatter {
