@@ -4,6 +4,9 @@ import 'dart:typed_data';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:dio/dio.dart';
+import 'package:riverpod/riverpod.dart';
+import 'package:sentry_dio/sentry_dio.dart';
+import 'package:uuid/uuid.dart';
 
 mixin Identifiable<T> {
   T get id;
@@ -311,3 +314,54 @@ abstract class WebServiceInterface extends ServiceInterface {
   Future<RequestOptions> authorizationInterceptor(RequestOptions options) async => options;
   Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
 }
+
+final apiAuthHeaders = StateProvider<Map<String, String>>(
+  (ref) => {},
+  dependencies: [],
+  name: 'ApiAuthHeaders',
+);
+
+final dioClientProvider = Provider.family<Dio, String>(
+  (ref, baseUrl) {
+    final client = Dio()
+      ..options = BaseOptions(
+        baseUrl: 'https://$baseUrl',
+        contentType: 'application/json',
+        responseType: ResponseType.json,
+      )
+      ..transformer = BackgroundTransformer()
+      ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
+        final authHeaders = ref.read(apiAuthHeaders);
+        options.headers.addAll(
+          {
+            ...authHeaders,
+            'Request-Id': const Uuid().v4(),
+          },
+        );
+        return handler.next(options);
+      }), onError: ((DioException e, handler) async {
+        if (e.response != null) {
+          switch (e.response?.statusCode) {
+            case 401:
+              DioException(
+                requestOptions: e.requestOptions,
+                type: DioExceptionType.badResponse,
+                error: UnauthorizedRequestError(),
+                response: e.response,
+                message: e.message,
+                stackTrace: e.stackTrace,
+              );
+              break;
+          }
+        }
+
+        return handler.reject(e);
+      })))
+      ..addSentry();
+
+    return client;
+  },
+  dependencies: [
+    apiAuthHeaders,
+  ],
+);
