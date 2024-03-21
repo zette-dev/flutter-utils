@@ -268,16 +268,19 @@ class HTTPRequest {
         throw _error;
       }
     }).catchError((e) {
-      ApiResponseError _error = ApiResponseError(
-        e.toString(),
-        originalException: e,
-      );
-
-      if (e is DioException) {
+      Exception _error;
+      if (e is ApiResponseError) {
+        _error = e;
+      } else if (e is DioException) {
         _error = ApiResponseError(
           e.response?.data,
           code: e.response?.statusCode,
           request: e.requestOptions,
+          originalException: e,
+        );
+      } else {
+        ApiResponseError _error = ApiResponseError(
+          e.toString(),
           originalException: e,
         );
       }
