@@ -268,7 +268,7 @@ class HTTPRequest {
         throw _error;
       }
     }).catchError((e) {
-      Exception _error;
+      ApiResponseError _error;
       if (e is ApiResponseError) {
         _error = e;
       } else if (e is DioException) {
@@ -279,7 +279,7 @@ class HTTPRequest {
           originalException: e,
         );
       } else {
-        ApiResponseError _error = ApiResponseError(
+        _error = ApiResponseError(
           e.toString(),
           originalException: e,
         );
