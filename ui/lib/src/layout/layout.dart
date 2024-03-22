@@ -42,20 +42,15 @@ class LayoutData with _$LayoutData {
   const factory LayoutData({
     @Default(940.0) double phoneScreenBreakpoint,
     @Default(1050.0) double mobileScreenBreakpoint,
-    Layout? layout,
   }) = _LayoutData;
   const LayoutData._();
 
-  Layout layoutFromContext(BuildContext context) =>
-      layout ??
-      Layout.fromSize(
+  Layout layoutFromContext(BuildContext context) => Layout.fromSize(
         context.screenSize().width,
         this,
       );
 
-  Layout layoutFromConstraints(BoxConstraints constraints) =>
-      layout ??
-      Layout.fromSize(
+  Layout layoutFromConstraints(BoxConstraints constraints) => Layout.fromSize(
         constraints.maxWidth,
         this,
       );
