@@ -54,7 +54,7 @@ class LayoutData with _$LayoutData {
 
 final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
 
-typedef AdaptiveLayoutBuilder = Widget Function(BuildContext, LayoutData);
+typedef AdaptiveLayoutBuilder = Widget Function(BuildContext, BoxConstraints, LayoutData);
 
 class _AdaptiveLayout extends AdaptiveLayout {
   _AdaptiveLayout({
@@ -88,6 +88,7 @@ abstract class AdaptiveLayout extends LayoutBuilder {
 
             return builderMethod!.call(
               ctx,
+              constraints,
               ref.read(layoutProvider).copyWith(layout: layout),
             );
           },
