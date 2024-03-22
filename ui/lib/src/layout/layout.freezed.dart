@@ -97,8 +97,8 @@ class __$$MobileImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MobileImpl implements _Mobile {
-  const _$MobileImpl();
+class _$MobileImpl extends _Mobile {
+  const _$MobileImpl() : super._();
 
   @override
   String toString() {
@@ -183,8 +183,9 @@ class _$MobileImpl implements _Mobile {
   }
 }
 
-abstract class _Mobile implements Layout {
+abstract class _Mobile extends Layout {
   const factory _Mobile() = _$MobileImpl;
+  const _Mobile._() : super._();
 }
 
 /// @nodoc
@@ -205,8 +206,8 @@ class __$$DesktopImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DesktopImpl implements _Desktop {
-  const _$DesktopImpl();
+class _$DesktopImpl extends _Desktop {
+  const _$DesktopImpl() : super._();
 
   @override
   String toString() {
@@ -291,8 +292,9 @@ class _$DesktopImpl implements _Desktop {
   }
 }
 
-abstract class _Desktop implements Layout {
+abstract class _Desktop extends Layout {
   const factory _Desktop() = _$DesktopImpl;
+  const _Desktop._() : super._();
 }
 
 /// @nodoc
@@ -313,8 +315,8 @@ class __$$TabletImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TabletImpl implements _Tablet {
-  const _$TabletImpl();
+class _$TabletImpl extends _Tablet {
+  const _$TabletImpl() : super._();
 
   @override
   String toString() {
@@ -399,8 +401,9 @@ class _$TabletImpl implements _Tablet {
   }
 }
 
-abstract class _Tablet implements Layout {
+abstract class _Tablet extends Layout {
   const factory _Tablet() = _$TabletImpl;
+  const _Tablet._() : super._();
 }
 
 /// @nodoc

@@ -10,7 +10,7 @@ class Layout with _$Layout {
   const factory Layout.mobile() = _Mobile;
   const factory Layout.desktop() = _Desktop;
   const factory Layout.tablet() = _Tablet;
-
+  const Layout._();
   factory Layout.fromSize(double width, LayoutData data) {
     if (width <= data.phoneScreenBreakpoint) {
       return Layout.mobile();
@@ -20,6 +20,21 @@ class Layout with _$Layout {
       return Layout.desktop();
     }
   }
+
+  bool get isMobile => maybeWhen(
+        orElse: () => false,
+        mobile: () => true,
+      );
+
+  bool get isTablet => maybeWhen(
+        orElse: () => false,
+        tablet: () => true,
+      );
+
+  bool get isDesktop => maybeWhen(
+        orElse: () => false,
+        desktop: () => true,
+      );
 }
 
 @freezed
@@ -31,25 +46,28 @@ class LayoutData with _$LayoutData {
   }) = _LayoutData;
   const LayoutData._();
 
-  Layout getLayout(BuildContext context) =>
+  Layout layoutFromContext(BuildContext context) =>
       layout ??
       Layout.fromSize(
         context.screenSize().width,
         this,
       );
 
-  bool isMobile(BuildContext context) => getLayout(context).maybeWhen(
-        orElse: () => false,
-        mobile: () => true,
+  Layout layoutFromConstraints(BoxConstraints constraints) =>
+      layout ??
+      Layout.fromSize(
+        constraints.maxWidth,
+        this,
       );
-  bool isTablet(BuildContext context) => getLayout(context).maybeWhen(
-        orElse: () => false,
-        tablet: () => true,
-      );
-  bool isDesktop(BuildContext context) => getLayout(context).maybeWhen(
-        orElse: () => false,
-        desktop: () => true,
-      );
+
+  bool isMobile(BoxConstraints constraints) => layoutFromConstraints(constraints).isMobile;
+  bool isTablet(BoxConstraints constraints) => layoutFromConstraints(constraints).isTablet;
+  bool isDesktop(BoxConstraints constraints) => layoutFromConstraints(constraints).isDesktop;
+
+  // Less desireable, only use
+  bool isMobileLookup(BuildContext context) => layoutFromContext(context).isMobile;
+  bool isTabletLookup(BuildContext context) => layoutFromContext(context).isTablet;
+  bool isDesktopLookup(BuildContext context) => layoutFromContext(context).isDesktop;
 }
 
 final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());

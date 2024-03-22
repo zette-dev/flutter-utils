@@ -248,15 +248,15 @@ Route<T> platformRoute<T>(
   bool Function(BuildContext, LayoutData)? useDialogWhen,
 }) {
   LayoutData layoutData = ref.read(layoutProvider);
-  layoutData = layoutData.copyWith(layout: layoutData.getLayout(context));
+  layoutData = layoutData.copyWith(layout: layoutData.layoutFromContext(context));
   if ((useDialogWhen?.call(context, layoutData) ?? false)) {
     return DialogRoute(
       context: context,
       builder: (ctx) => Dialog(
         child: builder(ctx),
         insetPadding: EdgeInsets.symmetric(
-          horizontal: layoutData.isDesktop(context) ? (context.screenSize().width - 800) / 2 : 5,
-          vertical: layoutData.isDesktop(context) ? 50 : 25,
+          horizontal: layoutData.isDesktopLookup(context) ? (context.screenSize().width - 800) / 2 : 5,
+          vertical: layoutData.isDesktopLookup(context) ? 50 : 25,
         ),
       ),
       barrierDismissible: false,
