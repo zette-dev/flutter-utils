@@ -248,7 +248,6 @@ Route<T> platformRoute<T>(
   bool Function(BuildContext, LayoutData)? useDialogWhen,
 }) {
   LayoutData layoutData = ref.read(layoutProvider);
-  layoutData = layoutData.copyWith(layout: layoutData.layoutFromContext(context));
   if ((useDialogWhen?.call(context, layoutData) ?? false)) {
     return DialogRoute(
       context: context,
