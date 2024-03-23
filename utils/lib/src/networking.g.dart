@@ -6,7 +6,7 @@ part of 'networking.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioClientHash() => r'ed3de7fa78985363e184fafeff23ebab34285d89';
+String _$dioClientHash() => r'4c2b6d09fdc98765e89cf567cb100495600bbe3e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -39,11 +39,11 @@ class DioClientFamily extends Family<Dio> {
   const DioClientFamily();
 
   /// See also [dioClient].
-  DioClientProvider call({
-    required String baseUrl,
-  }) {
+  DioClientProvider call(
+    String baseUrl,
+  ) {
     return DioClientProvider(
-      baseUrl: baseUrl,
+      baseUrl,
     );
   }
 
@@ -52,7 +52,7 @@ class DioClientFamily extends Family<Dio> {
     covariant DioClientProvider provider,
   ) {
     return call(
-      baseUrl: provider.baseUrl,
+      provider.baseUrl,
     );
   }
 
@@ -74,12 +74,12 @@ class DioClientFamily extends Family<Dio> {
 /// See also [dioClient].
 class DioClientProvider extends Provider<Dio> {
   /// See also [dioClient].
-  DioClientProvider({
-    required String baseUrl,
-  }) : this._internal(
+  DioClientProvider(
+    String baseUrl,
+  ) : this._internal(
           (ref) => dioClient(
             ref as DioClientRef,
-            baseUrl: baseUrl,
+            baseUrl,
           ),
           from: dioClientProvider,
           name: r'dioClientProvider',
