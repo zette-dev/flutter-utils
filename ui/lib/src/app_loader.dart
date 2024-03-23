@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'app_loader.g.dart';
@@ -30,8 +29,10 @@ enum AppEnvironment {
   static AppEnvironment? fromString(String value) => _$AppEnvironmentEnumValueMap[value];
 }
 
-@Riverpod(keepAlive: true)
-EnvConfigData? env(EnvRef ref) => null;
+final envProvider = Provider<EnvConfigData?>(
+  (ref) => null,
+  name: 'AppEnvProvider',
+);
 
 mixin EnvConfigData {
   AppEnvironment get environment;
