@@ -410,7 +410,6 @@ abstract class _Tablet extends Layout {
 mixin _$LayoutData {
   double get phoneScreenBreakpoint => throw _privateConstructorUsedError;
   double get mobileScreenBreakpoint => throw _privateConstructorUsedError;
-  Layout? get layout => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LayoutDataCopyWith<LayoutData> get copyWith =>
@@ -423,12 +422,7 @@ abstract class $LayoutDataCopyWith<$Res> {
           LayoutData value, $Res Function(LayoutData) then) =
       _$LayoutDataCopyWithImpl<$Res, LayoutData>;
   @useResult
-  $Res call(
-      {double phoneScreenBreakpoint,
-      double mobileScreenBreakpoint,
-      Layout? layout});
-
-  $LayoutCopyWith<$Res>? get layout;
+  $Res call({double phoneScreenBreakpoint, double mobileScreenBreakpoint});
 }
 
 /// @nodoc
@@ -446,7 +440,6 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
   $Res call({
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
-    Object? layout = freezed,
   }) {
     return _then(_value.copyWith(
       phoneScreenBreakpoint: null == phoneScreenBreakpoint
@@ -457,23 +450,7 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
           ? _value.mobileScreenBreakpoint
           : mobileScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
-      layout: freezed == layout
-          ? _value.layout
-          : layout // ignore: cast_nullable_to_non_nullable
-              as Layout?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $LayoutCopyWith<$Res>? get layout {
-    if (_value.layout == null) {
-      return null;
-    }
-
-    return $LayoutCopyWith<$Res>(_value.layout!, (value) {
-      return _then(_value.copyWith(layout: value) as $Val);
-    });
   }
 }
 
@@ -485,13 +462,7 @@ abstract class _$$LayoutDataImplCopyWith<$Res>
       __$$LayoutDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {double phoneScreenBreakpoint,
-      double mobileScreenBreakpoint,
-      Layout? layout});
-
-  @override
-  $LayoutCopyWith<$Res>? get layout;
+  $Res call({double phoneScreenBreakpoint, double mobileScreenBreakpoint});
 }
 
 /// @nodoc
@@ -507,7 +478,6 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
   $Res call({
     Object? phoneScreenBreakpoint = null,
     Object? mobileScreenBreakpoint = null,
-    Object? layout = freezed,
   }) {
     return _then(_$LayoutDataImpl(
       phoneScreenBreakpoint: null == phoneScreenBreakpoint
@@ -518,10 +488,6 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
           ? _value.mobileScreenBreakpoint
           : mobileScreenBreakpoint // ignore: cast_nullable_to_non_nullable
               as double,
-      layout: freezed == layout
-          ? _value.layout
-          : layout // ignore: cast_nullable_to_non_nullable
-              as Layout?,
     ));
   }
 }
@@ -531,8 +497,7 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
 class _$LayoutDataImpl extends _LayoutData {
   const _$LayoutDataImpl(
       {this.phoneScreenBreakpoint = 940.0,
-      this.mobileScreenBreakpoint = 1050.0,
-      this.layout})
+      this.mobileScreenBreakpoint = 1050.0})
       : super._();
 
   @override
@@ -541,12 +506,10 @@ class _$LayoutDataImpl extends _LayoutData {
   @override
   @JsonKey()
   final double mobileScreenBreakpoint;
-  @override
-  final Layout? layout;
 
   @override
   String toString() {
-    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint, layout: $layout)';
+    return 'LayoutData(phoneScreenBreakpoint: $phoneScreenBreakpoint, mobileScreenBreakpoint: $mobileScreenBreakpoint)';
   }
 
   @override
@@ -557,13 +520,12 @@ class _$LayoutDataImpl extends _LayoutData {
             (identical(other.phoneScreenBreakpoint, phoneScreenBreakpoint) ||
                 other.phoneScreenBreakpoint == phoneScreenBreakpoint) &&
             (identical(other.mobileScreenBreakpoint, mobileScreenBreakpoint) ||
-                other.mobileScreenBreakpoint == mobileScreenBreakpoint) &&
-            (identical(other.layout, layout) || other.layout == layout));
+                other.mobileScreenBreakpoint == mobileScreenBreakpoint));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, phoneScreenBreakpoint, mobileScreenBreakpoint, layout);
+  int get hashCode =>
+      Object.hash(runtimeType, phoneScreenBreakpoint, mobileScreenBreakpoint);
 
   @JsonKey(ignore: true)
   @override
@@ -575,16 +537,13 @@ class _$LayoutDataImpl extends _LayoutData {
 abstract class _LayoutData extends LayoutData {
   const factory _LayoutData(
       {final double phoneScreenBreakpoint,
-      final double mobileScreenBreakpoint,
-      final Layout? layout}) = _$LayoutDataImpl;
+      final double mobileScreenBreakpoint}) = _$LayoutDataImpl;
   const _LayoutData._() : super._();
 
   @override
   double get phoneScreenBreakpoint;
   @override
   double get mobileScreenBreakpoint;
-  @override
-  Layout? get layout;
   @override
   @JsonKey(ignore: true)
   _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>
