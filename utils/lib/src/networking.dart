@@ -328,7 +328,7 @@ final apiAuthHeaders = StateProvider<Map<String, String>>(
 );
 
 @Riverpod(keepAlive: true)
-Dio dioClient(DioClientRef ref, String baseUrl) {
+Dio dioClient(DioClientRef ref, {required String baseUrl}) {
   final client = Dio()
     ..options = BaseOptions(
       baseUrl: 'https://$baseUrl',
