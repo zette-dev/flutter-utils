@@ -76,9 +76,10 @@ extension FocusScopeExt on BuildContext {
 
 extension ThemeExt on BuildContext {
   T? themeExt<T>() => theme().extension<T>();
-  LayoutThemeExtension? layoutExt() => themeExt<LayoutThemeExtension>();
-  LayoutData? layoutData() => themeExt<LayoutThemeExtension>()?.layoutData;
-  Layout? layout() => layoutData()?.layoutFromContext(this);
+  LayoutThemeExtension layoutExt() =>
+      themeExt<LayoutThemeExtension>() ?? LayoutThemeExtension(layoutData: LayoutData());
+  LayoutData layoutData() => layoutExt().layoutData;
+  Layout layout() => layoutData().layoutFromContext(this);
   ThemeData theme() => Theme.of(this);
   TextTheme textTheme() => theme().textTheme;
   InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
