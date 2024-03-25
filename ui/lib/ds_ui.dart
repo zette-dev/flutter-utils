@@ -10,6 +10,7 @@ export 'src/hex_color.dart';
 export 'src/input_formatters.dart';
 export 'src/launchers.dart';
 export 'src/layout/layout.dart';
+export 'src/layout/layout_theme_extension.dart';
 export 'src/logging.dart';
 export 'src/ref_like.dart';
 export 'src/scroll.dart';
