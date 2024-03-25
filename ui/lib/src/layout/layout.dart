@@ -1,5 +1,4 @@
 import 'package:ds_ui/ds_ui.dart';
-import 'package:ds_ui/src/layout/layout_theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

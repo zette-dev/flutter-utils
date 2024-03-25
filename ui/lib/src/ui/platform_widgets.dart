@@ -1,5 +1,4 @@
 import 'package:ds_ui/ds_ui.dart';
-import 'package:ds_ui/src/layout/layout_theme_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -241,8 +240,7 @@ class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
 }
 
 Route<T> platformRoute<T>(
-  BuildContext context,
-  RefLike ref, {
+  BuildContext context, {
   required WidgetBuilder builder,
   RouteSettings? settings,
   bool fullscreenDialog = false,
