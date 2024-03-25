@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ds_ui/ds_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -75,6 +76,8 @@ extension FocusScopeExt on BuildContext {
 
 extension ThemeExt on BuildContext {
   T? themeExt<T>() => theme().extension<T>();
+  LayoutThemeExtension? layoutExt() => themeExt<LayoutThemeExtension>();
+  LayoutData? layoutData() => themeExt<LayoutThemeExtension>()?.layoutData;
   ThemeData theme() => Theme.of(this);
   TextTheme textTheme() => theme().textTheme;
   InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
