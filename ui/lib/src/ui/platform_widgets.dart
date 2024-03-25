@@ -1,4 +1,5 @@
 import 'package:ds_ui/ds_ui.dart';
+import 'package:ds_ui/src/layout/layout_theme_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -245,17 +246,18 @@ Route<T> platformRoute<T>(
   required WidgetBuilder builder,
   RouteSettings? settings,
   bool fullscreenDialog = false,
-  bool Function(BuildContext, LayoutData)? useDialogWhen,
+  bool Function(BuildContext, Layout)? useDialogWhen,
 }) {
-  LayoutData layoutData = ref.read(layoutProvider);
-  if ((useDialogWhen?.call(context, layoutData) ?? false)) {
+  final layout = Layout.fromSize(
+      context.screenSize().width, context.themeExt<LayoutThemeExtension>()?.layoutData ?? const LayoutData());
+  if ((useDialogWhen?.call(context, layout) ?? false)) {
     return DialogRoute(
       context: context,
       builder: (ctx) => Dialog(
         child: builder(ctx),
         insetPadding: EdgeInsets.symmetric(
-          horizontal: layoutData.isDesktopLookup(context) ? (context.screenSize().width - 800) / 2 : 5,
-          vertical: layoutData.isDesktopLookup(context) ? 50 : 25,
+          horizontal: layout.isDesktop ? (context.screenSize().width - 800) / 2 : 5,
+          vertical: layout.isDesktop ? 50 : 25,
         ),
       ),
       barrierDismissible: false,

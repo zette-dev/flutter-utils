@@ -1,6 +1,6 @@
 import 'package:ds_ui/ds_ui.dart';
+import 'package:ds_ui/src/layout/layout_theme_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'layout.freezed.dart';
@@ -65,13 +65,10 @@ class LayoutData with _$LayoutData {
   bool isDesktopLookup(BuildContext context) => layoutFromContext(context).isDesktop;
 }
 
-final layoutProvider = StateProvider<LayoutData>((ref) => LayoutData());
-
 typedef AdaptiveLayoutBuilder = Widget Function(BuildContext, BoxConstraints, Layout);
 
 class _AdaptiveLayout extends AdaptiveLayout {
   _AdaptiveLayout({
-    required super.ref,
     super.builder,
     super.mobileBuilder,
     super.tabletBuilder,
@@ -81,7 +78,6 @@ class _AdaptiveLayout extends AdaptiveLayout {
 
 abstract class AdaptiveLayout extends LayoutBuilder {
   AdaptiveLayout({
-    required WidgetRef ref,
     AdaptiveLayoutBuilder? builder,
     AdaptiveLayoutBuilder? mobileBuilder,
     AdaptiveLayoutBuilder? tabletBuilder,
@@ -90,7 +86,8 @@ abstract class AdaptiveLayout extends LayoutBuilder {
             'If builder is not specified, mobileBuilder, tabletBuilder, and dekstopBuilder must be specified'),
         super(
           builder: (ctx, constraints) {
-            final layout = Layout.fromSize(constraints.maxWidth, ref.read(layoutProvider));
+            final layout = Layout.fromSize(
+                constraints.maxWidth, ctx.themeExt<LayoutThemeExtension>()?.layoutData ?? const LayoutData());
             AdaptiveLayoutBuilder? builderMethod;
             builderMethod = layout.when(
                   mobile: () => mobileBuilder,
@@ -107,28 +104,24 @@ abstract class AdaptiveLayout extends LayoutBuilder {
           },
         );
 
-  factory AdaptiveLayout.when(
-    WidgetRef ref, {
+  factory AdaptiveLayout.when({
     required AdaptiveLayoutBuilder mobileBuilder,
     required AdaptiveLayoutBuilder tabletBuilder,
     required AdaptiveLayoutBuilder desktopBuilder,
   }) =>
       _AdaptiveLayout(
-        ref: ref,
         mobileBuilder: mobileBuilder,
         tabletBuilder: tabletBuilder,
         desktopBuilder: desktopBuilder,
       );
 
-  factory AdaptiveLayout.maybeWhen(
-    WidgetRef ref, {
+  factory AdaptiveLayout.maybeWhen({
     AdaptiveLayoutBuilder? mobileBuilder,
     AdaptiveLayoutBuilder? tabletBuilder,
     AdaptiveLayoutBuilder? desktopBuilder,
     required AdaptiveLayoutBuilder builder,
   }) =>
       _AdaptiveLayout(
-        ref: ref,
         mobileBuilder: mobileBuilder,
         tabletBuilder: tabletBuilder,
         desktopBuilder: desktopBuilder,
