@@ -29,7 +29,7 @@ enum AppEnvironment {
   static AppEnvironment? fromString(String value) => _$AppEnvironmentEnumValueMap[value];
 }
 
-final envProvider = Provider<EnvConfigData?>(
+final $envProvider = Provider<EnvConfigData?>(
   (ref) => null,
   name: 'AppEnvProvider',
 );

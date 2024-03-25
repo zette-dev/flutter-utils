@@ -318,13 +318,13 @@ abstract class WebServiceInterface extends ServiceInterface {
   Future<RequestOptions> onRequestInterceptor(RequestOptions options) async => options;
 }
 
-final apiAuthHeadersProvider = StateProvider<Map<String, String>>(
+final $apiAuthHeadersProvider = StateProvider<Map<String, String>>(
   (ref) => {},
   dependencies: [],
   name: 'ApiAuthHeaders',
 );
 
-final dioClientProvider = Provider.family<Dio, String>(
+final $dioClientProvider = Provider.family<Dio, String>(
   (ref, baseUrl) {
     final client = Dio()
       ..options = BaseOptions(
@@ -334,7 +334,7 @@ final dioClientProvider = Provider.family<Dio, String>(
       )
       ..transformer = BackgroundTransformer()
       ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
-        final authHeaders = ref.read(apiAuthHeadersProvider);
+        final authHeaders = ref.read($apiAuthHeadersProvider);
         options.headers.addAll(
           {
             ...authHeaders,
@@ -365,6 +365,6 @@ final dioClientProvider = Provider.family<Dio, String>(
     return client;
   },
   dependencies: [
-    apiAuthHeadersProvider,
+    $apiAuthHeadersProvider,
   ],
 );
