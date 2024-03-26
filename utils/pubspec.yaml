@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   cross_file: ^0.3.4+1
-  dio: ^5.4.1
+  dio: ^5.4.2
   freezed_annotation: ^2.4.1
   intl: ^0.18.1
   sentry_dio: ^7.18.0

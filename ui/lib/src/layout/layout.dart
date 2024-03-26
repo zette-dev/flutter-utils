@@ -10,7 +10,9 @@ class Layout with _$Layout {
   const factory Layout.desktop() = _Desktop;
   const factory Layout.tablet() = _Tablet;
   const Layout._();
-  factory Layout.fromSize(double width, LayoutData data) {
+  factory Layout.of(BuildContext context) => Layout.fromSize(context.screenSize().width);
+  factory Layout.fromSize(double width, [LayoutData? data]) {
+    data ??= const LayoutData();
     if (width <= data.phoneScreenBreakpoint) {
       return Layout.mobile();
     } else if (width <= data.mobileScreenBreakpoint) {
