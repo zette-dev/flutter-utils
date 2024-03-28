@@ -10,12 +10,12 @@ environment:
 
 dependencies:
   cross_file: ^0.3.4+1
-  dio: ^5.4.2
+  dio: ^5.4.2+1
   freezed_annotation: ^2.4.1
   intl: ^0.18.1
-  sentry_dio: ^7.18.0
   riverpod: ^2.5.1
   rxdart: ^0.27.7
+  sentry_dio: ^7.18.0
   uuid: ^4.3.3
 
 dev_dependencies:
