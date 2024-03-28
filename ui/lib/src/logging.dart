@@ -1,7 +1,73 @@
+import 'dart:async';
+
+import 'package:ds_utils/ds_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
-import 'package:ms_map_utils/ms_map_utils.dart';
+import 'package:ms_map_utils/ms_map_utils.dart' show diff;
 import 'package:riverpod/riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+const kLogLevel = Level.all;
+final logger = Logger(
+  level: kLogLevel,
+  output: _LogOutput(),
+  printer: SimplePrinter(
+    colors: false,
+    printTime: false,
+  ),
+  filter: kReleaseMode ? ProductionFilter() : DevelopmentFilter(),
+);
+
+class _LogOutput extends LogOutput {
+  _LogOutput() {
+    Logger.level = kLogLevel;
+  }
+
+  @override
+  void output(OutputEvent event) {
+    if (kDebugMode) {
+      event.lines.forEach(debugPrint);
+    }
+
+    final LogEvent record = event.origin;
+    Map<String, dynamic> hintData = {
+      'log_message': record.message,
+      'log_level': record.level.name,
+    };
+
+    if (record.level.value >= Level.error.value) {
+      final Object? error = record.error;
+
+      if (error is ApiResponseError) {
+        hintData.addAll(error.toJson());
+      }
+
+      unawaited(Sentry.captureException(
+        record.error,
+        stackTrace: record.stackTrace,
+        hint: Hint.withMap(hintData),
+      ));
+    } else if (record.level == Level.warning) {
+      unawaited(Sentry.captureEvent(
+        SentryEvent(
+          message: record.message,
+          throwable: record.error,
+          level: SentryLevel.warning,
+        ),
+        stackTrace: record.stackTrace,
+        hint: Hint.withMap(hintData),
+      ));
+    } else if (record.level == Level.info) {
+      unawaited(Sentry.addBreadcrumb(
+        Breadcrumb.console(
+          message: record.message,
+          level: SentryLevel.fromName(record.level.name.toLowerCase()),
+        ),
+        hint: Hint.withMap(hintData),
+      ));
+    }
+  }
+}
 
 class ProviderLogger extends ProviderObserver {
   ProviderLogger(this.log);
@@ -46,20 +112,4 @@ class ProviderLogger extends ProviderObserver {
 
 mixin Loggable {
   Map<String, dynamic> toLog();
-}
-
-extension _MapMethods<K, T> on Map {
-  Map<K, T> filterOutNullsOrEmpty() {
-    final Map<K, T> filtered = <K, T>{};
-    forEach((key, value) {
-      if (value != null && value is! Map && value is! Iterable) {
-        filtered[key] = value;
-      } else if (value is Map<dynamic, dynamic> && value.isNotEmpty) {
-        filtered[key] = value as T;
-      } else if (value is Iterable && value.isNotEmpty) {
-        filtered[key] = value as T;
-      }
-    });
-    return filtered;
-  }
 }
