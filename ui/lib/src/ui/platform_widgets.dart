@@ -244,8 +244,13 @@ Route<T> platformRoute<T>(
   required WidgetBuilder builder,
   RouteSettings? settings,
   bool fullscreenDialog = false,
+  bool useSelectableArea = true,
   bool Function(BuildContext, Layout)? useDialogWhen,
 }) {
+  if (useSelectableArea) {
+    builder = (ctx) => SelectionArea(child: builder(ctx));
+  }
+
   final layout = Layout.fromSize(
       context.screenSize().width, context.themeExt<LayoutThemeExtension>()?.layoutData ?? const LayoutData());
   if ((useDialogWhen?.call(context, layout) ?? false)) {
@@ -282,9 +287,13 @@ Page platformPage(
   GoRouterState state, {
   required Widget child,
   bool fullscreenDialog = false,
+  bool useSelectableArea = true,
   bool Function(BuildContext)? useDialogWhen,
   Widget Function(BuildContext, Widget)? dialogBuilder,
 }) {
+  if (useSelectableArea) {
+    child = SelectionArea(child: child);
+  }
   if ((useDialogWhen?.call(context) ?? false)) {
     return DialogPage(
       builder: (context) => dialogBuilder?.call(context, child) ?? child,
