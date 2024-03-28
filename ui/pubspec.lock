@@ -198,7 +198,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: e2fc8fe6917cbf89775ba7b2e79065247213482c
+      resolved-ref: b7c81d9803fad0aadf87df809ed71d1f3ef48b6f
       url: "https://github.com/Dropsource/flutter_utils.git"
     source: git
     version: "1.0.0"
