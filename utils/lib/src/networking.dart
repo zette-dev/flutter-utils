@@ -346,15 +346,9 @@ final $dioClientProvider = Provider.family<Dio, String>(
         if (e.response != null) {
           switch (e.response?.statusCode) {
             case 401:
-              DioException(
-                requestOptions: e.requestOptions,
-                type: DioExceptionType.badResponse,
-                error: UnauthorizedRequestError(),
-                response: e.response,
-                message: e.message,
-                stackTrace: e.stackTrace,
-              );
-              break;
+              return handler.reject(e.copyWith(error: UnauthorizedRequestError()));
+            default:
+              return handler.reject(e);
           }
         }
 
