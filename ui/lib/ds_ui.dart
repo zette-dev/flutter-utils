@@ -13,6 +13,7 @@ export 'src/layout/layout.dart';
 export 'src/layout/layout_theme_extension.dart';
 export 'src/logging.dart';
 export 'src/providers/default_target_platform_provider.dart';
+export 'src/providers/root_bundle_provider.dart';
 export 'src/ref_like.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';
