@@ -277,7 +277,7 @@ Route<T> platformRoute<T>(
   }
 }
 
-Page platformPage(
+Page<T> platformPage<T>(
   BuildContext context,
   GoRouterState state, {
   required Widget child,
@@ -286,22 +286,22 @@ Page platformPage(
   Widget Function(BuildContext, Widget)? dialogBuilder,
 }) {
   if ((useDialogWhen?.call(context) ?? false)) {
-    return DialogPage(
+    return DialogPage<T>(
       builder: (context) => dialogBuilder?.call(context, child) ?? child,
     );
   } else if (kIsWeb) {
-    return NoTransitionPage(
+    return NoTransitionPage<T>(
       name: state.name,
       child: child,
     );
   } else if (context.isIOS) {
-    return CupertinoPage(
+    return CupertinoPage<T>(
       child: child,
       name: state.name,
       fullscreenDialog: fullscreenDialog,
     );
   } else {
-    return MaterialPage(
+    return MaterialPage<T>(
       child: child,
       name: state.name,
       fullscreenDialog: fullscreenDialog,
