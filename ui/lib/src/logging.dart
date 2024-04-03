@@ -50,9 +50,10 @@ class _LogOutput extends LogOutput {
     } else if (record.level == Level.warning) {
       unawaited(Sentry.captureEvent(
         SentryEvent(
-          message: record.message,
+          message: SentryMessage(record.message),
           throwable: record.error,
           level: SentryLevel.warning,
+          timestamp: DateTime.now(),
         ),
         stackTrace: record.stackTrace,
         hint: Hint.withMap(hintData),
