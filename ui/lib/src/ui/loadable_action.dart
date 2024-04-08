@@ -8,8 +8,8 @@ class LoadableAction<T> extends StatefulWidget {
     this.action,
     required this.builder,
   });
-  final AsyncCallback? action;
-  final Widget Function(BuildContext, bool, [AsyncCallback?]) builder;
+  final AsyncValueSetter<BuildContext>? action;
+  final Widget Function(BuildContext, bool, [AsyncValueSetter<BuildContext>?]) builder;
 
   @override
   State<LoadableAction<T>> createState() => _LoadableActionState<T>();
@@ -22,9 +22,9 @@ class _LoadableActionState<T> extends State<LoadableAction<T>> {
         context,
         _isLoading,
         widget.action != null
-            ? () async {
+            ? (ctx) async {
                 safeSetState(() => _isLoading = true);
-                await widget.action!();
+                await widget.action!(ctx);
                 safeSetState(() => _isLoading = false);
               }
             : null,
