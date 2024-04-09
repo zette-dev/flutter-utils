@@ -1,6 +1,5 @@
 name: ds_ui
-description: A set of useful functions and libraries used in almost all
-  Zette flutter apps.
+description: A set of useful functions and libraries used in almost all Zette flutter apps.
 version: 0.0.4+1
 homepage: https://zette.dev
 publish_to: none
