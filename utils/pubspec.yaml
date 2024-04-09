@@ -1,8 +1,8 @@
 name: ds_utils
 description: A set of useful functions and libraries used in almost all
-  Dropsource flutter apps.
+  Zette flutter apps.
 version: 1.0.0
-homepage: https://dropsource.com
+homepage: https://zette.dev
 publish_to: none
 
 environment:
