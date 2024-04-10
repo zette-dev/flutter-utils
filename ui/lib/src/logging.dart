@@ -109,6 +109,20 @@ class ProviderLogger extends ProviderObserver {
       log.d('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
     }
   }
+
+  @override
+  void providerDidFail(
+    ProviderBase<Object?> provider,
+    Object error,
+    StackTrace stackTrace,
+    ProviderContainer container,
+  ) {
+    log.e(
+      'Provider Error (${provider.name ?? provider.runtimeType}): ${error.toString()}',
+      error: error,
+      stackTrace: stackTrace,
+    );
+  }
 }
 
 mixin Loggable {
