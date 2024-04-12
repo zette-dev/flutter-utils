@@ -40,7 +40,7 @@ class ApiResponseError implements Exception {
         'response': response,
         'error_code': errorCode,
         'code': code,
-        'request_id': request?.headers['Request-Id'],
+        'request_id': request?.headers['x-request-id'],
         'localized_message': localizedMessage,
       };
 
@@ -338,7 +338,7 @@ final $dioClientProvider = Provider.family<Dio, String>(
         options.headers.addAll(
           {
             ...authHeaders,
-            'Request-Id': const Uuid().v4(),
+            'x-request-id': const Uuid().v4(),
           },
         );
         return handler.next(options);
