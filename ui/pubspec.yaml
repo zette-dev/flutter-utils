@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
-  dio: ^5.4.2+1
+  dio: ^5.4.3+1
   ds_utils:
     git:
       url: https://github.com/zette-dev/flutter-utils.git
@@ -24,7 +24,7 @@ dependencies:
   intl: ^0.18.1
   logger: ^2.2.0
   ms_map_utils: ^1.1.0
-  sentry_flutter: ^7.19.0
+  sentry_flutter: ^7.20.0
   url_launcher: ^6.2.6
 
 dev_dependencies:
