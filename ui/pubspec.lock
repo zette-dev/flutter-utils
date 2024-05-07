@@ -280,10 +280,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "771c8feb40ad0ef639973d7ecf1b43d55ffcedb2207fd43fab030f5639e40446"
+      sha256: "9e0f7d1a3e7dc5010903e330fbc5497872c4c3cf6626381d69083cc1d5113c1e"
       url: "https://pub.dev"
     source: hosted
-    version: "13.2.4"
+    version: "14.0.2"
   graphs:
     dependency: transitive
     description:
@@ -344,18 +344,18 @@ packages:
     dependency: transitive
     description:
       name: json_annotation
-      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.1"
+    version: "4.9.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: aa1f5a8912615733e0fdc7a02af03308933c93235bdc8d50d0b0c8a8ccb0b969
+      sha256: ea1432d167339ea9b5bb153f0571d0039607a873d6e04e0117af043f14a1fd4b
       url: "https://pub.dev"
     source: hosted
-    version: "6.7.1"
+    version: "6.8.0"
   logger:
     dependency: "direct main"
     description:
@@ -496,26 +496,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "19a267774906ca3a3c4677fc7e9582ea9da79ae9a28f84bbe4885dac2c269b70"
+      sha256: e572d33a3ff1d69549f33ee828a8ff514047d43ca8eea4ab093d72461205aa3e
       url: "https://pub.dev"
     source: hosted
-    version: "7.20.0"
+    version: "7.20.1"
   sentry_dio:
     dependency: transitive
     description:
       name: sentry_dio
-      sha256: "0252c1a178afa22724fb58ff47e484a73eb722961c82ebe638c23bb3681aad4e"
+      sha256: "27b0221a26bf271bfbf1392f98915c007dd86a85bae0b57e75049044649cc9b4"
       url: "https://pub.dev"
     source: hosted
-    version: "7.20.0"
+    version: "7.20.1"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "2d2917f7d795167e33a790db9bc5e1104d2035569ecf83e09a3f491bc6978cfe"
+      sha256: ac8cf6bb849f3560353ae33672e17b2713809a4e8de0d3cf372e9e9c42013757
       url: "https://pub.dev"
     source: hosted
-    version: "7.20.0"
+    version: "7.20.1"
   shelf:
     dependency: transitive
     description:

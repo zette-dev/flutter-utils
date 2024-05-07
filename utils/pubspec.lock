@@ -173,10 +173,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "0978e9a3e45305a80a7210dbeaf79d6ee8bee33f70c8e542dc654c952070217f"
+      sha256: "11e40df547d418cc0c4900a9318b26304e665da6fa4755399a9ff9efd09034b5"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.2+1"
+    version: "5.4.3+1"
   file:
     dependency: transitive
     description:
@@ -197,10 +197,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "91bce569d4805ea5bad6619a3e8690df8ad062a235165af4c0c5d928dda15eaf"
+      sha256: a434911f643466d78462625df76fd9eb13e57348ff43fe1f77bbe909522c67a1
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.2"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -381,18 +381,18 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: fe99a06970b909a491b7f89d54c9b5119772e3a48a400308a6e129625b333f5b
+      sha256: e572d33a3ff1d69549f33ee828a8ff514047d43ca8eea4ab093d72461205aa3e
       url: "https://pub.dev"
     source: hosted
-    version: "7.19.0"
+    version: "7.20.1"
   sentry_dio:
     dependency: "direct main"
     description:
       name: sentry_dio
-      sha256: bfb74b3c7283d1d7fccc59c0876f521cce727e4fb6db0ef8d738043c49c26b8d
+      sha256: "27b0221a26bf271bfbf1392f98915c007dd86a85bae0b57e75049044649cc9b4"
       url: "https://pub.dev"
     source: hosted
-    version: "7.19.0"
+    version: "7.20.1"
   shelf:
     dependency: transitive
     description:
