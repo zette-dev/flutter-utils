@@ -381,18 +381,18 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: e572d33a3ff1d69549f33ee828a8ff514047d43ca8eea4ab093d72461205aa3e
+      sha256: "1d2952d40b99da0dc4bf3ba4797e3985dd60cc61a13d0a1d2c62b02f6528441a"
       url: "https://pub.dev"
     source: hosted
-    version: "7.20.1"
+    version: "8.1.0"
   sentry_dio:
     dependency: "direct main"
     description:
       name: sentry_dio
-      sha256: "27b0221a26bf271bfbf1392f98915c007dd86a85bae0b57e75049044649cc9b4"
+      sha256: ffd1880e2ed20b7dc1985b07f4ec448ea1ca70c04a2307cf7530a8de98725bc5
       url: "https://pub.dev"
     source: hosted
-    version: "7.20.1"
+    version: "8.1.0"
   shelf:
     dependency: transitive
     description:
