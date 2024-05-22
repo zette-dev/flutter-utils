@@ -1,4 +1,4 @@
-library ds_ui;
+library zette_ui;
 
 export 'src/after_layout.dart';
 export 'src/app_loader.dart';

@@ -1,7 +1,7 @@
-// import 'package:ds_utils/ds_utils.dart';
+// import 'package:zette_utils/zette_utils.dart';
 // import 'package:flutter/material.dart';
 
-// import '../../ds_ui.dart';
+// import '../../zette_ui.dart';
 
 // class InfiniteScrollList<T extends Identifiable> extends StatefulWidget {
 //   InfiniteScrollList({

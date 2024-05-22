@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ds_utils/ds_utils.dart';
+import 'package:zette_utils/zette_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:ms_map_utils/ms_map_utils.dart' show diff;

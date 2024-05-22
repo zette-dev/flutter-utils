@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ds_ui/src/formatters.dart';
+import 'package:zette_ui/src/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 

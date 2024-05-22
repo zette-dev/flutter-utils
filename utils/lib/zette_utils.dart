@@ -1,4 +1,4 @@
-library ds_utils;
+library zette_utils;
 
 export 'src/collection_extensions.dart';
 export 'src/common_enums.dart';

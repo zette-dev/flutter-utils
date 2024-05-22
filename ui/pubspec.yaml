@@ -1,4 +1,4 @@
-name: ds_ui
+name: zette_ui
 description: A set of useful functions and libraries used in almost all Zette flutter apps.
 version: 0.0.4+1
 homepage: https://zette.dev
@@ -11,7 +11,7 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   dio: ^5.4.3+1
-  ds_utils:
+  zette_utils:
     git:
       url: https://github.com/zette-dev/flutter-utils.git
       ref: dev

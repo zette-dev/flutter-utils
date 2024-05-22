@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../ds_ui.dart';
+import '../../zette_ui.dart';
 
 class TextDisplayLarge extends TextWidget {
   TextDisplayLarge(

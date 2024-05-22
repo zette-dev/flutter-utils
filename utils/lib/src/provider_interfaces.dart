@@ -1,4 +1,4 @@
-import 'package:ds_utils/ds_utils.dart';
+import 'package:zette_utils/zette_utils.dart';
 
 mixin ListProviderInterface<T extends SearchObject> {
   List<T> get data;

@@ -1,4 +1,4 @@
-import 'package:ds_ui/ds_ui.dart';
+import 'package:zette_ui/zette_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

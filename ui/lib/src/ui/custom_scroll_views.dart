@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../ds_ui.dart';
+import '../../zette_ui.dart';
 
 final ScrollPhysics alwaysBouncingScrollPhysics = BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
 

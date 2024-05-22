@@ -1,4 +1,4 @@
-import 'package:ds_ui/src/extensions.dart';
+import 'package:zette_ui/src/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

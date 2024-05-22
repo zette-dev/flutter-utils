@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:ds_ui/ds_ui.dart';
+import 'package:zette_ui/zette_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui show lerpDouble;
 
-import 'package:ds_ui/ds_ui.dart';
+import 'package:zette_ui/zette_ui.dart';
 import 'package:flutter/material.dart';
 
 class LayoutThemeExtension extends ThemeExtension<LayoutThemeExtension> {
