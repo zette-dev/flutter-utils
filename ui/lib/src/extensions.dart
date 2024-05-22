@@ -90,7 +90,7 @@ extension ThemeExt on BuildContext {
 
 extension MediaDatExt on BuildContext {
   MediaQueryData mediaData() => MediaQuery.of(this);
-  Size screenSize() => mediaData().size;
+  Size screenSize() => MediaQuery.sizeOf(this);
   TextScaler textScaler() => mediaData().textScaler;
   EdgeInsets padding() => mediaData().padding;
   EdgeInsets viewInsets() => mediaData().viewInsets;
