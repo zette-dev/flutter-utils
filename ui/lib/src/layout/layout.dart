@@ -1,6 +1,6 @@
-import 'package:zette_ui/zette_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:zette_ui/zette_ui.dart';
 
 part 'layout.freezed.dart';
 

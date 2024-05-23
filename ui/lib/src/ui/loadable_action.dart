@@ -1,6 +1,6 @@
-import 'package:zette_ui/src/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:zette_ui/src/extensions.dart';
 
 class LoadableAction<T> extends StatefulWidget {
   const LoadableAction({

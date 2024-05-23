@@ -1,5 +1,5 @@
-import 'package:zette_ui/src/ui/animated_card_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:zette_ui/src/ui/animated_card_navigator.dart';
 
 class PinKeyboard extends StatelessWidget {
   final Function(String) onPressedKey;

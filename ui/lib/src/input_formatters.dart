@@ -1,5 +1,5 @@
-import 'package:zette_ui/src/formatters.dart';
 import 'package:flutter/services.dart';
+import 'package:zette_ui/src/formatters.dart';
 
 class MaskedTextInputFormatter extends TextInputFormatter {
   final String mask;

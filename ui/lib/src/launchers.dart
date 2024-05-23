@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:zette_ui/src/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:zette_ui/src/formatters.dart';
 
 Future makeCall(String phoneNumber) async {
   // Strips out extensions

@@ -193,15 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.3+1"
-  zette_utils:
-    dependency: "direct main"
-    description:
-      path: utils
-      ref: dev
-      resolved-ref: "9b1df8aca031798ab46edc58e0dec0cb2bab479b"
-      url: "https://github.com/zette-dev/flutter-utils.git"
-    source: git
-    version: "1.0.0"
   ffi:
     dependency: transitive
     description:
@@ -653,18 +644,18 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "360a6ed2027f18b73c8d98e159dda67a61b7f2e0f6ec26e86c3ada33b0621775"
+      sha256: "17cd5e205ea615e2c6ea7a77323a11712dffa0720a8a90540db57a01347f9ad9"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   url_launcher_ios:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: "9149d493b075ed740901f3ee844a38a00b33116c7c5c10d7fb27df8987fb51d5"
+      sha256: "7068716403343f6ba4969b4173cbf3b84fc768042124bc2c011e5d782b24fe89"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.5"
+    version: "6.3.0"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -677,10 +668,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_macos
-      sha256: b7244901ea3cf489c5335bdacda07264a6e960b1c1b1a9f91e4bc371d9e68234
+      sha256: "9a1a42d5d2d95400c795b2914c36fdcb525870c752569438e4ebb09a2b5d90de"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -761,6 +752,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  zette_utils:
+    dependency: "direct main"
+    description:
+      path: utils
+      ref: dev
+      resolved-ref: "26b734a1097b84b8bae8841b32ac37c89b462590"
+      url: "https://github.com/zette-dev/flutter-utils.git"
+    source: git
+    version: "1.0.0"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.6"

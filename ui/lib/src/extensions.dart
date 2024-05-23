@@ -2,9 +2,9 @@
 
 import 'dart:convert';
 
-import 'package:zette_ui/zette_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zette_ui/zette_ui.dart';
 
 extension WidgetExtensions on Widget {
   Widget centered() => Center(child: this);
