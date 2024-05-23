@@ -22,14 +22,24 @@ class LayoutThemeExtension extends ThemeExtension<LayoutThemeExtension> {
     }
     return LayoutThemeExtension(
       layoutData: LayoutData(
-        phoneScreenBreakpoint: ui.lerpDouble(
-          layoutData.phoneScreenBreakpoint,
-          other.layoutData.phoneScreenBreakpoint,
+        compactScreen: ui.lerpDouble(
+          layoutData.compactScreen,
+          other.layoutData.compactScreen,
           t,
         )!,
-        mobileScreenBreakpoint: ui.lerpDouble(
-          layoutData.mobileScreenBreakpoint,
-          other.layoutData.mobileScreenBreakpoint,
+        mediumScreen: ui.lerpDouble(
+          layoutData.mediumScreen,
+          other.layoutData.mediumScreen,
+          t,
+        )!,
+        expandedScreen: ui.lerpDouble(
+          layoutData.expandedScreen,
+          other.layoutData.expandedScreen,
+          t,
+        )!,
+        largeScreen: ui.lerpDouble(
+          layoutData.largeScreen,
+          other.layoutData.largeScreen,
           t,
         )!,
       ),

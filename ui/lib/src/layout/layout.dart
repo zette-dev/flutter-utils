@@ -13,9 +13,9 @@ class Layout with _$Layout {
   factory Layout.of(BuildContext context) => Layout.fromSize(context.screenSize().width);
   factory Layout.fromSize(double width, [LayoutData? data]) {
     data ??= const LayoutData();
-    if (width <= data.phoneScreenBreakpoint) {
+    if (width <= data.mediumScreen) {
       return Layout.mobile();
-    } else if (width <= data.mobileScreenBreakpoint) {
+    } else if (width <= data.expandedScreen) {
       return Layout.tablet();
     } else {
       return Layout.desktop();
@@ -41,8 +41,10 @@ class Layout with _$Layout {
 @freezed
 class LayoutData with _$LayoutData {
   const factory LayoutData({
-    @Default(940.0) double phoneScreenBreakpoint,
-    @Default(1050.0) double mobileScreenBreakpoint,
+    @Default(600.0) double compactScreen,
+    @Default(840.0) double mediumScreen,
+    @Default(1200.0) double expandedScreen,
+    @Default(1600.0) double largeScreen,
   }) = _LayoutData;
   const LayoutData._();
 
