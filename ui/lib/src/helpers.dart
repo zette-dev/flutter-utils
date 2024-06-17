@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/widgets.dart';
 
 bool isTablet(BuildContext context) {
-  var shortestSide = MediaQuery.of(context).size.shortestSide;
+  var shortestSide = MediaQuery.sizeOf(context).shortestSide;
   var useMobileLayout = shortestSide < 600;
   return !useMobileLayout;
 }
