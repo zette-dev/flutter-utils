@@ -33,3 +33,13 @@ String _getOnlyNumbers(String text) {
 }
 
 final NumberFormat percentageFormatter = NumberFormat.percentPattern();
+
+String? formatAudioDuration(Duration? duration) {
+  if (duration == null) return null;
+  String output = duration.toString().split('.').first.padLeft(8, '0');
+  if (output.startsWith('00:')) {
+    output = output.substring(3);
+  }
+
+  return output;
+}
