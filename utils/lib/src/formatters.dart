@@ -1,4 +1,3 @@
-
 const _digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
 extension StringFormatting on String {
@@ -75,7 +74,15 @@ String? emailValidator(String? emailInput, {bool isRequired = false, String erro
   return !_emailRegex.hasMatch(emailInput!) ? errorMessage : null;
 }
 
-
+String? validateRequired(String? s, {String errorMessage = 'Required Field', bool trim = true}) {
+  if (s == null) {
+    return errorMessage;
+  } else if (trim) {
+    return s.trim().isEmpty ? errorMessage : null;
+  } else {
+    return s.isEmpty ? errorMessage : null;
+  }
+}
 
 double parseDouble(dynamic value) {
   if (value is int) {
@@ -86,4 +93,3 @@ double parseDouble(dynamic value) {
     return value;
   }
 }
-
