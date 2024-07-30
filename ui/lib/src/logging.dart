@@ -15,7 +15,9 @@ final logger = Logger(
     colors: false,
     printTime: false,
   ),
-  filter: kReleaseMode ? ProductionFilter() : DevelopmentFilter(),
+  filter: DevelopmentFilter(),
+
+  // filter: kReleaseMode ? ProductionFilter() : DevelopmentFilter(),
 );
 
 class _LogOutput extends LogOutput {
@@ -25,9 +27,9 @@ class _LogOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    if (kDebugMode) {
-      event.lines.forEach(debugPrint);
-    }
+    // if (kDebugMode) {
+    event.lines.forEach(print);
+    // }
 
     final LogEvent record = event.origin;
     Map<String, dynamic> hintData = {
