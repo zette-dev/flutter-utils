@@ -213,6 +213,60 @@ class ScrollLayout extends StatefulWidget {
         )),
       );
 
+  factory ScrollLayout.dynamicGrid({
+    ScrollableAppBarBehavior? appBarBehavior,
+    RefreshCallback? onRefresh,
+    WidgetBuilder? errorBuilder,
+    WidgetBuilder? emptyBuilder,
+    WidgetBuilder? loadMoreBuilder,
+    List<Widget>? beforeSlivers,
+    List<Widget>? afterSlivers,
+    List<Widget>? overlays,
+    EdgeInsetsGeometry? bodyPadding,
+    bool? shrinkWrap,
+    ScrollController? scrollController,
+    ScrollPhysics? scrollPhysics,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    bool Function()? isLoading,
+    bool Function()? hasData,
+    bool Function()? hasError,
+    required IndexedWidgetBuilder builder,
+    required int itemCount,
+    int crossAxisCount = 2,
+    double childAspectRatio = 1.5,
+  }) =>
+      ScrollLayout(
+        appBarBehavior: appBarBehavior,
+        onRefresh: onRefresh,
+        onLoadMore: null, // fixed lists won't load more
+        shouldLoadMore: null,
+        canLoadMore: null,
+        errorBuilder: errorBuilder,
+        emptyBuilder: emptyBuilder,
+        loadMoreBuilder: loadMoreBuilder,
+        beforeSlivers: beforeSlivers,
+        afterSlivers: afterSlivers,
+        overlays: overlays,
+        keyboardDismissBehavior: keyboardDismissBehavior,
+        bodyPadding: bodyPadding,
+        shrinkWrap: shrinkWrap,
+        scrollController: scrollController,
+        scrollPhysics: scrollPhysics,
+        isLoading: isLoading,
+        hasData: hasData,
+        hasError: hasError,
+        sliver: SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+            builder,
+            childCount: itemCount,
+          ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            childAspectRatio: childAspectRatio,
+          ),
+        ),
+      );
+
   factory ScrollLayout.infiniteList({
     ScrollableAppBarBehavior? appBarBehavior,
     RefreshCallback? onRefresh,
