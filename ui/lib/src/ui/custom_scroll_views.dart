@@ -234,6 +234,8 @@ class ScrollLayout extends StatefulWidget {
     required int itemCount,
     int crossAxisCount = 2,
     double childAspectRatio = 1.5,
+    double mainAxisSpacing = 5.0,
+    double crossAxisSpacing = 5.0,
   }) =>
       ScrollLayout(
         appBarBehavior: appBarBehavior,
@@ -263,6 +265,8 @@ class ScrollLayout extends StatefulWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
             childAspectRatio: childAspectRatio,
+            mainAxisSpacing: mainAxisSpacing,
+            crossAxisSpacing: crossAxisSpacing,
           ),
         ),
       );
