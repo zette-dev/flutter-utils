@@ -7,7 +7,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:zette_utils/zette_utils.dart';
 
-const kLogLevel = Level.all;
+const kLogLevel = Level.info;
 final logger = Logger(
   level: kLogLevel,
   output: _LogOutput(),
