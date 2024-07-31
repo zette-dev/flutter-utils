@@ -77,7 +77,7 @@ extension ListOfListMethods<T> on List<List<T>> {
       ? reduce((l1, l2) {
           for (var item in l2) {
             if (!l1.contains(item)) {
-              l1.add(item);
+              l1 = [...l1, item];
             }
           }
 
