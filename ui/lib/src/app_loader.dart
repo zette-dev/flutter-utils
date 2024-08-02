@@ -74,7 +74,8 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
                 final initFuture = preLaunchInit(ref);
                 return FutureBuilder(
                   future: initFuture,
-                  builder: (context, snapshot) => snapshot.hasData ? child! : loadingBuilder(),
+                  builder: (context, snapshot) =>
+                      snapshot.connectionState == ConnectionState.done ? child! : loadingBuilder(),
                 );
               },
               child: appBuilder(),
