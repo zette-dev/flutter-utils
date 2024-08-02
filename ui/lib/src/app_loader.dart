@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:zette_ui/zette_ui.dart';
 
 part 'app_loader.g.dart';
 
@@ -58,7 +59,11 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
         config.buildNumber,
         runner: () => runApp(
           ProviderScope(
+            key: UniqueKey(),
             overrides: providerOverrides,
+            observers: [
+              ProviderLogger(logger),
+            ],
             child: Consumer(
               builder: (context, ref, child) {
                 final initFuture = initialize(ref);
