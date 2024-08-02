@@ -54,7 +54,10 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
         config.buildName,
         config.buildVersion,
         config.buildNumber,
-        runner: () => runApp(appBuilder()),
+        runner: () async {
+          await initialize();
+          return runApp(appBuilder());
+        },
       );
 }
 
