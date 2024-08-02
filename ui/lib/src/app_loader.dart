@@ -45,7 +45,7 @@ mixin EnvConfigData {
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
-  Future initialize();
+  Future initialize(ProviderContainer container);
   Future preload(BuildContext context, WidgetRef ref);
   Widget appBuilder();
   Future<void>? runGuarded() => initSentry(
@@ -55,8 +55,14 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
         config.buildVersion,
         config.buildNumber,
         runner: () async {
-          await initialize();
-          return runApp(appBuilder());
+          final container = ProviderContainer();
+          await initialize(container);
+          return runApp(
+            UncontrolledProviderScope(
+              container: container,
+              child: appBuilder(),
+            ),
+          );
         },
       );
 }
