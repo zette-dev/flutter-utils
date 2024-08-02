@@ -45,7 +45,8 @@ mixin EnvConfigData {
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
-  Future init(BuildContext context, WidgetRef ref);
+  Future initialize();
+  Future preload(BuildContext context, WidgetRef ref);
   Widget appBuilder();
   Future<void>? runGuarded() => initSentry(
         config.sentryDsn,
@@ -76,7 +77,8 @@ abstract class BaseMobileAppLoader<C extends EnvConfigData> extends AppLoader<C>
 }
 
 mixin SentryInitializer {
-  Future<void> initSentry(String? dns, AppEnvironment env, String buildName, String release, String buildNumber, {required AppRunner runner}) {
+  Future<void> initSentry(String? dns, AppEnvironment env, String buildName, String release, String buildNumber,
+      {required AppRunner runner}) {
     if (dns != null && !kDebugMode) {
       return SentryFlutter.init(
         (options) {
