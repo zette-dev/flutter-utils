@@ -47,8 +47,13 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
   List<Override> get providerOverrides;
-  Future initialize(WidgetRef ref);
-  Future preload(BuildContext context, WidgetRef ref);
+
+  /// Initialize the app before launching any UI
+  Future preLaunchInit(WidgetRef ref);
+
+  /// Initialize the app after launching the UI
+  /// Commonly used for loading session data
+  Future postLaunchInit(BuildContext context, WidgetRef ref);
   Widget appBuilder();
   Widget loadingBuilder();
   Future<void>? runGuarded() => initSentry(
@@ -66,7 +71,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
             ],
             child: Consumer(
               builder: (context, ref, child) {
-                final initFuture = initialize(ref);
+                final initFuture = preLaunchInit(ref);
                 return FutureBuilder(
                   future: initFuture,
                   builder: (context, snapshot) => snapshot.hasData ? child! : loadingBuilder(),
