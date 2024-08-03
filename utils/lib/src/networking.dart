@@ -186,6 +186,7 @@ class HTTPRequest {
     Future Function()? refreshAuth,
     Duration? sendTimeout,
     Duration? receiveTimeout,
+    Options Function(Options options)? requestOptions,
   }) async {
     var options = Options(
       headers: headers,
@@ -197,6 +198,8 @@ class HTTPRequest {
       receiveTimeout: receiveTimeout,
       extra: _extras,
     );
+
+    options = requestOptions?.call(options) ?? options;
 
     Future<Response> response = client.request(
       path,
@@ -253,8 +256,9 @@ class HTTPRequest {
     List<int> successCodes = const [200],
     required Future<T> Function(dynamic, int) onSuccess,
     ApiResponseError Function(ApiResponseError)? onError,
+    Options Function(Options options)? requestOptions,
   }) {
-    return execute(client).then((response) async {
+    return execute(client, requestOptions: requestOptions).then((response) async {
       if (successCodes.contains(response.statusCode)) {
         return onSuccess(response.data, response.statusCode!);
       } else {
