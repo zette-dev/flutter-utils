@@ -324,14 +324,19 @@ final $apiAuthHeadersProvider = StateProvider<Map<String, String>>(
   name: 'ApiAuthHeaders',
 );
 
+final $dioClientOptionsProvider = Provider<BaseOptions>(
+  (ref) => BaseOptions(
+    contentType: 'application/json',
+    responseType: ResponseType.json,
+  ),
+);
+
 final $dioClientProvider = Provider.family<Dio, String>(
   (ref, baseUrl) {
     final client = Dio()
-      ..options = BaseOptions(
-        baseUrl: 'https://$baseUrl',
-        contentType: 'application/json',
-        responseType: ResponseType.json,
-      )
+      ..options = ref.read($dioClientOptionsProvider).copyWith(
+            baseUrl: 'https://$baseUrl',
+          )
       ..transformer = BackgroundTransformer()
       ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
         final authHeaders = ref.read($apiAuthHeadersProvider);
@@ -360,5 +365,6 @@ final $dioClientProvider = Provider.family<Dio, String>(
   },
   dependencies: [
     $apiAuthHeadersProvider,
+    $dioClientOptionsProvider,
   ],
 );
