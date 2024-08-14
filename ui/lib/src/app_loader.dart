@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:zette_ui/zette_ui.dart';
+import 'package:zette_utils/zette_utils.dart';
 import 'package:zette_utils/zette_utils.dart' show EnvConfigData, AppEnvironment;
 
 

@@ -19,8 +19,6 @@ dependencies:
   go_router: ^14.2.3
   intl: ^0.19.0
   local_auth: ^2.3.0
-  logger: ^2.4.0
-  ms_map_utils: ^1.1.0
   sentry_flutter: ^8.7.0
   url_launcher: ^6.3.0
   zette_utils:

@@ -11,7 +11,6 @@ export 'src/input_formatters.dart';
 export 'src/launchers.dart';
 export 'src/layout/layout.dart';
 export 'src/layout/layout_theme_extension.dart';
-export 'src/logging.dart';
 export 'src/providers/biometrics_provider.dart';
 export 'src/providers/deep_links_provider.dart';
 export 'src/providers/default_target_platform_provider.dart';

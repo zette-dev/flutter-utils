@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:ms_map_utils/ms_map_utils.dart' show diff;
 import 'package:riverpod/riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry/sentry.dart';
 import 'package:zette_utils/zette_utils.dart';
 
 const kLogLevel = Level.info;
@@ -108,7 +107,7 @@ class ProviderLogger extends ProviderObserver {
         log.d('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.d('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Serializable` to see state diff');
+      log.d('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Loggable` to see state diff');
     }
   }
 
@@ -129,4 +128,23 @@ class ProviderLogger extends ProviderObserver {
 
 mixin Loggable {
   Map<String, dynamic> toLog();
+}
+
+
+bool mapEquals<T, U>(Map<T, U>? a, Map<T, U>? b) {
+  if (a == null) {
+    return b == null;
+  }
+  if (b == null || a.length != b.length) {
+    return false;
+  }
+  if (identical(a, b)) {
+    return true;
+  }
+  for (final T key in a.keys) {
+    if (!b.containsKey(key) || b[key] != a[key]) {
+      return false;
+    }
+  }
+  return true;
 }

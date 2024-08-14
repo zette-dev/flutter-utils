@@ -10,3 +10,4 @@ export 'src/search.dart';
 export 'src/enums.dart';
 export 'src/environment.dart';
 export 'src/provider_interfaces.dart';
+export 'src/logging.dart';
