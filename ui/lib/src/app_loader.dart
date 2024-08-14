@@ -7,41 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:zette_ui/zette_ui.dart';
 
 part 'app_loader.g.dart';
-
-const _$AppEnvironmentEnumValueMap = {
-  'development': AppEnvironment.development,
-  'staging': AppEnvironment.staging,
-  'production': AppEnvironment.production,
-  'automation': AppEnvironment.automation,
-};
-
-@JsonEnum(alwaysCreate: true)
-enum AppEnvironment {
-  development,
-  staging,
-  production,
-  automation;
-
-  static AppEnvironment? fromString(String value) => _$AppEnvironmentEnumValueMap[value];
-}
-
-final $envProvider = Provider<EnvConfigData?>(
-  (ref) => null,
-  name: 'AppEnvProvider',
-);
-
-mixin EnvConfigData {
-  AppEnvironment get environment;
-  String? get sentryDsn;
-  String get buildName;
-  String get buildVersion;
-  String get buildNumber;
-}
 
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);

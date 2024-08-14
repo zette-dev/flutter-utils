@@ -8,4 +8,5 @@ export 'src/formatters.dart';
 export 'src/networking.dart';
 export 'src/search.dart';
 export 'src/enums.dart';
+export 'src/environment.dart';
 export 'src/provider_interfaces.dart';

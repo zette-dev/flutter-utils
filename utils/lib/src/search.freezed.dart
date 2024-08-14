@@ -20,7 +20,9 @@ mixin _$SearchParam<T> {
   SearchFilter<T>? get filter => throw _privateConstructorUsedError;
   List<T> get additionalItems => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchParamCopyWith<T, SearchParam<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$SearchParamCopyWithImpl<T, $Res, $Val extends SearchParam<T>>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SearchParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$SearchParamImplCopyWithImpl<T, $Res>
       _$SearchParamImpl<T> _value, $Res Function(_$SearchParamImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchParam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -153,7 +159,9 @@ class _$SearchParamImpl<T> implements _SearchParam<T> {
   int get hashCode => Object.hash(runtimeType, query, filter,
       const DeepCollectionEquality().hash(_additionalItems));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchParam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchParamImplCopyWith<T, _$SearchParamImpl<T>> get copyWith =>
@@ -173,8 +181,11 @@ abstract class _SearchParam<T> implements SearchParam<T> {
   SearchFilter<T>? get filter;
   @override
   List<T> get additionalItems;
+
+  /// Create a copy of SearchParam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchParamImplCopyWith<T, _$SearchParamImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
