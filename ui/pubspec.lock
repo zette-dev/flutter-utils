@@ -218,10 +218,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "99e066ce75c89d6b29903d788a7bb9369cf754f7b24bf70bf4b6d6d6b26853b9"
+      sha256: "7856d364b589d1f08986e140938578ed36ed948581fbc3bc9aef1805039ac5ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.6"
+    version: "2.3.7"
   dio:
     dependency: "direct main"
     description:
@@ -874,7 +874,7 @@ packages:
     description:
       path: utils
       ref: dev
-      resolved-ref: d797710a49c0e0af41ed6e1cbac0f35aaada830f
+      resolved-ref: e684af117810413f5831942eaca35a0cf5fb7ece
       url: "https://github.com/zette-dev/flutter-utils.git"
     source: git
     version: "1.0.0"
