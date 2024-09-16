@@ -335,11 +335,11 @@ final $dioClientOptionsProvider = Provider<BaseOptions>(
   ),
 );
 
-final $dioClientProvider = Provider.family<Dio, String>(
-  (ref, baseUrl) {
+final $dioClientProvider = Provider.family<Dio, (String, String)>(
+  (ref, schemeAndBaseUrl) {
     final client = Dio()
       ..options = ref.read($dioClientOptionsProvider).copyWith(
-            baseUrl: 'https://$baseUrl',
+            baseUrl: '${schemeAndBaseUrl.$1}://${schemeAndBaseUrl.$2}',
           )
       ..transformer = BackgroundTransformer()
       ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {

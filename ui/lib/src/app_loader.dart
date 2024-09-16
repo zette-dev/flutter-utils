@@ -2,14 +2,12 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:zette_utils/zette_utils.dart';
-import 'package:zette_utils/zette_utils.dart' show EnvConfigData, AppEnvironment;
+import 'package:zette_utils/zette_utils.dart' show EnvConfigData, AppEnvironment, ProviderLogger, logger;
 
 
 part 'app_loader.g.dart';
