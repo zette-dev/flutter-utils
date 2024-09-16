@@ -339,7 +339,7 @@ final $dioClientProvider = Provider.family<Dio, String>(
   (ref, baseUrl) {
     final client = Dio()
       ..options = ref.read($dioClientOptionsProvider).copyWith(
-            baseUrl: baseUrl,
+            baseUrl: 'https://$baseUrl',
           )
       ..transformer = BackgroundTransformer()
       ..interceptors.add(InterceptorsWrapper(onRequest: ((options, handler) {
@@ -351,17 +351,6 @@ final $dioClientProvider = Provider.family<Dio, String>(
           },
         );
         return handler.next(options);
-      }), onError: ((DioException e, handler) async {
-        if (e.response != null) {
-          switch (e.response?.statusCode) {
-            case 401:
-              return handler.reject(e.copyWith(error: UnauthorizedRequestError()));
-            default:
-              return handler.reject(e);
-          }
-        }
-
-        return handler.reject(e);
       })))
       ..addSentry();
 
