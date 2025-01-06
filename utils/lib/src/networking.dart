@@ -104,7 +104,6 @@ class HTTPRequest {
       case HTTPRequestMethod.patch:
         return 'PATCH';
       case HTTPRequestMethod.get:
-      default:
         return 'GET';
     }
   }
