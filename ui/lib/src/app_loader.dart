@@ -9,9 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:zette_utils/zette_utils.dart' show EnvConfigData, AppEnvironment, ProviderLogger, logger;
 
-
-part 'app_loader.g.dart';
-
 abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;

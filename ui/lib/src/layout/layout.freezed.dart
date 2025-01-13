@@ -77,6 +77,9 @@ class _$LayoutCopyWithImpl<$Res, $Val extends Layout>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of Layout
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -93,6 +96,9 @@ class __$$MobileImplCopyWithImpl<$Res>
   __$$MobileImplCopyWithImpl(
       _$MobileImpl _value, $Res Function(_$MobileImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of Layout
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -202,6 +208,9 @@ class __$$DesktopImplCopyWithImpl<$Res>
   __$$DesktopImplCopyWithImpl(
       _$DesktopImpl _value, $Res Function(_$DesktopImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of Layout
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -311,6 +320,9 @@ class __$$TabletImplCopyWithImpl<$Res>
   __$$TabletImplCopyWithImpl(
       _$TabletImpl _value, $Res Function(_$TabletImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of Layout
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -413,7 +425,9 @@ mixin _$LayoutData {
   double get expandedScreen => throw _privateConstructorUsedError;
   double get largeScreen => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LayoutData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LayoutDataCopyWith<LayoutData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -441,6 +455,8 @@ class _$LayoutDataCopyWithImpl<$Res, $Val extends LayoutData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LayoutData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -493,6 +509,8 @@ class __$$LayoutDataImplCopyWithImpl<$Res>
       _$LayoutDataImpl _value, $Res Function(_$LayoutDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LayoutData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -569,7 +587,9 @@ class _$LayoutDataImpl extends _LayoutData {
   int get hashCode => Object.hash(
       runtimeType, compactScreen, mediumScreen, expandedScreen, largeScreen);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LayoutData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>
@@ -592,8 +612,11 @@ abstract class _LayoutData extends LayoutData {
   double get expandedScreen;
   @override
   double get largeScreen;
+
+  /// Create a copy of LayoutData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayoutDataImplCopyWith<_$LayoutDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

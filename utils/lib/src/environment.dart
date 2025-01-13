@@ -3,18 +3,20 @@
 import 'package:riverpod/riverpod.dart';
 
 const _$AppEnvironmentEnumValueMap = {
-  'development': AppEnvironment.development,
+  'development': AppEnvironment.dev,
+  'dev': AppEnvironment.dev,
   'staging': AppEnvironment.staging,
   'qa': AppEnvironment.qa,
-  'production': AppEnvironment.production,
+  'production': AppEnvironment.prod,
+  'prod': AppEnvironment.prod,
   'automation': AppEnvironment.automation,
 };
 
 enum AppEnvironment {
-  development,
+  dev,
   staging,
   qa,
-  production,
+  prod,
   automation;
 
   static AppEnvironment? fromString(String value) => _$AppEnvironmentEnumValueMap[value];
