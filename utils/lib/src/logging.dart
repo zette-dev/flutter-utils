@@ -17,7 +17,7 @@ final logger = Logger(
   filter: ProductionFilter(),
 );
 
-bool get kDebugMode {
+bool get _kDebugMode {
   var isDebugMode = false;
   assert(() {
     isDebugMode = true;
@@ -34,7 +34,7 @@ class _LogOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     // Only print logs in debug mode
-    if (kDebugMode) {
+    if (_kDebugMode) {
       event.lines.forEach(print);
       return;
     }
