@@ -14,10 +14,17 @@ final logger = Logger(
     colors: false,
     printTime: false,
   ),
-  filter: DevelopmentFilter(),
-
-  // filter: kReleaseMode ? ProductionFilter() : DevelopmentFilter(),
+  filter: ProductionFilter(),
 );
+
+bool get kDebugMode {
+  var isDebugMode = false;
+  assert(() {
+    isDebugMode = true;
+    return true;
+  }());
+  return isDebugMode;
+}
 
 class _LogOutput extends LogOutput {
   _LogOutput() {
@@ -26,9 +33,11 @@ class _LogOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    // if (kDebugMode) {
-    event.lines.forEach(print);
-    // }
+    // Only print logs in debug mode
+    if (kDebugMode) {
+      event.lines.forEach(print);
+      return;
+    }
 
     final LogEvent record = event.origin;
     Map<String, dynamic> hintData = {
@@ -129,7 +138,6 @@ class ProviderLogger extends ProviderObserver {
 mixin Loggable {
   Map<String, dynamic> toLog();
 }
-
 
 bool mapEquals<T, U>(Map<T, U>? a, Map<T, U>? b) {
   if (a == null) {
