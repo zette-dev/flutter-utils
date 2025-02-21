@@ -3,8 +3,10 @@
 import 'package:riverpod/riverpod.dart';
 
 const _$AppEnvironmentEnumValueMap = {
-  'development': AppEnvironment.dev,
-  'dev': AppEnvironment.dev,
+  'development': AppEnvironment.dev1,
+  'dev': AppEnvironment.dev1,
+  'dev1': AppEnvironment.dev1,
+  'dev2': AppEnvironment.dev2,
   'staging': AppEnvironment.staging,
   'qa': AppEnvironment.qa,
   'production': AppEnvironment.prod,
@@ -13,7 +15,8 @@ const _$AppEnvironmentEnumValueMap = {
 };
 
 enum AppEnvironment {
-  dev,
+  dev1,
+  dev2,
   staging,
   qa,
   prod,
