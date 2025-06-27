@@ -12,12 +12,12 @@ dependencies:
   dio: ^5.8.0+1
   freezed_annotation: ^3.0.0
   intl: ^0.20.2
-  logger: ^2.5.0
+  logger: ^2.6.0
   ms_map_utils: ^1.1.0
   riverpod: ^2.6.1
   rxdart: ^0.28.0
-  sentry: ^9.0.0
-  sentry_dio: ^9.0.0
+  sentry: ^9.1.0
+  sentry_dio: ^9.1.0
   uuid: ^4.5.1
 
 dev_dependencies:
