@@ -8,9 +8,9 @@ String numberValueAsString(String text, {int precision = 0}) {
       parts.insert(parts.length - precision, '.');
     } else if (parts.length < precision) {
       final diff = precision - parts.length;
-      List.generate(diff, (index) => index).forEach(
-        (element) => parts.insert(0, element.toString()),
-      );
+      for (var element in List.generate(diff, (index) => index)) {
+        parts.insert(0, element.toString());
+      }
       parts.insert(0, '.');
     } else if (parts.length == precision) {
       parts.insert(0, '0.');
@@ -35,7 +35,9 @@ String _getOnlyNumbers(String text) {
 final NumberFormat percentageFormatter = NumberFormat.percentPattern();
 
 String? formatAudioDuration(Duration? duration) {
-  if (duration == null) return null;
+  if (duration == null) {
+    return null;
+  }
   String output = duration.toString().split('.').first.padLeft(8, '0');
   if (output.startsWith('00:')) {
     output = output.substring(3);

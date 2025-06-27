@@ -33,7 +33,7 @@ extension MapMethods<K, T> on Map {
 
   Map<K, T> filterOutNullsOrEmpty() => <K, T>{
     for (var entry in entries)
-      if (entry.value != null && entry.value is! Map && entry.value is! Iterable) ...{
+      if (entry.value != null && entry.value is! Map && entry.value is! Iterable && entry.value is! String) ...{
         entry.key: entry.value,
       } else if (entry.value is Map && (entry.value as Map).isNotEmpty) ...{
         entry.key: entry.value as T,
@@ -62,8 +62,10 @@ extension NullListMethods<T> on List<T?> {
 }
 
 extension ListMethods<T> on List<T> {
-  Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) => fold(<K, List<T>>{},
-      (Map<K, List<T>> map, T element) => map..putIfAbsent(keyFunction(element), () => <T>[]).add(element));
+  Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) => fold(
+    <K, List<T>>{},
+    (Map<K, List<T>> map, T element) => map..putIfAbsent(keyFunction(element), () => <T>[]).add(element),
+  );
 }
 
 extension IterableMethods<T> on Iterable<T> {
@@ -72,39 +74,38 @@ extension IterableMethods<T> on Iterable<T> {
 }
 
 extension ListOfListMethods<T> on List<List<T>> {
-  List<T> flatten() => isNotEmpty
-      ? reduce((l1, l2) {
-          for (var item in l2) {
-            if (!l1.contains(item)) {
-              l1 = [...l1, item];
+  List<T> flatten() =>
+      isNotEmpty
+          ? reduce((l1, l2) {
+            for (var item in l2) {
+              if (!l1.contains(item)) {
+                l1 = [...l1, item];
+              }
             }
-          }
 
-          return l1;
-        })
-      : <T>[];
+            return l1;
+          })
+          : <T>[];
 }
 
 extension IdentifiableListMethods<K, T extends Identifiable<K>> on List<T> {
-  List<T> merge({
-    MergeDirection? direction,
-    required List<T> newList,
-  }) {
+  List<T> merge({MergeDirection? direction, required List<T> newList}) {
     if (direction == null || direction == MergeDirection.replace) {
       return newList;
     } else {
       Map<K, T> _indexedNew = Map<K, T>.from(newList.index());
 
       // Replace any existing items in the initialList
-      List<T> _updatedList = map((e) {
-        T? _obj = _indexedNew[e.id];
-        if (_obj == null) {
-          return e;
-        } else {
-          _indexedNew.remove(e.id);
-          return _obj;
-        }
-      }).toList();
+      List<T> _updatedList =
+          map((e) {
+            T? _obj = _indexedNew[e.id];
+            if (_obj == null) {
+              return e;
+            } else {
+              _indexedNew.remove(e.id);
+              return _obj;
+            }
+          }).toList();
 
       if (direction == MergeDirection.append) {
         _updatedList.addAll(_indexedNew.values);
@@ -119,11 +120,7 @@ extension IdentifiableListMethods<K, T extends Identifiable<K>> on List<T> {
 
 extension IdentifiableIterableMethods<K, T extends Identifiable<K>> on Iterable<T> {
   Map<K, T> index({List<T>? merge}) {
-    return Map<K, T>.fromIterable(
-      [...this, ...(merge ?? [])],
-      key: (item) => item.id,
-      value: (item) => item,
-    );
+    return Map<K, T>.fromIterable([...this, ...(merge ?? [])], key: (item) => item.id, value: (item) => item);
   }
 }
 
@@ -147,10 +144,10 @@ Future<List<T>> mergeFuturesList<T>(List<Future<List<T>>> futures, {int Function
 
 extension FutureListExtension<T> on List<Future<List<T>>> {
   Future<List<T>> mergeFuturesList({int Function(T, T)? sorter}) => Future.wait(this).then((list) {
-        final _combined = list.flatten().toList();
-        if (sorter != null && _combined.isNotEmpty) {
-          _combined.sort(sorter);
-        }
-        return _combined;
-      });
+    final _combined = list.flatten().toList();
+    if (sorter != null && _combined.isNotEmpty) {
+      _combined.sort(sorter);
+    }
+    return _combined;
+  });
 }

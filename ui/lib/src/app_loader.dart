@@ -13,6 +13,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
   AppLoader(this.config);
   final C config;
   List<Override> get providerOverrides;
+  List<ProviderObserver> get providerObservers;
 
   /// Initialize the app before launching any UI
   Future preLaunchInit(WidgetRef ref);
@@ -34,6 +35,7 @@ abstract class AppLoader<C extends EnvConfigData> with SentryInitializer {
             overrides: providerOverrides,
             observers: [
               ProviderLogger(logger),
+              ...providerObservers,
             ],
             child: Consumer(
               builder: (context, ref, child) {
