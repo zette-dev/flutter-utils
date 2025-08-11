@@ -3,6 +3,7 @@
 import 'package:riverpod/riverpod.dart';
 
 const _$AppEnvironmentEnumValueMap = {
+  'local': AppEnvironment.local,
   'development': AppEnvironment.dev1,
   'dev': AppEnvironment.dev1,
   'dev1': AppEnvironment.dev1,
@@ -15,6 +16,7 @@ const _$AppEnvironmentEnumValueMap = {
 };
 
 enum AppEnvironment {
+  local,
   dev1,
   dev2,
   staging,
