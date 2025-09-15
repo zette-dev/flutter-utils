@@ -14,7 +14,6 @@ export 'src/providers/biometrics_provider.dart';
 export 'src/providers/deep_links_provider.dart';
 export 'src/providers/default_target_platform_provider.dart';
 export 'src/providers/root_bundle_provider.dart';
-export 'src/ref_like.dart';
 export 'src/scroll.dart';
 export 'src/service_provider.dart';
 export 'src/translations.dart';

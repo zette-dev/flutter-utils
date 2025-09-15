@@ -10,10 +10,7 @@ const kLogLevel = Level.info;
 final logger = Logger(
   level: kLogLevel,
   output: _LogOutput(),
-  printer: SimplePrinter(
-    colors: false,
-    printTime: false,
-  ),
+  printer: SimplePrinter(colors: false, printTime: false),
   filter: ProductionFilter(),
 );
 
@@ -40,10 +37,7 @@ class _LogOutput extends LogOutput {
     }
 
     final LogEvent record = event.origin;
-    Map<String, dynamic> hintData = {
-      'log_message': record.message,
-      'log_level': record.level.name,
-    };
+    Map<String, dynamic> hintData = {'log_message': record.message, 'log_level': record.level.name};
 
     if (record.level.value >= Level.error.value) {
       final Object? error = record.error;
@@ -52,59 +46,48 @@ class _LogOutput extends LogOutput {
         hintData.addAll(error.toJson());
       }
 
-      unawaited(Sentry.captureException(
-        record.error,
-        stackTrace: record.stackTrace,
-        hint: Hint.withMap(hintData),
-      ));
+      unawaited(Sentry.captureException(record.error, stackTrace: record.stackTrace, hint: Hint.withMap(hintData)));
     } else if (record.level == Level.warning) {
-      unawaited(Sentry.captureEvent(
-        SentryEvent(
-          message: SentryMessage(record.message),
-          throwable: record.error,
-          level: SentryLevel.warning,
-          timestamp: DateTime.now(),
+      unawaited(
+        Sentry.captureEvent(
+          SentryEvent(
+            message: SentryMessage(record.message),
+            throwable: record.error,
+            level: SentryLevel.warning,
+            timestamp: DateTime.now(),
+          ),
+          stackTrace: record.stackTrace,
+          hint: Hint.withMap(hintData),
         ),
-        stackTrace: record.stackTrace,
-        hint: Hint.withMap(hintData),
-      ));
+      );
     } else if (record.level == Level.info) {
-      unawaited(Sentry.addBreadcrumb(
-        Breadcrumb.console(
-          message: record.message,
-          level: SentryLevel.fromName(record.level.name.toLowerCase()),
+      unawaited(
+        Sentry.addBreadcrumb(
+          Breadcrumb.console(message: record.message, level: SentryLevel.fromName(record.level.name.toLowerCase())),
+          hint: Hint.withMap(hintData),
         ),
-        hint: Hint.withMap(hintData),
-      ));
+      );
     }
   }
 }
 
-class ProviderLogger extends ProviderObserver {
+base class ProviderLogger extends ProviderObserver {
   ProviderLogger(this.log);
   final Logger log;
 
   @override
-  void didAddProvider(
-    ProviderBase provider,
-    Object? value,
-    ProviderContainer container,
-  ) =>
-      log.d('ADDED (${provider.name ?? provider.runtimeType})');
+  void didAddProvider(ProviderObserverContext context, Object? value) =>
+      log.d('ADDED (${context.provider.name ?? context.provider.runtimeType})');
 
   @override
-  void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer containers,
-  ) =>
-      log.d('DISPOSED (${provider.name ?? provider.runtimeType})');
+  void didDisposeProvider(ProviderObserverContext context) =>
+      log.d('DISPOSED (${context.provider.name ?? context.provider.runtimeType})');
 
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
     if (previousValue is Loggable && newValue is Loggable) {
       final before = previousValue.toLog();
@@ -113,22 +96,21 @@ class ProviderLogger extends ProviderObserver {
       final afterDiff = diff(before, after).filterOutNullsOrEmpty();
 
       if (!mapEquals(beforeDiff, afterDiff)) {
-        log.d('UPDATE (${provider.name ?? provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
+        log.d('UPDATE (${context.provider.name ?? context.provider.runtimeType}): BEFORE: $beforeDiff | AFTER: $afterDiff');
       }
     } else {
-      log.d('UPDATE: (${provider.name ?? provider.runtimeType}) - use `with Loggable` to see state diff');
+      log.d('UPDATE: (${context.provider.name ?? context.provider.runtimeType}) - use `with Loggable` to see state diff');
     }
   }
 
   @override
   void providerDidFail(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object error,
     StackTrace stackTrace,
-    ProviderContainer container,
   ) {
     log.e(
-      'Provider Error (${provider.name ?? provider.runtimeType}): ${error.toString()}',
+      'Provider Error (${context.provider.name ?? context.provider.runtimeType}): ${error.toString()}',
       error: error,
       stackTrace: stackTrace,
     );

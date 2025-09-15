@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart' show protected;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 abstract class ManagedStateNotifier<T> extends StateNotifier<T> {
   ManagedStateNotifier(this.ref, T state) : super(state);

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/src/framework.dart' show Override;
 import 'package:zette_ui/zette_ui.dart';
 
 extension WidgetExtensions on Widget {
@@ -12,20 +13,15 @@ extension WidgetExtensions on Widget {
   Widget expanded({bool expanded = true}) => expanded ? Expanded(child: this) : this;
 
   Widget semantic([String? identifier, String? label]) => identifier != null
-      ? Semantics(
-          key: ValueKey(identifier),
-          identifier: identifier,
-          label: label,
-          child: this,
-        )
+      ? Semantics(key: ValueKey(identifier), identifier: identifier, label: label, child: this)
       : this;
 
-  Widget paddedSides(double padding) => Padding(child: this, padding: EdgeInsets.symmetric(horizontal: padding));
+  Widget paddedSides(double padding) => Padding(
+    child: this,
+    padding: EdgeInsets.symmetric(horizontal: padding),
+  );
 
-  Widget withPadding(EdgeInsets padding) => Padding(
-        child: this,
-        padding: padding,
-      );
+  Widget withPadding(EdgeInsets padding) => Padding(child: this, padding: padding);
 
   Widget slivered({EdgeInsets? padding}) {
     Widget _sliver = SliverToBoxAdapter(child: this);
@@ -36,25 +32,18 @@ extension WidgetExtensions on Widget {
     return _sliver;
   }
 
-  Widget providerScoped({
-    List<Override> overrides = const [],
-    List<ProviderObserver> observers = const [],
-  }) =>
-      ProviderScope(
-        child: this,
-        overrides: overrides,
-        observers: observers,
-      );
+  Widget providerScoped({List<Override> overrides = const [], List<ProviderObserver> observers = const []}) =>
+      ProviderScope(child: this, overrides: overrides, observers: observers);
 }
 
 extension ContextExtensions on BuildContext {
   void popToRoot([RoutePredicate? predicate]) => Navigator.maybeOf(this, rootNavigator: true)?.popUntil((r) {
-        if (predicate != null) {
-          return predicate(r) || r.isFirst;
-        }
+    if (predicate != null) {
+      return predicate(r) || r.isFirst;
+    }
 
-        return r.isFirst;
-      });
+    return r.isFirst;
+  });
 }
 
 extension StateExtensions<T extends StatefulWidget> on State<T> {
@@ -82,7 +71,7 @@ extension ThemeExt on BuildContext {
   Layout layout() => layoutData().layoutFromContext(this);
   ThemeData theme() => Theme.of(this);
   TextTheme textTheme() => theme().textTheme;
-  InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
+  InputDecorationThemeData inputDecorationTheme() => theme().inputDecorationTheme;
 
   bool get isAndroid => theme().platform == TargetPlatform.android;
   bool get isIOS => theme().platform == TargetPlatform.iOS;

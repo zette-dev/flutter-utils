@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 import 'package:uuid/uuid.dart';
+import 'package:riverpod/legacy.dart';
 
 mixin Identifiable<T> {
   T get id;

@@ -1,5 +1,6 @@
 import 'package:app_links/app_links.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:rxdart/rxdart.dart';
 
 final $appLinksProvider = Provider<AppLinks?>((ref) => AppLinks());
