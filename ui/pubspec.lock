@@ -992,9 +992,11 @@ packages:
   zette_utils:
     dependency: "direct main"
     description:
-      path: "../utils"
-      relative: true
-    source: path
+      path: utils
+      ref: "flutter-3.35.1"
+      resolved-ref: d41614fa608464c027ee85ef54f5f121da3b494f
+      url: "https://github.com/zette-dev/flutter-utils.git"
+    source: git
     version: "1.0.0"
 sdks:
   dart: ">=3.9.0 <4.0.0"

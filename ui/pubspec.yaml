@@ -22,7 +22,10 @@ dependencies:
   sentry_flutter: ^9.6.0
   url_launcher: ^6.3.2
   zette_utils:
-    path: ../utils
+    git:
+      url: https://github.com/zette-dev/flutter-utils.git
+      ref: flutter-3.35.1
+      path: utils
 
 dev_dependencies:
   build_runner: ^2.4.15
