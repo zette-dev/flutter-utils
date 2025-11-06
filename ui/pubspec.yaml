@@ -19,7 +19,7 @@ dependencies:
   go_router: ^16.3.0
   intl: ^0.20.2
   local_auth: ^3.0.0
-  sentry_flutter: ^9.7.0
+  sentry_flutter: ^9.8.0
   url_launcher: ^6.3.2
   zette_utils:
     git:

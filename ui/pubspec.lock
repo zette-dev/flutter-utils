@@ -213,18 +213,18 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: "7caf6a750a0c04effbb52a676dce9a4a592e10ad35c34d6d2d0e4811160d5670"
+      sha256: "942a4791cd385a68ccb3b32c71c427aba508a1bb949b86dff2adbe4049f16239"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.4+2"
+    version: "0.3.5"
   crypto:
     dependency: transitive
     description:
       name: crypto
-      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
+      sha256: c8ea0233063ba03258fbcf2ca4d6dadfefe14f02fab57702265467a19f27fadf
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.6"
+    version: "3.0.7"
   dart_style:
     dependency: transitive
     description:
@@ -660,26 +660,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "0a3a1e6b3b3873070d4dbefc6968f0d31e698ed55b4eb8ee185b230f35733b59"
+      sha256: "10a0bc25f5f21468e3beeae44e561825aaa02cdc6829438e73b9b64658ff88d9"
       url: "https://pub.dev"
     source: hosted
-    version: "9.7.0"
+    version: "9.8.0"
   sentry_dio:
     dependency: transitive
     description:
       name: sentry_dio
-      sha256: ae2e703ece1816d9df1d6cffe8245a368b95c3556bd79ed47fb9e0324b7ba39f
+      sha256: bee438fd790c534da77f0a6c9cd04c54c818184b8a54bbe7d916489c8aad56a0
       url: "https://pub.dev"
     source: hosted
-    version: "9.7.0"
+    version: "9.8.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "493b4adb378dfc93fb1595acca91834bbf56194a9038c400c9306588ad6a2f88"
+      sha256: aafbf41c63c98a30b17bdbf3313424d5102db62b08735c44bff810f277e786a5
       url: "https://pub.dev"
     source: hosted
-    version: "9.7.0"
+    version: "9.8.0"
   shelf:
     dependency: transitive
     description:
@@ -757,14 +757,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -921,10 +913,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
+      sha256: a11b666489b1954e01d992f3d601b1804a33937b5a8fe677bd26b8a9f96f96e8
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.1"
+    version: "4.5.2"
   vector_math:
     dependency: transitive
     description:
@@ -1002,7 +994,7 @@ packages:
     description:
       path: utils
       ref: "flutter-3.35.1"
-      resolved-ref: dd82442226be0842de21ce3e025cb6662a7746eb
+      resolved-ref: "57f3b0fca4cbbb36f3170dcbf3171b1bcfe09e94"
       url: "https://github.com/zette-dev/flutter-utils.git"
     source: git
     version: "1.0.0"
