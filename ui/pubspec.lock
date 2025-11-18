@@ -970,7 +970,7 @@ packages:
     description:
       path: utils
       ref: latest
-      resolved-ref: d6271b12479667989740a1b31319930e0f087945
+      resolved-ref: "660f435ecca5ebb56b94165f3c0c142742324333"
       url: "https://github.com/zette-dev/flutter-utils.git"
     source: git
     version: "1.0.0"
