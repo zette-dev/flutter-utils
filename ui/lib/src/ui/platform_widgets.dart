@@ -47,16 +47,6 @@ class PlatformTabBar extends StatelessWidget {
           inactiveColor: inactiveColor,
           items: items,
           border: border,
-          // items: [
-          //   for (var d in items)
-          //     BottomNavigationBarItem(
-          //       key: d.key,
-          //       icon: d.icon,
-          //       label: d.label,
-          //       activeIcon: d.selectedIcon,
-          //       tooltip: d.tooltip,
-          //     ),
-          // ],
           onTap: onTap,
           currentIndex: currentIndex,
           height: height ?? kBottomNavigationBarHeight,
@@ -65,19 +55,14 @@ class PlatformTabBar extends StatelessWidget {
       android: (context) => Container(
         decoration: border != null ? BoxDecoration(border: border) : null,
         height: height ?? kBottomNavigationBarHeight,
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: backgroundColor,
-            textTheme: Theme.of(context).textTheme.copyWith(bodySmall: TextStyle(color: inactiveColor)),
-          ), // sets the inactive color of the `BottomNavigationBar`
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            fixedColor: activeColor,
-            currentIndex: currentIndex,
-            onTap: onTap,
-            items: items,
-          ),
+        child: BottomNavigationBar(
+          backgroundColor: backgroundColor,
+          type: BottomNavigationBarType.fixed,
+          fixedColor: activeColor,
+          currentIndex: currentIndex,
+          onTap: onTap,
+          items: items,
+          unselectedLabelStyle: TextStyle(color: inactiveColor),
         ),
       ),
 
