@@ -868,8 +868,8 @@ packages:
     dependency: "direct main"
     description:
       path: utils
-      ref: latest
-      resolved-ref: "9caec442849abb2bdfac933e792e18be6263ba19"
+      ref: "3.35.4-min"
+      resolved-ref: e8346c17df5fd7e610f8f264dde9bd2e392faebb
       url: "https://github.com/zette-dev/flutter-utils.git"
     source: git
     version: "1.0.0"

@@ -24,7 +24,7 @@ dependencies:
   zette_utils:
     git:
       url: https://github.com/zette-dev/flutter-utils.git
-      ref: latest
+      ref: 3.35.4-min
       path: utils
 
 dev_dependencies:
