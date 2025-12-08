@@ -82,7 +82,7 @@ extension ThemeExt on BuildContext {
   Layout layout() => layoutData().layoutFromContext(this);
   ThemeData theme() => Theme.of(this);
   TextTheme textTheme() => theme().textTheme;
-  InputDecorationTheme inputDecorationTheme() => theme().inputDecorationTheme;
+  InputDecorationThemeData inputDecorationTheme() => theme().inputDecorationTheme;
 
   bool get isAndroid => theme().platform == TargetPlatform.android;
   bool get isIOS => theme().platform == TargetPlatform.iOS;

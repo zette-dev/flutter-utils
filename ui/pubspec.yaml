@@ -5,8 +5,8 @@ homepage: https://zette.dev
 publish_to: none
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
-  flutter: 3.32.0
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.35.4
 
 dependencies:
   app_links: ^6.4.0
