@@ -16,8 +16,8 @@ dependencies:
   ms_map_utils: ^1.1.0
   riverpod: ^3.0.3
   rxdart: ^0.28.0
-  sentry: ^9.8.0
-  sentry_dio: ^9.8.0
+  sentry: ^9.9.1
+  sentry_dio: ^9.9.1
   uuid: ^4.5.2
 
 dev_dependencies:
