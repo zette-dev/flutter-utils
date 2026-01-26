@@ -10,7 +10,9 @@ class PlatformWidget extends StatelessWidget {
   final Widget Function(BuildContext) android;
   @override
   Widget build(BuildContext context) {
-    return Theme.of(context).platform == TargetPlatform.android ? android(context) : ios(context);
+    return Theme.of(context).platform == TargetPlatform.android
+        ? android(context)
+        : ios(context);
   }
 }
 
@@ -40,7 +42,9 @@ class PlatformTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformWidget(
       ios: (context) => CupertinoTheme(
-        data: CupertinoThemeData(textTheme: CupertinoTextThemeData(tabLabelTextStyle: labelTextStyle)),
+        data: CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(tabLabelTextStyle: labelTextStyle),
+        ),
         child: CupertinoTabBar(
           backgroundColor: backgroundColor,
           activeColor: activeColor,
@@ -81,7 +85,12 @@ class PlatformTabBar extends StatelessWidget {
 }
 
 class PlatformSwitch extends StatelessWidget {
-  PlatformSwitch({required this.value, required this.onChanged, this.activeColor, this.materialTapTargetSize});
+  PlatformSwitch({
+    required this.value,
+    required this.onChanged,
+    this.activeColor,
+    this.materialTapTargetSize,
+  });
   final bool value;
   final Function(bool) onChanged;
   final Color? activeColor;
@@ -89,7 +98,11 @@ class PlatformSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
-      ios: (context) => CupertinoSwitch(value: value, onChanged: onChanged, activeColor: activeColor),
+      ios: (context) => CupertinoSwitch(
+        value: value,
+        onChanged: onChanged,
+        activeColor: activeColor,
+      ),
       android: (context) => Switch(
         value: value,
         onChanged: onChanged,
@@ -120,8 +133,16 @@ class PlatformLoader extends StatelessWidget {
     final _widget = PlatformWidget(
       ios: (context) => CupertinoTheme(
         child: progress != null
-            ? CupertinoActivityIndicator.partiallyRevealed(radius: size, progress: progress!)
-            : CupertinoActivityIndicator(animating: true, radius: size),
+            ? CupertinoActivityIndicator.partiallyRevealed(
+                radius: size,
+                progress: progress!,
+                color: color,
+              )
+            : CupertinoActivityIndicator(
+                animating: true,
+                radius: size,
+                color: color,
+              ),
         data: CupertinoTheme.of(context).copyWith(brightness: brightness),
       ),
       android: (context) => SizedBox(
@@ -129,7 +150,9 @@ class PlatformLoader extends StatelessWidget {
         width: size * 2,
         child: CircularProgressIndicator(
           value: progress,
-          valueColor: color != null ? AlwaysStoppedAnimation<Color>(color!) : null,
+          valueColor: color != null
+              ? AlwaysStoppedAnimation<Color>(color!)
+              : null,
         ),
       ),
     );
@@ -143,61 +166,88 @@ class PlatformLoader extends StatelessWidget {
 }
 
 class PlatformSliverRefreshControl extends CupertinoSliverRefreshControl {
-  PlatformSliverRefreshControl({Future Function()? onRefresh, Color? refreshColor, double radius = 14.0})
-    : super(
-        onRefresh: onRefresh,
-        builder: (ctx, refreshState, pulledExtent, refreshTriggerPullDistance, refreshIndicatorExtent) {
-          final double percentageComplete = (pulledExtent / refreshTriggerPullDistance).clamp(0.0, 1.0);
+  PlatformSliverRefreshControl({
+    Future Function()? onRefresh,
+    Color? refreshColor,
+    double radius = 14.0,
+  }) : super(
+         onRefresh: onRefresh,
+         builder:
+             (
+               ctx,
+               refreshState,
+               pulledExtent,
+               refreshTriggerPullDistance,
+               refreshIndicatorExtent,
+             ) {
+               final double percentageComplete =
+                   (pulledExtent / refreshTriggerPullDistance).clamp(0.0, 1.0);
 
-          // Place the indicator at the top of the sliver that opens up. Note that we're using
-          // a Stack/Positioned widget because the CupertinoActivityIndicator does some internal
-          // translations based on the current size (which grows as the user drags) that makes
-          // Padding calculations difficult. Rather than be reliant on the internal implementation
-          // of the activity indicator, the Positioned widget allows us to be explicit where the
-          // widget gets placed. Also note that the indicator should appear over the top of the
-          // dragged widget, hence the use of Overflow.visible.
-          return Center(
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.topCenter,
-              children: <Widget>[
-                Positioned(
-                  top: 16,
-                  width: radius,
-                  height: radius,
-                  // left: 0.0,
-                  // right: 0.0,
-                  child: Builder(
-                    builder: (ctx) {
-                      switch (refreshState) {
-                        case RefreshIndicatorMode.drag:
-                          // While we're dragging, we draw individual ticks of the spinner while simultaneously
-                          // easing the opacity in. Note that the opacity curve values here were derived using
-                          // Xcode through inspecting a native app running on iOS 13.5.
-                          const Curve opacityCurve = Interval(0.0, 0.35, curve: Curves.easeInOut);
-                          return Opacity(
-                            opacity: opacityCurve.transform(percentageComplete),
-                            child: PlatformLoader(color: refreshColor, size: radius, progress: percentageComplete),
-                          );
-                        case RefreshIndicatorMode.armed:
-                        case RefreshIndicatorMode.refresh:
-                          // Once we're armed or performing the refresh, we just show the normal spinner.
-                          return PlatformLoader(size: radius, color: refreshColor);
-                        case RefreshIndicatorMode.done:
-                          // When the user lets go, the standard transition is to shrink the spinner.
-                          return PlatformLoader(size: radius * percentageComplete, color: refreshColor);
-                        case RefreshIndicatorMode.inactive:
-                          // Anything else doesn't show anything.
-                          return Container();
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
+               // Place the indicator at the top of the sliver that opens up. Note that we're using
+               // a Stack/Positioned widget because the CupertinoActivityIndicator does some internal
+               // translations based on the current size (which grows as the user drags) that makes
+               // Padding calculations difficult. Rather than be reliant on the internal implementation
+               // of the activity indicator, the Positioned widget allows us to be explicit where the
+               // widget gets placed. Also note that the indicator should appear over the top of the
+               // dragged widget, hence the use of Overflow.visible.
+               return Center(
+                 child: Stack(
+                   clipBehavior: Clip.none,
+                   alignment: Alignment.topCenter,
+                   children: <Widget>[
+                     Positioned(
+                       top: 16,
+                       width: radius,
+                       height: radius,
+                       // left: 0.0,
+                       // right: 0.0,
+                       child: Builder(
+                         builder: (ctx) {
+                           switch (refreshState) {
+                             case RefreshIndicatorMode.drag:
+                               // While we're dragging, we draw individual ticks of the spinner while simultaneously
+                               // easing the opacity in. Note that the opacity curve values here were derived using
+                               // Xcode through inspecting a native app running on iOS 13.5.
+                               const Curve opacityCurve = Interval(
+                                 0.0,
+                                 0.35,
+                                 curve: Curves.easeInOut,
+                               );
+                               return Opacity(
+                                 opacity: opacityCurve.transform(
+                                   percentageComplete,
+                                 ),
+                                 child: PlatformLoader(
+                                   color: refreshColor,
+                                   size: radius,
+                                   progress: percentageComplete,
+                                 ),
+                               );
+                             case RefreshIndicatorMode.armed:
+                             case RefreshIndicatorMode.refresh:
+                               // Once we're armed or performing the refresh, we just show the normal spinner.
+                               return PlatformLoader(
+                                 size: radius,
+                                 color: refreshColor,
+                               );
+                             case RefreshIndicatorMode.done:
+                               // When the user lets go, the standard transition is to shrink the spinner.
+                               return PlatformLoader(
+                                 size: radius * percentageComplete,
+                                 color: refreshColor,
+                               );
+                             case RefreshIndicatorMode.inactive:
+                               // Anything else doesn't show anything.
+                               return Container();
+                           }
+                         },
+                       ),
+                     ),
+                   ],
+                 ),
+               );
+             },
+       );
 }
 
 Route<T> platformRoute<T>(
@@ -217,7 +267,9 @@ Route<T> platformRoute<T>(
       builder: (ctx) => Dialog(
         child: builder(ctx),
         insetPadding: EdgeInsets.symmetric(
-          horizontal: layout.isDesktop ? (context.screenSize().width - 800) / 2 : 5,
+          horizontal: layout.isDesktop
+              ? (context.screenSize().width - 800) / 2
+              : 5,
           vertical: layout.isDesktop ? 50 : 25,
         ),
       ),
@@ -226,9 +278,17 @@ Route<T> platformRoute<T>(
       traversalEdgeBehavior: TraversalEdgeBehavior.closedLoop,
     );
   } else if (context.isIOS) {
-    return CupertinoPageRoute<T>(builder: builder, settings: settings, fullscreenDialog: fullscreenDialog);
+    return CupertinoPageRoute<T>(
+      builder: builder,
+      settings: settings,
+      fullscreenDialog: fullscreenDialog,
+    );
   } else {
-    return MaterialPageRoute<T>(builder: builder, settings: settings, fullscreenDialog: fullscreenDialog);
+    return MaterialPageRoute<T>(
+      builder: builder,
+      settings: settings,
+      fullscreenDialog: fullscreenDialog,
+    );
   }
 }
 
@@ -241,17 +301,32 @@ Page<T> platformPage<T>(
   Widget Function(BuildContext, Widget)? dialogBuilder,
 }) {
   if ((useDialogWhen?.call(context) ?? false)) {
-    return DialogPage<T>(builder: (context) => dialogBuilder?.call(context, child) ?? child);
+    return DialogPage<T>(
+      builder: (context) => dialogBuilder?.call(context, child) ?? child,
+    );
   } else if (kIsWeb) {
     return NoTransitionPage<T>(name: state.name, child: child);
   } else if (context.isIOS) {
-    return CupertinoPage<T>(child: child, name: state.name, fullscreenDialog: fullscreenDialog);
+    return CupertinoPage<T>(
+      child: child,
+      name: state.name,
+      fullscreenDialog: fullscreenDialog,
+    );
   } else {
-    return MaterialPage<T>(child: child, name: state.name, fullscreenDialog: fullscreenDialog);
+    return MaterialPage<T>(
+      child: child,
+      name: state.name,
+      fullscreenDialog: fullscreenDialog,
+    );
   }
 }
 
-Future<T?> showPlatformDialog<T>(BuildContext context, {String? title, String? content, List<Widget>? actions}) {
+Future<T?> showPlatformDialog<T>(
+  BuildContext context, {
+  String? title,
+  String? content,
+  List<Widget>? actions,
+}) {
   final _title = title != null ? Text(title) : null;
   final _content = content != null ? Text(content) : null;
 
@@ -259,9 +334,17 @@ Future<T?> showPlatformDialog<T>(BuildContext context, {String? title, String? c
     context: context,
     builder: (_) {
       if (Theme.of(context).platform == TargetPlatform.iOS) {
-        return CupertinoAlertDialog(title: _title, content: _content, actions: actions ?? []);
+        return CupertinoAlertDialog(
+          title: _title,
+          content: _content,
+          actions: actions ?? [],
+        );
       } else {
-        return AlertDialog(title: _title, content: _content, actions: actions ?? []);
+        return AlertDialog(
+          title: _title,
+          content: _content,
+          actions: actions ?? [],
+        );
       }
     },
   );

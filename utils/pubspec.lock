@@ -69,10 +69,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "110c56ef29b5eb367b4d17fc79375fa8c18a6cd7acd92c05bb3986c17a079057"
+      sha256: b4d854962a32fd9f8efc0b76f98214790b833af8b2e9b2df6bfc927c0415a072
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.4"
+    version: "2.10.5"
   built_collection:
     dependency: transitive
     description:
@@ -389,10 +389,10 @@ packages:
     dependency: "direct main"
     description:
       name: riverpod
-      sha256: "16ff608d21e8ea64364f2b7c049c94a02ab81668f78845862b6e88b71dd4935a"
+      sha256: "9026676260f31bb5279cc5e59ca292145d8bab4aabede9aa2555c2a626ec66f1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   rxdart:
     dependency: "direct main"
     description:
@@ -405,18 +405,18 @@ packages:
     dependency: "direct main"
     description:
       name: sentry
-      sha256: b6020007d35199f2be3170443c01243c8533232261fcd54237e38710788cebd0
+      sha256: fa14b2177d2cd4489ec78817ec4e52affe1be9f595718de970a5e4ed2bccc530
       url: "https://pub.dev"
     source: hosted
-    version: "9.9.2"
+    version: "9.10.0"
   sentry_dio:
     dependency: "direct main"
     description:
       name: sentry_dio
-      sha256: dfcd9ccbc96ed538cd3fad2bfb2bf09b82a6116bd56a8f2ce7fafd32c55e786f
+      sha256: ec8f00568ebf4e2de9313b94a81e1010b4bc46883cf4fb00308a7cd8e2eeace7
       url: "https://pub.dev"
     source: hosted
-    version: "9.9.2"
+    version: "9.10.0"
   shelf:
     dependency: transitive
     description:
