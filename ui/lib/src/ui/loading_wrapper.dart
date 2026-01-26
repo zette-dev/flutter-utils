@@ -9,29 +9,32 @@ class LoadingWrapper extends StatelessWidget {
     this.loading,
     this.ignorePointerWhenLoading = true,
     this.loaderBrightness,
+    this.loaderColor,
   }) : _loaderKey = loaderKey;
   final List<Widget> children;
   final bool? loading, ignorePointerWhenLoading;
   final Key? _loaderKey;
   final Brightness? loaderBrightness;
+  final Color? loaderColor;
   @override
   Widget build(BuildContext context) {
     var _children = children;
     var _loading = loading ?? false;
     if (_loading)
-      _children.add(PlatformLoader(
+      _children.add(
+        PlatformLoader(
           key: _loaderKey,
           centered: true,
-          brightness: loaderBrightness ?? Brightness.light));
+          color: loaderColor,
+          brightness: loaderBrightness ?? Brightness.light,
+        ),
+      );
     final _stack = Stack(
       alignment: AlignmentDirectional.center,
       children: _children,
     );
     if (ignorePointerWhenLoading ?? true && _loading) {
-      return IgnorePointer(
-        ignoring: _loading,
-        child: _stack,
-      );
+      return IgnorePointer(ignoring: _loading, child: _stack);
     } else {
       return _stack;
     }
