@@ -414,6 +414,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
     return LoadingWrapper(
       loading: isLoading,
       ignorePointerWhenLoading: false,
+      loaderColor: widget.refreshColor,
       children: [
         CustomScrollView(
           key: widget.key,
