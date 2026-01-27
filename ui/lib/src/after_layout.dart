@@ -5,19 +5,26 @@ mixin AfterLayoutMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => afterFirstLayout(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        afterFirstLayout(context);
+      }
+    });
   }
 
   void afterFirstLayout(BuildContext context);
 }
 
-mixin AfterConsumerLayoutMixin<T extends ConsumerStatefulWidget> on ConsumerState<T> {
+mixin AfterConsumerLayoutMixin<T extends ConsumerStatefulWidget>
+    on ConsumerState<T> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => afterFirstLayout(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        afterFirstLayout(context);
+      }
+    });
   }
 
   void afterFirstLayout(BuildContext context);
