@@ -11,7 +11,7 @@ environment:
 dependencies:
   app_links: ^7.0.0
   auto_size_text: ^3.0.0
-  dio: ^5.9.0
+  dio: ^5.9.1
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.2.0
