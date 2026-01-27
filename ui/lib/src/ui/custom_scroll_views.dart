@@ -367,14 +367,30 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.scrollController ?? ScrollController();
+    if (widget.scrollController != null) {
+      _controller = widget.scrollController;
+    } else {
+      _controller = ScrollController();
+    }
     if (_requiresScrollListener) {
-      _controller?.addListener(_listenToScrollChange(context));
+      _controller?.addListener(_listenToScrollChange);
     }
 
     if (loadMoreEnabled) {
       _controller?.addListener(_scrollListener);
     }
+  }
+
+  @override
+  void dispose() {
+    _controller?.removeListener(_listenToScrollChange);
+    if (loadMoreEnabled) {
+      _controller?.removeListener(_scrollListener);
+    }
+    if (widget.scrollController == null) {
+      _controller?.dispose();
+    }
+    super.dispose();
   }
 
   void _scrollListener() {
@@ -387,7 +403,7 @@ class _ScrollLayoutState extends State<ScrollLayout> {
     }
   }
 
-  VoidCallback _listenToScrollChange(BuildContext context) => () {
+  VoidCallback _listenToScrollChange() => () {
     // TODO: need a better way of doing this so I don't have to lookup context over scroll
     if (mounted) {
       try {
