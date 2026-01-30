@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'platform_widgets.dart';
 
 class LoadingWrapper extends StatelessWidget {
-  LoadingWrapper({
+  const LoadingWrapper({
+    super.key,
     Key? loaderKey,
     required this.children,
     this.loading,
@@ -11,32 +12,35 @@ class LoadingWrapper extends StatelessWidget {
     this.loaderBrightness,
     this.loaderColor,
   }) : _loaderKey = loaderKey;
+
   final List<Widget> children;
   final bool? loading, ignorePointerWhenLoading;
   final Key? _loaderKey;
   final Brightness? loaderBrightness;
   final Color? loaderColor;
+
   @override
   Widget build(BuildContext context) {
-    var _children = children;
-    var _loading = loading ?? false;
-    if (_loading)
-      _children.add(
+    final isLoading = loading ?? false;
+    final stackChildren = [
+      ...children,
+      if (isLoading)
         PlatformLoader(
           key: _loaderKey,
           centered: true,
           color: loaderColor,
           brightness: loaderBrightness ?? Brightness.light,
         ),
-      );
-    final _stack = Stack(
+    ];
+
+    final stack = Stack(
       alignment: AlignmentDirectional.center,
-      children: _children,
+      children: stackChildren,
     );
-    if (ignorePointerWhenLoading ?? true && _loading) {
-      return IgnorePointer(ignoring: _loading, child: _stack);
-    } else {
-      return _stack;
+
+    if ((ignorePointerWhenLoading ?? true) && isLoading) {
+      return IgnorePointer(ignoring: true, child: stack);
     }
+    return stack;
   }
 }

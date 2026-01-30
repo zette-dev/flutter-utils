@@ -367,15 +367,11 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   @override
   void initState() {
     super.initState();
-    if (widget.scrollController != null) {
-      _controller = widget.scrollController;
-    } else {
-      _controller = ScrollController();
-    }
+    _controller = widget.scrollController ?? ScrollController();
+
     if (_requiresScrollListener) {
       _controller?.addListener(_listenToScrollChange);
     }
-
     if (loadMoreEnabled) {
       _controller?.addListener(_scrollListener);
     }
@@ -383,10 +379,13 @@ class _ScrollLayoutState extends State<ScrollLayout> {
 
   @override
   void dispose() {
-    _controller?.removeListener(_listenToScrollChange);
+    if (_requiresScrollListener) {
+      _controller?.removeListener(_listenToScrollChange);
+    }
     if (loadMoreEnabled) {
       _controller?.removeListener(_scrollListener);
     }
+    // Only dispose controller if we created it
     if (widget.scrollController == null) {
       _controller?.dispose();
     }
@@ -394,36 +393,78 @@ class _ScrollLayoutState extends State<ScrollLayout> {
   }
 
   void _scrollListener() {
-    if (widget.scrollController?.position.pixels ==
-            widget.scrollController?.position.maxScrollExtent &&
+    final position = _controller?.position;
+    if (position != null &&
+        position.pixels == position.maxScrollExtent &&
         shouldLoadMore &&
         widget.onLoadMore != null) {
-      print('LOAD MORE');
       widget.onLoadMore!();
     }
   }
 
-  VoidCallback _listenToScrollChange() => () {
-    // TODO: need a better way of doing this so I don't have to lookup context over scroll
-    if (mounted) {
-      try {
-        final offset = MediaQuery.of(context).padding.top;
-        if (_controller!.offset >=
-            (widget.appBarBehavior!.expandedHeight ?? 0) - offset) {
-          safeSetState(() {
-            _isScrolled = true;
-          });
-        } else if (_isScrolled) {
-          safeSetState(() {
-            _isScrolled = false;
-          });
-        }
-        // ignore: avoid_catching_errors
-      } on TypeError catch (e) {
-        print(e);
-      }
+  /// Tracks scroll position to control app bar title visibility.
+  /// Uses cached padding value to avoid repeated MediaQuery lookups.
+  double? _cachedTopPadding;
+
+  Widget _buildAppBar() {
+    final behavior = widget.appBarBehavior!;
+    final title = _requiresScrollListener
+        ? AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: _isScrolled ? 1.0 : 0.0,
+            curve: Curves.easeIn,
+            child: behavior.title,
+          )
+        : behavior.title;
+
+    return SliverAppBar(
+      backgroundColor: behavior.color,
+      toolbarHeight: behavior.toolbarHeight,
+      automaticallyImplyLeading: behavior.automaticallyImplyLeading,
+      titleSpacing: behavior.titleSpacing,
+      scrolledUnderElevation: behavior.scrolledUnderElevation,
+      title: title,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: behavior.statusBarBrightness,
+      ),
+      leading: behavior.backButton,
+      leadingWidth: behavior.leadingWidth,
+      actions: behavior.actions,
+      centerTitle: behavior.centerTitle,
+      pinned: behavior.pinned,
+      stretch: behavior.stretch,
+      floating: behavior.floating,
+      elevation: behavior.appBarElevation,
+      snap: behavior.snap,
+      expandedHeight: behavior.expandedHeight,
+      collapsedHeight: behavior.collapsedHeight,
+      primary: true,
+      bottom: behavior.bottom,
+      flexibleSpace: _hasFlexibleSpace
+          ? FlexibleSpaceBar(
+              collapseMode: behavior.flexibleCollapseMode,
+              background: behavior.flexibleBackground,
+              title: behavior.flexibleTitle,
+              centerTitle: behavior.centerFlexibleTitle,
+            )
+          : null,
+    );
+  }
+
+  void _listenToScrollChange() {
+    if (!mounted) return;
+
+    _cachedTopPadding ??= MediaQuery.of(context).padding.top;
+    final threshold =
+        (widget.appBarBehavior?.expandedHeight ?? 0) - _cachedTopPadding!;
+    final isNowScrolled = (_controller?.offset ?? 0) >= threshold;
+
+    if (isNowScrolled != _isScrolled) {
+      safeSetState(() {
+        _isScrolled = isNowScrolled;
+      });
     }
-  };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -440,56 +481,13 @@ class _ScrollLayoutState extends State<ScrollLayout> {
           keyboardDismissBehavior: widget.keyboardDismissBehavior,
           slivers: [
             ...(widget.beforeAppBar ?? []),
-            if (widget.appBarBehavior != null)
-              SliverAppBar(
-                backgroundColor: widget.appBarBehavior!.color,
-                toolbarHeight: widget.appBarBehavior!.toolbarHeight,
-                automaticallyImplyLeading:
-                    widget.appBarBehavior!.automaticallyImplyLeading,
-                titleSpacing: widget.appBarBehavior!.titleSpacing,
-                scrolledUnderElevation:
-                    widget.appBarBehavior!.scrolledUnderElevation,
-                title: _requiresScrollListener
-                    ? AnimatedOpacity(
-                        duration: Duration(milliseconds: 300),
-                        opacity: _isScrolled ? 1.0 : 0.0,
-                        curve: Curves.easeIn,
-                        child: widget.appBarBehavior!.title,
-                      )
-                    : widget.appBarBehavior!.title,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarBrightness:
-                      widget.appBarBehavior?.statusBarBrightness,
-                ),
-                leading: widget.appBarBehavior!.backButton,
-                leadingWidth: widget.appBarBehavior!.leadingWidth,
-                actions: widget.appBarBehavior!.actions,
-                centerTitle: widget.appBarBehavior!.centerTitle,
-                pinned: widget.appBarBehavior!.pinned,
-                stretch: widget.appBarBehavior!.stretch,
-                floating: widget.appBarBehavior!.floating,
-                elevation: widget.appBarBehavior!.appBarElevation,
-                snap: widget.appBarBehavior!.snap,
-                expandedHeight: widget.appBarBehavior!.expandedHeight,
-                collapsedHeight: widget.appBarBehavior!.collapsedHeight,
-                primary: true,
-                bottom: widget.appBarBehavior!.bottom,
-                flexibleSpace: _hasFlexibleSpace
-                    ? FlexibleSpaceBar(
-                        collapseMode:
-                            widget.appBarBehavior!.flexibleCollapseMode,
-                        background: widget.appBarBehavior!.flexibleBackground,
-                        title: widget.appBarBehavior!.flexibleTitle,
-                        centerTitle: widget.appBarBehavior!.centerFlexibleTitle,
-                      )
-                    : null,
-              ),
-            ...refreshBuilder,
+            if (widget.appBarBehavior != null) _buildAppBar(),
+            if (_refreshSliver != null) _refreshSliver!,
             ...(widget.beforeSlivers ?? []),
-            ...errorBuilder,
-            ...emptyBuilder,
-            ...hasDataOrLoadingBuilder,
-            ...loadMoreBuilder,
+            if (_errorSliver != null) _errorSliver!,
+            if (_emptySliver != null) _emptySliver!,
+            if (_contentSliver != null) _contentSliver!,
+            if (_loadMoreSliver != null) _loadMoreSliver!,
             ...(widget.afterSlivers ?? []),
           ],
         ),
@@ -498,41 +496,33 @@ class _ScrollLayoutState extends State<ScrollLayout> {
     );
   }
 
-  List<Widget> get refreshBuilder => [
-    if (widget.onRefresh != null)
-      PlatformSliverRefreshControl(
-        onRefresh: widget.onRefresh,
-        refreshColor: widget.refreshColor,
-        // builder: widget.refreshControlBuilder,
-      ),
-  ];
+  Widget? get _refreshSliver => widget.onRefresh != null
+      ? PlatformSliverRefreshControl(
+          onRefresh: widget.onRefresh,
+          refreshColor: widget.refreshColor,
+        )
+      : null;
 
-  List<Widget> get hasDataOrLoadingBuilder => [
-    if (hasDataOrIsLoading && widget.sliver != null)
-      SliverPadding(
-        sliver: widget.sliver,
-        padding: widget.bodyPadding ?? EdgeInsets.all(0),
-      ),
-  ];
+  Widget? get _contentSliver => hasDataOrIsLoading && widget.sliver != null
+      ? SliverPadding(
+          sliver: widget.sliver,
+          padding: widget.bodyPadding ?? EdgeInsets.zero,
+        )
+      : null;
 
-  List<Widget> get loadMoreBuilder => [
-    if (isLoadingMore && widget.loadMoreBuilder != null)
-      SliverPadding(
-        padding: const EdgeInsets.all(8.0),
-        sliver: widget.loadMoreBuilder!(context),
-      ),
-  ];
+  Widget? get _loadMoreSliver => isLoadingMore && widget.loadMoreBuilder != null
+      ? SliverPadding(
+          padding: const EdgeInsets.all(8.0),
+          sliver: widget.loadMoreBuilder!(context),
+        )
+      : null;
 
-  List<Widget> get emptyBuilder => [
-    if (widget.emptyBuilder != null &&
-        !hasError &&
-        !hasData &&
-        !isLoading &&
-        widget.emptyBuilder != null)
-      widget.emptyBuilder!(context),
-  ];
+  Widget? get _emptySliver =>
+      widget.emptyBuilder != null && !hasError && !hasData && !isLoading
+      ? widget.emptyBuilder!(context)
+      : null;
 
-  List<Widget> get errorBuilder => [
-    if (widget.errorBuilder != null && hasError) widget.errorBuilder!(context),
-  ];
+  Widget? get _errorSliver => widget.errorBuilder != null && hasError
+      ? widget.errorBuilder!(context)
+      : null;
 }

@@ -69,17 +69,6 @@ class PlatformTabBar extends StatelessWidget {
           unselectedLabelStyle: TextStyle(color: inactiveColor),
         ),
       ),
-
-      // android: (context) => NavigationBar(
-      //   height: height,
-      //   backgroundColor: backgroundColor,
-      //   surfaceTintColor: Colors.transparent,
-      //   indicatorColor: activeColor,
-      //   selectedIndex: currentIndex,
-      //   onDestinationSelected: onTap,
-      //   destinations: items,
-      //   labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-      // ),
     );
   }
 }

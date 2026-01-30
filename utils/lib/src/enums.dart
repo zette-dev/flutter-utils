@@ -55,108 +55,58 @@ enum USState {
   WI,
   WY;
 
-  String get fullName {
-    switch (this) {
-      case USState.AL:
-        return 'Alabama';
-      case USState.AK:
-        return 'Alaska';
-      case USState.AZ:
-        return 'Arizona';
-      case USState.AR:
-        return 'Arkansas';
-      case USState.CA:
-        return 'California';
-      case USState.CO:
-        return 'Colorado';
-      case USState.CT:
-        return 'Connecticut';
-      case USState.DE:
-        return 'Delaware';
-      case USState.FL:
-        return 'Florida';
-      case USState.GA:
-        return 'Georgia';
-      case USState.HI:
-        return 'Hawaii';
-      case USState.ID:
-        return 'Idaho';
-      case USState.IL:
-        return 'Illinois';
-      case USState.IN:
-        return 'Indiana';
-      case USState.IA:
-        return 'Iowa';
-      case USState.KS:
-        return 'Kansas';
-      case USState.KY:
-        return 'Kentucky';
-      case USState.LA:
-        return 'Louisiana';
-      case USState.ME:
-        return 'Maine';
-      case USState.MD:
-        return 'Maryland';
-      case USState.MA:
-        return 'Massachusetts';
-      case USState.MI:
-        return 'Michigan';
-      case USState.MN:
-        return 'Minnesota';
-      case USState.MS:
-        return 'Mississippi';
-      case USState.MO:
-        return 'Missouri';
-      case USState.MT:
-        return 'Montana';
-      case USState.NE:
-        return 'Nebraska';
-      case USState.NV:
-        return 'Nevada';
-      case USState.NH:
-        return 'New Hampshire';
-      case USState.NJ:
-        return 'New Jersey';
-      case USState.NM:
-        return 'New Mexico';
-      case USState.NY:
-        return 'New York';
-      case USState.NC:
-        return 'North Carolina';
-      case USState.ND:
-        return 'North Dakota';
-      case USState.OH:
-        return 'Ohio';
-      case USState.OK:
-        return 'Oklahoma';
-      case USState.OR:
-        return 'Oregon';
-      case USState.PA:
-        return 'Pennsylvania';
-      case USState.RI:
-        return 'Rhode Island';
-      case USState.SC:
-        return 'South Carolina';
-      case USState.SD:
-        return 'South Dakota';
-      case USState.TN:
-        return 'Tennessee';
-      case USState.TX:
-        return 'Texas';
-      case USState.UT:
-        return 'Utah';
-      case USState.VT:
-        return 'Vermont';
-      case USState.VA:
-        return 'Virginia';
-      case USState.WA:
-        return 'Washington';
-      case USState.WV:
-        return 'West Virginia';
-      case USState.WI:
-        return 'Wisconsin';
-      case USState.WY:
-        return 'Wyoming';
-    }
-  }
+  static const _fullNames = {
+    USState.AL: 'Alabama',
+    USState.AK: 'Alaska',
+    USState.AZ: 'Arizona',
+    USState.AR: 'Arkansas',
+    USState.CA: 'California',
+    USState.CO: 'Colorado',
+    USState.CT: 'Connecticut',
+    USState.DE: 'Delaware',
+    USState.FL: 'Florida',
+    USState.GA: 'Georgia',
+    USState.HI: 'Hawaii',
+    USState.ID: 'Idaho',
+    USState.IL: 'Illinois',
+    USState.IN: 'Indiana',
+    USState.IA: 'Iowa',
+    USState.KS: 'Kansas',
+    USState.KY: 'Kentucky',
+    USState.LA: 'Louisiana',
+    USState.ME: 'Maine',
+    USState.MD: 'Maryland',
+    USState.MA: 'Massachusetts',
+    USState.MI: 'Michigan',
+    USState.MN: 'Minnesota',
+    USState.MS: 'Mississippi',
+    USState.MO: 'Missouri',
+    USState.MT: 'Montana',
+    USState.NE: 'Nebraska',
+    USState.NV: 'Nevada',
+    USState.NH: 'New Hampshire',
+    USState.NJ: 'New Jersey',
+    USState.NM: 'New Mexico',
+    USState.NY: 'New York',
+    USState.NC: 'North Carolina',
+    USState.ND: 'North Dakota',
+    USState.OH: 'Ohio',
+    USState.OK: 'Oklahoma',
+    USState.OR: 'Oregon',
+    USState.PA: 'Pennsylvania',
+    USState.RI: 'Rhode Island',
+    USState.SC: 'South Carolina',
+    USState.SD: 'South Dakota',
+    USState.TN: 'Tennessee',
+    USState.TX: 'Texas',
+    USState.UT: 'Utah',
+    USState.VT: 'Vermont',
+    USState.VA: 'Virginia',
+    USState.WA: 'Washington',
+    USState.WV: 'West Virginia',
+    USState.WI: 'Wisconsin',
+    USState.WY: 'Wyoming',
+  };
+
+  String get fullName => _fullNames[this]!;
 }

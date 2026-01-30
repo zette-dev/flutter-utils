@@ -3,24 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 
-// class TranslationsConfig {
-//   static final TranslationsConfig _instance = TranslationsConfig._();
-
-//   factory TranslationsConfig() => _instance;
-
-//   Locale defaultLocale;
-//   List<Locale> supportedLocales;
-//   List<String> supportedLanguages;
-
-//   Function onLocaleChange;
-
-//   TranslationsConfig._() {
-//     defaultLocale = Locale('en', 'US');
-//     supportedLocales = [defaultLocale];
-//     supportedLanguages = ['en'];
-//   }
-// }
-
 class Translations {
   Locale locale;
 
@@ -40,10 +22,7 @@ class Translations {
   /// Returns the text in the correct grammatical number.
   /// This method uses textWithArgs so remember to add arguments in the [singular] and [plural] params.
   String textWithCardinality(int length, String singular, String plural) {
-    return textWithArgs(
-      length == 1 ? singular : plural,
-      [length.toString()],
-    );
+    return textWithArgs(length == 1 ? singular : plural, [length.toString()]);
   }
 
   /// Used to translate a [key] but also to interpolate some arguments in the translation.
@@ -90,21 +69,6 @@ abstract class TranslationsBundleLoader {
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale);
 }
 
-// class MockFileTranslationsBundleLoader extends TranslationsBundleLoader {
-//   final String path;
-//   MockFileTranslationsBundleLoader(this.path) : super();
-
-//   @override
-//   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
-//     final _path =
-//         Directory.current.path + '$path/i18n_${locale.languageCode}.json';
-//     final file = File(_path);
-//     print(file.path);
-//     String jsonContent = await file.readAsString();
-//     return json.decode(jsonContent);
-//   }
-// }
-
 class FileTranslationsBundleLoader extends TranslationsBundleLoader {
   final String path;
   final AssetBundle? bundle; // Defaults to rootBundle if none provided
@@ -113,8 +77,9 @@ class FileTranslationsBundleLoader extends TranslationsBundleLoader {
   @override
   Future<Map<String, dynamic>> loadTranslationsDictionary(Locale locale) async {
     // var bundle = DefaultAssetBundle.of(context);
-    String jsonContent = await (bundle ?? rootBundle)
-        .loadString('$path/i18n_${locale.languageCode}.json');
+    String jsonContent = await (bundle ?? rootBundle).loadString(
+      '$path/i18n_${locale.languageCode}.json',
+    );
     return json.decode(jsonContent);
   }
 }

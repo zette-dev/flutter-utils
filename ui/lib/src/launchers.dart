@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:zette_ui/src/formatters.dart';
+import 'package:zette_utils/zette_utils.dart' show logger;
 
 Future makeCall(String phoneNumber) async {
   // Strips out extensions
@@ -10,10 +11,9 @@ Future makeCall(String phoneNumber) async {
   final url = 'tel:$_number';
   if (await canLaunchUrlString(url)) {
     return await launchUrlString(url);
-  } else {
-    print('Cannot make phone call: $phoneNumber');
-    return null;
   }
+  logger.i('Cannot make phone call: $phoneNumber');
+  return null;
 }
 
 Future sendText(String phoneNumber, {String? body}) async {
@@ -27,31 +27,41 @@ Future sendText(String phoneNumber, {String? body}) async {
   }
   if (await canLaunchUrlString(url)) {
     return await launchUrlString(url);
-  } else {
-    print('Cannot send text: $phoneNumber');
-    return null;
   }
+  logger.i('Cannot send text: $phoneNumber');
+  return null;
 }
 
 Future openUrl(String url) async {
   if (await canLaunchUrlString(url)) {
     return await launchUrlString(url);
-  } else {
-    print('Cannot open url: $url');
-    return null;
   }
+  logger.i('Cannot open url: $url');
+  return null;
 }
 
-Future sendEmail(String email, {String? subject, String? body, VoidCallback? onCantLaunch}) async {
+Future sendEmail(
+  String email, {
+  String? subject,
+  String? body,
+  VoidCallback? onCantLaunch,
+}) async {
   String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+    return params.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
   }
 
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
     path: email,
-    query: encodeQueryParameters(
-        <String, String>{if (subject != null) 'subject': subject, if (body != null) 'body': body}),
+    query: encodeQueryParameters(<String, String>{
+      if (subject != null) 'subject': subject,
+      if (body != null) 'body': body,
+    }),
   );
 
   if (await canLaunchUrlString(emailLaunchUri.toString())) {
@@ -62,15 +72,21 @@ Future sendEmail(String email, {String? subject, String? body, VoidCallback? onC
 }
 
 class DirectionsLauncher {
-  DirectionsLauncher({this.lat, this.lng, this.address}) {
-    if (hasCoordinates) {
-      canLaunchUrlString(appleMapsUrl).then((value) => _canOpenAppleMaps = value);
-      canLaunchUrlString(googleMapsUrl).then((value) => _canOpenGoogleMaps = value);
-      canLaunchUrlString(wazeUrl).then((value) => _canOpenWazeMaps = value);
-    }
-  }
+  DirectionsLauncher._({
+    this.lat,
+    this.lng,
+    this.address,
+    required this.canOpenAppleMaps,
+    required this.canOpenGoogleMaps,
+    required this.canOpenWazeMaps,
+  });
+
   final String? address;
   final double? lat, lng;
+  final bool canOpenAppleMaps;
+  final bool canOpenGoogleMaps;
+  final bool canOpenWazeMaps;
+
   bool get hasCoordinates => lat != null && lng != null;
 
   String get appleMapsUrl => 'https://maps.apple.com/?q=$lat,$lng';
@@ -79,12 +95,35 @@ class DirectionsLauncher {
       ? 'comgooglemaps://?saddr=&daddr=$lat,$lng&directionsmode=driving'
       : 'google.navigation:q=$lat,$lng';
 
-  bool _canOpenAppleMaps = false;
-  bool get canOpenAppleMaps => _canOpenAppleMaps;
-  bool _canOpenGoogleMaps = false;
-  bool get canOpenGoogleMaps => _canOpenGoogleMaps;
-  bool _canOpenWazeMaps = false;
-  bool get canOpenWazeMaps => _canOpenWazeMaps;
+  static Future<DirectionsLauncher> create({
+    double? lat,
+    double? lng,
+    String? address,
+  }) async {
+    final hasCoordinates = lat != null && lng != null;
+    final appleMapsUrl = 'https://maps.apple.com/?q=$lat,$lng';
+    final wazeUrl = 'https://waze.com/ul?ll=$lat,$lng&navigate=yes';
+    final googleMapsUrl = Platform.isIOS
+        ? 'comgooglemaps://?saddr=&daddr=$lat,$lng&directionsmode=driving'
+        : 'google.navigation:q=$lat,$lng';
+
+    final results = hasCoordinates
+        ? await Future.wait([
+            canLaunchUrlString(appleMapsUrl),
+            canLaunchUrlString(googleMapsUrl),
+            canLaunchUrlString(wazeUrl),
+          ])
+        : [false, false, false];
+
+    return DirectionsLauncher._(
+      lat: lat,
+      lng: lng,
+      address: address,
+      canOpenAppleMaps: results[0],
+      canOpenGoogleMaps: results[1],
+      canOpenWazeMaps: results[2],
+    );
+  }
 
   Future<bool> openAppleMaps() => launchUrlString(appleMapsUrl);
   Future<bool> openGoogleMaps() => launchUrlString(googleMapsUrl);
