@@ -197,10 +197,10 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: "701dcfc06da0882883a2657c445103380e53e647060ad8d9dfb710c100996608"
+      sha256: "28bb3ae56f117b5aec029d702a90f57d285cd975c3c5c281eaca38dbc47c5937"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5+1"
+    version: "0.3.5+2"
   crypto:
     dependency: transitive
     description:
@@ -986,7 +986,7 @@ packages:
     description:
       path: utils
       ref: latest
-      resolved-ref: "5367772ee781041b4de9a6e3b13db6d3033adca1"
+      resolved-ref: "6f306d6214b9836c10e3f4c26b11ec008bfaf71b"
       url: "https://github.com/zette-dev/flutter-utils.git"
     source: git
     version: "1.0.0"
