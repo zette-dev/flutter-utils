@@ -19,11 +19,22 @@ abstract class AppInitialization<C extends EnvConfigData>
     this.config, {
     Color? statusBarColor,
     Brightness? statusBarBrightness,
+    MarionetteConfiguration? mcpConfig,
   }) {
-    if (kDebugMode) {
-      MarionetteBinding.ensureInitialized();
-    } else {
-      WidgetsFlutterBinding.ensureInitialized();
+    try {
+      if (kDebugMode) {
+        MarionetteBinding.ensureInitialized(
+          mcpConfig ?? MarionetteConfiguration(),
+        );
+      } else {
+        WidgetsFlutterBinding.ensureInitialized();
+      }
+    } catch (e, stackTrace) {
+      logger.e(
+        'Failed to initialize Marionette',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
 
     if (statusBarBrightness != null || statusBarColor != null) {
