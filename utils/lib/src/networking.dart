@@ -247,8 +247,8 @@ class HTTPRequest {
         .catchError(_handleNetworkIssues,
             test: (e) =>
                 e is DioException &&
-                e.type == DioExceptionType.connectionError &&
-                (e.message?.toLowerCase().contains('failed host lookup') ?? false));
+                (e.type == DioExceptionType.connectionError ||
+                    e.type == DioExceptionType.connectionTimeout));
   }
 
   Future<T> run<T>(
