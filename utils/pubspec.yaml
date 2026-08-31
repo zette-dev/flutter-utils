@@ -8,16 +8,16 @@ environment:
   sdk: ">=3.11.0 <4.0.0"
 
 dependencies:
-  cross_file: ^0.3.5+4
-  dio: ^5.10.0
+  cross_file: ^0.3.5+5
+  dio: ^5.11.0
   freezed_annotation: ^3.1.0
   intl: ^0.20.3
   logger: ^2.7.0
   ms_map_utils: ^1.1.0
-  riverpod: ^3.3.2
+  riverpod: ^3.4.2
   rxdart: ^0.28.0
-  sentry: ^9.24.0
-  sentry_dio: ^9.24.0
+  sentry: ^9.28.0
+  sentry_dio: ^9.28.0
   uuid: ^4.6.0
 
 dev_dependencies:
