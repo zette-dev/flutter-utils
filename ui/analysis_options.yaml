@@ -12,6 +12,13 @@ analyzer:
     - "**/generated/**"
     - "flutter/**"
     - "test/**"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 linter:
   # Full list available at http://dart-lang.github.io/linter/lints/options/options.html.
   rules:
